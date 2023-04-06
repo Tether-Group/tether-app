@@ -1,0 +1,38 @@
+package tethergroup.tether.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "posts")
+public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(length = 100, nullable = false, name = "header")
+    private String header;
+
+    @Column(nullable = false, name = "body")
+    private String body;
+
+    @Column(name = "post_date")
+    private Timestamp postDate;
+
+    @Column(name = "event_date")
+    private Date eventDate;
+
+    @Column(length = 256, name = "event_address")
+    private String eventAddress;
+}
