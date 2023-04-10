@@ -35,4 +35,14 @@ public class Post {
 
     @Column(length = 256, name = "event_address")
     private String eventAddress;
+
+    @ManyToOne
+    @JoinColumn (name = "post_type_id")
+    private PostType postType;
+
+    @OneToOne
+    private User poster;
+
+    @OneToOne
+    private Group group;
 }

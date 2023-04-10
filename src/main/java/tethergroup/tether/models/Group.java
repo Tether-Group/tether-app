@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,6 +26,17 @@ public class Group {
     @Column(length = 1024, name = "description")
     private String description;
 
-    @Column(nullable = false, name = "isPrivate")
+    @Column(nullable = false, name = "is_private")
     private boolean isPrivate;
+
+    @OneToOne
+    private User admin;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="post_type_group",
+            joinColumns={@JoinColumn(name="group_id")},
+            inverseJoinColumns={@JoinColumn(name="post_type_id")}
+    )
+    private List<PostType> postTypes;
 }

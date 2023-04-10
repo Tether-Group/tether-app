@@ -1,4 +1,7 @@
 package tethergroup.tether.repositories;
 
-public class GroupRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import tethergroup.tether.models.Group;
+
+public interface GroupRepository extends JpaRepository<Group, Long> {
 }
