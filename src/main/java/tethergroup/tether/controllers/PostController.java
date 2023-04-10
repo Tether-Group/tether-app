@@ -32,7 +32,7 @@ public class PostController {
     public String postsSearched(Model model){
         List<Post> searchedPosts = postDao.postsSearched();
         model.addAttribute("searchedPosts", searchedPosts);
-//        TODO: Insert display location for searched groups below
+//        TODO: Insert display location for searched posts below
         return "users/index";
     }
 }

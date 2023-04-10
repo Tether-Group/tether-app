@@ -42,7 +42,7 @@ public class UserController {
     public String usersSearched(Model model){
         List<User> searchedUsers = userDao.usersSearched();
         model.addAttribute("searchedUsers", searchedUsers);
-//        TODO: Insert display location for searched groups below
+//        TODO: Insert display location for searched users below
         return "users/index";
     }
 
