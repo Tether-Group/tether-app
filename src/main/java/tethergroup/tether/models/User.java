@@ -54,5 +54,10 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        firstName = copy.firstName;
+        lastName = copy.lastName;
+        bio = copy.bio;
+        groups = copy.groups;
+        friends = copy.friends;
     }
 }
