@@ -1,7 +1,18 @@
 package tethergroup.tether.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import tethergroup.tether.models.Group;
 
+import java.util.List;
+
 public interface GroupRepository extends JpaRepository<Group, Long> {
+//    random group query for visitor
+    @Query(nativeQuery = true, value= "SELECT * FROM groups ORDER BY random() LIMIT 50")
+    List<Group> randomGroups();
+
+//    query for users groups on the latest group created that they are in
+    @Query(nativeQuery = true, value = "SELECT g.name, g.description FROM groups g ORDER BY g.id DESC")
+    List<Group> groupsByDescendingId();
+
 }

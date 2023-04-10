@@ -31,6 +31,7 @@ public class Group {
 
     @OneToOne
     private User admin;
+//    many to one
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
