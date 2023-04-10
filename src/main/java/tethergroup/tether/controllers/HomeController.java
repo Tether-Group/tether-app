@@ -9,6 +9,6 @@ public class HomeController {
     @GetMapping("/")
     public String returnLandingPage() {return "index";}
 
-    @GetMapping("search-results")
+    @GetMapping("/search-results")
     public String returnSearchResultsPage() {return "search-results";}
 }

@@ -41,7 +41,7 @@ public class Post {
     private PostType postType;
 
     @OneToOne
-    private User poster;
+    private User user;
 
     @OneToOne
     private Group group;
