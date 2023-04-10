@@ -29,7 +29,8 @@ public class Group {
     @Column(nullable = false, name = "is_private")
     private boolean isPrivate;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn (name = "admin_id")
     private User admin;
 //    many to one
 
