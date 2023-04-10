@@ -60,4 +60,9 @@ public class User {
         groups = copy.groups;
         friends = copy.friends;
     }
+
+    @Override
+    public String toString() {
+        return "@" + this.username;
+    }
 }
