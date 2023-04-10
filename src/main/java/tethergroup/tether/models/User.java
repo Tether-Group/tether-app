@@ -38,6 +38,9 @@ public class User {
     @Column(length = 1024, name = "bio")
     private String bio;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
+    private List<Group> groups;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="friends",
