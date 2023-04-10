@@ -15,4 +15,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     List<Group> groupsByDescendingId();
 
 //    Group searchByGroupName(String name);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM `groups` WHERE  ${global-search} = name")
+    List<Group>groupsSearched();
 }

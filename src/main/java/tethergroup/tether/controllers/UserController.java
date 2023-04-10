@@ -6,8 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import tethergroup.tether.models.Group;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.UserRepository;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -35,6 +38,13 @@ public class UserController {
         return "redirect:/login";
     }
 
+    @GetMapping("/search")
+    public String usersSearched(Model model){
+        List<User> searchedUsers = userDao.usersSearched();
+        model.addAttribute("searchedUsers", searchedUsers);
+//        TODO: Insert display location for searched groups below
+        return "users/index";
+    }
 
     @GetMapping("/profile")
     public String returnProfilePage() {return "users/profile";}
