@@ -16,7 +16,9 @@ public class GroupController {
     private final GroupRepository groupDao;
 
     @GetMapping("/group")
-    public String returnGroupPage() {return "groups/group";}
+    public String returnGroupPage(Model model) {
+        return "groups/group";
+    }
 
     @GetMapping ("/groups")
     String showGroupsListPage(Model model) {
@@ -25,7 +27,8 @@ public class GroupController {
         model.addAttribute("randoGroups", randomGroups);
 
 //        if the user is logged in, show their groups at random
-
+        List<Group> latestGroups = groupDao.groupsByDescendingId();
+        model.addAttribute("descGroups", latestGroups);
         return "groups/group-list";
     }
 
