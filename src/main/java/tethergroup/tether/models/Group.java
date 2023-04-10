@@ -34,7 +34,7 @@ public class Group {
     private User admin;
 //    many to one
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name="post_type_group",
             joinColumns={@JoinColumn(name="group_id")},

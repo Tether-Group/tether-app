@@ -1,6 +1,5 @@
 package tethergroup.tether.controllers;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +13,12 @@ public class UserController {
 
     private UserRepository userDao;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
-        this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
-    }
+//    private final PasswordEncoder passwordEncoder;
+//
+//    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
+//        this.userDao = userDao;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @GetMapping("/register")
     public String showSignupForm(Model model){
@@ -29,9 +28,9 @@ public class UserController {
 
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
-        String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
-        userDao.save(user);
+//        String hash = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(hash);
+//        userDao.save(user);
         return "redirect:/login";
     }
 

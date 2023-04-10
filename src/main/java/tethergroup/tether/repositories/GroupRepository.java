@@ -3,6 +3,7 @@ package tethergroup.tether.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import tethergroup.tether.models.Group;
+
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {

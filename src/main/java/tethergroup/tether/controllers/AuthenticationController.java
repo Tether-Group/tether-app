@@ -12,5 +12,4 @@ public class AuthenticationController {
         model.addAttribute("user", new User());
         return "users/login";
     }
-
 }

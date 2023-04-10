@@ -21,13 +21,12 @@
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li>
+                <form th:action="@{/logout}" th:method="post">
+                  <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                </form>
+              </li>
             </ul>
-          </li>
-          <li>
-            <form th:action="@{/logout}" th:method="post">
-              <button class="btn-link btn" style="margin-top: 8px">Logout</button>
-            </form>
           </li>
         </ul>
         <form class="d-flex">
