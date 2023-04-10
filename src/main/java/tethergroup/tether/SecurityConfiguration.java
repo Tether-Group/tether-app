@@ -37,28 +37,27 @@
 //                /* Login configuration */
 //                .formLogin()
 //                .loginPage("/login")
-//                .defaultSuccessUrl("/", true) // user's home page, it can be any URL
+//                .defaultSuccessUrl("/posts", true) // user's home page, it can be any URL
 //                .permitAll() // Anyone can go to the login page
-//
 //                /* Logout configuration */
 //                .and()
 //                .logout()
 //                .logoutSuccessUrl("/") // append a query string value
-//
 //                /* Pages that require authentication */
 //                .and()
 //                .authorizeHttpRequests()
 //                .requestMatchers(
-//                        "/group/create", // only authenticated users can create ads
-//                        "/posts/{id}/edit" // only authenticated users can edit ads
+//                        "/posts/create", // only authenticated users can create ads
+//                        "/posts/{id}/edit", // only authenticated users can edit ads
+//                        "/"
 //                )
 //                .authenticated()
-//
 //                /* Pages that can be viewed without having to log in */
 //                .and()
 //                .authorizeHttpRequests()
-//                .requestMatchers("/", "/posts", "/posts/{id}","/group", "/register", "/search", "/css/**", "/js/**") // anyone can see home, the ads pages, and sign up
+//                .requestMatchers("/", "/posts", "/posts/{id}", "/register", "/search", "/groups", "/group") // anyone can see home, the ads pages, and sign up
 //                .permitAll()
+//
 //        ;
 //        return http.build();
 //    }
