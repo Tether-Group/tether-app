@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import tethergroup.tether.models.Group;
 import tethergroup.tether.repositories.GroupRepository;
-
 import java.util.List;
 
 @RequiredArgsConstructor
