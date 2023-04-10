@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<title>Landing Page</title>
@@ -9,6 +11,14 @@
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 
 <h1>This is the INDEX page</h1>
+
+<div sec:authorize="isAuthenticated()">
+
+	Welcome <span th:text="${#authentication.principal.firstName}"/> <span th:text="${#authentication.principal.lastName}"/>
+
+	Username: <span th:text="${#authentication.principal.username}"/>
+	Email: <span th:text="${#authentication.principal.email}"/>
+</div>
 
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
