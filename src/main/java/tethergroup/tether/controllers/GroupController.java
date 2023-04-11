@@ -41,14 +41,6 @@ public class GroupController {
         return "groups/group-list";
     }
 
-    @GetMapping("/search")
-    public String groupsSearched(Model model){
-        List<Group>searchedGroups = groupDao.groupsSearched();
-        model.addAttribute("searchedGroups", searchedGroups);
-//        TODO: Insert location for searched groups below
-        return "groups/index";
-    }
-
     @GetMapping("/group")
     public String showGroupPage() {
         return "groups/group";

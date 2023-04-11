@@ -38,14 +38,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/search")
-    public String usersSearched(Model model){
-        List<User> searchedUsers = userDao.usersSearched();
-        model.addAttribute("searchedUsers", searchedUsers);
-//        TODO: Insert location for searched users below
-        return "users/index";
-    }
-
     @GetMapping("/profile")
     public String returnProfilePage() {return "users/profile";}
 
