@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.ocpsoft.prettytime.PrettyTime;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -45,4 +45,9 @@ public class Post {
 
     @OneToOne
     private Group group;
+
+    public String postDateToString() {
+        PrettyTime p = new PrettyTime();
+        return "" + p.format(this.postDate);
+    }
 }
