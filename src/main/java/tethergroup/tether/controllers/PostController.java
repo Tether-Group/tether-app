@@ -13,6 +13,7 @@ import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class PostController {
 
 
     @PostMapping("/post/create/text")
-    public String createPost(
+    public String createTextPost(
                              @RequestParam("header") String title,
                              @RequestParam("body") String body) {
         Post post = new Post();
@@ -53,5 +54,64 @@ public class PostController {
     }
 
 
+    @PostMapping("/post/create/event")
+    public String createEventPost(
+            @RequestParam("header") String title,
+            @RequestParam("date") LocalDate dateString,
+            @RequestParam("address") String address,
+            @RequestParam("body") String body) {
+        Post post = new Post();
+        post.setUser(userDao.findById(7L).get());
+        post.setGroup(grouDao.findById(3L).get());
+        post.setHeader(title);
+        post.setEventAddress(address);
+        post.setEventDate(dateString);
+        post.setBody(body);
+        post.setPostType(postTypeDao.findById(2L).get());
+        Timestamp timestamp = new Timestamp((new Date()).getTime());
+        post.setPostDate(timestamp);
+        postDao.save(post);
+        return "index";
+    }
+
+
+
+    @PostMapping("/post/create/sell")
+    public String createSalePost(
+            @RequestParam("header") String title,
+            @RequestParam("price") double price,
+            @RequestParam("address") String address,
+            @RequestParam("body") String body) {
+        Post post = new Post();
+        post.setUser(userDao.findById(7L).get());
+        post.setGroup(grouDao.findById(3L).get());
+        post.setHeader(title);
+        post.setEventAddress(address);
+        post.setPostPrice(price);
+        post.setBody(body);
+        post.setPostType(postTypeDao.findById(3L).get());
+        Timestamp timestamp = new Timestamp((new Date()).getTime());
+        post.setPostDate(timestamp);
+        postDao.save(post);
+        return "index";
+    }
+
+
+
+    @PostMapping("/post/create/QandA")
+    public String createQandAPost(
+            @RequestParam("header") String title,
+            @RequestParam("body") String body) {
+        Post post = new Post();
+        post.setUser(userDao.findById(7L).get());
+        post.setGroup(grouDao.findById(3L).get());
+        post.setHeader(title);
+        post.setBody(body);
+        post.setPostType(postTypeDao.findById(4L).get());
+        Timestamp timestamp = new Timestamp((new Date()).getTime());
+        post.setPostDate(timestamp);
+        postDao.save(post);
+        return "index";
+    }
 
 }

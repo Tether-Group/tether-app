@@ -70,6 +70,17 @@
 
                                 <h3>Event</h3>
                             <p>This is a form for an event post </p>
+                                <form method="post" action="/post/create/event">
+                                    <label for="header">Title:</label>
+                                    <input type="text" id="header" name="header"><br><br>
+                                    <label for="date">Date:</label>
+                                    <input type="date" id="date" name="date"><br><br>
+                                    <label for="address">Address:</label>
+                                    <input type="text" id="address" name="address"><br><br>
+                                    <label for="body">Content:</label>
+                                    <textarea id="body" name="body"></textarea><br><br>
+                                    <input type="submit" value="Create">
+                                </form>
 
                             </div>
                         </div>
@@ -82,6 +93,17 @@
 
                                 <h3>For Sale</h3>
                                 <p>This is a form for a for sale post </p>
+                                <form method="post" action="/post/create/sell">
+                                    <label for="header">Title:</label>
+                                    <input type="text" id="header" name="header"><br><br>
+                                    <label for="price">Price:</label>
+                                    <input type="text" id="price" name="price"><br><br>
+                                    <label for="address">Address:</label>
+                                    <input type="text" id="address" name="address"><br><br>
+                                    <label for="body">Content:</label>
+                                    <textarea id="body" name="body"></textarea><br><br>
+                                    <input type="submit" value="Create">
+                                </form>
 
                             </div>
                         </div>
@@ -94,7 +116,13 @@
 
                                 <h3>Q and A</h3>
                                 <p>This is a form for a Q and A post </p>
-
+                                <form method="post" action="/post/create/QandA">
+                                    <label for="header">Question:</label>
+                                    <input type="text" id="header" name="header"><br><br>
+                                    <label for="body">Context:</label>
+                                    <textarea id="body" name="body"></textarea><br><br>
+                                    <input type="submit" value="Create">
+                                </form>
                             </div>
                         </div>
                     </div>
