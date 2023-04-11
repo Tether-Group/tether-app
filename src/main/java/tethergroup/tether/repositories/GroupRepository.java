@@ -2,6 +2,7 @@ package tethergroup.tether.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import tethergroup.tether.models.Group;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
 //    Group searchByGroupName(String name);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM `groups` WHERE  ${global-search} = name")
-    List<Group>groupsSearched();
+//    query for searching groups in navbar
+    @Query("from Group g where g.name like %:group%")
+    List<Group> searchByGroupNameLike(@Param("group") String group);
 }

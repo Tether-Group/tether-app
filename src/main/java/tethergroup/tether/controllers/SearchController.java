@@ -1,9 +1,12 @@
 package tethergroup.tether.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import tethergroup.tether.models.Group;
 import tethergroup.tether.models.Post;
 import tethergroup.tether.models.User;
@@ -21,18 +24,16 @@ public class SearchController {
     private UserRepository userDao;
     private GroupRepository groupDao;
 
-    @GetMapping("/search")
-    public String GlobalSearch(Model model) {
-        List<Post> searchedPosts = postDao.postsSearched();
-        model.addAttribute("searchedPosts", searchedPosts);
+    @GetMapping("/search-results")
+    public String globalGETSearch(Model model, @RequestParam(name = "global-search") String group) {
+        return "posts/search-results";
+    }
 
-        List<Group> searchedGroups = groupDao.groupsSearched();
-        model.addAttribute("searchedGroups", searchedGroups);
+    @PostMapping("/search-results")
+    public String globalPOSTSearch(Model model, @RequestParam(name = "global-search") String group) {
+//        List<Group> searchedGroups = groupDao.searchByGroupNameLike(group);
+//        model.addAttribute("searchedGroups", searchedGroups);
 
-        List<User> searchedUsers = userDao.usersSearched();
-        model.addAttribute("searchedUsers", searchedUsers);
-
-//        TODO: Insert location for searched posts below
         return "posts/search-results";
     }
 }
