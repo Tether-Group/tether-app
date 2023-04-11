@@ -55,7 +55,7 @@
 //                /* Pages that can be viewed without having to log in */
 //                .and()
 //                .authorizeHttpRequests()
-//                .requestMatchers("/", "/posts", "/posts/{id}", "/register", "/search", "/groups", "/group") // anyone can see home, the ads pages, and sign up
+//                .requestMatchers("/", "/styles/**", "/js/**", "/posts", "/posts/{id}", "/register", "/search", "/groups", "/group") // anyone can see home, the ads pages, and sign up
 //                .permitAll()
 //
 //        ;

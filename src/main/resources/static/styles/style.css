@@ -1,0 +1,44 @@
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    color: #000;
+    /*position: relative;*/
+    /*padding: 20px;*/
+    /*margin-top: 10px;*/
+}
+
+/* Style the submit button */
+.submit-button {
+    padding: 6px 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3e72f6;
+    color: white;
+    cursor: pointer;
+}
+
+.submit-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    background-color: lightslategrey;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+}

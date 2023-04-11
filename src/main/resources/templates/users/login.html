@@ -1,78 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <title>Log In</title>
-  <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <meta charset="UTF-8"/>
+    <title>Log In</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
+<h1>Log In</h1>
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab">Log-in</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab">Register</button>
-  </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                type="button" role="tab">Log-in
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+                type="button" role="tab">Register
+        </button>
+    </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
 
 
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
 
-        <h3>Log in</h3>
+                <h3>Log in</h3>
 
-        <form th:action="@{/login}" method="post">
-          <label for="username">Username</label>
-          <input id="username" name="username" type="text" />
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" />
-          <input type="submit" value="Log In" />
-        </form>
+                <form th:action="@{/login}" method="post">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text"/>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password"/>
+                    <input type="submit" value="Log In"/>
+                </form>
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
 
-        <h3>Register</h3>
+                <h3>Register</h3>
+                <div class="container">
+                    <form th:action="@{/register}" method="POST" th:object="${user}">
+                        <label for="register-first-name" class="form-label">First Name</label>
+                        <input id="register-first-name" name="register-first-name" th:field="*{firstName}" class="form-control" required>
 
-        <form th:action="@{/register}" method="POST" th:object="${user}">
-          <label for="register-first-name">First Name</label>
-          <input id="register-first-name" th:field="*{firstName}" />
+                        <label for="register-last-name" class="form-label">Last Name</label>
+                        <input id="register-last-name" name="register-last-name" th:field="*{lastName}" class="form-control" required>
 
-          <br>
+                        <label for="register-username" class="form-label">Username</label>
+                        <input id="register-username" name="register-username" th:field="*{username}" class="form-control" required>
 
-          <label for="register-last-name">Last Name</label>
-          <input id="register-last-name" th:field="*{lastName}" />
+                        <label for="register-email" class="form-label">Email</label>
+                        <input id="register-email" name="register-email" th:field="*{email}" class="form-control" required>
 
-          <br>
+                        <label for="register-password" class="form-label">Password</label>
+                        <input id="register-password" name="register-password" type="password" th:field="*{password}" class="form-control" pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
 
+                        <label for="register-pw-verification" class="form-label">Re-Type Password</label>
+                        <input id="register-pw-verification" name="register-pw-verification" type="password" class="form-control" required>
 
-          <label for="register-username">Username</label>
-          <input id="register-username" th:field="*{username}" />
+<!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
+                        <div id="message">
+                            <h3>Password must contain the following:</h3>
+                            <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+                            <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+                            <p id="number" class="invalid">One <strong>number</strong></p>
+                            <p id="special" class="invalid">One <strong>special </strong>character</p>
+                            <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20 characters</strong></p>
+                            <p id="empty" class="invalid">No <strong>spaces</strong></p>
+                            <p id="password-match" class="invalid">Password must match</p>
+                        </div>
 
-          <br>
-
-          <label for="register-email">Email</label>
-          <input id="register-email" th:field="*{email}" />
-
-          <br>
-
-          <label for="register-password">Password</label>
-          <input id="register-password" type="password" th:field="*{password}" />
-
-          <input value="Sign me up!" type="submit" />
-        </form>
-      </div>
+                        <input id="submit" value="Sign me up!" th:type="submit" class="submit-button">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 
 </div>
