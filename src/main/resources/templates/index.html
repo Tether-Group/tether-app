@@ -14,10 +14,46 @@
 
 <div sec:authorize="isAuthenticated()">
 
-	Welcome <span th:text="${#authentication.principal.firstName}"/> <span th:text="${#authentication.principal.lastName}"/>
+	Welcome <span th:text="${#authentication.principal.firstName}"/> <span
+		th:text="${#authentication.principal.lastName}"/>
 
 	Username: <span th:text="${#authentication.principal.username}"/>
 	Email: <span th:text="${#authentication.principal.email}"/>
+</div>
+
+<br>
+
+<div class="container">
+
+	<h3>Groups</h3>
+
+	<ul class="list-group">
+		<li th:each="group: ${groups}" class="list-group-item d-flex justify-content-between align-items-start">
+			<div class="ms-2 me-auto">
+				<a th:href="@{/group/{id}(id=${group.id})}"><div class="fw-bold"><span th:text="${group.name}"></span></div></a>
+				<span th:text="${group.description}"></span>
+			</div>
+			<span class="badge bg-primary rounded-pill">14</span>
+		</li>
+	</ul>
+
+</div>
+
+<div class="container">
+
+	<h3>Posts</h3>
+
+<div class="list-group">
+	<a th:each="post: ${posts}" href="#" class="list-group-item list-group-item-action my-2">
+		<div class="d-flex w-100 justify-content-between post-item">
+			<h5 class="mb-1"><span th:text="${post.header}"></span></h5>
+			<small><span th:text="${post.postDateToString()}"></span></small>
+		</div>
+		<p class="mb-1"><span th:text="${post.body}"></span></p>
+		<small><span th:text="${post.user}"></span></small>
+	</a>
+</div>
+
 </div>
 
 

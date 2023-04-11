@@ -6,19 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import tethergroup.tether.models.Group;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.UserRepository;
+
+import java.util.List;
 
 @Controller
 public class UserController {
 
     private UserRepository userDao;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository userDao) {
         this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
+//        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -29,12 +32,11 @@ public class UserController {
 
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
-        String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
-        userDao.save(user);
+//        String hash = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(hash);
+//        userDao.save(user);
         return "redirect:/login";
     }
-
 
     @GetMapping("/profile")
     public String returnProfilePage() {return "users/profile";}
