@@ -31,8 +31,8 @@ public class Post {
     @Column(name = "post_date")
     private Timestamp postDate;
 
-    @Column(name = "price")
-    private double postPrice;
+    @Column(name = "price", nullable = true)
+    private Integer postPrice;
 
     @Column(name = "event_date")
     private LocalDate eventDate;

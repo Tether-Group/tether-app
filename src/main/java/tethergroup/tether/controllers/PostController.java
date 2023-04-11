@@ -79,7 +79,7 @@ public class PostController {
     @PostMapping("/post/create/sell")
     public String createSalePost(
             @RequestParam("header") String title,
-            @RequestParam("price") double price,
+            @RequestParam("price") Integer price,
             @RequestParam("address") String address,
             @RequestParam("body") String body) {
         Post post = new Post();
