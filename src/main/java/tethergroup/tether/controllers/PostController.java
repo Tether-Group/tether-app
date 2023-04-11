@@ -28,6 +28,11 @@ public class PostController {
         return "posts/search-results";
     }
 
+    @GetMapping("/post/create")
+    public String createPost(){
+        return "posts/create-post";
+    }
+
     @GetMapping("/search")
     public String postsSearched(Model model){
         List<Post> searchedPosts = postDao.postsSearched();
