@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tethergroup.tether.models.Group;
+import tethergroup.tether.models.Post;
+import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
 import tethergroup.tether.repositories.PostRepository;
 import tethergroup.tether.repositories.UserRepository;
@@ -27,12 +29,20 @@ public class SearchController {
     @GetMapping("/posts/search-results")
     public String globalSearch(@RequestParam(name = "search") @Nullable String search, Model model) {
         List<Group> searchedGroups;
+        List<Post> searchedPosts;
+        List<User> searchedUsers;
         if (search != null) {
             searchedGroups = groupDao.findLikeGroupNameOrDescription(search);
+            searchedPosts = postDao.findLikePostNameOrHeaderOrBody(search);
+            searchedUsers = userDao.findLikeUsername(search);
         } else {
             searchedGroups = groupDao.findAll();
+            searchedPosts = postDao.findAll();
+            searchedUsers = userDao.findAll();
         }
         model.addAttribute("searchedGroups", searchedGroups);
+        model.addAttribute("searchedPosts", searchedPosts);
+        model.addAttribute("searchedUsers", searchedUsers);
 
         return "posts/search-results";
     }
