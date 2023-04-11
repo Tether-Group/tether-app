@@ -6,8 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.ocpsoft.prettytime.PrettyTime;
+
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,8 +31,11 @@ public class Post {
     @Column(name = "post_date")
     private Timestamp postDate;
 
+    @Column(name = "price", nullable = true)
+    private Integer postPrice;
+
     @Column(name = "event_date")
-    private Date eventDate;
+    private LocalDate eventDate;
 
     @Column(length = 256, name = "event_address")
     private String eventAddress;
