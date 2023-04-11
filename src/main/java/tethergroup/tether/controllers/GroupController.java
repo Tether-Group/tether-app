@@ -1,5 +1,6 @@
 package tethergroup.tether.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +28,13 @@ public class GroupController {
 
 
     @GetMapping ("/groups")
+    @Transactional
     public String showGroupsListPage(Model model) {
-//        if the viewer is not logged in... show random groups
+        //        if the viewer is not logged in... show random groups
         List<Group> randomGroups = groupDao.randomGroups();
         model.addAttribute("randoGroups", randomGroups);
 
-//        if the user is logged in, show their groups at random
+        //        if the user is logged in, show their groups at random
         List<Group> latestGroups = groupDao.groupsByDescendingId();
         model.addAttribute("descGroups", latestGroups);
 

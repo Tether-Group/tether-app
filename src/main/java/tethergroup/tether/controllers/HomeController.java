@@ -25,6 +25,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String returnLandingPage(Model model) {
+        List<Group> randomGroups = groupDao.randomGroups();
+        model.addAttribute("randoGroups", randomGroups);
+
         List<Post> posts = postDao.findAll();
         List<Group> groups = groupDao.findAll();
         model.addAttribute("posts",posts);
