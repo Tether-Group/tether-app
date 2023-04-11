@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a post</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+</head>
+<body>
+<th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create a post
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-post-tab" data-bs-toggle="pill" data-bs-target="#pills-post" type="button" role="tab">Text</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-event-tab" data-bs-toggle="pill" data-bs-target="#pills-event" type="button" role="tab">Event</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-sell-tab" data-bs-toggle="pill" data-bs-target="#pills-sell" type="button" role="tab">For Sale</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-QandA-tab" data-bs-toggle="pill" data-bs-target="#pills-QandA" type="button" role="tab">Q and A</button>
+                    </li>
+                </ul>
+
+
+                <div class="tab-content" id="pills-tabContent">
+
+
+                    <div class="tab-pane fade show active" id="pills-post" role="tabpanel">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+
+                                <h3>Text</h3>
+
+                                <p>This is the form for a normal text post</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="pills-event" role="tabpanel">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+
+                                <h3>Event</h3>
+                            <p>This is a form for an event post </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="pills-sell" role="tabpanel">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+
+                                <h3>For Sale</h3>
+                                <p>This is a form for a for sale post </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="pills-QandA" role="tabpanel">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+
+                                <h3>Q and A</h3>
+                                <p>This is a form for a Q and A post </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</body>
+</html>

@@ -17,4 +17,9 @@ public class PostController {
     public String searchResults() {
         return "posts/search-results";
     }
+
+    @GetMapping("/post/create")
+    public String createPost(){
+        return "posts/create-post";
+    }
 }
