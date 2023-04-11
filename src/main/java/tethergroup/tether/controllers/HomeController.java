@@ -34,12 +34,4 @@ public class HomeController {
         model.addAttribute("groups",groups);
         return "index";
     }
-
-    @GetMapping("/search")
-    public String postsSearched(Model model){
-        List<Post> searchedPosts = postDao.postsSearched();
-        model.addAttribute("searchedPosts", searchedPosts);
-//        TODO: Insert location for searched posts below
-        return "posts/index";
-    }
 }

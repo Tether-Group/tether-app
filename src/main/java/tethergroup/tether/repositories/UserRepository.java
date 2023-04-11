@@ -9,6 +9,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM `users` WHERE  ${global-search} = username")
+    @Query(nativeQuery = true, value = "SELECT * FROM `users` WHERE ${global-search} = username")
     List<User> usersSearched();
 }
