@@ -23,21 +23,8 @@ public class PostController {
         return "index";
     }
 
-    @GetMapping("/search")
-    public String searchResults() {
-        return "posts/search-results";
-    }
-
     @GetMapping("/post/create")
     public String createPost(){
         return "posts/create-post";
-    }
-
-    @GetMapping("/search")
-    public String postsSearched(Model model){
-        List<Post> searchedPosts = postDao.postsSearched();
-        model.addAttribute("searchedPosts", searchedPosts);
-//        TODO: Insert location for searched posts below
-        return "posts/index";
     }
 }
