@@ -31,7 +31,7 @@ public class GroupController {
     public String groupsSearched(Model model){
         List<Group>searchedGroups = groupDao.groupsSearched();
         model.addAttribute("searchedGroups", searchedGroups);
-//        TODO: Insert display location for searched groups below
+//        TODO: Insert location for searched groups below
         return "groups/index";
     }
 
