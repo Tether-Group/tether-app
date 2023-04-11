@@ -48,29 +48,40 @@
             <div class="card-body">
 
                 <h3>Register</h3>
+                <div class="container">
+                    <form th:action="@{/register}" method="POST" th:object="${user}">
+                        <label for="register-first-name" class="form-label">First Name</label>
+                        <input id="register-first-name" name="register-first-name" th:field="*{firstName}" class="form-control" required>
 
-                <form th:action="@{/register}" method="POST" th:object="${user}">
-                    <label for="register-first-name" class="form-label">First Name</label>
-                    <input id="register-first-name" th:field="*{firstName}" class="form-control" required>
+                        <label for="register-last-name" class="form-label">Last Name</label>
+                        <input id="register-last-name" name="register-last-name" th:field="*{lastName}" class="form-control" required>
 
-                    <label for="register-last-name" class="form-label">Last Name</label>
-                    <input id="register-last-name" th:field="*{lastName}" class="form-control" required>
+                        <label for="register-username" class="form-label">Username</label>
+                        <input id="register-username" name="register-username" th:field="*{username}" class="form-control" required>
 
-                    <label for="register-username" class="form-label">Username</label>
-                    <input id="register-username" th:field="*{username}" class="form-control" required>
+                        <label for="register-email" class="form-label">Email</label>
+                        <input id="register-email" name="register-email" th:field="*{email}" class="form-control" required>
 
-                    <label for="register-email" class="form-label">Email</label>
-                    <input id="register-email" th:field="*{email}" class="form-control" required>
+                        <label for="register-password" class="form-label">Password</label>
+                        <input id="register-password" name="register-password" type="password" th:field="*{password}" class="form-control" pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
 
-                    <label for="register-password" class="form-label">Password</label>
-                    <input id="register-password" type="password" th:field="*{password}" class="form-control" required>
-                    <div>Password must be at least 8 characters, 1 uppercase and 1 lowercase letter, 1 number, and 1 special character</div>
+                        <label for="register-pw-verification" class="form-label">Re-Type Password</label>
+                        <input id="register-pw-verification" name="register-pw-verification" type="password" class="form-control" required>
 
-                    <label for="register-pw-verification" class="form-label">Re-Type Password</label>
-                    <input id="register-pw-verification" type="password" class="form-control" required>
+<!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
+                        <div id="message">
+                            <h3>Password must contain the following:</h3>
+                            <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+                            <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+                            <p id="number" class="invalid">One <strong>number</strong></p>
+                            <p id="special" class="invalid">One <strong>special </strong>character</p>
+                            <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20 characters</strong></p>
+                            <p id="empty" class="invalid">No <strong>spaces</strong></p>
+                        </div>
 
-                    <input id="submit" value="Sign me up!" type="submit"/>
-                </form>
+                        <input id="submit" value="Sign me up!" th:type="submit" class="submit-btn">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -79,6 +90,5 @@
 </div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
-<script src="../../static/register_password_verification.js"></script>
 </body>
 </html>
