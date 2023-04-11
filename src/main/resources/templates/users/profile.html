@@ -10,6 +10,12 @@
 
 <h1>This is the PROFILE page</h1>
 
+<div class="container">
+
+	<h1><span th:text="${user.firstName}"> <span th:text="${user.lastName}"></h1>
+	<h5><span th:text="${user.username}"></h5>
+
+</div>
 
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>

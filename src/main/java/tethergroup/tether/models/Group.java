@@ -41,4 +41,8 @@ public class Group {
             inverseJoinColumns={@JoinColumn(name="post_type_id")}
     )
     private List<PostType> postTypes;
+
+    public String toString() {
+        return "" + this.name;
+    }
 }
