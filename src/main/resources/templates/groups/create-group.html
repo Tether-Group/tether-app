@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
 <head>
     <meta charset="UTF-8">
     <title>Create group</title>
@@ -54,23 +57,23 @@
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:method="@{post}" th:action="@{/group/create}">
+            <form th:method="post" th:action="@{/group/create}" th:object="${group}">
             <div class="modal-body">
                     <label for="group-name">Group Name:</label>
-                    <input type="text" name="group-name" id="group-name" required>
+                    <input type="text" name="name" id="group-name" th:field="*{name}" required>
 
                     <br>
                     <br>
 
                     <label for="description">Description:</label>
-                    <textarea name="description" id="description" required></textarea>
+                    <textarea name="description" id="description" th:field="*{description}" required></textarea>
 
                     <br>
                     <br>
                     <br>
 
                     <label for="visibility">Visibility:</label>
-                    <input type="checkbox" name="visibility" id="visibility">
+                    <input type="checkbox" name="private" th:field="*{private}" id="visibility">
                     <span>Private</span>
 
                     <br>
@@ -78,7 +81,7 @@
                     <br>
 
                     <label for="post-types">Post Types:</label>
-                    <select name="post-types" id="post-types" multiple>
+                    <select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
                         <option value="1">Event</option>
                         <option value="2">For Sale</option>
                         <option value="3">Q&A</option>
