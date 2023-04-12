@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                         "/search-results",
                         "/groups",
                         "/group/{groupId}",
+                        "/profile/settings",
                         "/group/{groupId}/members")
                 .permitAll()
 

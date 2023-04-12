@@ -44,4 +44,13 @@ public class UserController {
 //    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {return "users/friends";}
+
+
+    //   view settings page
+    @GetMapping("/profile/settings")
+    public String returnSettingsPage (){
+        return "users/edit-user";
+    }
+
+
 }
