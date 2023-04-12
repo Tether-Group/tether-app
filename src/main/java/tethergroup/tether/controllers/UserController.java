@@ -19,12 +19,13 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    creating user
     @GetMapping("/register")
     public String showSignupForm(Model model){
         model.addAttribute("user", new User());
         return "users/login";
     }
-
+//    creating user
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
         String hash = passwordEncoder.encode(user.getPassword());
@@ -32,7 +33,7 @@ public class UserController {
         userDao.save(user);
         return "redirect:/login";
     }
-
+// viewing profile when logged in
     @GetMapping("/profile/{username}")
     public String returnProfilePage(Model model, @PathVariable String username) {
         User user = userDao.findByUsername(username);
@@ -40,6 +41,7 @@ public class UserController {
         return "users/profile";
     }
 
+//    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {return "users/friends";}
 }
