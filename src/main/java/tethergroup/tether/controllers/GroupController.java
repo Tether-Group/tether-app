@@ -69,13 +69,21 @@ public class GroupController {
         return "groups/group";
     }
 
-    @PostMapping("/group/{groupId}/edit")
+    @PostMapping("/group/edit")
     public String editGroup(@ModelAttribute("group") Group group) {
 //        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
         groupDao.save(group);
         return "redirect:/group/" + group.getId();
+    }
+
+    @PostMapping("/group/delete")
+    public String deleteGroup(@ModelAttribute("group") Group group) {
+//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Group originalGroup = groupDao.findById(group.getId()).get();
+        groupDao.deleteById(group.getId());
+        return "redirect:/groups";
     }
 
     @GetMapping("group/{groupId}/members")
