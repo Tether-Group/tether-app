@@ -32,7 +32,7 @@ public class GroupController {
     @Transactional
     public String showGroupsListPage(Model model) {
         //        if the viewer is not logged in... show random groups
-        List<Group> randomGroups = groupDao.randomGroups();
+        List<Group> randomGroups = groupDao.randomGroupsLimitFifty();
         model.addAttribute("randoGroups", randomGroups);
 
         //        if the user is logged in, show their groups at random

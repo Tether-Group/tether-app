@@ -110,4 +110,15 @@ public class PostController {
         return "index";
     }
 
+    @PostMapping("/post/edit")
+    public String editPost(@RequestParam(name = "header") String header,
+                           @RequestParam(name = "body") String body,
+                           @RequestParam(name = "id") Long id) {
+        Post editedPost = postDao.findById(id).get();
+        editedPost.setHeader(header);
+        editedPost.setBody(body);
+        postDao.save(editedPost);
+        return "redirect:/";
+    }
+
 }

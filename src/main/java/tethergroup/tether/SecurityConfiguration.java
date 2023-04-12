@@ -50,6 +50,7 @@ public class SecurityConfiguration {
                         "/post/create",
                         "/group/create",
                         "/posts/{id}/edit",
+                        "/post/edit",
                         "/profile/{username}")
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
