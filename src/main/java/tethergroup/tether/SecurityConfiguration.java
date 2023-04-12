@@ -47,10 +47,10 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/posts/create",
+                        "/post/create",
+                        "/group/create",
                         "/posts/{id}/edit",
-                        "/profile/{username}"
-                )
+                        "/profile/{username}")
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
                 .and()
