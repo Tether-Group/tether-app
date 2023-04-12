@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
@@ -14,7 +16,12 @@
 <div class="container">
 	<div class="list-group">
 		<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/profile/{id}(id=${member.getUsername()})}"><h1><span th:text="${member.username}"></span></h1></a>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
 			<h1><span th:text="${member.username}"></span></h1>
+			</div>
 <!--			<div class="d-flex w-100 justify-content-between post-item">-->
 <!--				<a th:href="@{/group/{id}(id=${group.id})}">-->
 <!--					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>-->
