@@ -58,36 +58,10 @@ public class GroupController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         group.setAdmin(loggedInUser);
-        group.setPostTypes(group.getPostTypes());
-        group.setName(group.getName());
-        group.setDescription(group.getDescription());
-        group.setPrivate(group.isPrivate());
         groupDao.save(group);
 
         return "redirect:/groups";
     }
-
-//    @PostMapping("/group/create")
-//    public String createGroup(
-//            @RequestParam("group-name") String name,
-//            @RequestParam("description") String description,
-//            @RequestParam(value = "visibility", required = false) boolean isPrivate,
-//            @RequestParam(value = "post-types", required = false) String[] postTypesStrings,
-//            Principal principal)
-//    {
-//        List<PostType> postTypes = new ArrayList<>();
-//        for (String string : postTypesStrings) {
-//            postTypes.add(postTypeDao.findById((long) Integer.parseInt(string)).get());
-//        }
-//        Group group = new Group();
-//        group.setName(name);
-//        group.setDescription(description);
-//        group.setPrivate(isPrivate);
-//        group.setPostTypes(postTypes);
-//        group.setAdmin(userDao.findById(7L).get());
-//        groupDao.save(group);
-//        return "redirect:/groups";
-//    }
 
     @GetMapping("/group/{groupId}")
     public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
