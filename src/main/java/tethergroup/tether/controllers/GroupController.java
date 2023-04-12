@@ -56,10 +56,8 @@ public class GroupController {
     @PostMapping("/group/create")
     public String createGroup(@ModelAttribute("group") Group group) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         group.setAdmin(loggedInUser);
         groupDao.save(group);
-
         return "redirect:/groups";
     }
 
@@ -67,7 +65,17 @@ public class GroupController {
     public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
         model.addAttribute("group", group);
+//        model.addAttribute("editGroup", new Group());
         return "groups/group";
+    }
+
+    @PostMapping("/group/{groupId}")
+    public String editGroup(@ModelAttribute("group") Group group) {
+//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Group originalGroup = groupDao.findById(group.getId()).get();
+        group.setAdmin(originalGroup.getAdmin());
+        groupDao.save(group);
+        return "redirect:/group/" + group.getId();
     }
 
     @GetMapping("group/{groupId}/members")

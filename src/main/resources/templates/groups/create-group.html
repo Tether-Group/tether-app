@@ -3,11 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<head>
-    <meta charset="UTF-8">
-    <title>Create group</title>
-  <th:block th:insert="~{partials/styles :: styles}"></th:block>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Create group</title>
+        <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
@@ -43,66 +43,32 @@
 <!--    <button type="submit">Create Group</button>-->
 <!--</form>-->
 
-
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Create Group
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:method="post" th:action="@{/group/create}" th:object="${group}">
-            <div class="modal-body">
-                    <label for="group-name">Group Name:</label>
-                    <input type="text" name="name" id="group-name" th:field="*{name}" required>
-
-                    <br>
-                    <br>
-
-                    <label for="description">Description:</label>
-                    <textarea name="description" id="description" th:field="*{description}" required></textarea>
-
-                    <br>
-                    <br>
-                    <br>
-
-                    <label for="visibility">Visibility:</label>
-                    <input type="checkbox" name="private" th:field="*{private}" id="visibility">
-                    <span>Private</span>
-
-                    <br>
-                    <br>
-                    <br>
-
-                    <label for="post-types">Post Types:</label>
-                    <select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
-                        <option value="1">Event</option>
-                        <option value="2">For Sale</option>
-                        <option value="3">Q&A</option>
-                    </select>
-
-                    <br>
-                    <br>
-                    <br>
-
-            </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create Group</button>
-                </div>
-            </form>
-        </div>
+<form th:method="post" th:action="@{/group/create}" th:object="${group}">
+    <div class="mx-auto">
+        <label for="group-name">Group Name:</label>
+        <input type="text" name="name" id="group-name" th:field="*{name}" required>
+        <br>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" th:field="*{description}" required></textarea>
+        <br>
+        <label for="visibility">Visibility:</label>
+        <input type="checkbox" name="private" th:field="*{private}" id="visibility">
+        <span>Private</span>
+        <br>
+        <label for="post-types">Post Types:</label>
+        <select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
+            <option value="1">Event</option>
+            <option value="2">For Sale</option>
+            <option value="3">Q&A</option>
+        </select>
+        <br>
+        <input type="hidden" th:field="*{id}">
     </div>
-</div>
-
-
-
+    <div class="mx-auto">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create Group</button>
+    </div>
+</form>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
