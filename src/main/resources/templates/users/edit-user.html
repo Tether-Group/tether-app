@@ -32,14 +32,18 @@
                 <label for="email" class="form-label">Email</label>
                 <input id="email" name="email" th:field="*{email}" class="form-control" required>
 
-                <input id="submit" value="Save Changes" th:type="submit" class="submit-button">
+                <input value="Save Changes" th:type="submit" class="submit-button">
+            </form>
 
-<!--                <label for="register-password" class="form-label">Password</label>-->
-<!--                <input id="register-password" name="register-password" type="password" th:field="*{password}" class="form-control" pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>-->
+            <form th:action="@{/profile/editpassword}" th:method="POST">
 
-<!--                <label for="register-pw-verification" class="form-label">Re-Type Password</label>-->
-<!--                <input id="register-pw-verification" name="register-pw-verification" type="password" class="form-control" required>-->
+                <label for="oldpassword" class="form-label">Old Password</label>
+                <input id="oldpassword" name="oldpassword" type="password"  class="form-control">
 
+                <label for="newpassword" class="form-label">New Password</label>
+                <input id="newpassword" name="newpassword" type="password" class="form-control">
+
+                <input value="Change Password" th:type="submit" class="submit-button">
             </form>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel">...</div>
