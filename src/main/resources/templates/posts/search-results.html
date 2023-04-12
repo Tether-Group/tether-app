@@ -21,7 +21,7 @@
         <div class="card" th:each="group: ${searchedGroups}">
             <div class="ms-2 me-auto">
                 <a th:href="@{/group/{id}(id=${group.getId()})}">
-                    <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+                    <h4><span th:text="${group.getName()}"></span></h4>
                 </a>
                 <span th:text="${group.getDescription()}"></span>
             </div>
@@ -37,31 +37,34 @@
         <h3>Posts related to your search</h3>
         <div class="card" th:each="post: ${searchedPosts}">
             <div class="ms-2 me-auto">
-                <div class="fw-bold"><span th:text="${post.getHeader()}"></span></div>
-                <span th:text="${post.getBody()}"></span>
-                <div><a th:href="@{/group/{id}(id=${post.getGroup().getId()})}"><span th:text="${post.getGroup().getName()}"></span></a></div>
+                <h4><span th:text="${post.getHeader()}"></span></h4>
+                <div th:text="${post.getBody()}"></div>
+                <div>
+                    <a th:href="@{/group/{id}(id=${post.getGroup().getId()})}"><span
+                            th:text="${post.getGroup().getName()}"></span></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container m-3">
-    <div th:if="${searchedUsers.isEmpty()}">
-        <h3>There are no Users related to your search.</h3>
-    </div>
-    <div th:if="${!searchedUsers.isEmpty()}">
-        <h3>Users related to your search</h3>
-        <div class="card" th:each="user: ${searchedUsers}">
-            <div class="ms-2 me-auto">
-                <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
-                    <div class="fw-bold"><span th:text="${user.getUsername()}"></span></div>
-                </a>
+
+    <div class="container m-3">
+        <div th:if="${searchedUsers.isEmpty()}">
+            <h3>There are no Users related to your search.</h3>
+        </div>
+        <div th:if="${!searchedUsers.isEmpty()}">
+            <h3>Users related to your search</h3>
+            <div class="card" th:each="user: ${searchedUsers}">
+                <div class="ms-2 me-auto">
+                    <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                        <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+    <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
