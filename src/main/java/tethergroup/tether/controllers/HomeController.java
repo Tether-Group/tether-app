@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    private PostRepository postDao;
-    private GroupRepository groupDao;
+    private final PostRepository postDao;
+    private final GroupRepository groupDao;
 
     public HomeController(PostRepository postDao, GroupRepository groupDao) {
         this.postDao = postDao;
