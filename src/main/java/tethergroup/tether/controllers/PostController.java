@@ -25,10 +25,6 @@ public class PostController {
     private final GroupRepository grouDao;
     private final PostTypeRepository postTypeDao;
 
-    @GetMapping("/posts")
-    public String posts() {
-        return "index";
-    }
 
     @GetMapping("/post/create")
     public String createPost(Model model){
