@@ -26,7 +26,7 @@ public class SearchController {
     private final UserRepository userDao;
     private final GroupRepository groupDao;
 
-    @GetMapping("/posts/search-results")
+    @GetMapping("/search-results")
     public String globalSearch(@RequestParam(name = "search") @Nullable String search, Model model) {
         List<Group> searchedGroups;
         List<Post> searchedPosts;
