@@ -47,8 +47,8 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/posts/create", // only authenticated users can create ads
-                        "/posts/{id}/edit", // only authenticated users can edit ads
+                        "/posts/create",
+                        "/posts/{id}/edit",
                         "/profile/{username}"
                 )
                 .authenticated()
@@ -63,7 +63,7 @@ public class SecurityConfiguration {
                         "/search-results",
                         "/groups",
                         "/group/{groupId}",
-                        "/group/{groupId}/members") // anyone can see home, the ads pages, and sign up
+                        "/group/{groupId}/members")
                 .permitAll()
 
         ;
