@@ -7,7 +7,7 @@
     <title>Landing Page</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
-<body>
+<body class="text-bg-dark bg-gradient">
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 
 <!--EDIT POST MODAL-->
@@ -20,10 +20,10 @@
             </div>
             <div class="modal-body">
                 <form method="post" action="/post/edit/text">
-                <label for="header">Title:</label>
-                <input type="text" id="edit-modal-header-input"><br><br>
-                <label>Content:</label>
-                <input type="text" id="edit-modal-body-input"> <br><br>
+                    <label for="header">Title:</label>
+                    <input type="text" id="edit-modal-header-input"><br><br>
+                    <label>Content:</label>
+                    <input type="text" id="edit-modal-body-input"> <br><br>
                 </form>
             </div>
 
@@ -48,47 +48,53 @@
 
 <br>
 
-<div class="container">
+<div class="container-fluid text-left">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Groups</h3>
+            <ul class="list-group">
+                <li th:each="group: ${randoGroups}"
+                    class="list-group-item d-flex justify-content-between align-items-start bg-secondary-subtle text-emphasis-secondary border-light border border-success-subtle">
+                    <div class="ms-2 me-auto  bg-secondary-subtle text-emphasis-secondary">
+                        <a th:href="@{/group/{id}(id=${group.getId()})}">
+                            <div class="fw-bold   bg-secondary-subtle text-emphasis-secondary"><span th:text="${group.getName()}"></span></div>
+                        </a>
+                        <span th:text="${group.getDescription()}"></span>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">14</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <div class="col">
+                <div class="col-8 col-sm-6">
+                    <h3>Posts</h3>
+                    <div class="list-group">
+                        <div th:each="post: ${posts}" class="list-group-item list-group-item-action my-2  bg-secondary-subtle text-emphasis-secondary">
+                            <div class="d-flex w-100 justify-content-between post-item  bg-secondary-subtle text-emphasis-secondary">
+                                <h5 class="mb-1  bg-secondary-subtle text-emphasis-secondary"><span id="header" th:text="${post.header}"></span></h5>
+                                <input th:id="'hidden-input'+${post.id}" th:value="${post.header}" hidden>
+                                <small><span th:text="${post.postDateToString()}"></span></small>
+                            </div>
+                            <p class="mb-1  bg-secondary-subtle text-emphasis-secondary"><span th:text="${post.body}"></span></p>
+                            <small><span th:text="${post.user}"></span></small>
 
-    <h3>Groups</h3>
+                            <!-- Button trigger modal -->
+                            <button type="button" onclick="getPostInputs(event)" th:id="'button'+${post.id}"
+                                    class="btn btn-primary" data-bs-toggle="modal" data-bs-target="edit-post-modal">
+                                Edit
+                            </button>
 
-    <ul class="list-group">
-        <li th:each="group: ${randoGroups}" class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <a th:href="@{/group/{id}(id=${group.getId()})}">
-                    <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
-                </a>
-                <span th:text="${group.getDescription()}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 col-sm-6">
+                    Level 3: .col-8 .col-sm-6
+                </div>
             </div>
-            <span class="badge bg-primary rounded-pill">14</span>
-        </li>
-    </ul>
-
-</div>
-
-<div class="container">
-
-    <h3>Posts</h3>
-
-    <div class="list-group">
-        <div th:each="post: ${posts}" class="list-group-item list-group-item-action my-2">
-            <div class="d-flex w-100 justify-content-between post-item">
-                <h5 class="mb-1"><span id="header" th:text="${post.header}"></span></h5>
-                <input th:id="'hidden-input'+${post.id}" th:value="${post.header}" hidden>
-                <small><span th:text="${post.postDateToString()}"></span></small>
-            </div>
-            <p class="mb-1"><span th:text="${post.body}"></span></p>
-            <small><span th:text="${post.user}"></span></small>
-
-            <!-- Button trigger modal -->
-            <button type="button" onclick="getPostInputs(event)" th:id="'button'+${post.id}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="edit-post-modal">
-                Edit
-            </button>
-
         </div>
     </div>
 </div>
-
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script>
@@ -105,3 +111,46 @@
 </script>
 </body>
 </html>
+
+<!-- LEFTOVERS-->
+
+<!--<div class="container">-->
+
+<!--    <h3>Groups</h3>-->
+
+<!--    <ul class="list-group">-->
+<!--        <li th:each="group: ${randoGroups}" class="list-group-item d-flex justify-content-between align-items-start">-->
+<!--            <div class="ms-2 me-auto">-->
+<!--                <a th:href="@{/group/{id}(id=${group.getId()})}">-->
+<!--                    <div class="fw-bold"><span th:text="${group.getName()}"></span></div>-->
+<!--                </a>-->
+<!--                <span th:text="${group.getDescription()}"></span>-->
+<!--            </div>-->
+<!--            <span class="badge bg-primary rounded-pill">14</span>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--</div>-->
+
+<!--<div class="container">-->
+
+<!--    <h3>Posts</h3>-->
+
+<!--    <div class="list-group">-->
+<!--        <div th:each="post: ${posts}" class="list-group-item list-group-item-action my-2">-->
+<!--            <div class="d-flex w-100 justify-content-between post-item">-->
+<!--                <h5 class="mb-1"><span id="header" th:text="${post.header}"></span></h5>-->
+<!--                <input th:id="'hidden-input'+${post.id}" th:value="${post.header}" hidden>-->
+<!--                <small><span th:text="${post.postDateToString()}"></span></small>-->
+<!--            </div>-->
+<!--            <p class="mb-1"><span th:text="${post.body}"></span></p>-->
+<!--            <small><span th:text="${post.user}"></span></small>-->
+
+<!--            &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--            <button type="button" onclick="getPostInputs(event)" th:id="'button'+${post.id}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="edit-post-modal">-->
+<!--                Edit-->
+<!--            </button>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
