@@ -48,10 +48,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/post/create",
-                        "/post/{id}/edit",
-                        "/profile/{username}",
-                        "/group/create"
-                )
+                        "/group/create",
+                        "/posts/{id}/edit",
+                        "/profile/{username}")
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
                 .and()

@@ -22,7 +22,7 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
-    private final GroupRepository grouDao;
+    private final GroupRepository groupDao;
     private final PostTypeRepository postTypeDao;
 
 
@@ -39,7 +39,7 @@ public class PostController {
                              @RequestParam("body") String body) {
         Post post = new Post();
         post.setUser(userDao.findById(7L).get());
-        post.setGroup(grouDao.findById(3L).get());
+        post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setBody(body);
         post.setPostType(postTypeDao.findById(1L).get());
@@ -58,7 +58,7 @@ public class PostController {
             @RequestParam("body") String body) {
         Post post = new Post();
         post.setUser(userDao.findById(7L).get());
-        post.setGroup(grouDao.findById(3L).get());
+        post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setEventAddress(address);
         post.setEventDate(dateString);
@@ -80,7 +80,7 @@ public class PostController {
             @RequestParam("body") String body) {
         Post post = new Post();
         post.setUser(userDao.findById(7L).get());
-        post.setGroup(grouDao.findById(3L).get());
+        post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setEventAddress(address);
         post.setPostPrice(price);
@@ -100,7 +100,7 @@ public class PostController {
             @RequestParam("body") String body) {
         Post post = new Post();
         post.setUser(userDao.findById(7L).get());
-        post.setGroup(grouDao.findById(3L).get());
+        post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setBody(body);
         post.setPostType(postTypeDao.findById(4L).get());
