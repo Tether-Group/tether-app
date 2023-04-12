@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tethergroup.tether.models.Group;
 import tethergroup.tether.models.PostType;
+import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
@@ -81,6 +82,11 @@ public class GroupController {
         return "groups/group";
     }
 
-    @GetMapping("/members")
-    public String returnMembersListPage() {return "groups/members";}
+    @GetMapping("group/{groupId}/members")
+    public String returnMembersListPage(Model model, @PathVariable Long groupId) {
+        List<User> members = userDao.findByGroupId(groupId);
+        System.out.println(members);
+        model.addAttribute("members", members);
+        return "groups/members";
+    }
 }
