@@ -39,7 +39,7 @@ public class User {
     private String bio;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
-    private List<Group> groups;
+    private List<Group> groupsWhereUserIsAdmin;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -49,6 +49,14 @@ public class User {
     )
     private List<User> friends;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="user_group",
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="group_id")}
+    )
+    private List<Group> groupsWhereUserIsAMember;
+
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
         email = copy.email;
@@ -57,8 +65,9 @@ public class User {
         firstName = copy.firstName;
         lastName = copy.lastName;
         bio = copy.bio;
-        groups = copy.groups;
+        groupsWhereUserIsAdmin = copy.groupsWhereUserIsAdmin;
         friends = copy.friends;
+        groupsWhereUserIsAMember = copy.groupsWhereUserIsAMember;
     }
 
     @Override
