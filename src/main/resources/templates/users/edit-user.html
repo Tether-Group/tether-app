@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
-THIS IS THE SETTINGS PAGE
+<th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Account Settings</button>
+        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile Settings</button>
+        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Security</button>
+        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Messsages</button>
+    </div>
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <form th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
+                <input id="id" type="hidden" th:field="*{id}">
+                <label for="firstname" class="form-label">First Name</label>
+                <input id="firstname" name="firstname" th:field="*{firstName}" class="form-control" required>
+
+                <label for="lastname" class="form-label">Last Name</label>
+                <input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
+
+                <label for="username" class="form-label">Username</label>
+                <input id="username" name="username" th:field="*{username}" class="form-control" required>
+
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" th:field="*{email}" class="form-control" required>
+
+                <input id="submit" value="Save Changes" th:type="submit" class="submit-button">
+
+<!--                <label for="register-password" class="form-label">Password</label>-->
+<!--                <input id="register-password" name="register-password" type="password" th:field="*{password}" class="form-control" pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>-->
+
+<!--                <label for="register-pw-verification" class="form-label">Re-Type Password</label>-->
+<!--                <input id="register-pw-verification" name="register-pw-verification" type="password" class="form-control" required>-->
+
+            </form>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
+    </div>
+</div>
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>

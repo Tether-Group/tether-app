@@ -62,8 +62,9 @@ public class SecurityConfiguration {
                         "/register",
                         "/search-results",
                         "/groups",
-                        "/group/{groupId}",
+                        "/profile/edit",
                         "/profile/settings",
+                        "/group/{groupId}",
                         "/group/{groupId}/members")
                 .permitAll()
 
