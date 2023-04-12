@@ -1,180 +1,138 @@
-USE tether;
-SET @tether = 'tether';
+-- Adminer 4.8.1 MySQL 5.5.5-10.6.12-MariaDB-0ubuntu0.22.04.1 dump
 
-CREATE TABLE IF NOT EXISTS `users`(
-    `id` bigint(20)unsigned auto_increment,
-    `username` varchar(100),
-    `first_name` varchar(100),
-    `last_name` varchar(100),
-    `email` varchar(100),
-    `password` varchar(100),
-    `bio` varchar(1024) NULL
-);
- SELECT count(*)
- INTO @exist
- FROM information_schema.COLUMNS
- WHERE TABLE_SCHEMA = @tether
- and COLUMN_NAME = 'id'
- and COLLATION_NAME = 'username'
- and COLUMN_NAME = 'first_name'
- and COLUMN_NAME = 'last_name'
- and COLUMN_NAME = 'email'
- and COLUMN_NAME = 'password'
- and COLUMN_NAME= 'bio';
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-set @query = IF(@exist <= 0, CONCAT('ALTER TABLE ', @tether, '.`exam_tasks`  ADD COLUMN `user_id` bigint(20) NULL'),
-                'select \'Column Exists\' status');
+SET NAMES utf8mb4;
 
-prepare stmt from @query;
+DROP DATABASE IF EXISTS `tether`;
+CREATE DATABASE `tether` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `tether`;
 
-EXECUTE stmt;
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE `friends` (
+                           `user_id1` bigint(20) unsigned NOT NULL,
+                           `user_id2` bigint(20) unsigned NOT NULL,
+                           KEY `FKg3b2tdvm0uswr1g1vq3t82nw` (`user_id2`),
+                           KEY `FKtn3l6nxg55s8txw7ikp6ika5k` (`user_id1`),
+                           CONSTRAINT `FKg3b2tdvm0uswr1g1vq3t82nw` FOREIGN KEY (`user_id2`) REFERENCES `users` (`id`),
+                           CONSTRAINT `FKtn3l6nxg55s8txw7ikp6ika5k` FOREIGN KEY (`user_id1`) REFERENCES `users` (`id`),
+                           CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id1`) REFERENCES `users` (`id`),
+                           CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id2`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48154', 'princeton', 'Kandice', 'Lunn', 'deetta_brown8132@apartments.com', 'fernando', 'versus focused expressed documentation promises');
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48155', 'translate', 'Wally', 'Crumpton', 'migueltang@yahoo.com', '777777', 'garcia huge upc apparent jr');
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE `groups` (
+                          `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                          `name` varchar(100) NOT NULL,
+                          `description` varchar(1024) NOT NULL,
+                          `is_private` bit(1) NOT NULL,
+                          `admin_id` bigint(20) unsigned NOT NULL,
+                          PRIMARY KEY (`id`),
+                          KEY `FKsnqhvirasbp2bh1ahns2iqeu` (`admin_id`),
+                          CONSTRAINT `FKsnqhvirasbp2bh1ahns2iqeu` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48156', 'launched', 'Jacqui', 'Peebles', 'ena_lamar28112@hotmail.com', 'nicole', 'threat sleeps aye deferred dom');
+INSERT INTO `groups` (`id`, `name`, `description`, `is_private`, `admin_id`) VALUES
+                                                                                 (3,	'The Pug Club',	'A place for all pugs in da world',	CONV('0', 2, 10) + 0,	7),
+                                                                                 (4,	'test',	'testing',	CONV('0', 2, 10) + 0,	7),
+                                                                                 (5,	'test',	'testing',	CONV('1', 2, 10) + 0,	7),
+                                                                                 (9,	'test',	'tttt',	CONV('0', 2, 10) + 0,	7),
+                                                                                 (10,	'Cool Math Games',	' A Group for people who like cool math games for kids.',	CONV('0', 2, 10) + 0,	7);
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48157', 'rpg', 'Arianne', 'Benjamin', 'natividad_whittington2@gmail.com', 'montana', 'dump presenting rugs hot doc');
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts` (
+                         `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                         `user_id` bigint(20) unsigned NOT NULL,
+                         `group_id` bigint(20) unsigned NOT NULL,
+                         `header` varchar(100) NOT NULL,
+                         `body` text NOT NULL,
+                         `event_date` date DEFAULT NULL,
+                         `event_address` varchar(256) DEFAULT NULL,
+                         `price` double DEFAULT NULL,
+                         `post_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+                         `post_type_id` bigint(20) NOT NULL,
+                         PRIMARY KEY (`id`),
+                         KEY `FKm9ev48bvdgo25ypcy44mu5t8k` (`group_id`),
+                         KEY `FKhf9pfkatuagm490t2jmphqbjx` (`post_type_id`),
+                         KEY `FK5lidm6cqbc7u4xhqpxm898qme` (`user_id`),
+                         CONSTRAINT `FK5lidm6cqbc7u4xhqpxm898qme` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+                         CONSTRAINT `FKhf9pfkatuagm490t2jmphqbjx` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
+                         CONSTRAINT `FKm9ev48bvdgo25ypcy44mu5t8k` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+                         CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+                         CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+                         CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48158', 'terminals', 'Sanda', 'Sepulveda', 'marjory.ocampo@generally.com', 'microsoft', 'ratios subscription clarke lit which');
+INSERT INTO `posts` (`id`, `user_id`, `group_id`, `header`, `body`, `event_date`, `event_address`, `price`, `post_date`, `post_type_id`) VALUES
+                                                                                                                                             (2,	7,	3,	'April Pug Pool Party',	'We are having our first Pug Pool Party in April! ALL PUGS INVITED!!!',	'2023-04-12',	'New Braunfels, TX',	NULL,	'2023-04-10 21:02:51',	1),
+                                                                                                                                             (3,	7,	3,	'CANCELLED Pug Pool Party',	'Nevermind, I decided I don\'t like pools',	'2023-04-12',	'Nowhere',	NULL,	'2023-04-10 21:11:30',	1),
+                                                                                                                                             (4,	7,	3,	'test',	'testing',	NULL,	NULL,	NULL,	'2023-04-11 16:11:58',	1),
+                                                                                                                                             (5,	7,	3,	'NEW pug pool party',	'PARTAYYY',	'2023-04-29',	'1234 mama mia',	NULL,	'2023-04-11 16:45:38',	2),
+                                                                                                                                             (6,	7,	3,	'New Dog Toy',	'My mom bought it for me and I hate it ',	NULL,	'1234 mama mia',	10,	'2023-04-11 16:56:50',	2);
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48159', 'chat', 'Aiko', 'Clary', 'pedro-duckworth20@yahoo.com', 'george', 'studied wishlist cents freeware often');
+DROP TABLE IF EXISTS `post_types`;
+CREATE TABLE `post_types` (
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `type` varchar(50) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48160', 'forge', 'Phylis', 'Lugo', 'dean-perkins@yahoo.com', 'sierra', 'coated gps gr booking xerox');
+INSERT INTO `post_types` (`id`, `type`) VALUES
+                                            (1,	'Post'),
+                                            (2,	'Event'),
+                                            (3,	'For Sale'),
+                                            (4,	'Q&A');
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48161', 'audience', 'Lela', 'Whitmire', 'oniedurr57@yahoo.com', 'knight', 'atlas sunset stay strengthen elevation');
+DROP TABLE IF EXISTS `post_type_group`;
+CREATE TABLE `post_type_group` (
+                                   `group_id` bigint(20) unsigned NOT NULL,
+                                   `post_type_id` bigint(20) NOT NULL,
+                                   KEY `FKiv7if0raf42hudbykc4pd9x2d` (`group_id`),
+                                   KEY `FKt279tqgng6ko5q89gaane2ur8` (`post_type_id`),
+                                   CONSTRAINT `FKiv7if0raf42hudbykc4pd9x2d` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+                                   CONSTRAINT `FKt279tqgng6ko5q89gaane2ur8` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
+                                   CONSTRAINT `post_type_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+                                   CONSTRAINT `post_type_group_ibfk_2` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48162', 'millions', 'Lewis', 'Gamez', 'valarie71@hotmail.com', 'voodoo', 'demographic send plate pride headers');
+INSERT INTO `post_type_group` (`group_id`, `post_type_id`) VALUES
+                                                               (9,	1),
+                                                               (10,	1),
+                                                               (10,	3);
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48163', 'dan', 'Maryanna', 'Rosser', 'sydneywhitlow@zones.com', 'hamster', 'advise filters k creation statement');
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+                         `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                         `username` varchar(100) NOT NULL,
+                         `first_name` varchar(100) NOT NULL,
+                         `last_name` varchar(100) NOT NULL,
+                         `email` varchar(100) NOT NULL,
+                         `password` varchar(100) NOT NULL,
+                         `bio` varchar(1024) DEFAULT NULL,
+                         PRIMARY KEY (`id`),
+                         UNIQUE KEY `UK_r43af9ap4edm43mmtq01oddj6` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48164', 'bicycle', 'Brittani', 'Pike', 'diane_finley692@operator.com', 'firebird', 'butterfly alcohol appreciated mileage atlanta');
+INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `bio`) VALUES
+                                                                                                  (7,	'candywandy',	'Candy',	'Wandy',	'candywandy@email.com',	'$2a$10$iFaN6PULT9d0VIH/W.oujOq7jZHAduzPJdwZS0qRq6Nkw3sEEY10i',	NULL),
+                                                                                                  (8,	'1',	'1',	'1',	'1@email.com',	'$2a$10$9WLAfQsthzqf4wwZIbUhRONT.nqaHhhTgMHhoM0iGCLQVPdQo8Ske',	NULL),
+                                                                                                  (12,	'test',	'test',	'tester',	'test@email.com',	'1',	NULL);
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48165', 'poverty', 'Kera', 'Hooker', 'clareorr90452@both.anquan', 'monica', 'theology sim develops teaching push');
+DROP TABLE IF EXISTS `user_group`;
+CREATE TABLE `user_group` (
+                              `user_id` bigint(20) unsigned NOT NULL,
+                              `group_id` bigint(20) unsigned NOT NULL,
+                              KEY `user_id` (`user_id`),
+                              KEY `group_id` (`group_id`),
+                              CONSTRAINT `user_group_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+                              CONSTRAINT `user_group_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48166', 'kingdom', 'Alene', 'David', 'johnathan-keys-cantrell@yahoo.com', 'steelers', 'recipe cw filme jury trailer');
+INSERT INTO `user_group` (`user_id`, `group_id`) VALUES
+    (7,	3);
 
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48167', 'sunday', 'Dexter', 'Spillman', 'antone-macon@hotmail.com', 'firebird', 'recruiting navigation therefore toolbar manufacturer');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48168', 'compatible', 'Omer', 'Tolley', 'lynnacorbin56962@binary.com', 'october', 'showcase pool clerk rick american');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48169', 'eg', 'Cyrstal', 'Lund', 'codykeener@hotmail.com', '1q2w3e', 'verified musician goto clinics guess');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48170', 'casa', 'Edmond', 'Fowlkes', 'romona3211@controller.com', 'harvey', 'cord vpn was bookstore dat');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48171', 'everything', 'Adrian', 'Matteson', 'lorrettarash5690@hotmail.com', 'isabelle', 'taxes headers adrian anti lender');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48172', 'culture', 'Beaulah', 'Goodin', 'ravenparker26227@disclose.com', 'zzzzzz', 'extensive playback insurance nat dsl');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48173', 'incidence', 'Eusebia', 'Shifflett-Pettway', 'meghann99085@practical.com', 'walter', 'problem arena latin dive accept');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48174', 'encouraging', 'Francina', 'Lebron', 'larondairons89597@yahoo.com', 'guinness', 'revisions this york tops naval');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48175', 'thomas', 'Yahaira', 'Bradford', 'madeline.low370@hotmail.com', 'guitar', 'gratuit tech ri newcastle assign');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48176', 'excellent', 'Angelina', 'Escobar', 'judicurrie@gmail.com', 'vampire', 'using wallace berlin strap motherboard');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48177', 'curriculum', 'Stacia', 'Dayton', 'lyndialavender@gmail.com', 'nothing', 'belong apps draws ward jelsoft');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48178', 'cc', 'Julee', 'Baumann', 'shakira_andres9@gmail.com', 'angel', 'doom removable valley cnet scotland');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48179', 'manager', 'Shavonda', 'Burch', 'marc.wagner@hotmail.com', 'tennis', 'easter inspector trembl jeff channels');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48180', 'turn', 'Maura', 'Matthews', 'craig_espino@kinds.com', 'admin', 'expo eagle tracker lyrics raid');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48181', 'inkjet', 'Dayna', 'Bock', 'neal73@julie.com', 'hawaii', 'direct seems protocols colour madison');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48182', 'vietnam', 'Elenore', 'Barksdale', 'analisa-horne-ernst6429@hotmail.com', 'wesley', 'noted rid sphere gave permissions');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48183', 'danny', 'Celena', 'Collette', 'katenemeth379@appointed.com', 'asdfghjk', 'zip celtic songs bring soldiers');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48184', 'albany', 'Kent', 'Gamez', 'terese-pulliam02771@yahoo.com', 'rainbow', 'logged diseases hungary funds elimination');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48185', 'management', 'Pamala', 'Mcneal', 'johnette-cullen9345@gmail.com', 'corvette', 'databases womens gen lazy fingers');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48186', 'explaining', 'Farah', 'Donnell', 'debrah07725@yahoo.com', 'airborne', 'virtual brunette suffering pope xp');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48187', 'frame', 'Letty', 'Knudsen-Chisolm', 'marcie3115@gmail.com', 'master', 'depression thorough michel loading snap');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48188', 'harry', 'Rita', 'Bolling', 'nadine-vanwinkle9759@gmail.com', 'sweety', 'fiscal facial clearance expenses wearing');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48189', 'arnold', 'Samara', 'Mcclelland', 'leonarda-barham@gmail.com', 'doctor', 'une gave lion athens hip');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48190', 'aerospace', 'Yasuko', 'Windham', 'aurea_reddy66@creation.com', 'super', 'reasoning sells tonight penny dr');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48191', 'persons', 'Temika', 'Haag', 'orville-frantz54329@merge.kv.ua', 'william', 'deserve bias productive billy retro');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48192', 'copying', 'Vallie', 'Carbone', 'mila69053@download.oslo.no', 'patricia', 'depth discounts amateur mentor tx');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48193', 'du', 'Marilee', 'Felts', 'evelina_robins@careers.com', 'aaaaaa', 'fall nobody wear players annually');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48194', 'estate', 'Karolyn', 'Dewitt', 'joni9940@flu.com', 'westside', 'interventions panasonic resulting far schedule');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48195', 'snap', 'Willian', 'Gibbs', 'lita.maxwell846@buzz.com', 'chance', 'stores sally who thoughts reliance');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48196', 'self', 'Gregg', 'Martindale', 'harvey.yarborough87@frontpage.com', 'qweasd', 'discussions cdna eh coleman distinguished');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48197', 'sale', 'Shantell', 'Rodman', 'monserrate.shumaker@expo.com', 'manchester', 'any possession interaction ordered timber');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48198', 'fi', 'Vanessa', 'Dodge', 'chantelle26@yahoo.com', 'santiago', 'executive ou concerts ds registrar');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48199', 'deferred', 'Audie', 'Dugger', 'mason_anders8332@hotmail.com', 'alicia', 'results modeling promotions moves collaboration');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48200', 'rule', 'Etta', 'Belanger', 'liana-luckett63@assess.com', 'karina', 'outlets verify analyzed africa pretty');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48201', 'signal', 'Ricarda', 'Turpin', 'ronda8@yahoo.com', 'chris', 'cdna furthermore smart absolute venice');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48202', 'hose', 'Fidelia', 'Mireles', 'demetrice_richardson7782@excitement.trentinosud-tirol.it', 'jackie', 'nw img entities black speaking');
-
-INSERT INTO users (id, username, first_name, last_name, email, password, bio)
-VALUES ('48203', 'smilies', 'Chase', 'Rowe', 'muoi-mcleod@registrar.com', 'teacher', 'shaft placing sussex losses suggestion');
+-- 2023-04-12 14:29:36
