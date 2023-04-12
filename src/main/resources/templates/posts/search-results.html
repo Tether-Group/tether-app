@@ -46,25 +46,25 @@
             </div>
         </div>
     </div>
+</div>
 
-
-    <div class="container m-3">
-        <div th:if="${searchedUsers.isEmpty()}">
-            <h3>There are no Users related to your search.</h3>
-        </div>
-        <div th:if="${!searchedUsers.isEmpty()}">
-            <h3>Users related to your search</h3>
-            <div class="card" th:each="user: ${searchedUsers}">
-                <div class="ms-2 me-auto">
-                    <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
-                        <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
-                    </a>
-                </div>
+<div class="container m-3">
+    <div th:if="${searchedUsers.isEmpty()}">
+        <h3>There are no Users related to your search.</h3>
+    </div>
+    <div th:if="${!searchedUsers.isEmpty()}">
+        <h3>Users related to your search</h3>
+        <div class="card" th:each="user: ${searchedUsers}">
+            <div class="ms-2 me-auto">
+                <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                    <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
 
-    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -14,11 +14,9 @@
 <h1>This is the GROUP page</h1>
 
 <div class="container">
-
-	<h1><span th:text="${group.name}"></h1>
-	<h5><span th:text="${group.description}"></h5>
-	<p>The admin of this group is <span th:text="${group.admin}"></p>
-
+    <h1><span th:text="${group.name}"></span></h1>
+    <h5><span th:text="${group.description}"></span></h5>
+    <p>The admin of this group is <span th:text="${group.admin}"></span></p>
 </div>
 
 
