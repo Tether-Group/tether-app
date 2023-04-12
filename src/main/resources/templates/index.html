@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Landing Page</title>
-    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<meta charset="UTF-8">
+	<title>Landing Page</title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 
 <!--EDIT POST MODAL-->
 <div class="modal fade" tabindex="-1" id="edit-post-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="/post/edit/text">
-                <label for="header">Title:</label>
-                <input type="text" id="edit-modal-header-input"><br><br>
-                <label>Content:</label>
-                <input type="text" id="edit-modal-body-input"> <br><br>
-                </form>
-            </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="/post/edit/text">
+					<label for="header">Title:</label>
+					<input type="text" id="edit-modal-header-input"><br><br>
+					<label>Content:</label>
+					<input type="text" id="edit-modal-body-input"> <br><br>
+				</form>
+			</div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <h1>This is the INDEX page</h1>
@@ -52,58 +52,112 @@
 
 <div class="container">
 
-    <h3>Groups</h3>
+	<h3>Groups</h3>
 
-    <ul class="list-group">
-        <li th:each="group: ${randoGroups}" class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <a th:href="@{/group/{id}(id=${group.getId()})}">
-                    <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
-                </a>
-                <span th:text="${group.getDescription()}"></span>
-            </div>
-            <span class="badge bg-primary rounded-pill">14</span>
-        </li>
-    </ul>
+	<ul class="list-group">
+		<li th:each="group: ${randoGroups}" class="list-group-item d-flex justify-content-between align-items-start">
+			<div class="ms-2 me-auto">
+				<a th:href="@{/group/{id}(id=${group.getId()})}">
+					<div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+				</a>
+				<span th:text="${group.getDescription()}"></span>
+			</div>
+			<span class="badge bg-primary rounded-pill">14</span>
+		</li>
+	</ul>
 
 </div>
 
 <div class="container">
 
-    <h3>Posts</h3>
+	<h3>Posts</h3>
 
-    <div class="list-group">
-        <div th:each="post: ${posts}" class="list-group-item list-group-item-action my-2">
-            <div class="d-flex w-100 justify-content-between post-item">
-                <h5 class="mb-1"><span id="header" th:text="${post.header}"></span></h5>
-                <input th:id="'hidden-input'+${post.id}" th:value="${post.header}" hidden>
-                <small><span th:text="${post.postDateToString()}"></span></small>
-            </div>
-            <p class="mb-1"><span th:text="${post.body}"></span></p>
-            <small><span th:text="${post.user}"></span></small>
+	<div class="list-group">
+		<div th:each="post: ${posts}" class="list-group-item list-group-item-action my-2">
 
-            <!-- Button trigger modal -->
-            <button type="button" onclick="getPostInputs(event)" th:id="'button'+${post.id}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="edit-post-modal">
-                Edit
-            </button>
+			<div th:id="'post-content'+${post.id}">
+				<div class="d-flex w-100 justify-content-between post-item">
+					<h5 class="mb-1"><span th:text="${post.header}"></span></h5>
+					<small th:text="${post.postDateToString()}"></small>
+				</div>
+				<p class="mb-1"><span th:text="${post.body}"></span></p>
+				<small><span th:text="${post.user}"></span></small>
+			</div>
 
-        </div>
-    </div>
+			<div sec:authorize="isAuthenticated()">
+
+				<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/edit}" hidden>
+					<div class="d-flex w-100 justify-content-between post-item">
+						<input th:name="header" class="mb-1" th:value="${post.header}">
+						<small th:text="${post.postDateToString()}"></small>
+					</div>
+					<input th:name="body" class="mb-1" th:value="${post.body}">
+					<br>
+					<small><span th:text="${post.user}"></span></small>
+
+					<!--This is to pass the id of the post to the controller-->
+					<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+
+					<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
+							class="btn btn-danger">Cancel
+					</button>
+
+					<button type="submit" th:id="'save-button'+${post.id}"
+							class="btn btn-success">Save
+					</button>
+				</form>
+
+				<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+						class="btn btn-warning">
+					Edit
+				</button>
+			</div>
+
+		</div>
+	</div>
 </div>
 
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script>
-    function getPostInputs(event) {
+    const editPost = (event) => {
         const postId = event.target.getAttribute("id").match(/\d+/)[0];
 
-        const editInput = document.getElementById("hidden-input" + postId);
+        const editInput = document.getElementById("hidden-form" + postId);
         editInput.hidden = false;
 
-        const postHeader = event.target.parentElement.firstElementChild.firstElementChild;
-        postHeader.hidden = true;
+        const postContent = document.getElementById("post-content" + postId);
+        postContent.hidden = true;
 
-    }
+        const editButton = event.target;
+        editButton.hidden = true;
+
+        const cancelButton = document.getElementById("cancel-button" + postId);
+        cancelButton.hidden = false;
+
+        const saveButton = document.getElementById("save-button" + postId);
+        saveButton.hidden = false;
+    };
+
+    const cancelEditingPost = (event) => {
+        const postId = event.target.getAttribute("id").match(/\d+/)[0];
+
+        const editInput = document.getElementById("hidden-form" + postId);
+        editInput.hidden = true;
+
+        const postContent = document.getElementById("post-content" + postId);
+        postContent.hidden = false;
+
+        const editButton = document.getElementById("edit-button" + postId);
+        editButton.hidden = false;
+
+        const cancelButton = event.target;
+        cancelButton.hidden = true;
+
+        const saveButton = document.getElementById("save-button" + postId);
+        saveButton.hidden = true;
+	};
+
 </script>
 </body>
 </html>

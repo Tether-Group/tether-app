@@ -10,7 +10,10 @@ import java.util.List;
 public interface GroupRepository extends JpaRepository<Group, Long> {
     //    random group query for visitor
     @Query(nativeQuery = true, value = "SELECT * FROM groups ORDER BY rand() LIMIT 50")
-    List<Group> randomGroups();
+    List<Group> randomGroupsLimitFifty();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM groups ORDER BY rand() LIMIT 5")
+    List<Group> randomGroupsLimitFive();
 
     //    query for users groups on the latest group created that they are in
     @Query(nativeQuery = true, value = "SELECT * FROM groups g ORDER BY g.id DESC")
