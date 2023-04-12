@@ -69,7 +69,7 @@ public class GroupController {
         return "groups/group";
     }
 
-    @PostMapping("/group/{groupId}")
+    @PostMapping("/group/{groupId}/edit")
     public String editGroup(@ModelAttribute("group") Group group) {
 //        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Group originalGroup = groupDao.findById(group.getId()).get();
