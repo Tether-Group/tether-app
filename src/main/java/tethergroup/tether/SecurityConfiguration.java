@@ -49,6 +49,8 @@ public class SecurityConfiguration {
                 .requestMatchers(
                         "/post/create",
                         "/group/create",
+                        "/group/edit",
+                        "/group/delete",
                         "/posts/{id}/edit",
                         "/post/edit",
                         "/profile/{username}")

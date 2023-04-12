@@ -38,12 +38,14 @@
 <h1>This is the INDEX page</h1>
 
 <div sec:authorize="isAuthenticated()">
-
 	Welcome <span th:text="${#authentication.principal.firstName}"/> <span
 		th:text="${#authentication.principal.lastName}"/>
+    Username: <span th:text="${#authentication.principal.username}"/>
+    Email: <span th:text="${#authentication.principal.email}"/>
+</div>
 
-	Username: <span th:text="${#authentication.principal.username}"/>
-	Email: <span th:text="${#authentication.principal.email}"/>
+<div sec:authorize="!isAuthenticated()">
+	Welcome to our site!
 </div>
 
 <br>
