@@ -42,13 +42,8 @@ public class Group {
     )
     private List<PostType> postTypes;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="user_group",
-            joinColumns={@JoinColumn(name="group_id")},
-            inverseJoinColumns={@JoinColumn(name="user_id")}
-    )
-    private List<User> members;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    private List<Membership> memberships;
 
     public String toString() {
         return "" + this.name;
