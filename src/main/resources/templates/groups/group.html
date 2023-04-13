@@ -71,9 +71,9 @@
 </div>
 
 <div th:if="${loggedInUser.getId() == groupCreator.getId()}">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-        Delete Group
-    </button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+    Delete Group
+</button>
 </div>
 <div class="modal fade" id="deleteGroupModal" tabindex="-1" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
     <div class="modal-dialog">

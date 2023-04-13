@@ -25,7 +25,6 @@ public class GroupController {
     private final UserRepository userDao;
     private final PostTypeRepository postTypeDao;
 
-
     @GetMapping ("/groups")
     @Transactional
     public String showGroupsListPage(Model model) {
@@ -62,6 +61,7 @@ public class GroupController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
 
+//        use this for the front end - check to see if the logged-in user is also the group creator to display buttons
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
@@ -72,12 +72,33 @@ public class GroupController {
     public String editGroup(@ModelAttribute("group") Group group) {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
+
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User groupAdmin = originalGroup.getAdmin();
+
+//        this is used to ensure that the logged-in user is also the admin of the group page
+        if (loggedInUser.getId() != groupAdmin.getId()) {
+//          return the 403 page to get out of the method
+            System.out.println("Edit not allowed");
+            return "redirect:/groups";
+        }
         groupDao.save(group);
         return "redirect:/group/" + group.getId();
     }
 
     @PostMapping("/group/delete")
     public String deleteGroup(@ModelAttribute("group") Group group) {
+        Group originalGroup = groupDao.findById(group.getId()).get();
+
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User groupAdmin = originalGroup.getAdmin();
+
+        //        this is used to ensure that the logged-in user is also the admin of the group page
+        if (loggedInUser.getId() != groupAdmin.getId()) {
+//            return the 403 page to get out of the method
+            System.out.println("Delete not allowed");
+            return "redirect:/groups";
+        }
         groupDao.deleteById(group.getId());
         return "redirect:/groups";
     }
