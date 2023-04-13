@@ -49,22 +49,29 @@ public class GroupController {
 
     @PostMapping("/group/create")
     public String createGroup(@ModelAttribute("group") Group group) {
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        group.setAdmin(loggedInUser);
-        groupDao.save(group);
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            group.setAdmin(loggedInUser);
+            groupDao.save(group);
+        } catch (Exception e) {
+            throw new RuntimeException("cannot create" + e.getMessage());
+//            return to redirect error page
+        }
         return "redirect:/groups";
     }
 
     @GetMapping("/group/{groupId}")
     public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
-
-//        use this for the front end - check to see if the logged-in user is also the group creator to display buttons
-        model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("loggedInUser", loggedInUser);
+        } catch (Exception e) {
+            return "groups/group";
+        }
         return "groups/group";
     }
 
@@ -92,8 +99,7 @@ public class GroupController {
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupAdmin = originalGroup.getAdmin();
-
-        //        this is used to ensure that the logged-in user is also the admin of the group page
+//      this is used to ensure that the logged-in user is also the admin of the group page
         if (loggedInUser.getId() != groupAdmin.getId()) {
 //            return the 403 page to get out of the method
             System.out.println("Delete not allowed");
@@ -106,7 +112,9 @@ public class GroupController {
     @GetMapping("group/{groupId}/members")
     public String returnMembersListPage(Model model, @PathVariable Long groupId) {
         List<User> members = userDao.findByGroupId(groupId);
+        User admin = groupDao.findById(groupId).get().getAdmin();
         System.out.println(members);
+        model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";
     }
