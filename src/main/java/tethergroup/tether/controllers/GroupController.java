@@ -67,9 +67,23 @@ public class GroupController {
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
 
+        boolean isMember = false;
+
         try {
+            System.out.println("in the try");
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
+
+            for (User member : group.getMembers()) {
+                System.out.println("looping");
+                if (member.getId() == loggedInUser.getId()) {
+                    System.out.println("id's match");
+                    isMember = true;
+                    break;
+                }
+            }
+            System.out.println(isMember);
+            model.addAttribute("isMember", isMember);
         } catch (Exception e) {
             return "groups/group";
         }
@@ -120,11 +134,18 @@ public class GroupController {
         return "groups/members";
     }
 
+    @Transactional
     @PostMapping("/group/{groupId}/join")
     public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
-        boolean privateGroup = group.isPrivate();
-//        if a user is logged in, they should be able to send a join request
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<User> newMember = group.getMembers();
+        newMember.add(loggedInUser);
+        group.setMembers(newMember);
+
+        groupDao.save(group);
+        System.out.println("new member added");
+//        if a user is logged in, they should be able to join a group
 //        once request is submitted, it will alter the HTML of the button
         return "redirect:/group/" + group.getId();
     }

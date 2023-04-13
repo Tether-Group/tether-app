@@ -15,12 +15,12 @@
 
 <div class="container">
     <div sec:authorize="isAuthenticated()">
-        <div th:if="${loggedInUser.getId() != groupCreator.getId()}">
-            <!--        <form th:action="@{/group/{groupId}/join(groupId=${group.getId()})}" th:method="POST">-->
-            <button id="join-group-btn" type="button" class="btn btn-primary">
-                Join Group
-            </button>
-            <!--        </form>-->
+        <div th:if="${loggedInUser.getId() != groupCreator.getId() && isMember.booleanValue()}">
+            <form th:action="@{/group/{groupId}/join(groupId=${group.getId()})}" th:method="POST">
+                <button id="join-group-btn" type="submit" class="btn btn-primary">
+                    Join Group
+                </button>
+            </form>
         </div>
     </div>
     <div>
