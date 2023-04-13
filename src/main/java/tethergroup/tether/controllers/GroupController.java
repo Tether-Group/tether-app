@@ -67,22 +67,19 @@ public class GroupController {
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
 
+        List<User> members = userDao.findByGroupId(group.getId());
         boolean isMember = false;
 
         try {
-            System.out.println("in the try");
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
 
-            for (User member : group.getMembers()) {
-                System.out.println("looping");
+            for (User member : members) {
                 if (member.getId() == loggedInUser.getId()) {
-                    System.out.println("id's match");
                     isMember = true;
                     break;
                 }
             }
-            System.out.println(isMember);
             model.addAttribute("isMember", isMember);
         } catch (Exception e) {
             return "groups/group";
@@ -138,15 +135,36 @@ public class GroupController {
     @PostMapping("/group/{groupId}/join")
     public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<User> newMember = group.getMembers();
-        newMember.add(loggedInUser);
-        group.setMembers(newMember);
+
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<User> newMember = group.getMembers();
+            newMember.add(loggedInUser);
+            group.setMembers(newMember);
+        } catch (Exception e) {
+            return "redirect:/group/" + group.getId();
+        }
 
         groupDao.save(group);
-        System.out.println("new member added");
-//        if a user is logged in, they should be able to join a group
-//        once request is submitted, it will alter the HTML of the button
+        return "redirect:/group/" + group.getId();
+    }
+
+    @Transactional
+    @PostMapping("/group/{groupId}/leave")
+    public String leaveGroup(Model model, @PathVariable Long groupId) {
+        Group group = groupDao.findById(groupId).get();
+
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User originalUser = userDao.findById(loggedInUser.getId()).get();
+            List<User> members = userDao.findByGroupId(group.getId());
+            members.remove(originalUser);
+            group.setMembers(members);
+        } catch (Exception e) {
+            return "redirect:/group/" + group.getId();
+        }
+
+        groupDao.save(group);
         return "redirect:/group/" + group.getId();
     }
 

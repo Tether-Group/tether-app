@@ -16,5 +16,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from user_group ug join users u on u.id = ug.user_id where ug.group_id = :group_id",
     nativeQuery = true)
     List<User> findByGroupId(@Param("group_id")Long groupId);
-
 }

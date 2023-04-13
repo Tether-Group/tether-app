@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                         "/group/edit",
                         "/group/delete",
                         "/group/{groupId}/join",
+                        "/group/{groupId}/leave",
                         "/posts/{id}/edit",
                         "/post/edit",
                         "/profile/{username}")
