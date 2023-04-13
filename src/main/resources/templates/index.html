@@ -40,8 +40,8 @@
 <div sec:authorize="isAuthenticated()">
 	Welcome <span th:text="${#authentication.principal.firstName}"/> <span
 		th:text="${#authentication.principal.lastName}"/>
-    Username: <span th:text="${#authentication.principal.username}"/>
-    Email: <span th:text="${#authentication.principal.email}"/>
+	Username: <span th:text="${#authentication.principal.username}"/>
+	Email: <span th:text="${#authentication.principal.email}"/>
 </div>
 
 <div sec:authorize="!isAuthenticated()">
@@ -95,22 +95,35 @@
 					<br>
 					<small><span th:text="${post.user}"></span></small>
 
-					<!--This is to pass the id of the post to the controller-->
 					<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
 
-					<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
-							class="btn btn-danger">Cancel
-					</button>
 
-					<button type="submit" th:id="'save-button'+${post.id}"
-							class="btn btn-success">Save
-					</button>
+					<div th:if="${loggedInUser.getId() == post.user.id}">
+						<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
+								class="btn btn-secondary">Cancel
+						</button>
+
+						<button type="submit" th:id="'save-button'+${post.id}"
+								class="btn btn-success">Save
+						</button>
+					</div>
 				</form>
 
-				<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
-						class="btn btn-warning">
-					Edit
-				</button>
+				<div th:if="${loggedInUser.getId() == post.user.id}">
+					<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+							class="btn btn-warning">
+						Edit
+					</button>
+
+					<form th:method="post" th:action="@{/post/delete}">
+						<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+						<button type="submit" th:id="'delete-button'+${post.id}"
+								class="btn btn-danger">
+							Delete
+						</button>
+					</form>
+				</div>
+
 			</div>
 
 		</div>
@@ -156,7 +169,7 @@
 
         const saveButton = document.getElementById("save-button" + postId);
         saveButton.hidden = true;
-	};
+    };
 
 </script>
 </body>

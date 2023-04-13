@@ -51,9 +51,17 @@ public class SecurityConfiguration {
                         "/group/create",
                         "/group/edit",
                         "/group/delete",
+                        "/group/{groupId}/join",
+                        "/group/{groupId}/leave",
                         "/posts/{id}/edit",
                         "/post/edit",
-                        "/profile/{username}")
+                        "/post/delete",
+                        "/profile/{username}",
+                        "/profile/delete",
+                        "/profile/edit",
+                        "/profile/settings",
+                        "/profile/editpassword"
+                        )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
                 .and()
@@ -65,10 +73,9 @@ public class SecurityConfiguration {
                         "/register",
                         "/search-results",
                         "/groups",
-                        "/profile/edit",
-                        "/profile/settings",
-                        "/profile/editpassword",
                         "/group/{groupId}",
+                        "/my/logout",
+                        "/error",
                         "/group/{groupId}/members")
                 .permitAll()
 
