@@ -1,5 +1,7 @@
 package tethergroup.tether.controllers;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,16 +87,6 @@ public class UserController {
         if (!doesMatch) {
             return "redirect:/profile/settings";
         } else {
-
-//            String firstName = userDao.findById(user2.getId()).get().getFirstName();
-//            String lastName = userDao.findById(user2.getId()).get().getLastName();
-//            String userName = userDao.findById(user2.getId()).get().getUsername();
-//            String email = userDao.findById(user2.getId()).get().getEmail();
-
-//            user2.setFirstName(firstName);
-//            user2.setLastName(lastName);
-//            user2.setUsername(userName);
-//            user2.setEmail(email);
             User user = userDao.findById(loggedInUser.getId()).get();
             user.setPassword(passwordEncoder.encode(newPassword));
             userDao.save(user);
@@ -103,5 +95,26 @@ public class UserController {
     }
 
 
+
+    @PostMapping("/profile/delete")
+    public String deleteAccount() {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User actualUser = userDao.findById(loggedInUser.getId()).get();
+        userDao.delete(actualUser);
+        SecurityContextHolder.clearContext();
+        return "redirect:/my/logout";
+    }
+
+
+    @GetMapping("/my/logout")
+    public String manualLogout(HttpServletRequest request) {
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "redirect:/";
+    }
 
 }
