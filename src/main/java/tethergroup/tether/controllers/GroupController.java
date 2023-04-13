@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.Group;
+import tethergroup.tether.models.Membership;
 import tethergroup.tether.models.PostType;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
+import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
@@ -24,6 +26,7 @@ public class GroupController {
     private final GroupRepository groupDao;
     private final UserRepository userDao;
     private final PostTypeRepository postTypeDao;
+    private final MembershipRepository membershipDao;
 
     @GetMapping ("/groups")
     @Transactional
@@ -67,7 +70,8 @@ public class GroupController {
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
 
-        List<User> members = userDao.findByGroupId(group.getId());
+        List<User> members = userDao.findByGroupId(groupId);
+
         boolean isMember = false;
 
         try {
@@ -125,7 +129,6 @@ public class GroupController {
     public String returnMembersListPage(Model model, @PathVariable Long groupId) {
         List<User> members = userDao.findByGroupId(groupId);
         User admin = groupDao.findById(groupId).get().getAdmin();
-        System.out.println(members);
         model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";
@@ -133,38 +136,40 @@ public class GroupController {
 
     @Transactional
     @PostMapping("/group/{groupId}/join")
-    public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
+    public String requestToJoinGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
+        Membership newMembership = new Membership();
 
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<User> newMember = group.getMembers();
-            newMember.add(loggedInUser);
-            group.setMembers(newMember);
+            newMembership.setUser(loggedInUser);
+            newMembership.setGroup(group);
+            newMembership.setPending(group.isPrivate());
         } catch (Exception e) {
             return "redirect:/group/" + group.getId();
         }
 
-        groupDao.save(group);
+        membershipDao.save(newMembership);
         return "redirect:/group/" + group.getId();
     }
 
     @Transactional
     @PostMapping("/group/{groupId}/leave")
-    public String leaveGroup(Model model, @PathVariable Long groupId) {
+    public String leaveGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
+        Membership membership = new Membership();
 
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User originalUser = userDao.findById(loggedInUser.getId()).get();
-            List<User> members = userDao.findByGroupId(group.getId());
-            members.remove(originalUser);
-            group.setMembers(members);
+
+            membership = membershipDao.findMembershipByUser_IdAndGroup_Id(originalUser.getId(), group.getId());
+
         } catch (Exception e) {
             return "redirect:/group/" + group.getId();
         }
 
-        groupDao.save(group);
+        membershipDao.delete(membership);
         return "redirect:/group/" + group.getId();
     }
 
