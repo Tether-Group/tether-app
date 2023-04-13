@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                         "/group/delete",
                         "/posts/{id}/edit",
                         "/post/edit",
+                        "/post/delete",
                         "/profile/{username}",
                         "/profile/delete",
                         "/profile/edit",

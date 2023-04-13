@@ -1,12 +1,14 @@
 package tethergroup.tether.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tethergroup.tether.models.Post;
+import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
 import tethergroup.tether.repositories.PostRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
@@ -113,11 +115,40 @@ public class PostController {
     @PostMapping("/post/edit")
     public String editPost(@RequestParam(name = "header") String header,
                            @RequestParam(name = "body") String body,
-                           @RequestParam(name = "id") Long id) {
-        Post editedPost = postDao.findById(id).get();
-        editedPost.setHeader(header);
-        editedPost.setBody(body);
-        postDao.save(editedPost);
+                           @RequestParam(name = "id") Long postId) {
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userOfPost = postDao.findById(postId).get().getUser();
+            if (userOfPost.getId() == loggedInUser.getId()) {
+                Post editedPost = postDao.findById(postId).get();
+                editedPost.setHeader(header);
+                editedPost.setBody(body);
+                postDao.save(editedPost);
+            } else {
+                System.out.println("User is not the original poster of the post");
+            }
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+            return "redirect:/error";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/post/delete")
+    public String deletePost(@RequestParam(name = "id") Long postId) {
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userOfPost = postDao.findById(postId).get().getUser();
+            if (userOfPost.getId() == loggedInUser.getId()) {
+                Post postToBeDeleted = postDao.findById(postId).get();
+                postDao.delete(postToBeDeleted);
+            } else {
+                System.out.println("User is not the original poster of the post");
+            }
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+            return "redirect:/error";
+        }
         return "redirect:/";
     }
 
