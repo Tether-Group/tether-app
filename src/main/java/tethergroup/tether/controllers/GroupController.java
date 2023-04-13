@@ -66,6 +66,7 @@ public class GroupController {
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
+
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
@@ -118,4 +119,14 @@ public class GroupController {
         model.addAttribute("members", members);
         return "groups/members";
     }
+
+    @PostMapping("/group/{groupId}/join")
+    public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
+        Group group = groupDao.findById(groupId).get();
+        boolean privateGroup = group.isPrivate();
+//        if a user is logged in, they should be able to send a join request
+//        once request is submitted, it will alter the HTML of the button
+        return "redirect:/group/" + group.getId();
+    }
+
 }

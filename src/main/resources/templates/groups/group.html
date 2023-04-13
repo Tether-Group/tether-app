@@ -14,6 +14,15 @@
 <h1>This is the GROUP page</h1>
 
 <div class="container">
+    <div sec:authorize="isAuthenticated()">
+        <div th:if="${loggedInUser.getId() != groupCreator.getId()}">
+            <!--        <form th:action="@{/group/{groupId}/join(groupId=${group.getId()})}" th:method="POST">-->
+            <button id="join-group-btn" type="button" class="btn btn-primary">
+                Join Group
+            </button>
+            <!--        </form>-->
+        </div>
+    </div>
     <div>
         <h1><span th:text="${group.name}"></span></h1>
         <h5><span th:text="${group.description}"></span></h5>
