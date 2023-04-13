@@ -24,77 +24,84 @@
     </div>
 </div>
 
-<!--button displays on page-->
-<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
-        Edit Group
-    </button>
-</div>
-<div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editGroupModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div sec:authorize="isAuthenticated()">
+    <!--button displays on page-->
+    <div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+            Edit Group
+        </button>
+    </div>
+    <div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGroupModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:method="post" th:action="@{/group/edit}" th:object="${group}">
+                    <div class="modal-body">
+                        <label for="group-name">Group Name:</label>
+                        <input type="text" name="name" id="group-name" th:value="${group.name}" th:field="*{name}"
+                               required>
+                        <br>
+                        <label for="description">Description:</label>
+                        <input name="description" id="description" th:value="${group.description}"
+                               th:field="*{description}"
+                               required>
+                        <br>
+                        <label for="visibility">Visibility:</label>
+                        <input type="checkbox" name="private" th:value="${group.private}" th:field="*{private}"
+                               id="visibility">
+                        <span>Private</span>
+                        <br>
+                        <label for="post-types">Post Types:</label>
+                        <select name="postTypes" id="post-types" th:value="${group.postTypes}" th:field="*{postTypes}"
+                                multiple>
+                            <option value="1">Event</option>
+                            <option value="2">For Sale</option>
+                            <option value="3">Q&A</option>
+                        </select>
+                        <br>
+                        <input type="hidden" th:field="*{id}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit Edit</button>
+                    </div>
+                </form>
             </div>
-            <form th:method="post" th:action="@{/group/edit}" th:object="${group}">
-                <div class="modal-body">
-                    <label for="group-name">Group Name:</label>
-                    <input type="text" name="name" id="group-name" th:value="${group.name}" th:field="*{name}" required>
-                    <br>
-                    <label for="description">Description:</label>
-                    <input name="description" id="description" th:value="${group.description}" th:field="*{description}"
-                           required>
-                    <br>
-                    <label for="visibility">Visibility:</label>
-                    <input type="checkbox" name="private" th:value="${group.private}" th:field="*{private}"
-                           id="visibility">
-                    <span>Private</span>
-                    <br>
-                    <label for="post-types">Post Types:</label>
-                    <select name="postTypes" id="post-types" th:value="${group.postTypes}" th:field="*{postTypes}"
-                            multiple>
-                        <option value="1">Event</option>
-                        <option value="2">For Sale</option>
-                        <option value="3">Q&A</option>
-                    </select>
-                    <br>
-                    <input type="hidden" th:field="*{id}">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit Edit</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
 
-<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-    Delete Group
-</button>
-</div>
-<div class="modal fade" id="deleteGroupModal" tabindex="-1" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteGroupModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:method="post" th:action="@{/group/delete}" th:object="${group}">
-                <div class="modal-body">
-                    <label for="group-name">Group Name:</label>
-                    <div name="name" id="group-name-delete">Are you sure you want to delete: <span
-                            th:text="${group.name}" th:field="*{name}"></span>?
+<div sec:authorize="isAuthenticated()">
+    <div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+            Delete Group
+        </button>
+    </div>
+    <div class="modal fade" id="deleteGroupModal" tabindex="-1" aria-labelledby="deleteGroupModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteGroupModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:method="post" th:action="@{/group/delete}" th:object="${group}">
+                    <div class="modal-body">
+                        <label for="group-name">Group Name:</label>
+                        <div name="name" id="group-name-delete">Are you sure you want to delete: <span
+                                th:text="${group.name}" th:field="*{name}"></span>?
+                        </div>
+                        <input type="hidden" th:field="*{id}">
                     </div>
-                    <input type="hidden" th:field="*{id}">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
