@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                         "/group/delete",
                         "/posts/{id}/edit",
                         "/post/edit",
+                        "/post/delete",
                         "/profile/{username}")
                 .authenticated()
                 /* Pages that can be viewed without having to log in */

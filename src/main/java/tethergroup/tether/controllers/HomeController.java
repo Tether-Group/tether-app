@@ -1,11 +1,13 @@
 package tethergroup.tether.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import tethergroup.tether.models.Group;
 import tethergroup.tether.models.Post;
+import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
 import tethergroup.tether.repositories.PostRepository;
 import tethergroup.tether.repositories.UserRepository;
@@ -27,7 +29,12 @@ public class HomeController {
     public String returnLandingPage(Model model) {
         List<Group> randomGroups = groupDao.randomGroupsLimitFive();
         model.addAttribute("randoGroups", randomGroups);
-
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("loggedInUser", loggedInUser);
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+        }
         List<Post> posts = postDao.findAll();
         List<Group> groups = groupDao.findAll();
         model.addAttribute("posts",posts);
