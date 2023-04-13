@@ -66,9 +66,21 @@ public class GroupController {
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
+
+        List<User> members = userDao.findByGroupId(group.getId());
+        boolean isMember = false;
+
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
+
+            for (User member : members) {
+                if (member.getId() == loggedInUser.getId()) {
+                    isMember = true;
+                    break;
+                }
+            }
+            model.addAttribute("isMember", isMember);
         } catch (Exception e) {
             return "groups/group";
         }
@@ -118,4 +130,42 @@ public class GroupController {
         model.addAttribute("members", members);
         return "groups/members";
     }
+
+    @Transactional
+    @PostMapping("/group/{groupId}/join")
+    public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
+        Group group = groupDao.findById(groupId).get();
+
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<User> newMember = group.getMembers();
+            newMember.add(loggedInUser);
+            group.setMembers(newMember);
+        } catch (Exception e) {
+            return "redirect:/group/" + group.getId();
+        }
+
+        groupDao.save(group);
+        return "redirect:/group/" + group.getId();
+    }
+
+    @Transactional
+    @PostMapping("/group/{groupId}/leave")
+    public String leaveGroup(Model model, @PathVariable Long groupId) {
+        Group group = groupDao.findById(groupId).get();
+
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User originalUser = userDao.findById(loggedInUser.getId()).get();
+            List<User> members = userDao.findByGroupId(group.getId());
+            members.remove(originalUser);
+            group.setMembers(members);
+        } catch (Exception e) {
+            return "redirect:/group/" + group.getId();
+        }
+
+        groupDao.save(group);
+        return "redirect:/group/" + group.getId();
+    }
+
 }
