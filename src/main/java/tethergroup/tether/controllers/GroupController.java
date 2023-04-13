@@ -5,18 +5,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import tethergroup.tether.models.Group;
-import tethergroup.tether.models.Membership;
-import tethergroup.tether.models.PostType;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
-import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,7 +24,6 @@ public class GroupController {
     private final GroupRepository groupDao;
     private final UserRepository userDao;
     private final PostTypeRepository postTypeDao;
-    private final MembershipRepository membershipDao;
 
     @GetMapping ("/groups")
     @Transactional
@@ -65,13 +62,15 @@ public class GroupController {
 
     @GetMapping("/group/{groupId}")
     public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
-        Group group = groupDao.findById(groupId).get();
+        Group group = groupDao.findById(groupId).orElse(null);
+        if (group == null) {
+            return "redirect:/error";
+        }
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
 
-        List<User> members = userDao.findByGroupId(groupId);
-
+        List<User> members = userDao.findByGroupId(group.getId());
         boolean isMember = false;
 
         try {
@@ -136,40 +135,38 @@ public class GroupController {
 
     @Transactional
     @PostMapping("/group/{groupId}/join")
-    public String requestToJoinGroup(@PathVariable Long groupId) {
+    public String requestToJoinGroup(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
-        Membership newMembership = new Membership();
 
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            newMembership.setUser(loggedInUser);
-            newMembership.setGroup(group);
-            newMembership.setPending(group.isPrivate());
+            List<User> newMember = group.getMembers();
+            newMember.add(loggedInUser);
+            group.setMembers(newMember);
         } catch (Exception e) {
             return "redirect:/group/" + group.getId();
         }
 
-        membershipDao.save(newMembership);
+        groupDao.save(group);
         return "redirect:/group/" + group.getId();
     }
 
     @Transactional
     @PostMapping("/group/{groupId}/leave")
-    public String leaveGroup(@PathVariable Long groupId) {
+    public String leaveGroup(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
-        Membership membership = new Membership();
 
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User originalUser = userDao.findById(loggedInUser.getId()).get();
-
-            membership = membershipDao.findMembershipByUser_IdAndGroup_Id(originalUser.getId(), group.getId());
-
+            List<User> members = userDao.findByGroupId(group.getId());
+            members.remove(originalUser);
+            group.setMembers(members);
         } catch (Exception e) {
             return "redirect:/group/" + group.getId();
         }
 
-        membershipDao.delete(membership);
+        groupDao.save(group);
         return "redirect:/group/" + group.getId();
     }
 

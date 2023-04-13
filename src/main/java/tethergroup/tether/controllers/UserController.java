@@ -46,6 +46,9 @@ public class UserController {
     @GetMapping("/profile/{username}")
     public String returnProfilePage(Model model, @PathVariable String username) {
         User user = userDao.findByUsername(username);
+        if (user == null) {
+            return "redirect:/error";
+        }
         model.addAttribute("user", user);
         return "users/profile";
     }
