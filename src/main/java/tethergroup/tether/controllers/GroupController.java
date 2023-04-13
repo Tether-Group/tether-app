@@ -73,22 +73,21 @@ public class GroupController {
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
-
-        List<User> members = userDao.findByGroupId(groupId);
-
-        boolean isMember = false;
-
+        Membership membership = new Membership();
+        boolean isMember = true;
+        boolean isPending = true;
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
+            membership = membershipDao.findMembershipByUser_IdAndGroup_Id(loggedInUser.getId(), group.getId());
 
-            for (User member : members) {
-                if (member.getId() == loggedInUser.getId()) {
-                    isMember = true;
-                    break;
-                }
+            if (membership == null) {
+                model.addAttribute("isMember", false);
+                model.addAttribute("isPending", false);
+            } else if (membership.isPending()) {
+                model.addAttribute("isPending", isPending);
+                model.addAttribute("isMember", false);
             }
-            model.addAttribute("isMember", isMember);
         } catch (Exception e) {
             return "groups/group";
         }
