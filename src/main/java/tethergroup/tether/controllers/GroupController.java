@@ -42,11 +42,6 @@ public class GroupController {
         return "groups/group-list";
     }
 
-    @GetMapping("/group")
-    public String showGroupPage() {
-        return "groups/group";
-    }
-
     @GetMapping("/group/create")
     public String returnGroupCreatePage(Model model) {
         model.addAttribute("group", new Group());
@@ -64,14 +59,17 @@ public class GroupController {
     @GetMapping("/group/{groupId}")
     public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User groupCreator = groupDao.findById(groupId).get().getAdmin();
+
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
-//        model.addAttribute("editGroup", new Group());
         return "groups/group";
     }
 
     @PostMapping("/group/edit")
     public String editGroup(@ModelAttribute("group") Group group) {
-//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
         groupDao.save(group);
@@ -80,8 +78,6 @@ public class GroupController {
 
     @PostMapping("/group/delete")
     public String deleteGroup(@ModelAttribute("group") Group group) {
-//        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Group originalGroup = groupDao.findById(group.getId()).get();
         groupDao.deleteById(group.getId());
         return "redirect:/groups";
     }

@@ -25,9 +25,11 @@
 </div>
 
 <!--button displays on page-->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
-    Edit Group
-</button>
+<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+        Edit Group
+    </button>
+</div>
 <div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,14 +43,17 @@
                     <input type="text" name="name" id="group-name" th:value="${group.name}" th:field="*{name}" required>
                     <br>
                     <label for="description">Description:</label>
-                    <input name="description" id="description" th:value="${group.description}" th:field="*{description}" required>
+                    <input name="description" id="description" th:value="${group.description}" th:field="*{description}"
+                           required>
                     <br>
                     <label for="visibility">Visibility:</label>
-                    <input type="checkbox" name="private" th:value="${group.private}" th:field="*{private}" id="visibility">
+                    <input type="checkbox" name="private" th:value="${group.private}" th:field="*{private}"
+                           id="visibility">
                     <span>Private</span>
                     <br>
                     <label for="post-types">Post Types:</label>
-                    <select name="postTypes" id="post-types" th:value="${group.postTypes}" th:field="*{postTypes}" multiple>
+                    <select name="postTypes" id="post-types" th:value="${group.postTypes}" th:field="*{postTypes}"
+                            multiple>
                         <option value="1">Event</option>
                         <option value="2">For Sale</option>
                         <option value="3">Q&A</option>
@@ -65,9 +70,11 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-    Delete Group
-</button>
+<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+        Delete Group
+    </button>
+</div>
 <div class="modal fade" id="deleteGroupModal" tabindex="-1" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -78,7 +85,9 @@
             <form th:method="post" th:action="@{/group/delete}" th:object="${group}">
                 <div class="modal-body">
                     <label for="group-name">Group Name:</label>
-                    <div name="name" id="group-name-delete">Are you sure you want to delete: <span th:text="${group.name}" th:field="*{name}"></span>?</div>
+                    <div name="name" id="group-name-delete">Are you sure you want to delete: <span
+                            th:text="${group.name}" th:field="*{name}"></span>?
+                    </div>
                     <input type="hidden" th:field="*{id}">
                 </div>
                 <div class="modal-footer">
