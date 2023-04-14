@@ -38,11 +38,12 @@ public class PostController {
     @PostMapping("/post/create/text")
     public String createTextPost(
                              @RequestParam("header") String title,
-                             @RequestParam("body") String body) {
+                             @RequestParam("body") String body,
+                             @RequestParam("id") Long groupId) {
         Post post = new Post();
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(loggedInUser);
-        post.setGroup(groupDao.findById(3L).get());
+        post.setGroup(groupDao.findById(groupId).get());
         post.setHeader(title);
         post.setBody(body);
         post.setPostType(postTypeDao.findById(1L).get());
@@ -58,11 +59,12 @@ public class PostController {
             @RequestParam("header") String title,
             @RequestParam("date") LocalDate dateString,
             @RequestParam("address") String address,
-            @RequestParam("body") String body) {
+            @RequestParam("body") String body,
+            @RequestParam("id") Long groupId) {
         Post post = new Post();
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(loggedInUser);
-        post.setGroup(groupDao.findById(3L).get());
+        post.setGroup(groupDao.findById(groupId).get());
         post.setHeader(title);
         post.setEventAddress(address);
         post.setEventDate(dateString);
@@ -81,11 +83,12 @@ public class PostController {
             @RequestParam("header") String title,
             @RequestParam("price") Integer price,
             @RequestParam("address") String address,
-            @RequestParam("body") String body) {
+            @RequestParam("body") String body,
+            @RequestParam("id") Long groupId) {
         Post post = new Post();
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(loggedInUser);
-        post.setGroup(groupDao.findById(3L).get());
+        post.setGroup(groupDao.findById(groupId).get());
         post.setHeader(title);
         post.setEventAddress(address);
         post.setPostPrice(price);
@@ -102,11 +105,12 @@ public class PostController {
     @PostMapping("/post/create/QandA")
     public String createQandAPost(
             @RequestParam("header") String title,
-            @RequestParam("body") String body) {
+            @RequestParam("body") String body,
+            @RequestParam("id") Long groupId) {
         Post post = new Post();
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(loggedInUser);
-        post.setGroup(groupDao.findById(3L).get());
+        post.setGroup(groupDao.findById(groupId).get());
         post.setHeader(title);
         post.setBody(body);
         post.setPostType(postTypeDao.findById(4L).get());

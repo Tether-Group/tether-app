@@ -59,9 +59,10 @@
 
 									<p>This is the form for a default post</p>
 									<form th:method="@{post}" th:action="@{/post/create/text}">
+										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
 										<label for="header">Title:</label>
 										<input type="text" name="header"><br><br>
-										<label for="body">Content:</label>
+										<label>Content:</label>
 										<textarea name="body"></textarea><br><br>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,13 +82,14 @@
 									<h3>Event</h3>
 									<p>This is a form for an event post </p>
 									<form th:method="@{post}" th:action="@{/post/create/event}">
+										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
 										<label for="header">Title:</label>
 										<input type="text" name="header"><br><br>
 										<label for="date">Date:</label>
 										<input type="date" id="date" name="date"><br><br>
-										<label for="address">Address:</label>
+										<label>Address:</label>
 										<input type="text" name="address"><br><br>
-										<label for="body">Content:</label>
+										<label>Content:</label>
 										<textarea name="body"></textarea><br><br>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -107,13 +109,14 @@
 									<h3>For Sale</h3>
 									<p>This is a form for a for sale post </p>
 									<form th:method="@{post}" th:action="@{/post/create/sell}">
+										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
 										<label for="header">Title:</label>
 										<input type="text" name="header"><br><br>
 										<label for="price">Price:</label>
 										<input type="text" id="price" name="price"><br><br>
-										<label for="address">Address:</label>
+										<label>Address:</label>
 										<input type="text" name="address"><br><br>
-										<label for="body">Content:</label>
+										<label>Content:</label>
 										<textarea name="body"></textarea><br><br>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -133,6 +136,7 @@
 									<h3>Q and A</h3>
 									<p>This is a form for a Q and A post </p>
 									<form th:method="@{post}" th:action="@{/post/create/QandA}">
+										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
 										<label for="header">Question:</label>
 										<input type="text" id="header" name="header"><br><br>
 										<label>Context:</label>
