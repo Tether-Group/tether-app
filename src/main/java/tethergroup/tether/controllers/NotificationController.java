@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import tethergroup.tether.models.Group;
 import tethergroup.tether.models.Membership;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.GroupRepository;
@@ -35,8 +36,14 @@ public class NotificationController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("loggedInUser", loggedInUser);
 
-        List<User> userRequests = userDao.findAdminsPendingGroupRequestsCount(loggedInUser.getId());
-        System.out.println(userRequests);
+        List<User> groupRequests = userDao.findAdminsPendingGroupRequestsCount(loggedInUser.getId());
+        model.addAttribute("userGroupRequests", groupRequests);
+
+        int requestCount = 0;
+        for (User user : groupRequests) {
+            requestCount++;
+        }
+        model.addAttribute("requestCount", requestCount);
 
         return "users/notifications";
 //        return "redirect:/error";

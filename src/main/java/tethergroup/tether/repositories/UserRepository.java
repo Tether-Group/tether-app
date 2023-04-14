@@ -19,6 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByGroupId(@Param("group_id")Long groupId);
 
     @Query(nativeQuery = true,
-            value = "SELECT u.id, u.username, u.first_name, u.last_name, u.email, u.password, u.bio FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
+//            value = "SELECT u.id, u.username, u.first_name, u.last_name, u.email, u.password, u.bio FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
+            value = "SELECT u.* FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     List<User> findAdminsPendingGroupRequestsCount(@Param("id")Long id);
 }
