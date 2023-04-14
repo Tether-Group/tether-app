@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -66,7 +68,13 @@ public class UserController {
     @GetMapping("/profile/settings")
     public String returnSettingsPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+        } else {
+            return "redirect:/login";
+        }
         return "users/edit-user";
     }
 

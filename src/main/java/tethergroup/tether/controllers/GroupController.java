@@ -74,8 +74,6 @@ public class GroupController {
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
         Membership membership = new Membership();
-        boolean isMember = true;
-        boolean isPending = true;
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
@@ -85,8 +83,11 @@ public class GroupController {
                 model.addAttribute("isMember", false);
                 model.addAttribute("isPending", false);
             } else if (membership.isPending()) {
-                model.addAttribute("isPending", isPending);
+                model.addAttribute("isPending", true);
                 model.addAttribute("isMember", false);
+            } else {
+                model.addAttribute("isPending", false);
+                model.addAttribute("isMember", true);
             }
         } catch (Exception e) {
             return "groups/group";
