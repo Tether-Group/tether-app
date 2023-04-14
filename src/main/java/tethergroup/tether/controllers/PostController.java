@@ -28,11 +28,11 @@ public class PostController {
     private final PostTypeRepository postTypeDao;
 
 
-    @GetMapping("/post/create")
-    public String createPost(Model model){
-        model.addAttribute("post", new Post());
-        return "posts/create-post";
-    }
+//    @GetMapping("/post/create")
+//    public String createPost(Model model){
+//        model.addAttribute("post", new Post());
+//        return "posts/create-post";
+//    }
 
 
     @PostMapping("/post/create/text")
