@@ -13,4 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findLikePostNameOrHeaderOrBody(@Param("term") String post);
 
     List<Post> findByOrderByPostDateDesc();
+
+    List<Post> findByGroup_Id(Long groupId);
 }
