@@ -116,10 +116,12 @@ public class PostController {
         return "index";
     }
 
-    @PostMapping("/post/edit")
+
+    @PostMapping("/post/text/edit")
     public String editPost(@RequestParam(name = "header") String header,
                            @RequestParam(name = "body") String body,
-                           @RequestParam(name = "id") Long postId) {
+                           @RequestParam(name = "id") Long postId)
+    {
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User userOfPost = postDao.findById(postId).get().getUser();
@@ -127,6 +129,59 @@ public class PostController {
                 Post editedPost = postDao.findById(postId).get();
                 editedPost.setHeader(header);
                 editedPost.setBody(body);
+                postDao.save(editedPost);
+            } else {
+                System.out.println("User is not the original poster of the post");
+            }
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+            return "redirect:/error";
+        }
+        return "redirect:/";
+    }
+
+
+    @PostMapping("/post/event/edit")
+    public String editPost(@RequestParam(name = "header") String header,
+                           @RequestParam(name = "body") String body,
+                           @RequestParam(name = "id") Long postId,
+                           @RequestParam(name = "eventDate") LocalDate eventDate,
+                           @RequestParam(name = "eventAddress") String eventAddress)
+    {
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userOfPost = postDao.findById(postId).get().getUser();
+            if (userOfPost.getId() == loggedInUser.getId()) {
+                Post editedPost = postDao.findById(postId).get();
+                editedPost.setHeader(header);
+                editedPost.setBody(body);
+                editedPost.setEventDate(eventDate);
+                editedPost.setEventAddress(eventAddress);
+                postDao.save(editedPost);
+            } else {
+                System.out.println("User is not the original poster of the post");
+            }
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+            return "redirect:/error";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/post/sale/edit")
+    public String editPost(@RequestParam(name = "header") String header,
+                           @RequestParam(name = "body") String body,
+                           @RequestParam(name = "id") Long postId,
+                           @RequestParam(name = "price") int postPrice)
+    {
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userOfPost = postDao.findById(postId).get().getUser();
+            if (userOfPost.getId() == loggedInUser.getId()) {
+                Post editedPost = postDao.findById(postId).get();
+                editedPost.setHeader(header);
+                editedPost.setBody(body);
+                editedPost.setPostPrice(postPrice);
                 postDao.save(editedPost);
             } else {
                 System.out.println("User is not the original poster of the post");

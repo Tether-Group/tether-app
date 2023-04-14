@@ -76,16 +76,19 @@
 		<div th:each="post: ${posts}">
 
 			<div th:if="${post.getPostType().getId() == 1}">
-			<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+				<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
 			</div>
 
 			<div th:if="${post.getPostType().getId() == 2}">
+				<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
 			</div>
 
 			<div th:if="${post.getPostType().getId() == 3}">
+				<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
 			</div>
 
 			<div th:if="${post.getPostType().getId() == 4}">
+				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
 
 		</div>
