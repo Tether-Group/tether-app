@@ -36,7 +36,7 @@
     </div>
     <!--    leave group button/form-->
     <div sec:authorize="isAuthenticated()">
-        <div th:if="${loggedInUser.getId() != groupCreator.getId() && isMember}">
+        <div th:if="${loggedInUser.getId() != groupCreator.getId() && isMember && !isPending}">
             <form th:action="@{/group/{groupId}/leave(groupId=${group.getId()})}" th:method="POST">
                 <button id="leave-group-btn" type="submit" class="btn btn-danger">
                     Leave Group

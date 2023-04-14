@@ -1,0 +1,58 @@
+<th:block th:fragment="text-post">
+
+	<div class="list-group-item list-group-item-action my-2">
+		<div th:id="'post-content'+${post.id}">
+			<div class="d-flex w-100 justify-content-between post-item">
+				<h5 class="mb-1"><span th:text="${post.header}"></span></h5>
+				<small th:text="${post.postDateToString()}"></small>
+			</div>
+			<p class="mb-1"><span th:text="${post.body}"></span></p>
+			<a th:href="@{'/profile/' + ${post.user.getUsername()}}"><small><span th:text="${post.user}"></span></small></a>
+			<a th:href="@{'/group/' + ${post.group.getId()}}"><small><span
+					th:text="${post.group}"></span></small></a>
+		</div>
+
+		<div sec:authorize="isAuthenticated()">
+
+			<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/edit}" hidden>
+				<div class="d-flex w-100 justify-content-between post-item">
+					<input th:name="header" class="mb-1" th:value="${post.header}">
+					<small th:text="${post.postDateToString()}"></small>
+				</div>
+				<input th:name="body" class="mb-1" th:value="${post.body}">
+				<br>
+				<small><span th:text="${post.user}"></span></small>
+
+				<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+
+
+				<div th:if="${loggedInUser.getId() == post.user.id}">
+					<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
+							class="btn btn-secondary">Cancel
+					</button>
+
+					<button type="submit" th:id="'save-button'+${post.id}"
+							class="btn btn-success">Save
+					</button>
+				</div>
+			</form>
+
+			<div th:if="${loggedInUser.getId() == post.user.id}">
+				<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+						class="btn btn-warning">
+					Edit
+				</button>
+
+				<form th:method="post" th:action="@{/post/delete}">
+					<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+					<button type="submit" th:id="'delete-button'+${post.id}"
+							class="btn btn-danger">
+						Delete
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</th:block>
+
