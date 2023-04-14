@@ -40,7 +40,8 @@ public class PostController {
                              @RequestParam("header") String title,
                              @RequestParam("body") String body) {
         Post post = new Post();
-        post.setUser(userDao.findById(7L).get());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setBody(body);
@@ -48,7 +49,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "index";
+        return "redirect:/";
     }
 
 
@@ -59,7 +60,8 @@ public class PostController {
             @RequestParam("address") String address,
             @RequestParam("body") String body) {
         Post post = new Post();
-        post.setUser(userDao.findById(7L).get());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setEventAddress(address);
@@ -81,7 +83,8 @@ public class PostController {
             @RequestParam("address") String address,
             @RequestParam("body") String body) {
         Post post = new Post();
-        post.setUser(userDao.findById(7L).get());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setEventAddress(address);
@@ -101,7 +104,8 @@ public class PostController {
             @RequestParam("header") String title,
             @RequestParam("body") String body) {
         Post post = new Post();
-        post.setUser(userDao.findById(7L).get());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         post.setGroup(groupDao.findById(3L).get());
         post.setHeader(title);
         post.setBody(body);

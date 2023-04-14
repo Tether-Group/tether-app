@@ -48,6 +48,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/post/create",
+                        "/post/create/text",
+                        "/post/create/event",
+                        "/post/create/sell",
+                        "/post/create/QandA",
                         "/group/create",
                         "/group/edit",
                         "/group/delete",
