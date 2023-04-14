@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+</head>
+<body>
+<th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<h1>This is the notifications page</h1>
+
+<div th:text="${loggedInUser.getUsername()}"></div>
+
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</body>
+</html>

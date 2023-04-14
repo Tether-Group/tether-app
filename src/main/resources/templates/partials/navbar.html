@@ -24,16 +24,19 @@
               <li><a class="dropdown-item" th:href="@{/profile/settings}">My Account</a></li>
             </ul>
           </li>
+          <li sec:authorize="isAuthenticated()" class="nav-item">
+            <a class="dropdown-item" th:href="@{/notifications}">View Notifications</a>
+          </li>
           <li sec:authorize="!isAuthenticated()" class="nav-item">
             <a class="nav-link" href="/login">Login/Register</a>
           </li>
           <li sec:authorize="isAuthenticated()" class="nav-item">
-            <form th:action="@{/logout}" th:method="post">
+            <form th:action="@{/logout}" th:method="POST">
               <button class="nav-link btn">Logout</button>
             </form>
           </li>
         </ul>
-        <form class="d-flex" th:action="@{/search-results}" th:method="get">
+        <form class="d-flex" th:action="@{/search-results}" th:method="GET">
           <input class="form-control me-2" type="search" placeholder="Search by Group, User, or Keywords" name="search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
