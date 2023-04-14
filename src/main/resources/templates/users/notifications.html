@@ -13,16 +13,21 @@
 
 <div sec:authorize="isAuthenticated()">
     <h1>This is the notifications page</h1>
-    <h2 th:text="${loggedInUser.getUsername()}"></h2>
+    <h2 th:text="${loggedInUser.username}"></h2>
 
     <div>You have <span th:text="${requestCount}"></span> notifications.</div>
     <div th:each="user : ${users}">
         <div th:each="membership : ${user.memberships}">
             <div th:if="${membership.pending == true}">
-                <a th:text="${user.username}"
-                   th:href="@{/profile/{username}(username=${user.username})}"></a>
+                <a th:text="${user.username}" th:href="@{/profile/{username}(username=${user.username})}"></a>
                 would like to join your group
                 <span th:text="${membership.group}"></span>
+                <form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
+                    <button class="btn btn-outline-success">Accept</button>
+                </form>
+                <form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
+                    <button class="btn btn-outline-danger">Deny</button>
+                </form>
             </div>
         </div>
     </div>

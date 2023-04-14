@@ -52,9 +52,28 @@ public class NotificationController {
                 .collect(Collectors.toSet())
         );
 
-        List<Group> groups = groupDao.findGroupsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
-
         return "users/notifications";
 //        return "redirect:/error";
+    }
+
+    @Transactional
+    @PostMapping("/notifications/deny/{id}")
+    public String denyGroupRequest(@PathVariable("id") Long membershipId) {
+        try {
+            Membership membershipToDelete = membershipDao.findById(membershipId).get();
+            System.out.println(membershipToDelete);
+            membershipDao.delete(membershipToDelete);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/notifications";
+    }
+
+    @PostMapping("/notifications/accept/{id}")
+    public String acceptGroupRequest(@PathVariable("id") Long membershipId) {
+        Membership membershipToAccept = membershipDao.findById(membershipId).get();
+        membershipToAccept.setPending(false);
+        membershipDao.save(membershipToAccept);
+        return "redirect:/notifications";
     }
 }
