@@ -1,0 +1,153 @@
+<th:block th:fragment="create-post">
+
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		Create a post
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Create a Post</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+
+					<h6>Choose the type of post you would like to make</h6>
+
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<!--						Normal post tab-->
+						<li th:if="${postTypeIdsOfGroup.contains(postType1Id)}" class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-post-tab" data-bs-toggle="pill"
+									data-bs-target="#pills-post" type="button" role="tab">Default
+							</button>
+						</li>
+						<!--						Event post tab-->
+						<li th:if="${postTypeIdsOfGroup.contains(postType2Id)}"  class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-event-tab" data-bs-toggle="pill"
+									data-bs-target="#pills-event" type="button" role="tab">Event
+							</button>
+						</li>
+						<!--						For sale post tab-->
+						<li th:if="${postTypeIdsOfGroup.contains(postType3Id)}"  class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-sell-tab" data-bs-toggle="pill"
+									data-bs-target="#pills-sell"
+									type="button" role="tab">For Sale
+							</button>
+						</li>
+						<!--						Q and A post tab-->
+						<li th:if="${postTypeIdsOfGroup.contains(postType4Id)}"  class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-QandA-tab" data-bs-toggle="pill"
+									data-bs-target="#pills-QandA" type="button" role="tab">Q and A
+							</button>
+						</li>
+
+					</ul>
+
+
+					<div class="tab-content" id="pills-tabContent">
+
+
+						<div th:if="${postTypeIdsOfGroup.contains(postType1Id)}" class="tab-pane fade show active" id="pills-post" role="tabpanel">
+							<div class="card" style="width: 18rem;">
+								<div class="card-body">
+
+									<h3>Default</h3>
+
+									<p>This is the form for a default post</p>
+									<form th:method="@{post}" th:action="@{/post/create/text}">
+										<label for="header">Title:</label>
+										<input type="text" name="header"><br><br>
+										<label for="body">Content:</label>
+										<textarea name="body"></textarea><br><br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div th:if="${postTypeIdsOfGroup.contains(postType2Id)}" class="tab-pane fade" id="pills-event" role="tabpanel">
+							<div class="card" style="width: 18rem;">
+								<div class="card-body">
+
+									<h3>Event</h3>
+									<p>This is a form for an event post </p>
+									<form th:method="@{post}" th:action="@{/post/create/event}">
+										<label for="header">Title:</label>
+										<input type="text" name="header"><br><br>
+										<label for="date">Date:</label>
+										<input type="date" id="date" name="date"><br><br>
+										<label for="address">Address:</label>
+										<input type="text" name="address"><br><br>
+										<label for="body">Content:</label>
+										<textarea name="body"></textarea><br><br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div th:if="${postTypeIdsOfGroup.contains(postType3Id)}" class="tab-pane fade" id="pills-sell" role="tabpanel">
+							<div class="card" style="width: 18rem;">
+								<div class="card-body">
+
+									<h3>For Sale</h3>
+									<p>This is a form for a for sale post </p>
+									<form th:method="@{post}" th:action="@{/post/create/sell}">
+										<label for="header">Title:</label>
+										<input type="text" name="header"><br><br>
+										<label for="price">Price:</label>
+										<input type="text" id="price" name="price"><br><br>
+										<label for="address">Address:</label>
+										<input type="text" name="address"><br><br>
+										<label for="body">Content:</label>
+										<textarea name="body"></textarea><br><br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div th:if="${postTypeIdsOfGroup.contains(postType4Id)}" class="tab-pane fade" id="pills-QandA" role="tabpanel">
+							<div class="card" style="width: 18rem;">
+								<div class="card-body">
+
+									<h3>Q and A</h3>
+									<p>This is a form for a Q and A post </p>
+									<form th:method="@{post}" th:action="@{/post/create/QandA}">
+										<label for="header">Question:</label>
+										<input type="text" id="header" name="header"><br><br>
+										<label>Context:</label>
+										<textarea name="body"></textarea><br><br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
