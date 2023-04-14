@@ -55,6 +55,20 @@ public class UserController {
         return "users/profile";
     }
 
+    // my profile tab from navbar
+    @GetMapping("/profile/my-account")
+    public String returnLoggedInUserProfilePage(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+        } else {
+            return "redirect:/login";
+        }
+        return "users/profile";
+    }
+
 
 
     //    viewing friends list
