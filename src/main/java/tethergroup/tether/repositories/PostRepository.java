@@ -15,4 +15,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByOrderByPostDateDesc();
 
     List<Post> findByGroup_Id(Long groupId);
+
 }
