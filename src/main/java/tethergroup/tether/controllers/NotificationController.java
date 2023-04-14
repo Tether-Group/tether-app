@@ -35,8 +35,8 @@ public class NotificationController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("loggedInUser", loggedInUser);
 
-        List<Long> groupRequests = membershipDao.findAdminsPendingGroupRequestsCount(loggedInUser.getId());
-        System.out.println(groupRequests);
+        List<User> userRequests = userDao.findAdminsPendingGroupRequestsCount(loggedInUser.getId());
+        System.out.println(userRequests);
 
         return "users/notifications";
 //        return "redirect:/error";
