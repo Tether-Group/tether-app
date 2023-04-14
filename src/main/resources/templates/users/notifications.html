@@ -16,13 +16,17 @@
     <h2 th:text="${loggedInUser.getUsername()}"></h2>
 
     <div>You have <span th:text="${requestCount}"></span> notifications.</div>
-    <div th:each="user : ${userGroupRequests}">
-        <div>
-            <span th:text="${user.username}"></span> would like to join your group <span><a href="#"></a></span>
+    <div th:each="user : ${users}">
+        <div th:each="membership : ${user.memberships}">
+            <div th:if="${membership.pending == true}">
+                <a th:text="${user.username}"
+                   th:href="@{/profile/{username}(username=${user.username})}"></a>
+                would like to join your group
+                <span th:text="${membership.group}"></span>
+            </div>
         </div>
     </div>
-</div>
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+    <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>

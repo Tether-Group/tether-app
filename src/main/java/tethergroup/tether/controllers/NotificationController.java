@@ -14,7 +14,10 @@ import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -26,24 +29,28 @@ public class NotificationController {
     private final PostTypeRepository postTypeDao;
     private final MembershipRepository membershipDao;
 
-    //    TODO: * For admins, check the memberships table, see if they have any pending requests, get the count of those
-    //     requests for those groups that they are the admin of, and display them on the page if they are logged in, if
-    //     they are the admin.Then, for each request, display forms for accept/deny which will make the user join/reject
-    //     the membership based on the admin’s decision.
-
+    @Transactional
     @GetMapping("/notifications")
     public String showNotifications(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("loggedInUser", loggedInUser);
 
-        List<User> groupRequests = userDao.findAdminsPendingGroupRequestsCount(loggedInUser.getId());
-        model.addAttribute("userGroupRequests", groupRequests);
+        Long notificationCount = groupDao.getCountOfGroupRequestsForLoggedInUserAndAdmin(loggedInUser.getId());
+        model.addAttribute("requestCount", notificationCount);
 
-        int requestCount = 0;
-        for (User user : groupRequests) {
-            requestCount++;
-        }
-        model.addAttribute("requestCount", requestCount);
+        Set<User> users = userDao.findUsersFromGroupJoinRequestsForTheAdmin(loggedInUser.getId());
+        model.addAttribute("users", users);
+
+        model.addAttribute("needThisToDisplayMemberships",
+            users
+                .stream()
+                .flatMap(u -> u.getMemberships().stream().filter(m -> m.isPending()))
+                .collect(Collectors.toSet())
+        );
+
+        List<Group> groups = groupDao.findGroupsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
+
+        List<Membership> memberships = membershipDao.findMembershipsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
 
         return "users/notifications";
 //        return "redirect:/error";
