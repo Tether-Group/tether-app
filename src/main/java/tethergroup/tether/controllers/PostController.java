@@ -73,7 +73,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "index";
+        return "redirect:/";
     }
 
 
@@ -97,7 +97,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "index";
+        return "redirect:/";
     }
 
 
