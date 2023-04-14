@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Notifications</title>
+        <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    </head>
+<body>
+<th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+
+<div sec:authorize="isAuthenticated()">
+    <h1>This is the notifications page</h1>
+    <h2 th:text="${loggedInUser.getUsername()}"></h2>
+
+    <div>You have <span th:text="${requestCount}"></span> notifications.</div>
+    <div th:each="user : ${users}">
+        <div th:each="membership : ${user.memberships}">
+            <div th:if="${membership.pending == true}">
+                <a th:text="${user.username}"
+                   th:href="@{/profile/{username}(username=${user.username})}"></a>
+                would like to join your group
+                <span th:text="${membership.group}"></span>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+</body>
+</html>
