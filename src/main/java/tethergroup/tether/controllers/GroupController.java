@@ -131,6 +131,9 @@ public class GroupController {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
 
+        List<PostType> postTypesForGroup = group.getPostTypes();
+        postTypesForGroup.add(postTypeDao.findById(1L).get());
+
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupAdmin = originalGroup.getAdmin();
 
