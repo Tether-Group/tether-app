@@ -14,7 +14,7 @@
 
 		<div sec:authorize="isAuthenticated()">
 
-			<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/edit}" hidden>
+			<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/text/edit}" hidden>
 				<div class="d-flex w-100 justify-content-between post-item">
 					<input th:name="header" class="mb-1" th:value="${post.header}">
 					<small th:text="${post.postDateToString()}"></small>
