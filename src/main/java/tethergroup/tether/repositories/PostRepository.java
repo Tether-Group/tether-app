@@ -11,4 +11,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("FROM Post p WHERE p.header LIKE %:term% OR p.body LIKE %:term% OR p.postType.type LIKE %:term%")
     List<Post> findLikePostNameOrHeaderOrBody(@Param("term") String post);
+
+    List<Post> findByOrderByPostDateDesc();
 }

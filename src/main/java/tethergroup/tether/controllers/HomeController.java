@@ -33,15 +33,16 @@ public class HomeController {
         } catch (Exception e) {
             System.out.println("User is not logged in");
         }
-        List<Post> posts = postDao.findAll();
+        List<Post> posts = postDao.findByOrderByPostDateDesc();
         List<Group> groups = groupDao.findAll();
         model.addAttribute("posts",posts);
         model.addAttribute("groups",groups);
         return "index";
     }
 
+    @GetMapping("/about")
+    public String returnAboutPage() {return "about";}
+
     @GetMapping("/error")
-    public String returnErrorPage(){
-        return "error";
-    }
+    public String returnErrorPage(){return "error";}
 }

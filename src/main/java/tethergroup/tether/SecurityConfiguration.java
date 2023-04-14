@@ -82,6 +82,7 @@ public class SecurityConfiguration {
                         "/group/{groupId}",
                         "/my/logout",
                         "/error",
+                        "/about",
                         "/group/{groupId}/members")
                 .permitAll()
 
