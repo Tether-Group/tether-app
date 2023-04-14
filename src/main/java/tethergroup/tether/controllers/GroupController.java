@@ -18,6 +18,7 @@ import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -71,6 +72,21 @@ public class GroupController {
             return "redirect:/error";
         }
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
+        List<PostType> postTypes = postTypeDao.findAll();
+        List<PostType> postTypesIdsOfGroup = group.getPostTypes();
+        List<Long> postTypeIdsOfGroup = new ArrayList<>();
+
+        for (PostType postType : postTypesIdsOfGroup) {
+            postTypeIdsOfGroup.add(postType.getId());
+        }
+
+        model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
+
+
+        for (int i = 0; i < postTypes.size(); i++) {
+            model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
+        }
+
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
         Membership membership = new Membership();
@@ -112,7 +128,7 @@ public class GroupController {
         groupDao.save(group);
         return "redirect:/group/" + group.getId();
     }
-
+    //should this be a DELETE request on /group ?
     @PostMapping("/group/delete")
     public String deleteGroup(@ModelAttribute("group") Group group) {
         Group originalGroup = groupDao.findById(group.getId()).get();
