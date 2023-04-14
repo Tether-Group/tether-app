@@ -9,14 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import tethergroup.tether.models.Group;
-import tethergroup.tether.models.Membership;
-import tethergroup.tether.models.PostType;
-import tethergroup.tether.models.User;
-import tethergroup.tether.repositories.GroupRepository;
-import tethergroup.tether.repositories.MembershipRepository;
-import tethergroup.tether.repositories.PostTypeRepository;
-import tethergroup.tether.repositories.UserRepository;
+import tethergroup.tether.models.*;
+import tethergroup.tether.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +24,7 @@ public class GroupController {
     private final UserRepository userDao;
     private final PostTypeRepository postTypeDao;
     private final MembershipRepository membershipDao;
+    private final PostRepository postDao;
 
     @GetMapping ("/groups")
     @Transactional
@@ -87,6 +82,7 @@ public class GroupController {
             return "redirect:/error";
         }
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
+        List<Post> posts = postDao.findByGroup_Id(group.getId());
         List<PostType> postTypes = postTypeDao.findAll();
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
         List<Long> postTypeIdsOfGroup = new ArrayList<>();
@@ -104,6 +100,7 @@ public class GroupController {
 
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
+        model.addAttribute("posts", posts);
         Membership membership = new Membership();
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
