@@ -88,6 +88,7 @@
 			</div>
 
 			<div th:if="${post.getPostType().getId() == 4}">
+				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
 
 		</div>
