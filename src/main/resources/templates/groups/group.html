@@ -93,9 +93,9 @@
 						<label for="post-types">Post Types:</label>
 						<select name="postTypes" id="post-types" th:value="${group.postTypes}" th:field="*{postTypes}"
 								multiple>
-							<option value="1">Event</option>
-							<option value="2">For Sale</option>
-							<option value="3">Q&A</option>
+							<option value="2">Event</option>
+							<option value="3">For Sale</option>
+							<option value="4">Q&A</option>
 						</select>
 						<br>
 						<input type="hidden" th:field="*{id}">
@@ -137,6 +137,33 @@
 					</div>
 				</form>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+	<h3>Posts</h3>
+
+	<div class="list-group">
+		<div th:each="post: ${posts}">
+
+			<div th:if="${post.getPostType().getId() == 1}">
+				<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+			</div>
+
+			<div th:if="${post.getPostType().getId() == 2}">
+				<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+			</div>
+
+			<div th:if="${post.getPostType().getId() == 3}">
+				<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+			</div>
+
+			<div th:if="${post.getPostType().getId() == 4}">
+				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+			</div>
+
 		</div>
 	</div>
 </div>
