@@ -18,7 +18,9 @@ import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostTypeRepository;
 import tethergroup.tether.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -54,12 +56,26 @@ public class GroupController {
     @PostMapping("/group/create")
     public String createGroup(@ModelAttribute("group") Group group) {
         try {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            group.setAdmin(loggedInUser);
-            groupDao.save(group);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Optional<User> actualUser = userDao.findById(user.getId());
+            if (actualUser.isPresent()) {
+                User userObj = actualUser.get();
+                List<PostType> postTypesForGroup = group.getPostTypes();
+                postTypesForGroup.add(postTypeDao.findById(1L).get());
+                group.setAdmin(userObj);
+                groupDao.save(group);
+
+                Membership membership = new Membership();
+                membership.setGroup(group);
+                membership.setUser(userObj);
+                membership.setPending(false);
+                membershipDao.save(membership);
+            } else {
+                return "redirect:/login";
+            }
         } catch (Exception e) {
-            throw new RuntimeException("cannot create" + e.getMessage());
-//            return to redirect error page
+            e.printStackTrace();
+            throw new RuntimeException();
         }
         return "redirect:/groups";
     }
@@ -71,6 +87,21 @@ public class GroupController {
             return "redirect:/error";
         }
         User groupCreator = groupDao.findById(groupId).get().getAdmin();
+        List<PostType> postTypes = postTypeDao.findAll();
+        List<PostType> postTypesIdsOfGroup = group.getPostTypes();
+        List<Long> postTypeIdsOfGroup = new ArrayList<>();
+
+        for (PostType postType : postTypesIdsOfGroup) {
+            postTypeIdsOfGroup.add(postType.getId());
+        }
+
+        model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
+
+
+        for (int i = 0; i < postTypes.size(); i++) {
+            model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
+        }
+
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
         Membership membership = new Membership();
@@ -113,6 +144,8 @@ public class GroupController {
         return "redirect:/group/" + group.getId();
     }
 
+
+    //should this be a DELETE request on /group ?
     @PostMapping("/group/delete")
     public String deleteGroup(@ModelAttribute("group") Group group) {
         Group originalGroup = groupDao.findById(group.getId()).get();
