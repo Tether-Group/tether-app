@@ -42,3 +42,10 @@
     position: relative;
     left: -35px;
 }
+
+.about-card {
+    margin: 0 1em 0;
+}
+.card {
+    outline: black;
+}
