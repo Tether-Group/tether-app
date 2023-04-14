@@ -14,34 +14,6 @@
 
 <h1>This is the CREATE GROUP page</h1>
 
-<!--<form method="post" action="/group/create">-->
-<!--    <label for="group-name">Group Name:</label>-->
-<!--    <input type="text" name="group-name" id="group-name" required>-->
-
-<!--    <br>-->
-
-<!--    <label for="description">Description:</label>-->
-<!--    <textarea name="description" id="description" required></textarea>-->
-
-<!--    <br>-->
-
-<!--    <label for="visibility">Visibility:</label>-->
-<!--    <input type="checkbox" name="visibility" id="visibility">-->
-<!--    <span>Private</span>-->
-
-<!--    <br>-->
-
-<!--    <label for="post-types">Post Types:</label>-->
-<!--    <select name="post-types" id="post-types" multiple>-->
-<!--        <option value="1">Event</option>-->
-<!--        <option value="2">For Sale</option>-->
-<!--        <option value="3">Q&A</option>-->
-<!--    </select>-->
-
-<!--    <br>-->
-
-<!--    <button type="submit">Create Group</button>-->
-<!--</form>-->
 
 <form th:method="post" th:action="@{/group/create}" th:object="${group}">
     <div class="mx-auto">
