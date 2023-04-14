@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -53,6 +55,20 @@ public class UserController {
         return "users/profile";
     }
 
+    // my profile tab from navbar
+    @GetMapping("/profile/my-account")
+    public String returnLoggedInUserProfilePage(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+        } else {
+            return "redirect:/login";
+        }
+        return "users/profile";
+    }
+
 
 
     //    viewing friends list
@@ -66,7 +82,13 @@ public class UserController {
     @GetMapping("/profile/settings")
     public String returnSettingsPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+        } else {
+            return "redirect:/login";
+        }
         return "users/edit-user";
     }
 
@@ -116,7 +138,6 @@ public class UserController {
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
-
         return "redirect:/";
     }
 
