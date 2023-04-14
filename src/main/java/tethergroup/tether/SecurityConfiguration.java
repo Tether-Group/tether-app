@@ -67,7 +67,9 @@ public class SecurityConfiguration {
                         "/profile/edit",
                         "/profile/settings",
                         "/profile/editpassword",
-                        "/notifications"
+                        "/notifications",
+                        "/notifications/accept/{id}",
+                        "/notifications/deny/{id}"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
