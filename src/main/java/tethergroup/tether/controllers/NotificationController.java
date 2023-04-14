@@ -41,6 +41,10 @@ public class NotificationController {
         Set<User> users = userDao.findUsersFromGroupJoinRequestsForTheAdmin(loggedInUser.getId());
         model.addAttribute("users", users);
 
+//       the code first converts the users collection to a stream, then maps each User object to a stream of its pending
+//       Membership objects (using flatMap()), and collects all the pending Membership objects into a Set
+//       using the collect() method with the toSet() collector from the Collectors class. The resulting set is then
+//       added as an attribute to the model object to store it in the model.
         model.addAttribute("needThisToDisplayMemberships",
             users
                 .stream()
@@ -49,8 +53,6 @@ public class NotificationController {
         );
 
         List<Group> groups = groupDao.findGroupsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
-
-        List<Membership> memberships = membershipDao.findMembershipsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
 
         return "users/notifications";
 //        return "redirect:/error";
