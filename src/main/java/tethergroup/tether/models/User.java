@@ -46,7 +46,7 @@ public class User {
     )
     private List<User> friends;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Membership> memberships;
 
     public User(User copy) {

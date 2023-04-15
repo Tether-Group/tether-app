@@ -144,8 +144,6 @@ public class GroupController {
         return "redirect:/group/" + group.getId();
     }
 
-
-    //should this be a DELETE request on /group ?
     @PostMapping("/group/delete")
     public String deleteGroup(@ModelAttribute("group") Group group) {
         Group originalGroup = groupDao.findById(group.getId()).get();
@@ -171,7 +169,7 @@ public class GroupController {
         return "groups/members";
     }
 
-    @Transactional
+//    @Transactional
     @PostMapping("/group/{groupId}/join")
     public String requestToJoinGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
@@ -190,7 +188,7 @@ public class GroupController {
         return "redirect:/group/" + group.getId();
     }
 
-    @Transactional
+//    @Transactional
     @PostMapping("/group/{groupId}/leave")
     public String leaveGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();

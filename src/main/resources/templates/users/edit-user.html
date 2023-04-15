@@ -40,10 +40,33 @@
                 <label for="oldpassword" class="form-label">Old Password</label>
                 <input id="oldpassword" name="oldpassword" type="password"  class="form-control">
 
-                <label for="newpassword" class="form-label">New Password</label>
-                <input id="newpassword" name="newpassword" type="password" class="form-control">
+                <label for="register-password" class="form-label">New Password</label>
+                <input id="register-password" name="register-password" type="password"
+                       class="form-control"
+                       pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
 
-                <input value="Change Password" th:type="submit" class="submit-button">
+                <label for="register-pw-verification" class="form-label">Re-Type New Password</label>
+                <input id="register-pw-verification" name="register-pw-verification" type="password"
+                       class="form-control" required>
+
+                <div id="message">
+                    <h3>Password must contain the following:</h3>
+                    <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+                    <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+                    <p id="number" class="invalid">One <strong>number</strong></p>
+                    <p id="special" class="invalid">One <strong>special </strong>character</p>
+                    <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
+                        characters</strong></p>
+                    <p id="empty" class="invalid">No <strong>spaces</strong></p>
+                    <p id="password-match" class="invalid">Password must match</p>
+                </div>
+
+
+
+
+
+
+                <input value="Change Password" th:type="submit" id="submit-change" class="submit-button">
             </form>
 
             <!-- Button trigger modal -->
@@ -82,5 +105,6 @@
     </div>
 </div>
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
+<script th:src="@{/js/change-pw.js}"></script>
 </body>
 </html>

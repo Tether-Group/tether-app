@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/editpassword")
-    public String updatePassword(@RequestParam ("oldpassword") String oldPassword, @RequestParam ("newpassword") String newPassword){
+    public String updatePassword(@RequestParam ("oldpassword") String oldPassword, @RequestParam ("register-password") String newPassword){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String oldPasswordFromDataBase = userDao.findById(loggedInUser.getId()).get().getPassword();
         boolean doesMatch = passwordEncoder.matches(oldPassword, oldPasswordFromDataBase);

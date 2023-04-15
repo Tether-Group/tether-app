@@ -67,7 +67,10 @@ public class SecurityConfiguration {
                         "/profile/edit",
                         "/profile/settings",
                         "/profile/editpassword",
-                        "/notifications"
+                        "/notifications",
+                        "/notifications/accept/{id}",
+                        "/notifications/deny/{id}",
+                        "/group/{groupId}/members"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
@@ -83,8 +86,8 @@ public class SecurityConfiguration {
                         "/group/{groupId}",
                         "/my/logout",
                         "/error",
-                        "/about",
-                        "/group/{groupId}/members")
+                        "/about"
+                        )
                 .permitAll()
 
         ;
