@@ -6,12 +6,17 @@
     <meta charset="UTF-8">
     <title>Search Results</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
-        	<link rel="stylesheet" href="/styles/search-results.css"/>
+    <link rel="stylesheet" href="/styles/search-results.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
 <h1>This is the SEARCH RESULTS page</h1>
+
+<form class="search-form" th:action="@{/search-results}" th:method="GET">
+    <input class="search-bar form-control me-2" type="search" placeholder="Search" name="search">
+    <button class="search-button btn btn-outline-success" type="submit">Search</button>
+</form>
 
 
 <div class="container post-card">
@@ -85,6 +90,6 @@
 </div>
 
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<!--<th:block th:insert="~{partials/footer :: footer}"></th:block>-->
 </body>
 </html>

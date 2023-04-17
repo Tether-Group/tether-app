@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Title</title>
 	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/group-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -13,18 +14,22 @@
 
 <h1>This is the GROUPS LIST page</h1>
 
-<div class="container group-card">
-	<div class="list-group">
-		<div th:each="group: ${randoGroups}" class="list-group-item list-group-item-action my-2">
-			<div class="d-flex w-100 justify-content-between post-item">
+<form class="search-form" th:action="@{/search-results}" th:method="GET">
+	<input class="search-bar form-control me-2" type="search" placeholder="Search" name="search">
+	<button class="search-button btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<div class="container">
+		<div th:each="group: ${randoGroups}" class="group-card">
+				<div class="group-photo">
+
+				</div>
 				<a th:href="@{/group/{id}(id=${group.id})}">
 					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
 				</a>
-			</div>
 			<p class="mb-1"><span th:text="${group.description}"></span></p>
-			<a th:href="@{/profile/{id}(id=${group.getAdmin().getUsername()})}"><small><span th:text="${group.getAdmin()}"></span></small></a>
+			<a th:href="@{/profile/{id}(id=${group.getAdmin().getUsername()})}"><small>Admined by: <span th:text="${group.getAdmin()}"></span></small></a>
 		</div>
-	</div>
 </div>
 
 
