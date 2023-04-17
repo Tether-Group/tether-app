@@ -28,6 +28,8 @@ public class SearchController {
 
     @GetMapping("/search-results")
     public String globalSearch(@RequestParam(name = "search") @Nullable String search, Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("loggedInUser", loggedInUser);
         List<Group> searchedGroups;
         List<Post> searchedPosts;
         List<User> searchedUsers;
