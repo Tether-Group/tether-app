@@ -1,104 +1,111 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>Landing Page</title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <meta charset="UTF-8">
+    <title>Landing Page</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+<!--    	<link rel="stylesheet" href="/styles/index.css"/>-->
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 
 <!--EDIT POST MODAL-->
 <div class="modal fade" tabindex="-1" id="edit-post-modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-			</div>
-			<div class="modal-body">
-				<form method="post" action="/post/edit/text">
-					<label for="header">Title:</label>
-					<input type="text" id="edit-modal-header-input"><br><br>
-					<label>Content:</label>
-					<input type="text" id="edit-modal-body-input"> <br><br>
-				</form>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/post/edit/text">
+                    <label for="header">Title:</label>
+                    <input type="text" id="edit-modal-header-input"><br><br>
+                    <label>Content:</label>
+                    <input type="text" id="edit-modal-body-input"> <br><br>
+                </form>
+            </div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<h1>This is the INDEX page</h1>
+<div class="container">
+    <h1>This is the INDEX page</h1>
 
-<div sec:authorize="isAuthenticated()">
-	Welcome <span th:text="${#authentication.principal.firstName}"/> <span
-		th:text="${#authentication.principal.lastName}"/>
-	Username: <span th:text="${#authentication.principal.username}"/>
-	Email: <span th:text="${#authentication.principal.email}"/>
+    <div sec:authorize="isAuthenticated()">
+        Welcome <span th:text="${#authentication.principal.firstName}"/> <span
+            th:text="${#authentication.principal.lastName}"/>
+        Username: <span th:text="${#authentication.principal.username}"/>
+        Email: <span th:text="${#authentication.principal.email}"/>
+    </div>
+
+    <div sec:authorize="!isAuthenticated()">
+        Welcome to our site!
+    </div>
 </div>
-
-<div sec:authorize="!isAuthenticated()">
-	Welcome to our site!
-</div>
-
 <br>
-
 <div class="container">
+    <div class="row">
 
-	<h3>Groups</h3>
+        <div class="col-4">
+            <h3>Groups</h3>
 
-	<ul class="list-group">
-		<li th:each="group: ${randoGroups}" class="list-group-item d-flex justify-content-between align-items-start">
-			<div class="ms-2 me-auto">
-				<a th:href="@{/group/{id}(id=${group.getId()})}">
-					<div class="fw-bold"><span th:text="${group.getName()}"></span></div>
-				</a>
-				<span th:text="${group.getDescription()}"></span>
-			</div>
-			<div th:if="${group.private}">
-			<span class="badge bg-dark rounded-pill">Private</span>
-			</div>
-			<div th:if="${!group.private}">
-				<span class="badge bg-primary rounded-pill">Public</span>
-			</div>
-		</li>
-	</ul>
+            <ul class="list-group group-cards">
+                <li th:each="group: ${randoGroups}"
+                    class="list-group-item d-flex justify-content-between align-items-start group-cards">
+                    <div class="ms-2 me-auto">
+                        <a th:href="@{/group/{id}(id=${group.getId()})}">
+                            <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+                        </a>
+                        <span th:text="${group.getDescription()}"></span>
+                    </div>
+                    <div th:if="${group.private}">
+                        <span class="badge bg-dark rounded-pill">Private</span>
+                    </div>
+                    <div th:if="${!group.private}">
+                        <span class="badge bg-primary rounded-pill">Public</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-8">
+            <h3>Posts</h3>
+
+            <div class="list-group post-card">
+                <div th:each="post: ${posts}">
+
+                    <div th:if="${post.getPostType().getId() == 1}">
+                        <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+                    </div>
+
+                    <div th:if="${post.getPostType().getId() == 2}">
+                        <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+                    </div>
+
+                    <div th:if="${post.getPostType().getId() == 3}">
+                        <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+                    </div>
+
+                    <div th:if="${post.getPostType().getId() == 4}">
+                        <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
-<div class="container">
-
-	<h3>Posts</h3>
-
-	<div class="list-group">
-		<div th:each="post: ${posts}">
-
-			<div th:if="${post.getPostType().getId() == 1}">
-				<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
-			</div>
-
-			<div th:if="${post.getPostType().getId() == 2}">
-				<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-			</div>
-
-			<div th:if="${post.getPostType().getId() == 3}">
-				<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
-			</div>
-
-			<div th:if="${post.getPostType().getId() == 4}">
-				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-			</div>
-
-		</div>
-	</div>
-</div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script>
