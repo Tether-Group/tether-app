@@ -8,21 +8,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.User;
+import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
-
 import java.util.Optional;
 
 @Controller
 public class UserController {
 
     private final UserRepository userDao;
-
+    private final FriendshipRepository friendshipDao;
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, FriendshipRepository friendshipDao) {
         this.userDao = userDao;
+        this.friendshipDao = friendshipDao;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,11 +49,35 @@ public class UserController {
     // viewing profile when logged in
     @GetMapping("/profile/{username}")
     public String returnProfilePage(Model model, @PathVariable String username) {
+
+        // checks if logged in user is viewing their own profile and redirects them to "/my/account" get mapping
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findByUsername(username);
-        if (user == null) {
+        if (loggedInUser.getId() == user.getId()) {
+            return "redirect:/profile/my-account";
+        } else if (user == null) {
             return "redirect:/error";
         }
+        boolean friendRequestExists = false;
+        boolean friendRequestIsPending = false;
+
+        Long loggedInUserId = loggedInUser.getId();
+        Long profilePageUserId = user.getId();
+
+        Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(loggedInUserId, profilePageUserId);
+
+        if (friendRequest == null) {
+            //keeps boolean values false
+        } else if (friendRequest.isPending()) {
+            friendRequestExists = true;
+            friendRequestIsPending = true;
+        } else {
+            friendRequestExists = true;
+        }
+
         model.addAttribute("user", user);
+        model.addAttribute("requestExists", friendRequestExists);
+        model.addAttribute("isPending", friendRequestIsPending);
         return "users/profile";
     }
 
