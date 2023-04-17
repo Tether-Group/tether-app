@@ -1,0 +1,16 @@
+h3{
+    display: inline-block;
+}
+.group-cards{
+    float: left;
+    width: 25em;
+    display: inline-block;
+
+}
+
+.post-card{
+    float: right;
+    width: 55em;
+    display: inline-block;
+}
+
