@@ -60,14 +60,30 @@ public class UserController {
         }
         boolean friendRequestExists = false;
         boolean friendRequestIsPending = false;
+        boolean loggedInUserHasFriendRequestFromUserOfProfilePage = false;
 
         Long loggedInUserId = loggedInUser.getId();
         Long profilePageUserId = user.getId();
 
         Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(loggedInUserId, profilePageUserId);
-
+        // if there is no friend request from loggedInUser to userOfProfilePage
         if (friendRequest == null) {
-            //keeps boolean values false
+            Friendship userOfProfilePageFriendRequestToLoggedInUser = friendshipDao.findByRequester_IdAndAcceptor_Id(profilePageUserId, loggedInUserId);
+            // if there is a friend request from userOfProfilePage to loggedInUser and it is pending
+            if (userOfProfilePageFriendRequestToLoggedInUser != null && userOfProfilePageFriendRequestToLoggedInUser.isPending()) {
+                friendRequestExists = true;
+                friendRequestIsPending = true;
+                loggedInUserHasFriendRequestFromUserOfProfilePage = true;
+                // if there is friend request from userOfProfilePage and it is not pending
+            } else if (userOfProfilePageFriendRequestToLoggedInUser != null && !userOfProfilePageFriendRequestToLoggedInUser.isPending()) {
+                friendRequestExists = true;
+                friendRequestIsPending = false;
+                loggedInUserHasFriendRequestFromUserOfProfilePage = true;
+            } else {
+                friendRequestExists = false;
+                friendRequestIsPending = false;
+                loggedInUserHasFriendRequestFromUserOfProfilePage = false;
+            }
         } else if (friendRequest.isPending()) {
             friendRequestExists = true;
             friendRequestIsPending = true;
@@ -78,6 +94,8 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("requestExists", friendRequestExists);
         model.addAttribute("isPending", friendRequestIsPending);
+        model.addAttribute("hasFriendRequestFromThisUser", loggedInUserHasFriendRequestFromUserOfProfilePage);
+        model.addAttribute("isMyAccountPage", false);
         return "users/profile";
     }
 
@@ -89,6 +107,7 @@ public class UserController {
         if (actualUser.isPresent()) {
             User userObj = actualUser.get();
             model.addAttribute("user", userObj);
+            model.addAttribute("isMyAccountPage", true);
         } else {
             return "redirect:/login";
         }

@@ -51,7 +51,38 @@ public class FriendshipController {
         User requester = userDao.findById(loggedInUser.getId()).get();
         User acceptor = userDao.findById(userId).get();
         Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(requester.getId(), acceptor.getId());
+        if (friendRequest == null) {
+            friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(acceptor.getId(), requester.getId());
+        }
         friendshipDao.delete(friendRequest);
         return "redirect:/profile/" + acceptor.getUsername();
+    }
+
+    @PostMapping("/profile/{userId}/accept")
+    public String acceptFriendRequest(@PathVariable Long userId) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User requester = userDao.findById(userId).get();
+        User acceptor = userDao.findById(loggedInUser.getId()).get();
+        Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(requester.getId(), acceptor.getId());
+        friendshipDao.delete(friendRequest);
+        Friendship newFriendship = new Friendship();
+        // deleted the previous friendship where it is pending and creating a new friendship because
+        // I was getting an error when setting friendRequest.isPending to false and then saving it
+        // - Joey
+        newFriendship.setRequester(requester);
+        newFriendship.setAcceptor(acceptor);
+        newFriendship.setPending(false);
+        friendshipDao.save(newFriendship);
+        return "redirect:/profile/" + requester.getUsername();
+    }
+
+    @PostMapping("/profile/{userId}/decline")
+    public String declineFriendRequest(@PathVariable Long userId) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User requester = userDao.findById(userId).get();
+        User acceptor = userDao.findById(loggedInUser.getId()).get();
+        Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(requester.getId(), acceptor.getId());
+        friendshipDao.delete(friendRequest);
+        return "redirect:/profile/" + requester.getUsername();
     }
 }
