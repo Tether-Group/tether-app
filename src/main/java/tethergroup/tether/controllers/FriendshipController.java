@@ -1,10 +1,12 @@
 package tethergroup.tether.controllers;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.FriendshipRepository;
@@ -59,30 +61,39 @@ public class FriendshipController {
     }
 
     @PostMapping("/profile/{userId}/accept")
-    public String acceptFriendRequest(@PathVariable Long userId) {
+    public String acceptFriendRequest(@PathVariable Long userId, @RequestParam("currentPage") String currentPage) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User requester = userDao.findById(userId).get();
         User acceptor = userDao.findById(loggedInUser.getId()).get();
         Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(requester.getId(), acceptor.getId());
-        friendshipDao.delete(friendRequest);
-        Friendship newFriendship = new Friendship();
-        // deleted the previous friendship where it is pending and creating a new friendship because
-        // I was getting an error when setting friendRequest.isPending to false and then saving it
-        // - Joey
-        newFriendship.setRequester(requester);
-        newFriendship.setAcceptor(acceptor);
-        newFriendship.setPending(false);
-        friendshipDao.save(newFriendship);
-        return "redirect:/profile/" + requester.getUsername();
+
+        friendRequest.setPending(false);
+
+        friendshipDao.save(friendRequest);
+
+
+        if (currentPage.equals("profile-page")) {
+            return "redirect:/profile/" + requester.getUsername();
+
+        } else {
+            return "redirect:/notifications";
+
+        }
     }
 
-    @PostMapping("/profile/{userId}/decline")
-    public String declineFriendRequest(@PathVariable Long userId) {
+    @GetMapping("/profile/{userId}/decline")
+    public String declineFriendRequest(@PathVariable Long userId, @RequestParam("currentPage") String currentPage) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User requester = userDao.findById(userId).get();
         User acceptor = userDao.findById(loggedInUser.getId()).get();
         Friendship friendRequest = friendshipDao.findByRequester_IdAndAcceptor_Id(requester.getId(), acceptor.getId());
         friendshipDao.delete(friendRequest);
-        return "redirect:/profile/" + requester.getUsername();
+        if (currentPage.equals("profile-page")) {
+            return "redirect:/profile/" + requester.getUsername();
+
+        } else {
+            return "redirect:/notifications";
+
+        }
     }
 }
