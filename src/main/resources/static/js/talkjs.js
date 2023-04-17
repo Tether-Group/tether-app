@@ -4,32 +4,47 @@
     ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
     .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
 
-Talk.ready.then(function () {
-    var me = new Talk.User({
-        id: '123456',
-        name: 'Alice',
-        email: 'alice@example.com',
-        photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
-        welcomeMessage: 'Hey there! How are you? :-)',
+
+const getAgent = async () => {
+    const response = await fetch('http://localhost:8080/getUser?candywandy');
+    const data = await response.json();
+    let agent = new Talk.User({
+        id: data.id,
+        name: data.name,
+        // photoUrl: data.dp,
+        email: data.email,
+        // role: data.role
     });
-    window.talkSession = new Talk.Session({
+    return agent;
+}
+const getUser = async () => {
+    const response = await fetch('http://localhost:8080/getUser?StephenAdmin');
+    const data = await response.json();
+    let user = new Talk.User({
+        id: data.id,
+        name: data.name,
+        // photoUrl: data.dp,
+        email: data.email,
+        // role: data.role
+    });
+    return user;
+}
+
+(async function() {
+    await Talk.ready;
+    let agent = await getAgent();
+    let user = await getUser();
+    const session = new Talk.Session({
         appId: 'thVjgOD8',
-        me: me,
+        me: user,
     });
-    var other = new Talk.User({
-        id: '654321',
-        name: 'Sebastian',
-        email: 'Sebastian@example.com',
-        photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-        welcomeMessage: 'Hey, how can I help?',
-    });
+    var conversation = session.getOrCreateConversation(Talk.oneOnOneId(user, agent))
+    conversation.setAttributes({
+        welcomeMessages: ["Start the conversation.."]
+    })
+    conversation.setParticipant(user);
+    conversation.setParticipant(agent);
 
-    var conversation = talkSession.getOrCreateConversation(
-        Talk.oneOnOneId(me, other)
-    );
-    conversation.setParticipant(me);
-    conversation.setParticipant(other);
-
-    var inbox = talkSession.createInbox({ selected: conversation });
-    inbox.mount(document.getElementById('talkjs-container'));
-});
+    var inbox = session.createInbox(conversation);
+    inbox.mount(document.getElementById("talkjs-container"));
+}());
