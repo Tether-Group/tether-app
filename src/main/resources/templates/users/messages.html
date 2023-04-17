@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Messages</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+</head>
+<body>
+<th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
+<h2>this is the message page</h2>
+<!-- container element in which TalkJS will display a chat UI -->
+<div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+    <i>Loading chat...</i>
+</div>
+
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<script th:src="@{/js/talkjs.js}"></script>
+</body>
+</html>
