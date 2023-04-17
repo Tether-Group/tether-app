@@ -10,6 +10,36 @@
 
 <h1>This is the PROFILE page</h1>
 
+<div sec:authorize="isAuthenticated()">
+	<div th:if="${!requestExists}">
+		<form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
+			<button id="join-group-btn" type="submit" class="btn btn-primary">
+				Add Friend
+			</button>
+		</form>
+	</div>
+</div>
+<!--    pending button-->
+<div sec:authorize="isAuthenticated()">
+	<div th:if="${requestExists && isPending}">
+		<form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
+			<button id="pending-group-btn" type="submit" class="btn btn-warning">
+				Cancel Friend Request
+			</button>
+		</form>
+	</div>
+</div>
+<!--    leave group button/form-->
+<div sec:authorize="isAuthenticated()">
+	<div th:if="${requestExists && !isPending}">
+		<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+			<button id="leave-group-btn" type="submit" class="btn btn-danger">
+				Remove Friend
+			</button>
+		</form>
+	</div>
+</div>
+
 <div class="container">
 
 	<h1><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h1>
