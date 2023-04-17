@@ -28,8 +28,12 @@ public class SearchController {
 
     @GetMapping("/search-results")
     public String globalSearch(@RequestParam(name = "search") @Nullable String search, Model model) {
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("loggedInUser", loggedInUser);
+        try {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            model.addAttribute("loggedInUser", loggedInUser);
+        } catch (Exception e) {
+            System.out.println("User is not logged in");
+        }
         List<Group> searchedGroups;
         List<Post> searchedPosts;
         List<User> searchedUsers;
