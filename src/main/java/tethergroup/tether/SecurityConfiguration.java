@@ -74,7 +74,8 @@ public class SecurityConfiguration {
                         "/profile/{userId}/add",
                         "/profile/{userId}/cancel",
                         "/profile/{userId}/remove",
-                        "/messages"
+                        "/messages",
+                        "/getUser/{username}",
                         "/profile/{userId}/accept",
                         "/profile/{userId}/decline"
                         )
