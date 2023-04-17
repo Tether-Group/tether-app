@@ -46,12 +46,14 @@
 	<div sec:authorize="isAuthenticated()">
 		<div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}">
 			<form th:action="@{/profile/{userId}/accept(userId=${user.id})}" th:method="POST">
+				<input th:name="currentPage" th:value="profile-page" hidden>
 				<button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
 					Accept Friend Request
 				</button>
 			</form>
 
 			<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+				<input th:name="currentPage" th:value="profile-page" hidden>
 				<button id="decline-friend-request-btn" type="submit" class="btn btn-primary">
 					Decline Friend Request
 				</button>
