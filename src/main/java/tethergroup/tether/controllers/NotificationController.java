@@ -6,13 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.Group;
 import tethergroup.tether.models.Membership;
 import tethergroup.tether.models.User;
-import tethergroup.tether.repositories.GroupRepository;
-import tethergroup.tether.repositories.MembershipRepository;
-import tethergroup.tether.repositories.PostTypeRepository;
-import tethergroup.tether.repositories.UserRepository;
+import tethergroup.tether.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ public class NotificationController {
     private final UserRepository userDao;
     private final PostTypeRepository postTypeDao;
     private final MembershipRepository membershipDao;
+    private final FriendshipRepository friendshipDao;
 
     @Transactional
     @GetMapping("/notifications")
@@ -35,11 +34,20 @@ public class NotificationController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("loggedInUser", loggedInUser);
 
-        Long notificationCount = groupDao.getCountOfGroupRequestsForLoggedInUserAndAdmin(loggedInUser.getId());
+        Long groupRequestCount = groupDao.getCountOfGroupRequestsForLoggedInUserAndAdmin(loggedInUser.getId());
+
+        Long friendRequestCount = friendshipDao.getCountOfFriendRequestsForLoggedInUser(loggedInUser.getId());
+        Long notificationCount = groupRequestCount + friendRequestCount;
         model.addAttribute("requestCount", notificationCount);
 
         Set<User> users = userDao.findUsersFromGroupJoinRequestsForTheAdmin(loggedInUser.getId());
         model.addAttribute("users", users);
+
+        List<Friendship> friendshipRequests = friendshipDao.getFriendshipRequestsForLoggedInUser(loggedInUser.getId());
+        for (Friendship friendshipRequest : friendshipRequests) {
+            System.out.println(friendshipRequest.getRequester());
+        }
+        model.addAttribute("friendshipRequests", friendshipRequests);
 
 //       the code first converts the users collection to a stream, then maps each User object to a stream of its pending
 //       Membership objects (using flatMap()), and collects all the pending Membership objects into a Set
@@ -61,7 +69,6 @@ public class NotificationController {
     public String denyGroupRequest(@PathVariable("id") Long membershipId) {
         try {
             Membership membershipToDelete = membershipDao.findById(membershipId).get();
-            System.out.println(membershipToDelete);
             membershipDao.delete(membershipToDelete);
         } catch(Exception e) {
             e.printStackTrace();

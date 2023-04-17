@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <head>
-        <meta charset="UTF-8">
-        <title>Notifications</title>
-        <th:block th:insert="~{partials/styles :: styles}"></th:block>
-    </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Notifications</title>
+		<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	</head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-<div sec:authorize="isAuthenticated()">
-    <h1>This is the notifications page</h1>
-    <h2 th:text="${loggedInUser.username}"></h2>
+<div class="container">
+	<div sec:authorize="isAuthenticated()">
+		<h1>This is the notifications page</h1>
+		<h2 th:text="${loggedInUser.username}"></h2>
 
-    <div>You have <span th:text="${requestCount}"></span> notifications.</div>
-    <div th:each="user : ${users}">
-        <div th:each="membership : ${user.memberships}">
-            <div th:if="${membership.pending == true}">
-                <a th:text="${user.username}" th:href="@{/profile/{username}(username=${user.username})}"></a>
-                would like to join your group
-                <span th:text="${membership.group}"></span>
-                <form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
-                    <button class="btn btn-outline-success">Accept</button>
-                </form>
-                <form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
-                    <button class="btn btn-outline-danger">Deny</button>
-                </form>
-            </div>
-        </div>
-    </div>
+		<div>You have <span th:text="${requestCount}"></span> notifications.</div>
 
-    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+		<h3>Group Requests</h3>
+
+		<div th:each="user : ${users}">
+			<div th:each="membership : ${user.memberships}">
+				<div th:if="${membership.pending == true}">
+					<a th:text="${user.username}" th:href="@{/profile/{username}(username=${user.username})}"></a>
+					would like to join your group
+					<span th:text="${membership.group}"></span>
+					<form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
+						<button class="btn btn-outline-success">Accept</button>
+					</form>
+					<form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
+						<button class="btn btn-outline-danger">Deny</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<h3>Friend Requests</h3>
+
+		<div th:each="friendship : ${friendshipRequests}">
+			<div>
+				<p><a th:text="${friendship.requester.username}"
+					  th:href="@{/profile/{username}(username=${friendship.requester.username})}"></a> wants
+					to be friends</p>
+				<form th:action="@{/profile/{userId}/accept(userId=${friendship.requester.id})}" th:method="POST">
+					<input th:name="currentPage" th:value="notifications-page" hidden>
+					<button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
+						Accept Friend Request
+					</button>
+				</form>
+				<form th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}" th:method="GET">
+					<input th:name="currentPage" th:value="notifications-page" hidden>
+					<button id="remove-friend-btn" type="submit" class="btn btn-danger">
+						Remove Friend
+					</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
