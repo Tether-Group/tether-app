@@ -164,7 +164,7 @@
 				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
 
-			<form th:if="${loggedInUser.getId() == groupCreator.getId()}" th:method="post" th:action="@{/post/delete}">
+			<form th:if="${loggedInUser.getId() == groupCreator.getId() && loggedInUser.getId() != post.user.id}" th:method="post" th:action="@{/post/delete}">
 				<input th:name="id" th:value="${post.id}" hidden>
 				<input th:name="groupId" th:value="${group.id}" hidden>
 				<button type="submit" class="btn btn-danger">
