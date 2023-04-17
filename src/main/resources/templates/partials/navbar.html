@@ -20,8 +20,10 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" th:href="@{/group/create}">Create Group</a></li>
               <li><a class="dropdown-item" th:href="@{/profile/my-account}">My Profile</a></li>
+              <li><a class="dropdown-item" th:href="@{/messages}">Messages</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" th:href="@{/profile/settings}">Settings</a></li>
+
             </ul>
           </li>
           <li sec:authorize="isAuthenticated()" class="nav-item">

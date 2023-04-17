@@ -73,7 +73,8 @@ public class SecurityConfiguration {
                         "/group/{groupId}/members",
                         "/profile/{userId}/add",
                         "/profile/{userId}/cancel",
-                        "/profile/{userId}/remove"
+                        "/profile/{userId}/remove",
+                        "/messages"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
