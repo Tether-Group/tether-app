@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).then(function(request) {
         return request.json();
     })
-    console.log(friends);
-    let a = "";
+
+    let x = "";
     for (let i = 0; i < friends.length; i++) {
-        a += `<li><a href="/messages/talk/${friends[i].username}">Send ${friends[i].username} a message</a></li>`
+        x += `<li><a href="/messages/talk/${friends[i].username}">Send ${friends[i].username} a message</a></li>`
     }
-    document.getElementById("list-friends").innerHTML = a;
+    document.getElementById("list-friends").innerHTML = x;
 })
 
 //for each friendship, add the attributes using what we get from the json object, THEN we can pass it to the html??
