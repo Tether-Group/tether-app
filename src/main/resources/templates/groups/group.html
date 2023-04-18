@@ -22,8 +22,8 @@
 <div class="container">
 	<!--    join group button/form-->
 	<div sec:authorize="isAuthenticated()">
-		<div th:if="${loggedInUser.getId() != groupCreator.getId() && !isMember && !isPending}">
-			<form th:action="@{/group/{groupId}/join(groupId=${group.getId()})}" th:method="POST">
+		<div th:if="${loggedInUser.getId() != admin.id && !isMember && !isPending}">
+			<form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
 				<button id="join-group-btn" type="submit" class="btn btn-primary">
 					Join Group
 				</button>
@@ -32,8 +32,8 @@
 	</div>
 	<!--    pending button-->
 	<div sec:authorize="isAuthenticated()">
-		<div th:if="${loggedInUser.getId() != groupCreator.getId() && !isMember && isPending}">
-			<form th:action="@{/group/{groupId}/leave(groupId=${group.getId()})}" th:method="POST">
+		<div th:if="${loggedInUser.getId() != admin.id && !isMember && isPending}">
+			<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
 				<button id="pending-group-btn" type="submit" class="btn btn-warning">
 					Cancel Request
 				</button>
@@ -42,8 +42,8 @@
 	</div>
 	<!--    leave group button/form-->
 	<div sec:authorize="isAuthenticated()">
-		<div th:if="${loggedInUser.getId() != groupCreator.getId() && isMember && !isPending}">
-			<form th:action="@{/group/{groupId}/leave(groupId=${group.getId()})}" th:method="POST">
+		<div th:if="${loggedInUser.getId() != admin.id && isMember && !isPending}">
+			<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
 				<button id="leave-group-btn" type="submit" class="btn btn-danger">
 					Leave Group
 				</button>
@@ -59,7 +59,7 @@
 
 <div sec:authorize="isAuthenticated()">
 	<!--button displays on page-->
-	<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+	<div th:if="${loggedInUser.id == admin.id}">
 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
 			Edit Group
 		</button>
@@ -108,7 +108,7 @@
 </div>
 
 <div sec:authorize="isAuthenticated()">
-	<div th:if="${loggedInUser.getId() == groupCreator.getId()}">
+	<div th:if="${loggedInUser.getId() == admin.id}">
 		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
 			Delete Group
 		</button>
@@ -145,23 +145,23 @@
 	<div class="list-group">
 		<div th:each="post: ${posts}">
 
-			<div th:if="${post.getPostType().getId() == 1}">
+			<div th:if="${post.postType.id == 1}">
 				<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
 			</div>
 
-			<div th:if="${post.getPostType().getId() == 2}">
+			<div th:if="${post.postType.id == 2}">
 				<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
 			</div>
 
-			<div th:if="${post.getPostType().getId() == 3}">
+			<div th:if="${post.postType.id == 3}">
 				<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
 			</div>
 
-			<div th:if="${post.getPostType().getId() == 4}">
+			<div th:if="${post.postType.id == 4}">
 				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
 			<div th:if="${loggedInUser != null}">
-			<form th:if="${loggedInUser.getId() == groupCreator.getId() && loggedInUser.getId() != post.user.id}" th:method="post" th:action="@{/post/delete}">
+			<form th:if="${loggedInUser.id == admin.id && loggedInUser.id != post.user.id}" th:method="post" th:action="@{/post/delete}">
 				<input th:name="id" th:value="${post.id}" hidden>
 				<input th:name="groupId" th:value="${group.id}" hidden>
 				<button type="submit" class="btn btn-danger">
@@ -177,6 +177,14 @@
 
 	<div class="container">
 		<div class="list-group">
+			<div class="list-group-item list-group-item-action my-2">
+				<div sec:authorize="isAuthenticated()">
+					<a th:href="@{/profile/{username}(username=${admin.username})}"><h1><span th:text="${admin.username}"></span></h1></a>
+				</div>
+				<div sec:authorize="!isAuthenticated()">
+					<h1><span th:text="${admin.username}"></span></h1>
+				</div>
+			</div>
 			<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
 				<div sec:authorize="isAuthenticated()">
 					<a th:href="@{/profile/{username}(username=${member.username})}"><h1><span th:text="${member.username}"></span></h1></a>
@@ -184,14 +192,14 @@
 				<div sec:authorize="!isAuthenticated()">
 					<h1><span th:text="${member.username}"></span></h1>
 				</div>
+				<div sec:authorize="isAuthenticated()" th:if="${loggedInUser.id == admin.id}">
+					<form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}" th:method="post">
+						<button type="submit" class="btn btn-danger">Remove</button>
+					</form>
+				</div>
 			</div>
 			<div>
-				<a th:href="@{/group/{groupId}/members(groupId=${group.getId()})}">View All Members</a>
-			</div>
-			<div sec:authorize="isAuthenticated()" th:if="${loggedInUserIsAdmin}">
-				<form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}" th:method="post">
-					<button type="submit" class="btn btn-danger">Remove</button>
-				</form>
+				<a th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
 			</div>
 		</div>
 	</div>

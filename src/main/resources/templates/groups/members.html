@@ -15,6 +15,14 @@
 
 <div class="container">
 	<div class="list-group">
+		<div class="list-group-item list-group-item-action my-2">
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/profile/{username}(username=${adminMember.username})}"><h1><span th:text="${adminMember.username}"></span></h1></a>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<h1><span th:text="${adminMember.username}"></span></h1>
+			</div>
+		</div>
 		<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
 			<div sec:authorize="isAuthenticated()">
 				<a th:href="@{/profile/{username}(username=${member.username})}"><h1><span th:text="${member.username}"></span></h1></a>

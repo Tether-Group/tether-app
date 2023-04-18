@@ -59,12 +59,6 @@ public class GroupController {
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
                 group.setAdmin(userObj);
                 groupDao.save(group);
-
-                Membership membership = new Membership();
-                membership.setGroup(group);
-                membership.setUser(userObj);
-                membership.setPending(false);
-                membershipDao.save(membership);
             } else {
                 return "redirect:/login";
             }
@@ -81,7 +75,7 @@ public class GroupController {
         if (group == null) {
             return "redirect:/error";
         }
-        User groupCreator = groupDao.findById(groupId).get().getAdmin();
+        User admin = groupDao.findById(groupId).get().getAdmin();
         List<Post> posts = postDao.findByGroup_Id(group.getId());
         List<PostType> postTypes = postTypeDao.findAll();
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
@@ -99,7 +93,7 @@ public class GroupController {
             model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
         }
 
-        model.addAttribute("groupCreator", groupCreator);
+        model.addAttribute("admin", admin);
         model.addAttribute("group", group);
         model.addAttribute("posts", posts);
         model.addAttribute("members", members);
