@@ -59,12 +59,6 @@ public class GroupController {
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
                 group.setAdmin(userObj);
                 groupDao.save(group);
-
-                Membership membership = new Membership();
-                membership.setGroup(group);
-                membership.setUser(userObj);
-                membership.setPending(false);
-                membershipDao.save(membership);
             } else {
                 return "redirect:/login";
             }
@@ -81,7 +75,7 @@ public class GroupController {
         if (group == null) {
             return "redirect:/error";
         }
-        User groupCreator = groupDao.findById(groupId).get().getAdmin();
+        User admin = groupDao.findById(groupId).get().getAdmin();
         List<Post> posts = postDao.findByGroup_Id(group.getId());
         List<PostType> postTypes = postTypeDao.findAll();
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
@@ -99,7 +93,7 @@ public class GroupController {
             model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
         }
 
-        model.addAttribute("groupCreator", groupCreator);
+        model.addAttribute("admin", admin);
         model.addAttribute("group", group);
         model.addAttribute("posts", posts);
         model.addAttribute("members", members);
@@ -163,8 +157,11 @@ public class GroupController {
 
     @GetMapping("group/{groupId}/members")
     public String returnMembersListPage(Model model, @PathVariable Long groupId) {
-        List<User> members = userDao.findByGroupId(groupId);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User admin = groupDao.findById(groupId).get().getAdmin();
+        boolean loggedInUserIsGroupAdmin = loggedInUser.getId() == admin.getId();
+        model.addAttribute("loggedInUserIsAdmin", loggedInUserIsGroupAdmin);
+        List<User> members = userDao.findByGroupId(groupId);
         model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";
@@ -205,6 +202,14 @@ public class GroupController {
             return "redirect:/group/" + group.getId();
         }
 
+        membershipDao.delete(membership);
+        return "redirect:/group/" + group.getId();
+    }
+
+    @PostMapping("/group/{groupId}/{memberId}/remove")
+    public String removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long memberId) {
+        Group group = groupDao.findById(groupId).get();
+        Membership membership = membershipDao.findMembershipByUser_IdAndGroup_Id(memberId, group.getId());
         membershipDao.delete(membership);
         return "redirect:/group/" + group.getId();
     }
