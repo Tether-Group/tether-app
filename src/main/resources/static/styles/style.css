@@ -1,4 +1,21 @@
+html {
+    box-sizing: border-box;
+}
+
+
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: dimgrey;
+}
+
 /* The message box is shown when the user clicks on the password field */
+
 #message {
     display:none;
     color: #000;
@@ -48,4 +65,125 @@
 }
 .card {
     outline: black;
+}
+
+/* NAVBAR */
+.nav-div{
+    direction: ltr;
+    align-items: center;
+    /*margin-top: 1em;*/
+}
+
+.logo{
+    display: inline-block;
+    color: lightgray;
+    margin-top: .4em;
+}
+
+ul.navbar {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    border-radius: .2em;
+    position: fixed;
+    width: 100%;
+
+}
+
+ul.navbar li {
+    float: left;
+    display: inline-block;
+    align-items: center;
+
+}
+
+ul.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.navbar li a:hover:not(.active) {background-color: #111;}
+
+ul.navbar li a.active {background-color: #04AA6D;}
+
+ul.navbar li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+    ul.navbar li.right,
+    ul.navbar li {float: none;}
+}
+
+.search-bar{
+    float: right;
+    align-self: center;
+    margin-top: .7em;
+}
+
+.nav-logout {
+    float: right;
+    margin-top: .7em;
+    margin-right: 1em;
+}
+
+/* NAV-BAR BUTTONS */
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--hover);
+    }
+}
+
+.raise:hover,
+.raise:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.raise {
+    --color: #c0bdbc;
+    --hover: #22721c;
+}
+
+.logout-btn:hover,
+.logout-btn:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.logout-btn {
+    --color: #c0bdbc;
+    --hover: #22721c;
+}
+
+button {
+    color: var(--color);
+    transition: 0.25s;
+}
+
+button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff;
+}
+
+button, .logout-btn {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: .2em;
+    margin: 0 0.5em;
+    padding: .5em .5em;
+}
+
+h1 {
+    font-weight: 400; }
+
+code {
+    color: #e4cb58;
+    font: inherit;
 }
