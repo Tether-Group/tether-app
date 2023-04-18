@@ -12,6 +12,8 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
 
     Membership findMembershipByUser_IdAndGroup_Id(Long userId, Long groupId);
 
+    List<Membership> findMembershipsByGroup_Id(Long groupId);
+
     @Query(nativeQuery = true,
             value = "SELECT m.* FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     List<Membership> findMembershipsFromGroupJoinRequestsForTheLoggedInUser(@Param("id")Long id);

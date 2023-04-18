@@ -86,6 +86,7 @@ public class GroupController {
         List<PostType> postTypes = postTypeDao.findAll();
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
         List<Long> postTypeIdsOfGroup = new ArrayList<>();
+        List<User> members = userDao.findByGroupIdLimitFive(groupId);
 
         for (PostType postType : postTypesIdsOfGroup) {
             postTypeIdsOfGroup.add(postType.getId());
@@ -101,6 +102,7 @@ public class GroupController {
         model.addAttribute("groupCreator", groupCreator);
         model.addAttribute("group", group);
         model.addAttribute("posts", posts);
+        model.addAttribute("members", members);
         Membership membership = new Membership();
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -152,9 +154,8 @@ public class GroupController {
         User groupAdmin = originalGroup.getAdmin();
 //      this is used to ensure that the logged-in user is also the admin of the group page
         if (loggedInUser.getId() != groupAdmin.getId()) {
-//            return the 403 page to get out of the method
             System.out.println("Delete not allowed");
-            return "redirect:/groups";
+            return "redirect:/error";
         }
         groupDao.deleteById(group.getId());
         return "redirect:/groups";
