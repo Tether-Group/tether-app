@@ -163,7 +163,7 @@
 			<div th:if="${post.getPostType().getId() == 4}">
 				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
-
+			<div th:if="${loggedInUser != null}">
 			<form th:if="${loggedInUser.getId() == groupCreator.getId() && loggedInUser.getId() != post.user.id}" th:method="post" th:action="@{/post/delete}">
 				<input th:name="id" th:value="${post.id}" hidden>
 				<input th:name="groupId" th:value="${group.id}" hidden>
@@ -171,6 +171,7 @@
 					Delete
 				</button>
 			</form>
+			</div>
 
 		</div>
 	</div>
