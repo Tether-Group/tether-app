@@ -20,6 +20,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByGroupId(@Param("group_id")Long groupId);
 
     @Query(nativeQuery = true,
+            value = "select u.*, m.is_pending from memberships m join users u on u.id = m.user_id where m.group_id = :group_id LIMIT 5")
+    List<User> findByGroupIdLimitFive(@Param("group_id")Long groupId);
+
+    @Query(nativeQuery = true,
             value = "SELECT u.* FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     Set<User> findUsersFromGroupJoinRequestsForTheAdmin(@Param("id")Long id);
 }
