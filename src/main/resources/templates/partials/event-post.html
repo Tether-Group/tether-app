@@ -1,17 +1,25 @@
 <th:block th:fragment="event-post">
 
-    <div class="list-group-item list-group-item-action my-2">
+    <div class="post-card list-group-item list-group-item-action my-2">
         <div th:id="'post-content'+${post.id}">
             <div class="d-flex w-100 justify-content-between post-item">
-                <h5 class="mb-1"><span th:text="${post.header}"></span></h5>
-                <small th:text="${post.postDateToString()}"></small>
+                <div class="posted-by-info">
+                    <div class="group-photo"></div>
+                    <div class="user-photo">
+                    </div>
+                    <a th:href="@{'/profile/' + ${post.user.getUsername()}}"><small><span th:text="${post.user}"></span></small></a>
+                    <small>posted in </small>
+                    <a th:href="@{'/group/' + ${post.group.getId()}}"><small><span
+                            th:text="${post.group}"></span></small></a>
+                </div>
+                <div>
+                    <small th:text="${post.postDateToString()}"></small>
+                </div>
             </div>
+            <h5 class="mb-1"><span th:text="${post.header}"></span></h5>
             <p class="mb-1"><span th:text="${post.eventDate}"></span></p>
             <p class="mb-1"><span th:text="${post.eventAddress}"></span></p>
             <p class="mb-1"><span th:text="${post.body}"></span></p>
-            <a th:href="@{'/profile/' + ${post.user.getUsername()}}"><small><span th:text="${post.user}"></span></small></a>
-            <a th:href="@{'/group/' + ${post.group.getId()}}"><small><span
-                    th:text="${post.group}"></span></small></a>
         </div>
 
         <div sec:authorize="isAuthenticated()">

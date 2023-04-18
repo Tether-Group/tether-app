@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Landing Page</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
-<!--    	<link rel="stylesheet" href="/styles/index.css"/>-->
+    	<link rel="stylesheet" href="/styles/index.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
@@ -79,7 +79,7 @@
         <div class="col-8">
             <h3>Posts</h3>
 
-            <div class="list-group post-card">
+            <div class="list-group post-card-holder">
                 <div th:each="post: ${posts}">
 
                     <div th:if="${post.getPostType().getId() == 1}">
