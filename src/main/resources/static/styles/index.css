@@ -1,0 +1,36 @@
+h3{
+    display: inline-block;
+}
+.group-cards{
+    float: left;
+    width: 25em;
+    display: inline-block;
+
+}
+
+.post-card-holder{
+    position: relative;
+    float: right;
+    width: 55em;
+    display: inline-block;
+}
+
+.group-photo{
+    display: inline-block;
+    background-color: lightgray;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100px;
+}
+
+.user-photo{
+    position: absolute;
+    margin: 0em;
+    z-index: 9;
+    float: top;
+    display: inline-block;
+    background-color: darkgray;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 100px;
+}

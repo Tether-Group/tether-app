@@ -1,6 +1,7 @@
 package tethergroup.tether.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -198,18 +199,20 @@ public class PostController {
     }
 
     @PostMapping("/post/delete")
-    public String deletePost(@RequestParam(name = "id") Long postId) {
+    public String deletePost(@RequestParam(name = "id") Long postId, @RequestParam(name = "groupId") Long groupId) {
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User userOfPost = postDao.findById(postId).get().getUser();
-            if (userOfPost.getId() == loggedInUser.getId()) {
+            User groupAdmin = groupDao.findById(groupId).get().getAdmin();
+            if (userOfPost.getId() == loggedInUser.getId() || groupAdmin.getId() == loggedInUser.getId()) {
                 Post postToBeDeleted = postDao.findById(postId).get();
                 postDao.delete(postToBeDeleted);
             } else {
-                System.out.println("User is not the original poster of the post");
+                System.out.println("User is not the original poster of the post or group admin");
             }
         } catch (Exception e) {
             System.out.println("User is not logged in");
+            e.printStackTrace();
             return "redirect:/error";
         }
         return "redirect:/";

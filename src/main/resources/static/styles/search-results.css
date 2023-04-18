@@ -1,0 +1,33 @@
+.search-form{
+    margin: 25px auto;
+    display: flex;
+    justify-content: center;
+    width:80%;
+}
+.post-card{
+    float: left;
+    width: 53em;
+    display: inline-block;
+    margin-right: 2em;
+    margin-bottom: .75em;
+    margin-left: 20px;
+}
+
+.no-postcard{
+    margin-bottom: 200px;
+}
+
+.group-card{
+    margin-right: 20px;
+    float: right;
+    width: 430px;
+    margin-bottom: .75em;
+}
+
+.user-card{
+    margin-right: 20px;
+    float: right;
+    width: 430px;
+    margin-bottom: .75em;
+}
+

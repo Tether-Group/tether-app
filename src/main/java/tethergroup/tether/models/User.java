@@ -38,13 +38,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
     private List<Group> groupsWhereUserIsAdmin;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="friends",
-            joinColumns={@JoinColumn(name="user_id1")},
-            inverseJoinColumns={@JoinColumn(name="user_id2")}
-    )
-    private List<User> friends;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "requester")
+    private List<Friendship> friendshipsRequester;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "acceptor")
+    private List<Friendship> friendshipsAcceptor;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Membership> memberships;
@@ -58,7 +56,8 @@ public class User {
         lastName = copy.lastName;
         bio = copy.bio;
         groupsWhereUserIsAdmin = copy.groupsWhereUserIsAdmin;
-        friends = copy.friends;
+        friendshipsRequester = copy.friendshipsRequester;
+        friendshipsAcceptor = copy.friendshipsAcceptor;
         memberships = copy.memberships;
     }
 

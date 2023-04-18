@@ -70,7 +70,14 @@ public class SecurityConfiguration {
                         "/notifications",
                         "/notifications/accept/{id}",
                         "/notifications/deny/{id}",
-                        "/group/{groupId}/members"
+                        "/group/{groupId}/members",
+                        "/profile/{userId}/add",
+                        "/profile/{userId}/cancel",
+                        "/profile/{userId}/remove",
+                        "/messages",
+                        "/getUser/{username}",
+                        "/profile/{userId}/accept",
+                        "/profile/{userId}/decline"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */

@@ -3,9 +3,9 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Group</title>
-    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<meta charset="UTF-8">
+	<title>Group</title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -54,9 +54,6 @@
 		<h1><span th:text="${group.name}"></span></h1>
 		<h5><span th:text="${group.description}"></span></h5>
 		<p>The admin of this group is <span th:text="${group.admin}"></span></p>
-	</div>
-	<div>
-		<a th:href="@{/group/{groupId}/members(groupId=${group.getId()})}">View All Members</a>
 	</div>
 </div>
 
@@ -163,9 +160,44 @@
 			<div th:if="${post.getPostType().getId() == 4}">
 				<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 			</div>
+			<div th:if="${loggedInUser != null}">
+			<form th:if="${loggedInUser.getId() == groupCreator.getId() && loggedInUser.getId() != post.user.id}" th:method="post" th:action="@{/post/delete}">
+				<input th:name="id" th:value="${post.id}" hidden>
+				<input th:name="groupId" th:value="${group.id}" hidden>
+				<button type="submit" class="btn btn-danger">
+					Delete
+				</button>
+			</form>
+			</div>
 
 		</div>
 	</div>
+
+	<h3>Members</h3>
+
+	<div class="container">
+		<div class="list-group">
+			<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
+				<div sec:authorize="isAuthenticated()">
+					<a th:href="@{/profile/{username}(username=${member.username})}"><h1><span th:text="${member.username}"></span></h1></a>
+				</div>
+				<div sec:authorize="!isAuthenticated()">
+					<h1><span th:text="${member.username}"></span></h1>
+				</div>
+				<!--			<div class="d-flex w-100 justify-content-between post-item">-->
+				<!--				<a th:href="@{/group/{id}(id=${group.id})}">-->
+				<!--					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>-->
+				<!--				</a>-->
+				<!--			</div>-->
+				<!--			<p class="mb-1"><span th:text="${group.description}"></span></p>-->
+				<!--			<a th:href="@{/profile/{id}(id=${group.getAdmin().getUsername()})}"><small><span th:text="${group.getAdmin()}"></span></small></a>-->
+			</div>
+			<div>
+				<a th:href="@{/group/{groupId}/members(groupId=${group.getId()})}">View All Members</a>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
