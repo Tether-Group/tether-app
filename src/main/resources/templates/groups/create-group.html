@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <title>Create group</title>
         <th:block th:insert="~{partials/styles :: styles}"></th:block>
+        <link rel="stylesheet" href="/styles/create-group.css"/>
     </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -42,6 +43,14 @@
         <button type="submit" class="btn btn-primary">Create Group</button>
     </div>
 </form>
+
+
+<label class="input">
+    <input class="input__field" type="text" placeholder=" " />
+    <span class="input__label">Some Fancy Label</span>
+</label>
+
+
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
