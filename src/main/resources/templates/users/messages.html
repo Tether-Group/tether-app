@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>Messages</title>
@@ -8,10 +9,16 @@
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 <h2>this is the message page</h2>
-<!-- container element in which TalkJS will display a chat UI -->
-<div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
-    <i>Loading chat...</i>
-</div>
+<!--<div sec:authentication="isAuthenticated()">-->
+    <!-- container element in which TalkJS will display a chat UI -->
+<input type="hidden" id="friendID" th:value="${friend.id}">
+<input type="hidden" id="friendUsername" th:name="username" th:value="${friend.username}">
+<input type="hidden" id="friendEmail" th:value="${friend.email}">
+
+    <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+        <i>Loading chat...</i>
+    </div>
+<!--</div>-->
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/talkjs.js}"></script>
