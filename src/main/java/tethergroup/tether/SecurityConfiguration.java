@@ -77,7 +77,8 @@ public class SecurityConfiguration {
                         "/messages",
                         "/getUser/{username}",
                         "/profile/{userId}/accept",
-                        "/profile/{userId}/decline"
+                        "/profile/{userId}/decline",
+                        "/group/{groupId}/{memberId}/remove"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
