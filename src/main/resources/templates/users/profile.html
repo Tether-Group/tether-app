@@ -21,6 +21,10 @@
 			</form>
 		</div>
 	</div>
+	<!--message the user-->
+	<div>
+		<a th:href="@{/messages/talk/{username}(username=${user.username})}">Send Message</a>
+	</div>
 	<!--    cancel friend request button-->
 	<div sec:authorize="isAuthenticated()">
 		<div th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
