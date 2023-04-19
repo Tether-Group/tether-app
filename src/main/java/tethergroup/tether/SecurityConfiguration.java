@@ -57,6 +57,7 @@ public class SecurityConfiguration {
                         "/group/delete",
                         "/group/{groupId}/join",
                         "/group/{groupId}/leave",
+                        "/post/event/{id}",
                         "/posts/{id}/edit",
                         "/post/text/edit",
                         "/post/event/edit",
@@ -99,7 +100,8 @@ public class SecurityConfiguration {
                         "/group/{groupId}",
                         "/my/logout",
                         "/error",
-                        "/about"
+                        "/about",
+                        "/keys.js"
                         )
                 .permitAll()
 

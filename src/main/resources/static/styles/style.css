@@ -46,6 +46,17 @@
 .about-card {
     margin: 0 1em 0;
 }
+
 .card {
     outline: black;
+}
+
+#event-map {
+    width: 50%;
+    /*height: 300px;*/
+    max-width: 750px;
+    height: 300px;
+    border: 3px solid white;
+    border-radius: 1em;
+    color: #001542;
 }
