@@ -13,7 +13,7 @@ function geocode(search, token) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    mapboxgl.accessToken = MAPBOX_API_KEY;
+    mapboxgl.accessToken = "pk.eyJ1IjoibWFkbWFyY29zIiwiYSI6ImNsNWw0YWNobTBnY3AzanN4dzdpemhpeG0ifQ.OO7BegDPBkP3SV0CaLbnyQ";
 
     //adds map with starting center point position
     const map = new mapboxgl.Map({
@@ -51,8 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // function uses geocoder to log result and pin input address
     function addMarker(address) {
-        geocode(address, MAPBOX_API_KEY)
+        geocode(address, "pk.eyJ1IjoibWFkbWFyY29zIiwiYSI6ImNsNWw0YWNobTBnY3AzanN4dzdpemhpeG0ifQ.OO7BegDPBkP3SV0CaLbnyQ")
             .then(function (result) {
+                console.log(result);
                 const marker = new mapboxgl.Marker({'color': 'rgba(255,0,21,0.65)',});
                 marker.setLngLat(result);
                 marker.addTo(map);
@@ -76,19 +77,21 @@ document.addEventListener("DOMContentLoaded", function () {
             // $('#invalid-feedback').html(errorHTML);
         });
     }
+    let eventMarker = document.getElementById("event-address");
+    let newEventMarker = eventMarker.innerText;
+    console.log(newEventMarker);
+    addMarker(newEventMarker);
 
-    addMarker("San Antonio, Texas");
+    // //adding search bar functionality
+    // function locationSearch(e) {
+    //     e.preventDefault();
+    //     let userLocationSearch = document.getElementById("event-address");
+    //     let newLocationSearch = (userLocationSearch.focus().val());
+    //     console.log(newLocationSearch);
+    //     addMarker(newLocationSearch);
+    // }
 
-    //adding search bar functionality
-    function locationSearch(e) {
-        e.preventDefault();
-        let userLocationSearch = document.querySelector('#search-location-input');
-        let newLocationSearch = (userLocationSearch.focus().val());
-        console.log(newLocationSearch);
-        addMarker(newLocationSearch);
-    }
-
-    document.querySelector('.search-location-btn').addEventListener("click", locationSearch);
+    // document.querySelector('.search-location').addEventListener("click", locationSearch);
 
 
 });

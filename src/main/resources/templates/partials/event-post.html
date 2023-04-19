@@ -18,7 +18,14 @@
             </div>
             <h5 class="mb-1"><span th:text="${post.header}"></span></h5>
             <p class="mb-1"><span th:text="${post.eventDate}"></span></p>
-            <p class="mb-1"><span th:text="${post.eventAddress}"></span></p>
+            <div>
+                <div sec:authorize="isAuthenticated()">
+                    <a class="mb-1" th:href="@{/post/event/{id}(id=${post.id})}"><span th:text="${post.eventAddress}"></span></a>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <p class="mb-1"><span th:text="${post.eventAddress}"></span></p>
+                </div>
+            </div>
             <p class="mb-1"><span th:text="${post.body}"></span></p>
         </div>
 
@@ -63,16 +70,7 @@
                     </button>
                 </form>
             </div>
-
-            <div class="container-fluid d-flex justify-content-center my-4">
-                <div id="event-map"></div>
-            </div>
         </div>
-    </div>
-
-    <div sec:authorize="isAuthenticated()">
-        <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
-        <script th:src="@{/js/mapbox_js.js}"></script>
     </div>
 
 </th:block>
