@@ -33,4 +33,10 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query(nativeQuery = true,
             value = "SELECT COUNT(*) FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     Long getCountOfGroupRequestsForLoggedInUserAndAdmin(Long id);
+
+    @Query(nativeQuery = true,
+    value = "SELECT DISTINCT g.* from groups g\n" +
+            "INNER JOIN memberships m ON m.group_id = g.id\n" +
+            "WHERE m.user_id = :user_id")
+    List<Group> getGroupsWhereLoggedInUserCanAddComments(@Param("user_id") Long userId);
 }
