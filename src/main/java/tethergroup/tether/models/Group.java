@@ -32,7 +32,6 @@ public class Group {
     @ManyToOne
     @JoinColumn (name = "admin_id")
     private User admin;
-//    many to one
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(
@@ -44,6 +43,9 @@ public class Group {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private List<Membership> memberships;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    private List<Comment> comments;
 
     public String toString() {
         return "" + this.name;
