@@ -100,7 +100,8 @@ public class SecurityConfiguration {
                         "/group/{groupId}",
                         "/my/logout",
                         "/error",
-                        "/about"
+                        "/about",
+                        "/keys.js"
                         )
                 .permitAll()
 
