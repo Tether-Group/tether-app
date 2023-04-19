@@ -15,6 +15,7 @@ public class KeysController {
     @ResponseBody
     public String getAPIKeys() {
         return "const MAPBOX_API_KEY = \"" + apiKeys.MapboxAPIKey + "\";\n" +
-                "const app_id = \"" + apiKeys.talkJSAppKey + "\";";
+                "const app_id = \"" + apiKeys.talkJSAppKey + "\";\n" +
+                "const FILESTACK_API_KEY = \"" + apiKeys.filestackAPIKey + "\";";
     }
 }

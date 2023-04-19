@@ -10,4 +10,7 @@ public class APIKeys {
 
     @Value("${MAPBOX_API_KEY}")
     public String MapboxAPIKey;
+
+    @Value("${FILESTACK_API_KEY}")
+    public String filestackAPIKey;
 }
