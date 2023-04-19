@@ -25,6 +25,7 @@ public class GroupController {
     private final PostTypeRepository postTypeDao;
     private final MembershipRepository membershipDao;
     private final PostRepository postDao;
+    private final CommentRepository commentDao;
 
     @GetMapping ("/groups")
     @Transactional
@@ -81,7 +82,10 @@ public class GroupController {
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
         List<Long> postTypeIdsOfGroup = new ArrayList<>();
         List<User> members = userDao.findByGroupIdLimitFive(groupId);
-
+        List<Comment> comments = commentDao.findCommentsByGroup_Id(groupId);
+        for (Comment comment : comments) {
+            System.out.println(comment.getPost().getId());
+        }
         for (PostType postType : postTypesIdsOfGroup) {
             postTypeIdsOfGroup.add(postType.getId());
         }
@@ -97,6 +101,7 @@ public class GroupController {
         model.addAttribute("group", group);
         model.addAttribute("posts", posts);
         model.addAttribute("members", members);
+        model.addAttribute("comments", comments);
         Membership membership = new Membership();
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

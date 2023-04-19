@@ -1,5 +1,6 @@
 package tethergroup.tether.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,17 +36,28 @@ public class User {
     @Column(length = 1024, name = "bio")
     private String bio;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
     private List<Group> groupsWhereUserIsAdmin;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "requester")
     private List<Friendship> friendshipsRequester;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "acceptor")
     private List<Friendship> friendshipsAcceptor;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Membership> memberships;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commenter")
+    private List<Comment> comments;
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
@@ -62,7 +74,10 @@ public class User {
     }
 
     @Override
+    @JsonIgnore
     public String toString() {
         return "@" + this.username;
     }
+
+
 }

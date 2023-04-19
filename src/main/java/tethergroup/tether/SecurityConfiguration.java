@@ -74,11 +74,16 @@ public class SecurityConfiguration {
                         "/profile/{userId}/add",
                         "/profile/{userId}/cancel",
                         "/profile/{userId}/remove",
-                        "/messages",
+                        "/messages/talk/{username}",
                         "/getUser/{username}",
+                        "/getUser/loggedInUser",
+                        "/getFriends",
                         "/profile/{userId}/accept",
                         "/profile/{userId}/decline",
-                        "/group/{groupId}/{memberId}/remove"
+                        "/group/{groupId}/{memberId}/remove",
+                        "/{postId}/comment/add",
+                        "/comment/delete",
+                        "/comment/edit"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */

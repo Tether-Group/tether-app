@@ -5,46 +5,43 @@
     .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
 
 
-const getAgent = async () => {
-    const response = await fetch('http://localhost:8080/getUser?candywandy');
-    const data = await response.json();
-    let agent = new Talk.User({
-        id: data.id,
-        name: data.name,
-        // photoUrl: data.dp,
-        email: data.email,
-        // role: data.role
-    });
-    return agent;
-}
-const getUser = async () => {
-    const response = await fetch('http://localhost:8080/getUser?StephenAdmin');
-    const data = await response.json();
-    let user = new Talk.User({
-        id: data.id,
-        name: data.name,
-        // photoUrl: data.dp,
-        email: data.email,
-        // role: data.role
-    });
-    return user;
-}
-
-(async function() {
-    await Talk.ready;
-    let agent = await getAgent();
-    let user = await getUser();
-    const session = new Talk.Session({
-        appId: 'thVjgOD8',
-        me: user,
-    });
-    var conversation = session.getOrCreateConversation(Talk.oneOnOneId(user, agent))
-    conversation.setAttributes({
-        welcomeMessages: ["Start the conversation.."]
+Talk.ready.then(async function () {
+    let loggedInUser = await fetch ("/getUser/loggedInUser", {
+        method: 'GET'
+    }).then(function(request) {
+        return request.json();
     })
-    conversation.setParticipant(user);
-    conversation.setParticipant(agent);
 
-    var inbox = session.createInbox(conversation);
-    inbox.mount(document.getElementById("talkjs-container"));
-}());
+    var me = new Talk.User({
+        id: loggedInUser.id,
+        name: loggedInUser.username,
+        email: loggedInUser.email,
+        photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
+    });
+    window.talkSession = new Talk.Session({
+        appId: "thVjgOD8",
+        me: me,
+    });
+
+    //instead of doing this, use the document.getelementbyId to access that users info from the page (hidden input use th:value ---- .value)
+    let otherUserID = document.getElementById("friendID").value
+    let otherUserUsername = document.getElementById('friendUsername').value
+    let otherUserEmail = document.getElementById('friendEmail').value
+
+    var other = new Talk.User({
+        id: otherUserID,
+        name: otherUserUsername,
+        email: otherUserEmail,
+        photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+        welcomeMessage: 'Start the conversation...',
+    });
+
+    var conversation = talkSession.getOrCreateConversation(
+        Talk.oneOnOneId(me, other)
+    );
+    conversation.setParticipant(me);
+    conversation.setParticipant(other);
+
+    var inbox = talkSession.createInbox({ selected: conversation });
+    inbox.mount(document.getElementById('talkjs-container'));
+});
