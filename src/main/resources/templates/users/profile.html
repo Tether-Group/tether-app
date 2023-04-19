@@ -71,10 +71,22 @@
 	<h1><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h1>
 	<h5><span th:text="${user.username}"></span></h5>
 
+	<form id="uploadForm">
+		<input type="file" name="file" id="fileInput">
+		<button type="submit">Upload</button>
+	</form>
+	<div id="preview"></div>
+
+
+
+
+
+
 </div>
 
-
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:src="@{/js/filestack.js}"></script>
 <script th:src="@{/js/add_comments.js}"></script>
 </body>
 </html>
