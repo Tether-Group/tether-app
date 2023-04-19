@@ -13,7 +13,7 @@ function geocode(search, token) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    mapboxgl.accessToken = "pk.eyJ1IjoibWFkbWFyY29zIiwiYSI6ImNsNWw0YWNobTBnY3AzanN4dzdpemhpeG0ifQ.OO7BegDPBkP3SV0CaLbnyQ";
+    mapboxgl.accessToken = MAPBOX_API_KEY;
 
     //adds map with starting center point position
     const map = new mapboxgl.Map({
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // function uses geocoder to log result and pin input address
     function addMarker(address) {
-        geocode(address, "pk.eyJ1IjoibWFkbWFyY29zIiwiYSI6ImNsNWw0YWNobTBnY3AzanN4dzdpemhpeG0ifQ.OO7BegDPBkP3SV0CaLbnyQ")
+        geocode(address, MAPBOX_API_KEY)
             .then(function (result) {
                 console.log(result);
                 const marker = new mapboxgl.Marker({'color': 'rgba(255,0,21,0.65)',});
