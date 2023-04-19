@@ -78,7 +78,6 @@ public class GroupController {
         }
         User admin = groupDao.findById(groupId).get().getAdmin();
         List<Post> posts = postDao.findByGroup_Id(group.getId());
-        List<PostType> postTypes = postTypeDao.findAll();
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
         List<Long> postTypeIdsOfGroup = new ArrayList<>();
         List<User> members = userDao.findByGroupIdLimitFive(groupId);
@@ -91,12 +90,6 @@ public class GroupController {
         }
 
         model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
-
-
-        for (int i = 0; i < postTypes.size(); i++) {
-            model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
-        }
-
         model.addAttribute("admin", admin);
         model.addAttribute("group", group);
         model.addAttribute("posts", posts);

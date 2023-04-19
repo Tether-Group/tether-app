@@ -83,7 +83,8 @@ public class SecurityConfiguration {
                         "/group/{groupId}/{memberId}/remove",
                         "/{postId}/comment/add",
                         "/comment/delete",
-                        "/comment/edit"
+                        "/comment/edit",
+                        "/verifyAddComments"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
