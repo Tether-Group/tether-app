@@ -19,7 +19,7 @@ Talk.ready.then(async function () {
         photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
     });
     window.talkSession = new Talk.Session({
-        appId: "thVjgOD8",
+        appId: app_id,
         me: me,
     });
 

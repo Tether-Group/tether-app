@@ -56,6 +56,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Membership> memberships;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commenter")
     private List<Comment> comments;
 

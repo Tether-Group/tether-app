@@ -5,10 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class APIKeys {
-//    @Value("${talkjs.appkey}")
-//    private String talkJSAppKey;
-//
-//    public static String getAPIKey() {
-//        return talkJSAppKey;
-//    }
+    @Value("${talkJSAppKey}")
+    public String talkJSAppKey;
+
+    @Value("${MAPBOX_API_KEY}")
+    public String MapboxAPIKey;
 }
