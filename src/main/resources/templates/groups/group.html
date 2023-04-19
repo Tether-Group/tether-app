@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
     <div sec:authorize="isAuthenticated()">
-        <div th:if="${isMember && !isPending}">
+        <div th:if="${(isMember || loggedInUser.id == admin.id) && !isPending}">
             <th:block th:insert="~{partials/create-post :: create-post}"></th:block>
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="container">
         <!--    join group button/form-->
         <div sec:authorize="isAuthenticated()">
-            <div th:if="${loggedInUser.getId() != admin.id && !isMember && !isPending}">
+            <div th:if="${loggedInUser.id != admin.id && !isMember && !isPending}">
                 <form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
                     <button id="join-group-btn" type="submit" class="btn btn-primary">
                         Join Group
@@ -145,7 +145,7 @@
     <div class="three-main">
 
         <div class="d-flex align-items-start">
-            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+            <div class="group-nav-pabs nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-home" type="button" role="tab">All Posts
                 </button>
@@ -160,7 +160,7 @@
                 </button>
             </div>
 
-            <div class="tab-content" id="v-pills-tabContent">
+            <div class="group-nav-pane tab-content" id="v-pills-tabContent">
 
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
 
