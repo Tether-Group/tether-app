@@ -200,6 +200,7 @@ public class PostController {
 
     @PostMapping("/post/delete")
     public String deletePost(@RequestParam(name = "id") Long postId, @RequestParam(name = "groupId") Long groupId) {
+        System.out.println("TRYING TO DELETE POST");
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User userOfPost = postDao.findById(postId).get().getUser();

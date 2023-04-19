@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
     <div sec:authorize="isAuthenticated()">
-        <div th:if="${isMember && !isPending}">
+        <div th:if="${(isMember || loggedInUser.id == admin.id) && !isPending}">
             <th:block th:insert="~{partials/create-post :: create-post}"></th:block>
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="container">
         <!--    join group button/form-->
         <div sec:authorize="isAuthenticated()">
-            <div th:if="${loggedInUser.getId() != admin.id && !isMember && !isPending}">
+            <div th:if="${loggedInUser.id != admin.id && !isMember && !isPending}">
                 <form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
                     <button id="join-group-btn" type="submit" class="btn btn-primary">
                         Join Group
