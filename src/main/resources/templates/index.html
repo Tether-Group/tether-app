@@ -76,11 +76,12 @@
             </ul>
         </div>
 
+
         <div class="col-8">
             <h3>Posts</h3>
 
             <div class="list-group post-card-holder">
-                <div th:each="post: ${posts}">
+                <div th:each="post : ${posts}">
 
                     <div th:if="${post.getPostType().getId() == 1}">
                         <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
@@ -106,45 +107,6 @@
 
 </div>
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
-<script>
-    const editPost = (event) => {
-        const postId = event.target.getAttribute("id").match(/\d+/)[0];
-
-        const editInput = document.getElementById("hidden-form" + postId);
-        editInput.hidden = false;
-
-        const postContent = document.getElementById("post-content" + postId);
-        postContent.hidden = true;
-
-        const editButton = event.target;
-        editButton.hidden = true;
-
-        const cancelButton = document.getElementById("cancel-button" + postId);
-        cancelButton.hidden = false;
-
-        const saveButton = document.getElementById("save-button" + postId);
-        saveButton.hidden = false;
-    };
-
-    const cancelEditingPost = (event) => {
-        const postId = event.target.getAttribute("id").match(/\d+/)[0];
-
-        const editInput = document.getElementById("hidden-form" + postId);
-        editInput.hidden = true;
-
-        const postContent = document.getElementById("post-content" + postId);
-        postContent.hidden = false;
-
-        const editButton = document.getElementById("edit-button" + postId);
-        editButton.hidden = false;
-
-        const cancelButton = event.target;
-        cancelButton.hidden = true;
-
-        const saveButton = document.getElementById("save-button" + postId);
-        saveButton.hidden = true;
-    };
-
-</script>
+<script th:src="@{/js/posts.js}"></script>
 </body>
 </html>

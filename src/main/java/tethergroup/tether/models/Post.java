@@ -9,6 +9,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,6 +50,9 @@ public class Post {
 
     @OneToOne
     private Group group;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments;
 
     public String postDateToString() {
         PrettyTime p = new PrettyTime();
