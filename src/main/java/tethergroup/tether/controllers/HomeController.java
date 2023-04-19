@@ -38,7 +38,7 @@ public class HomeController {
         }
         model.addAttribute("loggedInUser", loggedInUser);
         List<Group> groups = groupDao.findAll();
-        List<Comment> comments = commentDao.findAll();
+        List<Comment> comments = commentDao.findAllByOrderByCommentDateDesc();
         for (Comment comment : comments) {
             System.out.println(comment.getPost().getId());
         }

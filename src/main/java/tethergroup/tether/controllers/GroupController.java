@@ -81,7 +81,7 @@ public class GroupController {
         List<PostType> postTypesIdsOfGroup = group.getPostTypes();
         List<Long> postTypeIdsOfGroup = new ArrayList<>();
         List<User> members = userDao.findByGroupIdLimitFive(groupId);
-        List<Comment> comments = commentDao.findCommentsByGroup_Id(groupId);
+        List<Comment> comments = commentDao.findCommentsByGroup_IdOrderByCommentDateDesc(groupId);
         for (Comment comment : comments) {
             System.out.println(comment.getPost().getId());
         }

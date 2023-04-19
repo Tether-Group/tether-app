@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findCommentsByGroup_Id(Long groupId);
+    List<Comment> findAllByOrderByCommentDateDesc();
+    List<Comment> findCommentsByGroup_IdOrderByCommentDateDesc(Long groupId);
+
 }

@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     idsOfPostsThatLoggedInUserCanCommentOn.forEach( (postId) => {
         const postToAppendAddCommentBox = document.querySelector("#add-comment-box" + postId);
-        postToAppendAddCommentBox.hidden = false;
+        if (postToAppendAddCommentBox != null) {
+            postToAppendAddCommentBox.hidden = false;
+        }
     })
     console.log(idsOfPostsThatLoggedInUserCanCommentOn);
 });

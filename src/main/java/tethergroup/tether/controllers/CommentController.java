@@ -64,16 +64,6 @@ public class CommentController {
 
         List<Post> posts = postDao.findAll();
         List<Long> idsOfPostsThatLoggedInUserCanCommentOn = new ArrayList<>();
-//        List<Post> posts = new ArrayList<>();
-
-//        List<Group> groupsWhereUserCanAddComments = groupDao.getGroupsWhereLoggedInUserCanAddComments(loggedInUser.getId());
-//        for (Group group : groupsWhereUserCanAddComments) {
-//            List<Post> postsOfGroupsThatUserCanAddComments = postDao.findByGroup_Id(group.getId());
-//            for (Post post : postsOfGroupsThatUserCanAddComments) {
-//                posts.add(post);
-//            }
-//        }
-
 
         for (Post post : posts) {
             if (post.getGroup().getAdmin().getId() == loggedInUser.getId()) {
