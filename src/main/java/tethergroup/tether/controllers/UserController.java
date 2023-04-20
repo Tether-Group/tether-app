@@ -121,8 +121,6 @@ public class UserController {
         return "users/profile";
     }
 
-
-
     //    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {
@@ -144,8 +142,6 @@ public class UserController {
         return "users/edit-user";
     }
 
-
-
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute User user, HttpSession session) {
         System.out.println(user.getId());
@@ -156,7 +152,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/editpassword")
-    public String updatePassword(@RequestParam ("oldpassword") String oldPassword, @RequestParam ("register-password") String newPassword){
+    public String updatePassword(@RequestParam("oldpassword") String oldPassword, @RequestParam("register-password") String newPassword) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String oldPasswordFromDataBase = userDao.findById(loggedInUser.getId()).get().getPassword();
         boolean doesMatch = passwordEncoder.matches(oldPassword, oldPasswordFromDataBase);
@@ -171,8 +167,6 @@ public class UserController {
         }
     }
 
-
-
     @PostMapping("/profile/delete")
     public String deleteAccount() {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -181,7 +175,6 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return "redirect:/my/logout";
     }
-
 
     @GetMapping("/my/logout")
     public String manualLogout(HttpServletRequest request) {
@@ -192,4 +185,5 @@ public class UserController {
         }
         return "redirect:/";
     }
+
 }

@@ -36,5 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             value = "SELECT u.* FROM users u INNER JOIN friendships f ON u.id = f.acceptor WHERE f.requester = :loggedInUserId AND f.is_Pending = 0")
     List<User> getLoggedInUsersFriendsWhenUserIsRequester(@Param("loggedInUserId") Long id);
 
+    public User findUserByEmail(String email);
 
+    public User findByResetPasswordToken(String token);
 }

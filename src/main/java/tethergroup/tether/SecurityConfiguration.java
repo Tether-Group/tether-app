@@ -102,7 +102,9 @@ public class SecurityConfiguration {
                         "/my/logout",
                         "/error",
                         "/about",
-                        "/keys.js"
+                        "/keys.js",
+                        "/forgot_password",
+                        "/reset_password"
                         )
                 .permitAll()
 
