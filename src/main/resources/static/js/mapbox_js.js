@@ -12,6 +12,19 @@ function geocode(search, token) {
         });
 }
 
+function reverseGeocode(coordinates, token) {
+    var baseUrl = 'https://api.mapbox.com';
+    var endPoint = '/geocoding/v5/mapbox.places/';
+    return fetch(baseUrl + endPoint + coordinates.lng + "," + coordinates.lat + '.json' + "?" + 'access_token=' + token)
+        .then(function(res) {
+            return res.json();
+        })
+        // to get all the data from the request, comment out the following three lines...
+        .then(function(data) {
+            return data.features[0].place_name;
+        });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     mapboxgl.accessToken = MAPBOX_API_KEY;
 
@@ -44,16 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const marker = new mapboxgl.Marker({'color': 'rgba(0,102,255,0.38)',});
         marker.setLngLat(result);
         marker.addTo(map);
-        map.setZoom(12);
+        map.setZoom(14);
         map.setCenter(result);
-        console.log(result);
     })
 
     // function uses geocoder to log result and pin input address
     function addMarker(address) {
         geocode(address, MAPBOX_API_KEY)
             .then(function (result) {
-                console.log(result);
+                // console.log(result);
                 const marker = new mapboxgl.Marker({'color': 'rgba(255,0,21,0.65)',});
                 marker.setLngLat(result);
                 marker.addTo(map);
