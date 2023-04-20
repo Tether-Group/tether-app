@@ -10,12 +10,14 @@
 <div class="d-flex justify-center">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+            <button th:class="${usernameExists} ? 'nav-link' : 'nav-link active'" id="pills-home-tab"
+                    data-bs-toggle="pill" data-bs-target="#pills-home"
                     type="button" role="tab">Log-in
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+            <button th:class="${usernameExists} ? 'nav-link active' : 'nav-link'" id="pills-profile-tab"
+                    data-bs-toggle="pill" data-bs-target="#pills-profile"
                     type="button" role="tab">Register
             </button>
         </li>
@@ -24,10 +26,10 @@
     <div class="tab-content" id="pills-tabContent">
 
 
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+        <div th:class="${usernameExists} ? 'tab-pane fade' : 'tab-pane fade show active'" id="pills-home"
+             role="tabpanel">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-
                     <h3>Log in</h3>
 
                     <form th:action="@{/login}" th:method="POST" th:object="${user}">
@@ -39,12 +41,15 @@
                         <input type="hidden" th:field="${user.id}">
                     </form>
 
+                    <a th:href="@{/forgot_password}">Forgot your password?</a>
+
                 </div>
             </div>
         </div>
 
 
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+        <div th:class="${usernameExists} ? 'tab-pane fade show active' : 'tab-pane fade'" id="pills-profile"
+             role="tabpanel">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
 
@@ -59,13 +64,23 @@
                             <input id="register-last-name" name="register-last-name" th:field="*{lastName}"
                                    class="form-control" required>
 
-                            <label for="register-username" class="form-label">Username</label>
-                            <input id="register-username" name="register-username" th:field="*{username}"
-                                   class="form-control" required>
+                            <div class="has-validation">
+                                <label for="register-username" class="form-label">Username</label>
+                                <input id="register-username" name="register-username" th:field="*{username}"
+                                       th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" required>
+                                <div id="validationUsernameFeedback" class="invalid-feedback">
+                                    Username already exists.
+                                </div>
+                            </div>
 
-                            <label for="register-email" class="form-label">Email</label>
-                            <input id="register-email" name="register-email" th:field="*{email}" class="form-control"
-                                   required>
+                            <div class="has-validation">
+                                <label for="register-email" class="form-label">Email</label>
+                                <input id="register-email" name="register-email" th:field="*{email}"
+                                       th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" required>
+                                <div id="validationEmailFeedback" class="invalid-feedback">
+                                    Please re-enter email
+                                </div>
+                            </div>
 
                             <label for="register-password" class="form-label">Password</label>
                             <input id="register-password" name="register-password" type="password"
@@ -76,23 +91,31 @@
                             <input id="register-pw-verification" name="register-pw-verification" type="password"
                                    class="form-control" required>
 
-                            <!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
-                            <div id="message">
-                                <h3>Password must contain the following:</h3>
-                                <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
-                                <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
-                                <p id="number" class="invalid">One <strong>number</strong></p>
-                                <p id="special" class="invalid">One <strong>special </strong>character</p>
-                                <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
-                                    characters</strong></p>
-                                <p id="empty" class="invalid">No <strong>spaces</strong></p>
-                                <p id="password-match" class="invalid">Password must match</p>
-                            </div>
-
-                            <input id="submit-pw" value="Sign me up!" th:type="submit" class="submit-button-password submit-button">
+                            <input id="submit-pw" value="Sign me up!" th:type="submit"
+                                   class="submit-button-password submit-button">
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div id="message1">
+                <h5>Email must contain:</h5>
+                <p id="asperand-register" class="invalid">@</p>
+                <p id=".com-register" class="invalid">domain must be ".com"</p>
+                <p>E.g. example@example.com</p>
+            </div>
+
+            <!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
+            <div id="message2">
+                <h5>Password must contain the following:</h5>
+                <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+                <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+                <p id="number" class="invalid">One <strong>number</strong></p>
+                <p id="special" class="invalid">One <strong>special </strong>character</p>
+                <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
+                    characters</strong></p>
+                <p id="empty" class="invalid">No <strong>spaces</strong></p>
+                <p id="password-match" class="invalid">Password must match</p>
             </div>
         </div>
     </div>

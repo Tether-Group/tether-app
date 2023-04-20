@@ -36,6 +36,9 @@ public class User {
     @Column(length = 1024, name = "bio")
     private String bio;
 
+    @Column(length = 30, name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Column(name = "profile_photo_url")
     private String profilePhotoUrl;
 
@@ -74,6 +77,7 @@ public class User {
         firstName = copy.firstName;
         lastName = copy.lastName;
         bio = copy.bio;
+        resetPasswordToken = copy.resetPasswordToken;
         groupsWhereUserIsAdmin = copy.groupsWhereUserIsAdmin;
         friendshipsRequester = copy.friendshipsRequester;
         friendshipsAcceptor = copy.friendshipsAcceptor;
