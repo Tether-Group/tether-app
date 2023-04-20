@@ -76,23 +76,30 @@
                             <input id="register-pw-verification" name="register-pw-verification" type="password"
                                    class="form-control" required>
 
-                            <!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
-                            <div id="message">
-                                <h3>Password must contain the following:</h3>
-                                <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
-                                <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
-                                <p id="number" class="invalid">One <strong>number</strong></p>
-                                <p id="special" class="invalid">One <strong>special </strong>character</p>
-                                <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
-                                    characters</strong></p>
-                                <p id="empty" class="invalid">No <strong>spaces</strong></p>
-                                <p id="password-match" class="invalid">Password must match</p>
-                            </div>
-
                             <input id="submit-pw" value="Sign me up!" th:type="submit" class="submit-button-password submit-button">
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div id="message1">
+                <h5>Email must contain:</h5>
+                <p id="asperand-register" class="invalid">@</p>
+                <p id=".com-register" class="invalid">.com domain</p>
+                <p>E.g. example@example.com</p>
+            </div>
+
+            <!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
+            <div id="message2">
+                <h5>Password must contain the following:</h5>
+                <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+                <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+                <p id="number" class="invalid">One <strong>number</strong></p>
+                <p id="special" class="invalid">One <strong>special </strong>character</p>
+                <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
+                    characters</strong></p>
+                <p id="empty" class="invalid">No <strong>spaces</strong></p>
+                <p id="password-match" class="invalid">Password must match</p>
             </div>
         </div>
     </div>
