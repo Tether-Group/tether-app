@@ -16,13 +16,4 @@ public class AuthenticationController {
         model.addAttribute("user", new User());
         return "users/login";
     }
-
-//    @Value("${talkjs.appkey}")
-//    private String talkJSAppKey;
-
-//    @GetMapping(value = "/keys.js", produces = "text/javascript")
-//    @ResponseBody
-//    public String getKeys() {
-//       return "CONST TALK_JS_KEY = " +  + ";";
-//    }
 }
