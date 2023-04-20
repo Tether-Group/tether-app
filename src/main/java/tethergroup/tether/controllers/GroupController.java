@@ -112,7 +112,9 @@ public class GroupController {
                 model.addAttribute("isMember", true);
             }
         } catch (Exception e) {
-            return "groups/group";
+            if (group.isPrivate()) {
+                return "redirect:/login";
+            }
         }
         return "groups/group";
     }
