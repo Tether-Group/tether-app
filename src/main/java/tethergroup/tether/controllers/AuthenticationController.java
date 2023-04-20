@@ -17,5 +17,4 @@ public class AuthenticationController {
         model.addAttribute("fromRegisterMapping", false);
         return "users/login";
     }
-
 }
