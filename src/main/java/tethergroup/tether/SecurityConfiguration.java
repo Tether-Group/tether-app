@@ -85,7 +85,8 @@ public class SecurityConfiguration {
                         "/{postId}/comment/add",
                         "/comment/delete",
                         "/comment/edit",
-                        "/add-profile-photo"
+                        "/add-profile-photo",
+                        "/verifyAddComments"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
