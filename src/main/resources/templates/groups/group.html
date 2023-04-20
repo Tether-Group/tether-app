@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
 	<div sec:authorize="isAuthenticated()">
-		<div th:if="${(isMember || loggedInUser.id == admin.id) && !isPending}">
+		<div th:if="${(isMember && !isPending) || isAdmin}">
 			<th:block th:insert="~{partials/create-post :: create-post}"></th:block>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 	<div class="container">
 		<!--    join group button/form-->
 		<div sec:authorize="isAuthenticated()">
-			<div th:if="${loggedInUser.id != admin.id && !isMember && !isPending}">
+			<div th:if="${!isAdmin && !isMember && !isPending}">
 				<form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
 					<button id="join-group-btn" type="submit" class="btn btn-primary">
 						Join Group
@@ -35,7 +35,7 @@
 		</div>
 		<!--    pending button-->
 		<div sec:authorize="isAuthenticated()">
-			<div th:if="${loggedInUser.getId() != admin.id && !isMember && isPending}">
+			<div th:if="${!isAdmin && !isMember && isPending}">
 				<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
 					<button id="pending-group-btn" type="submit" class="btn btn-warning">
 						Cancel Request
@@ -45,7 +45,7 @@
 		</div>
 		<!--    leave group button/form-->
 		<div sec:authorize="isAuthenticated()">
-			<div th:if="${loggedInUser.getId() != admin.id && isMember && !isPending}">
+			<div th:if="${!isAdmin && isMember && !isPending}">
 				<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
 					<button id="leave-group-btn" type="submit" class="btn btn-danger">
 						Leave Group
@@ -61,7 +61,7 @@
 
 	<div sec:authorize="isAuthenticated()">
 		<!--button displays on page-->
-		<div th:if="${loggedInUser.id == admin.id}">
+		<div th:if="${isAdmin}">
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGroupModal">
 				Edit Group
 			</button>
@@ -111,7 +111,7 @@
 	</div>
 
 	<div sec:authorize="isAuthenticated()">
-		<div th:if="${loggedInUser.getId() == admin.id}">
+		<div th:if="${isAdmin}">
 			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
 				Delete Group
 			</button>
@@ -145,7 +145,8 @@
 	<div class="three-main">
 
 		<div class="d-flex align-items-start">
-			<div class="group-nav-pabs nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+			<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="group-nav-pabs nav flex-column nav-pills me-3"
+				 id="v-pills-tab" role="tablist">
 				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home" type="button" role="tab">All Posts
 				</button>
@@ -160,11 +161,27 @@
 				</button>
 			</div>
 
+			<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="group-nav-pabs nav flex-column nav-pills me-3"
+				 id="v-pills-tab" role="tablist">
+				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-home" type="button" role="tab" disabled>All Posts
+				</button>
+				<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-profile" type="button" role="tab" disabled>Event Posts
+				</button>
+				<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-messages" type="button" role="tab" disabled>Sale Posts
+				</button>
+				<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-settings" type="button" role="tab" disabled>QandAPosts
+				</button>
+			</div>
+
 			<div class="group-nav-pane tab-content" id="v-pills-tabContent">
 
 				<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
 
-					<div class="post-list list-group">
+					<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="post-list list-group">
 						<h3>Posts</h3>
 						<div th:each="post: ${posts}">
 
@@ -198,9 +215,17 @@
 
 						</div>
 					</div>
+
+					<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="post-list list-group">
+						<h3>Posts</h3>
+						<br>
+						<br>
+						<h6>Join group to see posts</h6>
+					</div>
+
 				</div>
 
-				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
+				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="v-pills-profile" role="tabpanel">
 
 					<div class="post-list list-group">
 						<h3>Posts</h3>
@@ -224,7 +249,7 @@
 
 				</div>
 
-				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">
+				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="v-pills-messages" role="tabpanel">
 
 					<div class="post-list list-group">
 						<h3>Posts</h3>
@@ -248,7 +273,7 @@
 
 				</div>
 
-				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">
+				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="v-pills-settings" role="tabpanel">
 
 					<div class="post-list list-group">
 						<h3>Posts</h3>
@@ -277,7 +302,7 @@
 
 		<div class="members-list">
 			<h3>Members</h3>
-			<div class="list-group">
+			<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="list-group">
 				<div class="list-group-item list-group-item-action my-2">
 					<div sec:authorize="isAuthenticated()">
 						<a th:href="@{/profile/{username}(username=${admin.username})}"><h2><span
@@ -306,6 +331,13 @@
 					<a th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
 				</div>
 			</div>
+
+			<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="list-group">
+				<br>
+				<br>
+				<h6>Join group to see members</h6>
+			</div>
+
 		</div>
 
 	</div>

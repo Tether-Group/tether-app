@@ -14,15 +14,8 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("fromRegisterMapping", false);
         return "users/login";
     }
 
-//    @Value("${talkjs.appkey}")
-//    private String talkJSAppKey;
-
-//    @GetMapping(value = "/keys.js", produces = "text/javascript")
-//    @ResponseBody
-//    public String getKeys() {
-//       return "CONST TALK_JS_KEY = " +  + ";";
-//    }
 }
