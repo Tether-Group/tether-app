@@ -12,6 +12,19 @@ uploadForm.addEventListener("submit", (event) => {
     client.upload(file)
         .then((response) => {
             const fileUrl = response.url;
+            fetch('/add-profile-photo', {
+                method: 'POST',
+                body: JSON.stringify({
+                    photoURL: fileUrl,
+
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }).catch((error) => {
+                console.log("OH NO NOT INIT NO MO");
+                console.log(error);
+            })
             preview.innerHTML = `<img src="${fileUrl}" alt="Preview">`;
         })
         .catch((error) => {
