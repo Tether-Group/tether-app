@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.Friendship;
+import tethergroup.tether.models.PhotoURL;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
@@ -184,5 +185,15 @@ public class UserController {
             throw new RuntimeException(e);
         }
         return "redirect:/";
+    }
+
+    @PostMapping(value = "/add-profile-photo", consumes = "application/json")
+    public String addProfilePhoto(@RequestBody PhotoURL profilePhotoURL) {
+        System.out.println(profilePhotoURL.getPhotoURL());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User actualUser = userDao.findById(loggedInUser.getId()).get();
+        actualUser.setProfilePhotoUrl(profilePhotoURL.getPhotoURL());
+        userDao.save(actualUser);
+        return "redirect:/profile/" + actualUser.getUsername();
     }
 }
