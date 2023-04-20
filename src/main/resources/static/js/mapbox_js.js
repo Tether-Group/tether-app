@@ -60,38 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 map.setZoom(13);
                 map.setCenter(result);
 
-                // const popup = new mapboxgl.Popup();
-                // popup.setHTML(`<h3 class="text-center fraunces-font">${resul}</h3>
-                //         <hr>
-                //         <div class="text-center cambay-font">Current Conditions: ${upperCase(weatherData.list[0].weather[0].description)}</div>
-                //         <div class="text-center cambay-font">Current Temp: ${Math.round(weatherData.list[0].main.temp)}°F</div>
-                //         <div class="text-center cambay-font">Feels like: ${Math.round(weatherData.list[0].main.feels_like)}°F</div>`);
-                // marker.setPopup(popup);
+                const popup = new mapboxgl.Popup();
+                popup.setHTML(`<h3 class="text-center">${newEventMarker}</h3>`);
+                marker.setPopup(popup);
 
             }).catch(function (error) {
             console.log("This location does not exist, please try a different location.");
-            // var errorHTML = '';
-            // errorHTML = `<div class="control-group error w-50 mx-auto">
-            //                 <div class="p-0 my-0 mx-auto text-decoration-underline bg-danger rounded-2">Invalid input</div>
-            //             </div>`
-            // $('#invalid-feedback').html(errorHTML);
         });
     }
     let eventMarker = document.getElementById("event-address");
     let newEventMarker = eventMarker.innerText;
     console.log(newEventMarker);
     addMarker(newEventMarker);
-
-    // //adding search bar functionality
-    // function locationSearch(e) {
-    //     e.preventDefault();
-    //     let userLocationSearch = document.getElementById("event-address");
-    //     let newLocationSearch = (userLocationSearch.focus().val());
-    //     console.log(newLocationSearch);
-    //     addMarker(newLocationSearch);
-    // }
-
-    // document.querySelector('.search-location').addEventListener("click", locationSearch);
-
-
 });
