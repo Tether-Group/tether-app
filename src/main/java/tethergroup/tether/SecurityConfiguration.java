@@ -85,6 +85,7 @@ public class SecurityConfiguration {
                         "/{postId}/comment/add",
                         "/comment/delete",
                         "/comment/edit",
+                        "/add-profile-photo",
                         "/verifyAddComments"
                         )
                 .authenticated()
@@ -105,6 +106,9 @@ public class SecurityConfiguration {
                         "/keys.js"
                         )
                 .permitAll()
+                .and()
+                .csrf()
+                .ignoringRequestMatchers("/add-profile-photo")
 
         ;
         return http.build();
