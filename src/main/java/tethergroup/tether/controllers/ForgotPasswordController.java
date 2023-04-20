@@ -83,7 +83,6 @@ public class ForgotPasswordController {
 
         if (user == null) {
             model.addAttribute("message", "Invalid Token");
-            return "message";
         }
 
         return "users/reset-password-form";
@@ -99,10 +98,8 @@ public class ForgotPasswordController {
 
         if (user == null) {
             model.addAttribute("message", "Invalid Token");
-            return "message";
         } else {
             userServices.updatePassword(user, password);
-
             model.addAttribute("message", "You have successfully changed your password.");
         }
 
