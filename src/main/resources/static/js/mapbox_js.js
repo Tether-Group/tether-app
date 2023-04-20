@@ -59,6 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
         marker.addTo(map);
         map.setZoom(14);
         map.setCenter(result);
+
+        var result2 = [latitude, longitude]
+        reverseGeocode(result2, MAPBOX_API_KEY);
+        console.log(result2);
+
     })
 
     // function uses geocoder to log result and pin input address
@@ -82,6 +87,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     let eventMarker = document.getElementById("event-address");
     let newEventMarker = eventMarker.innerText;
-    console.log(newEventMarker);
     addMarker(newEventMarker);
 });
