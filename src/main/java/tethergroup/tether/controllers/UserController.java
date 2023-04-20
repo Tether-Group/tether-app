@@ -38,7 +38,14 @@ public class UserController {
 
     //    creating user
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute User user, Model model) {
+        User uniqueUsername = userDao.findByUsername(user.getUsername());
+
+        if (uniqueUsername != null) {
+            model.addAttribute("usernameExists", true);
+            return "users/login";
+        }
+
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userDao.save(user);
