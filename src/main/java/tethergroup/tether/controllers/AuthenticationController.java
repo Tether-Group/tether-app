@@ -14,8 +14,6 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("fromRegisterMapping", false);
         return "users/login";
     }
-
 }
