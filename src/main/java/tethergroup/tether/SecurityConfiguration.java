@@ -39,9 +39,11 @@ public class SecurityConfiguration {
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true) // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login page
+                .failureUrl("/login-error")
                 /* Logout configuration */
                 .and()
                 .logout()
+                .permitAll()
                 .logoutSuccessUrl("/") // append a query string value
                 /* Pages that require authentication */
                 .and()
@@ -101,6 +103,7 @@ public class SecurityConfiguration {
                         "/groups",
                         "/group/{groupId}",
                         "/my/logout",
+                        "/login-error",
                         "/error",
                         "/about",
                         "/keys.js",

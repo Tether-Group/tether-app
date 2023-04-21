@@ -3,8 +3,10 @@ package tethergroup.tether.controllers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,21 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    display custom login error message
+    @GetMapping("/login-error")
+    public String login(HttpServletRequest request, Model model, @ModelAttribute User user) {
+        HttpSession session = request.getSession(false);
+        String errorMessage = null;
+        if (session != null) {
+            AuthenticationException ex = (AuthenticationException) session
+                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            if (ex != null && user != null) {
+                errorMessage = ex.getMessage();
+            }
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        return "users/login";
+    }
 
     //    creating user
     @GetMapping("/register")
@@ -52,7 +69,6 @@ public class UserController {
         userDao.save(user);
         return "redirect:/login";
     }
-
 
     // viewing profile when logged in
     @GetMapping("/profile/{username}")

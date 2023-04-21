@@ -1,6 +1,6 @@
 "use strict";
 
-let myInput = document.getElementById('register-password');
+let myInput = document.getElementById('password');
 let lowercase = document.getElementById('lowercase');
 let uppercase = document.getElementById('uppercase');
 let number = document.getElementById('number');
@@ -8,10 +8,7 @@ let length = document.getElementById('length');
 let special = document.getElementById('special');
 let noSpace = document.getElementById('empty');
 let pwMatch = document.getElementById('password-match');
-let asperand = document.getElementById('asperand-register');
-let domain = document.getElementById('.com-register');
-let myEmail = document.getElementById('register-email');
-let mySecondInput = document.getElementById('register-pw-verification');
+let mySecondInput = document.getElementById('password2');
 
 let lowerCaseLetters = /[a-z]/g;
 let upperCaseLetters = /[A-Z]/g;
@@ -43,50 +40,12 @@ mySecondInput.onblur = function () {
     document.getElementById('message2').style.display = 'block';
 }
 
-myEmail.onfocus = function () {
-    document.getElementById('message1').style.display = 'block';
-}
-
-myEmail.onblur = function () {
-    document.getElementById('message1').style.display = 'block';
-}
-
-myEmail.onkeyup = function () {
-    emailValidate();
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    emailValidate();
-})
-
-function emailValidate() {
-    //validate domain .com
-    if (myEmail.value.includes(domainName)) {
-        domain.classList.remove("invalid");
-        domain.classList.add("valid");
-    } else {
-        domain.classList.remove("valid");
-        domain.classList.add("invalid");
-    }
-
-    //validate asperand check
-    if (myEmail.value.includes(emailAsperandCheck)) {
-        asperand.classList.remove("invalid");
-        asperand.classList.add("valid");
-    } else {
-        asperand.classList.remove("valid");
-        asperand.classList.add("invalid");
-    }
-}
-
 // When the user starts to type something inside the password field
 myInput.onkeyup = function () {
     initialValidate();
-    emailValidate();
     finalValidate();
 
     mySecondInput.onkeyup = function () {
-        emailValidate();
         finalValidate();
     }
 
@@ -163,9 +122,7 @@ myInput.onkeyup = function () {
             && myInput.value.length <= 20
             && myInput.value.match(specialChars)
             && !myInput.value.match(emptySpaces)
-            && myInput.value === mySecondInput.value
-            && myEmail.value.includes(domainName)
-            && myEmail.value.includes(emailAsperandCheck)) {
+            && myInput.value === mySecondInput.value) {
             document.getElementById('submit-pw').disabled = false;
         } else {
             document.getElementById('submit-pw').disabled = true;
