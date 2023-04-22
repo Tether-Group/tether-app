@@ -1,47 +1,72 @@
- <th:block th:fragment="navbar">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><i class="bi bi-file-font"></i>Tether</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/groups">Groups</a>
-          </li>
-          <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-              Account
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" th:href="@{/group/create}">Create Group</a></li>
-              <li><a class="dropdown-item" th:href="@{/profile/my-account}">My Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" th:href="@{/profile/settings}">Settings</a></li>
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-tether">
+        <div class="container-fluid">
+            <!--tether logo-->
+            <div>
+                <a class="navbar-brand" th:href="@{/}"><img class="tether-icon"
+                                                            th:src="@{/img/black_icon_transparent_background.png}"
+                                                            alt="Tether Icon"></a>
+            </div>
 
-            </ul>
-          </li>
-          <li sec:authorize="isAuthenticated()" class="nav-item">
-            <a class="nav-link" th:href="@{/notifications}">View Notifications</a>
-          </li>
-          <li sec:authorize="!isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/login">Login/Register</a>
-          </li>
-          <li sec:authorize="isAuthenticated()" class="nav-item">
-            <form th:action="@{/logout}" th:method="POST">
-              <button class="nav-link btn">Logout</button>
-            </form>
-          </li>
-        </ul>
-        <form class="d-flex" th:action="@{/search-results}" th:method="GET">
-          <input class="form-control me-2" type="search" placeholder="Search by Group, User, or Keywords" name="search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+            <!--hamburger button for drop down for smaller screens-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex justify-content-evenly">
+                <!--searchbar-->
+                <div class="search-input-icon">
+                    <form class="d-flex" th:action="@{/search-results}" th:method="GET">
+                        <input class="nav-search-bar" type="search" placeholder="Search by keywords" name="search">
+                        <button class="btn" type="submit"><i class="bi bi-search fw-bold fs-3"></i></button>
+                    </form>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="rest-of-nav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item nav-font">
+                                <a class="nav-link active" href="/">HOME</a>
+                            </li>
+                            <li class="nav-item nav-font">
+                                <a class="nav-link" href="/groups">GROUPS</a>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle nav-font" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item nav-font" th:href="@{/group/create}">CREATE GROUP</a>
+                                    </li>
+                                    <li><a class="dropdown-item nav-font" th:href="@{/profile/my-account}">MY
+                                        PROFILE</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item nav-font" th:href="@{/profile/settings}">SETTINGS</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="nav-item">
+                                <a class="nav-link nav-font" th:href="@{/notifications}">NOTIFICATIONS</a>
+                            </li>
+                            <li sec:authorize="!isAuthenticated()" class="nav-item">
+                                <a class="nav-link nav-font" href="/login">LOGIN/REGISTER</a>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="nav-item">
+                                <form th:action="@{/logout}" th:method="POST">
+                                    <button class="nav-link btn nav-font">LOGOUT</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="gradient-under-nav1"></div>
 </th:block>

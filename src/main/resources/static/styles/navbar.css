@@ -1,0 +1,48 @@
+/*FULL SCREEN MEDIA QUERY*/
+/*font-family: 'Oswald', sans-serif;*/
+div.gradient-under-nav1 {
+    width: 100%;
+    height: 10px;
+    background-image: linear-gradient(#FEFEFE, rgba(231, 228, 228, 0.55));
+}
+
+div.search-input-icon {
+    margin: auto 18em auto auto;
+}
+
+div.rest-of-nav {
+    margin: auto 1em auto auto;
+}
+
+img.tether-icon {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+input.nav-search-bar {
+    height: 2.5em;
+    width: 30em;
+    background-color: rgba(231, 228, 228, 0.55);
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    margin: auto 5px auto 0;
+    text-align: center;
+    outline: none;
+    transition: 0.5s;
+    font-family: 'Oswald', sans-serif;
+}
+
+input.nav-search-bar:focus {
+    border: 1px solid rgba(169, 167, 167, 0.55);
+}
+
+nav.navbar-tether {
+    background-color: #FEFEFE;
+}
+
+.nav-font {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25em;
+    font-weight: bold;
+    margin: auto 5px;
+}

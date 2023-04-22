@@ -98,6 +98,7 @@ public class SecurityConfiguration {
                         "/",
                         "/styles/**",
                         "/js/**",
+                        "/img/**",
                         "/register",
                         "/search-results",
                         "/groups",
