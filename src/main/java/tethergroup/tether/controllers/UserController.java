@@ -3,11 +3,17 @@ package tethergroup.tether.controllers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tethergroup.tether.models.*;
+import tethergroup.tether.repositories.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.PhotoURL;
 import tethergroup.tether.models.User;
@@ -15,19 +21,17 @@ import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Controller
 public class UserController {
 
     private final UserRepository userDao;
     private final FriendshipRepository friendshipDao;
     private final PasswordEncoder passwordEncoder;
-
-
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, FriendshipRepository friendshipDao) {
-        this.userDao = userDao;
-        this.friendshipDao = friendshipDao;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final MembershipRepository membershipDao;
+    private final GroupRepository groupDao;
+    private final PostRepository postDao;
+    private final CommentRepository commentDao;
 
 
     //    creating user
@@ -61,9 +65,7 @@ public class UserController {
         // checks if logged in user is viewing their own profile and redirects them to "/my/account" get mapping
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findByUsername(username);
-        if (loggedInUser.getId() == user.getId()) {
-            return "redirect:/profile/my-account";
-        } else if (user == null) {
+       if (user == null) {
             return "redirect:/error";
         }
         boolean friendRequestExists = false;
@@ -99,11 +101,36 @@ public class UserController {
             friendRequestExists = true;
         }
 
+        List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_Id(profilePageUserId);
+        List<Group> groups = new ArrayList<>();
+        for (Membership membership : membershipsOfUserOfProfilePage) {
+            Group group = membership.getGroup();
+            groups.add(group);
+        }
+
+        List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_Id(profilePageUserId);
+        List<Comment> comments = new ArrayList<>();
+        for (Post post : postsOfUserOfProfilePage) {
+            System.out.println(post.getPostType().getId());
+            List<Comment> commentsOfPost = commentDao.findCommentsByPost_Id(post.getId());
+            for (Comment comment : commentsOfPost) {
+                comments.add(comment);
+            }
+        }
+
+        List<Friendship> friendsOfUserOfProfilePage = friendshipDao.friendsOfUser(profilePageUserId);
+        List<Friendship> friends = new ArrayList<>();
+
         model.addAttribute("user", user);
         model.addAttribute("requestExists", friendRequestExists);
         model.addAttribute("isPending", friendRequestIsPending);
         model.addAttribute("hasFriendRequestFromThisUser", loggedInUserHasFriendRequestFromUserOfProfilePage);
         model.addAttribute("isMyAccountPage", false);
+        model.addAttribute("groups", groups);
+        model.addAttribute("posts", postsOfUserOfProfilePage);
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("comments", comments);
+        model.addAttribute("friends", loggedInUser);
         return "users/profile";
     }
 
@@ -119,7 +146,7 @@ public class UserController {
         } else {
             return "redirect:/login";
         }
-        return "users/profile";
+        return "redirect:/profile/" + user.getUsername();
     }
 
     //    viewing friends list

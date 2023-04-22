@@ -1,18 +1,14 @@
 package tethergroup.tether.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -58,4 +54,5 @@ public class Post {
         PrettyTime p = new PrettyTime();
         return "" + p.format(this.postDate);
     }
+
 }

@@ -51,6 +51,20 @@
     outline: black;
 }
 
+.img-circle {
+    border-radius: 100%;
+    border: 4px solid green;
+    margin-left: 2em;
+}
+
+.profile-header {
+    display: table-row;
+}
+
+.profile-username {
+    align-self: center;
+}
+
 #event-map {
     width: 50%;
     /*height: 300px;*/
