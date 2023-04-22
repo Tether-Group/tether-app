@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.Friendship;
+import tethergroup.tether.models.PhotoURL;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
@@ -38,7 +39,14 @@ public class UserController {
 
     //    creating user
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(@ModelAttribute User user, Model model) {
+        User uniqueUsername = userDao.findByUsername(user.getUsername());
+
+        if (uniqueUsername != null) {
+            model.addAttribute("usernameExists", true);
+            return "users/login";
+        }
+
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userDao.save(user);
@@ -114,8 +122,6 @@ public class UserController {
         return "users/profile";
     }
 
-
-
     //    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {
@@ -137,8 +143,6 @@ public class UserController {
         return "users/edit-user";
     }
 
-
-
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute User user, HttpSession session) {
         System.out.println(user.getId());
@@ -149,7 +153,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/editpassword")
-    public String updatePassword(@RequestParam ("oldpassword") String oldPassword, @RequestParam ("register-password") String newPassword){
+    public String updatePassword(@RequestParam("oldpassword") String oldPassword, @RequestParam("register-password") String newPassword) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String oldPasswordFromDataBase = userDao.findById(loggedInUser.getId()).get().getPassword();
         boolean doesMatch = passwordEncoder.matches(oldPassword, oldPasswordFromDataBase);
@@ -164,8 +168,6 @@ public class UserController {
         }
     }
 
-
-
     @PostMapping("/profile/delete")
     public String deleteAccount() {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -175,7 +177,6 @@ public class UserController {
         return "redirect:/my/logout";
     }
 
-
     @GetMapping("/my/logout")
     public String manualLogout(HttpServletRequest request) {
         try {
@@ -184,5 +185,15 @@ public class UserController {
             throw new RuntimeException(e);
         }
         return "redirect:/";
+    }
+
+    @PostMapping(value = "/add-profile-photo", consumes = "application/json")
+    public String addProfilePhoto(@RequestBody PhotoURL profilePhotoURL) {
+        System.out.println(profilePhotoURL.getPhotoURL());
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User actualUser = userDao.findById(loggedInUser.getId()).get();
+        actualUser.setProfilePhotoUrl(profilePhotoURL.getPhotoURL());
+        userDao.save(actualUser);
+        return "redirect:/profile/" + actualUser.getUsername();
     }
 }

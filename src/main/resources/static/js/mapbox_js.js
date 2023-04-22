@@ -12,6 +12,19 @@ function geocode(search, token) {
         });
 }
 
+function reverseGeocode(coordinates, token) {
+    var baseUrl = 'https://api.mapbox.com';
+    var endPoint = '/geocoding/v5/mapbox.places/';
+    return fetch(baseUrl + endPoint + coordinates.lng + "," + coordinates.lat + '.json' + "?" + 'access_token=' + token)
+        .then(function(res) {
+            return res.json();
+        })
+        // to get all the data from the request, comment out the following three lines...
+        .then(function(data) {
+            return data.features[0].place_name;
+        });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     mapboxgl.accessToken = MAPBOX_API_KEY;
 
@@ -44,54 +57,35 @@ document.addEventListener("DOMContentLoaded", function () {
         const marker = new mapboxgl.Marker({'color': 'rgba(0,102,255,0.38)',});
         marker.setLngLat(result);
         marker.addTo(map);
-        map.setZoom(12);
+        map.setZoom(14);
         map.setCenter(result);
-        console.log(result);
+
+        var result2 = [latitude, longitude]
+        reverseGeocode(result2, MAPBOX_API_KEY);
+        console.log(result2);
+
     })
 
     // function uses geocoder to log result and pin input address
     function addMarker(address) {
         geocode(address, MAPBOX_API_KEY)
             .then(function (result) {
-                console.log(result);
+                // console.log(result);
                 const marker = new mapboxgl.Marker({'color': 'rgba(255,0,21,0.65)',});
                 marker.setLngLat(result);
                 marker.addTo(map);
                 map.setZoom(13);
                 map.setCenter(result);
 
-                // const popup = new mapboxgl.Popup();
-                // popup.setHTML(`<h3 class="text-center fraunces-font">${resul}</h3>
-                //         <hr>
-                //         <div class="text-center cambay-font">Current Conditions: ${upperCase(weatherData.list[0].weather[0].description)}</div>
-                //         <div class="text-center cambay-font">Current Temp: ${Math.round(weatherData.list[0].main.temp)}°F</div>
-                //         <div class="text-center cambay-font">Feels like: ${Math.round(weatherData.list[0].main.feels_like)}°F</div>`);
-                // marker.setPopup(popup);
+                const popup = new mapboxgl.Popup();
+                popup.setHTML(`<h3 class="text-center">${newEventMarker}</h3>`);
+                marker.setPopup(popup);
 
             }).catch(function (error) {
             console.log("This location does not exist, please try a different location.");
-            // var errorHTML = '';
-            // errorHTML = `<div class="control-group error w-50 mx-auto">
-            //                 <div class="p-0 my-0 mx-auto text-decoration-underline bg-danger rounded-2">Invalid input</div>
-            //             </div>`
-            // $('#invalid-feedback').html(errorHTML);
         });
     }
     let eventMarker = document.getElementById("event-address");
     let newEventMarker = eventMarker.innerText;
-    console.log(newEventMarker);
     addMarker(newEventMarker);
-
-    // //adding search bar functionality
-    // function locationSearch(e) {
-    //     e.preventDefault();
-    //     let userLocationSearch = document.getElementById("event-address");
-    //     let newLocationSearch = (userLocationSearch.focus().val());
-    //     console.log(newLocationSearch);
-    //     addMarker(newLocationSearch);
-    // }
-
-    // document.querySelector('.search-location').addEventListener("click", locationSearch);
-
-
 });

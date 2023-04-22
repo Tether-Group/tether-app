@@ -84,7 +84,9 @@ public class SecurityConfiguration {
                         "/group/{groupId}/{memberId}/remove",
                         "/{postId}/comment/add",
                         "/comment/delete",
-                        "/comment/edit"
+                        "/comment/edit",
+                        "/add-profile-photo",
+                        "/verifyAddComments"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
@@ -101,9 +103,14 @@ public class SecurityConfiguration {
                         "/my/logout",
                         "/error",
                         "/about",
-                        "/keys.js"
+                        "/keys.js",
+                        "/forgot_password",
+                        "/reset_password"
                         )
                 .permitAll()
+                .and()
+                .csrf()
+                .ignoringRequestMatchers("/add-profile-photo")
 
         ;
         return http.build();

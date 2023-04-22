@@ -1,45 +1,44 @@
 package tethergroup.tether.controllers;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import tethergroup.tether.models.Comment;
-import tethergroup.tether.models.Group;
-import tethergroup.tether.models.Post;
-import tethergroup.tether.models.User;
+import tethergroup.tether.models.*;
 import tethergroup.tether.repositories.CommentRepository;
 import tethergroup.tether.repositories.GroupRepository;
+import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostRepository;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class HomeController {
 
     private final PostRepository postDao;
     private final GroupRepository groupDao;
     private final CommentRepository commentDao;
+    private final MembershipRepository membershipDao;
 
-    public HomeController(PostRepository postDao, GroupRepository groupDao, CommentRepository commentDao) {
-        this.postDao = postDao;
-        this.groupDao = groupDao;
-        this.commentDao = commentDao;
-    }
 
+    @Transactional
     @GetMapping("/")
     public String returnLandingPage(Model model) {
         List<Group> randomGroups = groupDao.randomGroupsLimitFive();
+        List<Post> posts = postDao.findByOrderByPostDateDesc();
         model.addAttribute("randoGroups", randomGroups);
+        User loggedInUser = new User();
         try {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            model.addAttribute("loggedInUser", loggedInUser);
+            loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
             System.out.println("User is not logged in");
         }
-        List<Post> posts = postDao.findByOrderByPostDateDesc();
+        model.addAttribute("loggedInUser", loggedInUser);
         List<Group> groups = groupDao.findAll();
-        List<Comment> comments = commentDao.findAll();
+        List<Comment> comments = commentDao.findAllByOrderByCommentDateDesc();
         for (Comment comment : comments) {
             System.out.println(comment.getPost().getId());
         }

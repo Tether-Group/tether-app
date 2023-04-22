@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.sql.Timestamp;
 
 @RequiredArgsConstructor
 @Getter
@@ -30,6 +33,14 @@ public class Comment {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "comment_date")
+    private Timestamp commentDate;
+
+    public String commentDateToString() {
+        PrettyTime p = new PrettyTime();
+        return "" + p.format(this.commentDate);
+    }
 
 
 }

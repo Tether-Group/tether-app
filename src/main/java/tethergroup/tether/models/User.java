@@ -36,6 +36,12 @@ public class User {
     @Column(length = 1024, name = "bio")
     private String bio;
 
+    @Column(length = 30, name = "reset_password_token")
+    private String resetPasswordToken;
+
+    @Column(name = "profile_photo_url")
+    private String profilePhotoUrl;
+
     @JsonIgnore
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin")
@@ -61,6 +67,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commenter")
     private List<Comment> comments;
 
+
+
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
         email = copy.email;
@@ -69,10 +77,12 @@ public class User {
         firstName = copy.firstName;
         lastName = copy.lastName;
         bio = copy.bio;
+        resetPasswordToken = copy.resetPasswordToken;
         groupsWhereUserIsAdmin = copy.groupsWhereUserIsAdmin;
         friendshipsRequester = copy.friendshipsRequester;
         friendshipsAcceptor = copy.friendshipsAcceptor;
         memberships = copy.memberships;
+        profilePhotoUrl = copy.profilePhotoUrl;
     }
 
     @Override

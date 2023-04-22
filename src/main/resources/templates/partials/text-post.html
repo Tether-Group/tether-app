@@ -4,7 +4,7 @@
 		<div th:id="'post-content'+${post.id}">
 			<div class="d-flex w-100 justify-content-between post-item">
 				<div class="posted-by-info">
-					<div class="group-photo"></div>
+						<img class="group-photo" th:src="${post.user.profilePhotoUrl}">
 					<div class="user-photo">
 					</div>
 					<a th:href="@{'/profile/' + ${post.user.username}}"><small><span
@@ -63,43 +63,7 @@
 			</div>
 		</div>
 
-		<div>
-			<h6>Comments</h6>
-
-			<ul class="list-group" th:each="comment : ${comments}" th:if="${!comments.isEmpty()}">
-				<li th:if="${comment.post.id == post.id}" class="list-group-item">
-					<a th:href="@{/profile/{username}(username=${comment.commenter.username})}"><strong><span th:text="${comment.commenter}"></span></strong></a> <span th:text="${comment.content}"></span>
-					<div sec:authorize="isAuthenticated()" th:if="${comment.commenter.id == loggedInUser.id}">
-						<button th:id="'edit-comment-button'+${comment.id}" onclick="showEditCommentForm(event)" class="btn btn-warning">Edit</button>
-						<form hidden th:id="'edit-comment-form'+${comment.id}" th:action="@{/comment/edit}" th:method="post">
-							<input th:name="commentId" th:value="${comment.id}" hidden>
-							<input th:name="commentContent" type="text">
-							<button type="button" th:id="'cancel-edit-comment-button'+${comment.id}" onclick="hideEditCommentForm(event)" class="btn btn-warning">Cancel</button>
-							<button type="submit" class="btn btn-primary">Save</button>
-						</form>
-						<form th:action="@{/comment/delete}" th:method="post">
-							<input th:name="commentId" th:value="${comment.id}" hidden>
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</form>
-					</div>
-				</li>
-			</ul>
-
-			<br>
-
-			<div sec:authorize="isAuthenticated()">
-				<form th:method="post" th:action="@{/{postId}/comment/add(postId=${post.id})}">
-					<div class="input-group mb-3">
-						<input th:name="commentContent" type="text" class="form-control"
-							   placeholder="Type in a comment...">
-						<input th:name="groupId" th:value="${post.group.id}" hidden>
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="submit">Add Comment</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
+		<th:block th:insert="~{partials/comments :: comments}"></th:block>
 
 	</div>
 
