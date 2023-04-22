@@ -1,5 +1,10 @@
 /*FULL SCREEN MEDIA QUERY*/
 /*font-family: 'Oswald', sans-serif;*/
+button.nav-btn {
+    padding: 0;
+    margin: auto 3px 4px;
+}
+
 div.gradient-under-nav1 {
     width: 100%;
     height: 10px;
@@ -7,11 +12,19 @@ div.gradient-under-nav1 {
 }
 
 div.search-input-icon {
-    margin: auto 18em auto auto;
+    display: flex;
+    justify-content: center;
 }
 
 div.rest-of-nav {
-    margin: auto 1em auto auto;
+    justify-content: right;
+    max-width: 300px;
+    margin-right: 1.1em;
+}
+
+form.search-form {
+    margin: auto;
+    width: 100%;
 }
 
 img.tether-icon {
@@ -25,7 +38,6 @@ input.nav-search-bar {
     background-color: rgba(231, 228, 228, 0.55);
     border: 1px solid transparent;
     border-radius: 0.25em;
-    margin: auto 5px auto 0;
     text-align: center;
     outline: none;
     transition: 0.5s;
@@ -36,6 +48,10 @@ input.nav-search-bar:focus {
     border: 1px solid rgba(169, 167, 167, 0.55);
 }
 
+nav.navbar {
+    justify-content: space-between;
+}
+
 nav.navbar-tether {
     background-color: #FEFEFE;
 }
@@ -44,5 +60,5 @@ nav.navbar-tether {
     font-family: 'Oswald', sans-serif;
     font-size: 1.25em;
     font-weight: bold;
-    margin: auto 5px;
+    margin: auto 3px;
 }
