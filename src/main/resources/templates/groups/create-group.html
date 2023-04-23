@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <head>
-        <meta charset="UTF-8">
-        <title>Create group</title>
-        <th:block th:insert="~{partials/styles :: styles}"></th:block>
-        <link rel="stylesheet" href="/styles/create-group.css"/>
-    </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Create group</title>
+		<th:block th:insert="~{partials/styles :: styles}"></th:block>
+		<link rel="stylesheet" href="/styles/create-group.css"/>
+	</head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
@@ -17,41 +17,53 @@
 
 
 <form th:method="post" th:action="@{/group/create}" th:object="${group}">
-    <div class="mx-auto">
-        <label for="group-name">Group Name:</label>
-        <input type="text" name="name" id="group-name" th:field="*{name}" required>
-        <br>
-        <label for="description">Description:</label>
-        <textarea name="paragraph_text" cols="50" rows="10" id="description" th:field="*{description}" required></textarea>
+	<div class="mx-auto">
+		<label for="group-name">Group Name:</label>
+		<input type="text" name="name" id="group-name" th:field="*{name}" required>
+		<br>
+		<button type="button" class="btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
+		<input hidden id="photo-url" th:name="photo-url">
+		<br>
+		<label for="description">Description:</label>
+		<textarea name="paragraph_text" cols="50" rows="10" id="description" th:field="*{description}"
+				  required></textarea>
 
-        <br>
-        <label for="visibility">Visibility:</label>
-        <input type="checkbox" name="private" th:field="*{private}" id="visibility">
-        <span>Private</span>
-        <br>
-        <label for="post-types">Post Types:</label>
-        <select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
-            <option value="2">Event</option>
-            <option value="3">For Sale</option>
-            <option value="4">Q&A</option>
-        </select>
-        <br>
-        <input type="hidden" th:field="*{id}">
-    </div>
-    <div class="mx-auto">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Create Group</button>
-    </div>
+		<br>
+		<label for="visibility">Visibility:</label>
+		<input type="checkbox" name="private" th:field="*{private}" id="visibility">
+		<span>Private</span>
+		<br>
+		<label for="post-types">Post Types:</label>
+		<select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
+			<option value="2">Event</option>
+			<option value="3">For Sale</option>
+			<option value="4">Q&A</option>
+		</select>
+		<br>
+		<input type="hidden" th:field="*{id}">
+	</div>
+	<div class="mx-auto">
+		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Create Group</button>
+	</div>
 </form>
 
-
-<label class="input">
-    <input class="input__field" type="text" placeholder=" " />
-    <span class="input__label">Some Fancy Label</span>
-</label>
-
-
-
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script>
+
+    const inputForPhotoURL = document.getElementById("photo-url");
+
+    const client = filestack.init(FILESTACK_API_KEY);
+	const options = {
+        onFileUploadFinished(file) {
+            inputForPhotoURL.value = file.url;
+		}
+	}
+    const openFileStackModal = () => {
+        client.picker(options).open();
+    };
+
+</script>
 </body>
 </html>

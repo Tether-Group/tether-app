@@ -79,6 +79,9 @@
 							<input type="text" name="name" id="group-name" th:value="${group.name}" th:field="*{name}"
 								   required>
 							<br>
+							<button type="button" class="btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
+							<input hidden id="photo-url" th:value="${group.groupPhotoURL}" th:name="photo-url">
+							<br>
 							<label for="description">Description:</label>
 							<input name="description" id="description" th:value="${group.description}"
 								   th:field="*{description}"
@@ -347,5 +350,21 @@
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/add_comments.js}"></script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script>
+
+    const inputForPhotoURL = document.getElementById("photo-url");
+
+    const client = filestack.init(FILESTACK_API_KEY);
+    const options = {
+        onFileUploadFinished(file) {
+            inputForPhotoURL.value = file.url;
+        }
+    }
+    const openFileStackModal = () => {
+        client.picker(options).open();
+    };
+
+</script>
 </body>
 </html>

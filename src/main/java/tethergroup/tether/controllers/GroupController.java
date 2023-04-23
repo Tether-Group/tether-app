@@ -2,13 +2,11 @@ package tethergroup.tether.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.*;
 import tethergroup.tether.repositories.*;
 
@@ -50,7 +48,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/create")
-    public String createGroup(@ModelAttribute("group") Group group) {
+    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
@@ -59,6 +57,9 @@ public class GroupController {
                 List<PostType> postTypesForGroup = group.getPostTypes();
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
                 group.setAdmin(userObj);
+                if (photoURL != null) {
+                    group.setGroupPhotoURL(photoURL);
+                }
                 groupDao.save(group);
             } else {
                 return "redirect:/login";
@@ -157,13 +158,15 @@ public class GroupController {
     }
 
     @PostMapping("/group/edit")
-    public String editGroup(@ModelAttribute("group") Group group) {
+    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
 
         List<PostType> postTypesForGroup = group.getPostTypes();
         postTypesForGroup.add(postTypeDao.findById(1L).get());
-
+        if (photoURL != null) {
+            group.setGroupPhotoURL(photoURL);
+        }
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupAdmin = originalGroup.getAdmin();
 
