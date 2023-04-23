@@ -56,6 +56,7 @@ input.nav-search-bar {
     transition: 0.5s;
     font-family: 'Oswald', sans-serif;
     margin: auto 0;
+    letter-spacing: 0.7px;
 }
 
 input.nav-search-bar:focus {
@@ -77,3 +78,4 @@ nav.navbar-tether {
     font-weight: bold;
     margin: auto 3px;
 }
+

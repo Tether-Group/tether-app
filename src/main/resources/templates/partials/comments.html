@@ -1,11 +1,17 @@
 <th:block th:fragment="comments">
 
-	<div>
-		<h6>Comments</h6>
+	<div class="comments-container">
+		<div class="comments-header-text">Comments</div>
 
 		<ul class="list-group" th:each="comment : ${comments}" th:if="${!comments.isEmpty()}">
-			<li th:if="${comment.post.id == post.id}" class="list-group-item">
-				<a th:href="@{/profile/{username}(username=${comment.commenter.username})}"><strong><span th:text="${comment.commenter}"></span></strong></a> <span th:text="${comment.content}"></span> <small th:text="${comment.commentDateToString()}"></small>
+			<li th:if="${comment.post.id == post.id}" class="list-group-item comment-box">
+				<div class="comment-text">
+					<a th:href="@{/profile/{username}(username=${comment.commenter.username})}">
+						<span th:text="${comment.commenter}"></span>
+					</a>
+					<span th:text="${comment.content}"></span>
+					<span class="comment-days-ago-info" th:text="${comment.commentDateToString()}"></span>
+				</div>
 
 				<div sec:authorize="isAuthenticated()" th:if="${comment.commenter.id == loggedInUser.id}">
 					<button th:id="'edit-comment-button'+${comment.id}" onclick="showEditCommentForm(event)" class="btn btn-warning">Edit</button>
@@ -22,8 +28,6 @@
 				</div>
 			</li>
 		</ul>
-
-		<br>
 
 		<div sec:authorize="isAuthenticated()" th:id="'add-comment-box'+${post.id}" hidden>
 			<form th:method="post" th:action="@{/{postId}/comment/add(postId=${post.id})}">
