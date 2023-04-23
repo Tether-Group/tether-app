@@ -10,4 +10,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findAllByOrderByCommentDateDesc();
     List<Comment> findCommentsByGroup_IdOrderByCommentDateDesc(Long groupId);
 
+    List<Comment> findCommentsByGroup_Id(Long groupId);
+
+    List<Comment> findCommentsByPost_Id(Long postId);
 }

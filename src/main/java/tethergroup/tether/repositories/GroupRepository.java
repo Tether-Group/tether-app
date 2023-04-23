@@ -4,11 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import tethergroup.tether.models.Group;
-import tethergroup.tether.models.User;
+import tethergroup.tether.models.Membership;
 
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
+
     //    random group query for visitor
     @Query(nativeQuery = true, value = "SELECT * FROM groups ORDER BY rand() LIMIT 50")
     List<Group> randomGroupsLimitFifty();
@@ -33,6 +34,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query(nativeQuery = true,
             value = "SELECT COUNT(*) FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     Long getCountOfGroupRequestsForLoggedInUserAndAdmin(Long id);
+
 
     @Query(nativeQuery = true,
     value = "SELECT DISTINCT g.* from groups g\n" +
