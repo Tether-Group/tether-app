@@ -120,7 +120,8 @@ public class UserController {
         }
 
         List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_Id(profilePageUserId);
-        List<Group> groups = new ArrayList<>();
+        List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(user.getId());
+        List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
         for (Membership membership : membershipsOfUserOfProfilePage) {
             Group group = membership.getGroup();
             groups.add(group);
