@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title th:text="${user.username}"></title>
 	<th:block th:insert="~{partials/styles :: styles}"></th:block>
 	<link rel="stylesheet" href="/styles/index.css"/>
 </head>
@@ -119,13 +119,6 @@
 					<div th:if="${post.getPostType().getId() == 2}">
 						<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
 					</div>
-
-					<form id="uploadForm">
-						<input type="file" name="file" id="fileInput">
-						<button type="submit">Upload</button>
-					</form>
-					<div id="preview"></div>
-
 
 					<div th:if="${post.getPostType().getId() == 3}">
 						<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
