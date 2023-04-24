@@ -35,7 +35,8 @@
 </div>
 
 <div sec:authorize="!isAuthenticated()" class="welcome-div">
-    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">
+<!--    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">-->
+    <img th:src="@{/img/bionic-hand-touching.jpg}" class="welcome-hands" alt="Bionic Hand Touching Human Hand">
     <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
          alt="Black Tether Full Logo">
 </div>
@@ -44,19 +45,14 @@
 
 
 <div class="page-content">
-    <div class="container">
-        <div sec:authorize="isAuthenticated()">
-            <!--        Welcome <span th:text="${#authentication.principal.firstName}"/> <span-->
-            <!--            th:text="${#authentication.principal.lastName}"/>-->
-            Username: <span th:text="${#authentication.principal.username}"/>
-            <!--        Email: <span th:text="${#authentication.principal.email}"/>-->
-        </div>
+    <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
+        <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
     </div>
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-4">
-                <h3>Suggested Groups</h3>
+            <div class="col-4 p-0">
+                <p class="index-heading">Suggested Groups</p>
                 <ul class="list-group group-cards">
                     <li th:each="group: ${randoGroups}"
                         class="list-group-item d-flex justify-content-between align-items-start group-cards">
@@ -76,8 +72,8 @@
                 </ul>
             </div>
 
-            <div class="col-8">
-                <h3>Explore</h3>
+            <div class="col-8 p-0">
+                <p class="index-heading">Explore</p>
                 <div class="list-group post-card-holder">
                     <div th:each="post : ${posts}">
 
@@ -106,6 +102,16 @@
     <footer class="footer">
         <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name" alt="Tether Name"></span></p>
     </footer>
+    <div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.js"
+                integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
+        <script src="/keys.js"></script>
+        <div sec:authorize="isAuthenticated()">
+            <script th:src="@{/js/chat_bar.js}"></script>
+        </div>
+    </div>
 </div>
 <div sec:authorize="isAuthenticated()">
     <th:block th:insert="~{partials/footer :: footer}"></th:block>

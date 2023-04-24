@@ -11,12 +11,12 @@
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-<h1>This is the SEARCH RESULTS page</h1>
-
+<div class="container search-form-container">
 <form class="search-form" th:action="@{/search-results}" th:method="GET">
     <input class="search-bar form-control me-2" type="search" placeholder="Search" name="search">
-    <button class="search-button btn btn-outline-success" type="submit">Search</button>
+    <button class="search-button btn btn-outline-primary" type="submit">Search</button>
 </form>
+</div>
 
 
 <div class="container post-card">
@@ -25,8 +25,8 @@
     </div>
     <div th:if="${!searchedPosts.isEmpty()}">
         <h3>Posts related to your search</h3>
-        <div class="card post-card" th:each="post: ${searchedPosts}">
-            <div class="ms-2 me-auto">
+        <div class="list-group" th:each="post: ${searchedPosts}">
+            <div>
                 <div th:if="${post.getPostType().getId() == 1}">
                     <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
                 </div>
@@ -48,7 +48,7 @@
 </div>
 
 
-<div class="container group-card">
+<div class="container group-card-container">
     <div th:if="${searchedGroups.isEmpty()}">
         <h3>There are no Groups related to your search.</h3>
     </div>
@@ -73,7 +73,7 @@
 </div>
 
 
-<div class="container user-card">
+<div class="container user-card-container">
     <div th:if="${searchedUsers.isEmpty()}">
         <h3>There are no Users related to your search.</h3>
     </div>
@@ -82,8 +82,10 @@
         <div class="card user-card" th:each="user: ${searchedUsers}">
             <div class="ms-2 me-auto">
                 <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                    <img class="user-photo" th:src="${user.profilePhotoUrl}">
                     <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
                 </a>
+                <p><span th:text="${user.bio}"></span></p>
             </div>
         </div>
     </div>

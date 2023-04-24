@@ -79,18 +79,18 @@ public class GroupController {
         }
         boolean groupIsPrivate = group.isPrivate();
         model.addAttribute("groupIsPrivate", groupIsPrivate);
-        Membership membership = new Membership();
+        Membership membershipOfLoggedInUser = new Membership();
         try {
             // does this stuff if user is logged in
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
-            membership = membershipDao.findMembershipByUser_IdAndGroup_Id(loggedInUser.getId(), group.getId());
+            membershipOfLoggedInUser = membershipDao.findMembershipByUser_IdAndGroup_Id(loggedInUser.getId(), group.getId());
 
-            if (membership == null) {
+            if (membershipOfLoggedInUser == null) {
                 // no membership request
                 model.addAttribute("isMember", false);
                 model.addAttribute("isPending", false);
-            } else if (membership.isPending()) {
+            } else if (membershipOfLoggedInUser.isPending()) {
                 // membership request exists and is pending
                 model.addAttribute("isPending", true);
                 model.addAttribute("isMember", false);
@@ -109,7 +109,12 @@ public class GroupController {
             List<PostType> postTypes = postTypeDao.findAll();
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
-            List<User> members = userDao.findByGroupIdLimitFive(groupId);
+            List<Membership> memberships = membershipDao.findMembershipsByGroupIdWhereIsNotPendingLimitFive(groupId);
+            List<User> members = new ArrayList<>();
+            for (Membership membershipOfGroup : memberships) {
+                User member = userDao.findById(membershipOfGroup.getUser().getId()).get();
+                members.add(member);
+            }
             List<Comment> comments = commentDao.findCommentsByGroup_IdOrderByCommentDateDesc(groupId);
             for (Comment comment : comments) {
                 System.out.println(comment.getPost().getId());
@@ -201,7 +206,12 @@ public class GroupController {
         User admin = groupDao.findById(groupId).get().getAdmin();
         boolean loggedInUserIsGroupAdmin = loggedInUser.getId() == admin.getId();
         model.addAttribute("loggedInUserIsAdmin", loggedInUserIsGroupAdmin);
-        List<User> members = userDao.findByGroupId(groupId);
+        List<Membership> memberships = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(groupId);
+        List<User> members = new ArrayList<>();
+        for (Membership membership : memberships) {
+            User member = userDao.findById(membership.getUser().getId()).get();
+            members.add(member);
+        }
         model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";

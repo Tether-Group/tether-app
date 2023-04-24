@@ -1,6 +1,18 @@
 /* blue to re-use #0586ef */
 
 /* welcome image */
+p.logged-in-user-index {
+    margin: 10px 5px 0 0;
+    font-family: 'Nobile', sans-serif;
+    font-size: 15px;
+}
+
+div.logged-in-user {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%;
+    margin: 0;
+}
 
 div.welcome-div {
     height: 100vh;
@@ -8,7 +20,8 @@ div.welcome-div {
 }
 
 img.welcome-hands {
-    height: 56em;
+    /*height: 56em;*/
+    height: 70em;
     width: 108em;
     position: absolute;
 }
@@ -18,19 +31,19 @@ img.welcome-logo {
     height: 25em;
     position: relative;
     z-index: 1;
-    margin-left: 5em;
+    margin-left: 8em;
 }
 
 div.gradient-under-photo {
+    margin-top: 14em;
     width: 100%;
     height: 15px;
-    background-image: linear-gradient(#e3e0e0, rgba(214, 216, 217, 0.17));
+    background-image: linear-gradient(rgb(5 134 239 / 19%), #fcfcfc);
 }
 
 div.page-content {
-    background-color: rgba(214, 216, 217, 0.17);
+    background-color: rgba(255, 255, 255, 0.94);
 }
-
 
 /* cards general */
 
@@ -43,65 +56,6 @@ h3 {
     width: 25em;
     display: inline-block;
 }
-
-.individual-card-posts {
-    border-radius: 6px !important;
-    padding: 20px;
-    box-shadow: 3px 3px 3px #e9e7e7ef;
-    margin-bottom: 15px;
-}
-
-.post-card-holder {
-    position: relative;
-    float: right;
-    width: 55em;
-    display: inline-block;
-}
-
-
-/* user post image and info (top of card) */
-
-.post-item {
-    margin-bottom: 15px;
-}
-
-.posted-by-info {
-    display: flex;
-}
-
-.user-photo {
-    display: inline-block;
-    background-color: lightgray;
-    width: 2.5em;
-    height: 2.5em;
-    border-radius: 100px;
-    margin-right: 15px;
-}
-
-
-.profile-photo{
-    display: inline-block;
-    background-color: lightgray;
-    width: 5em;
-    height: 5em;
-    border-radius: 100px;
-}
-
-.user-post-info {
-    margin: auto;
-    font-size: 16px;
-}
-
-.user-post-info a, .comment-text a {
-    text-decoration: none;
-    color: #0586ef;
-}
-
-.days-ago-info {
-    font-size: 14px;
-    color: #8a8a8a;
-}
-
 
 /* comments container (bottom of card) */
 
@@ -159,8 +113,4 @@ a.join-footer {
 a.join-footer:hover {
     text-decoration: underline;
     text-decoration-color: black;
-}
-
-.list-group-item-action:hover {
-    z-index: 0 !important;
 }

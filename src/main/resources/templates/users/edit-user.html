@@ -1,126 +1,142 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<meta charset="UTF-8">
+	<title>Settings</title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 <div class="d-flex align-items-start">
-    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Account Settings</button>
-        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile Settings</button>
-        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Security</button>
-        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Messsages</button>
-    </div>
-    <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <form th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
-                <input id="id" type="hidden" th:field="*{id}">
-                <label for="firstname" class="form-label">First Name</label>
-                <input id="firstname" name="firstname" th:field="*{firstName}" class="form-control" required>
+	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+		<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+				type="button" role="tab">Account Settings
+		</button>
+		<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+				type="button" role="tab">Profile Settings
+		</button>
+		<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+				type="button" role="tab">Security
+		</button>
+		<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+				type="button" role="tab">Messsages
+		</button>
+	</div>
+	<div class="tab-content" id="v-pills-tabContent">
+		<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
+			<form th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
+				<input id="id" type="hidden" th:field="*{id}">
+				<label for="firstname" class="form-label">First Name</label>
+				<input id="firstname" name="firstname" th:field="*{firstName}" class="form-control" required>
 
-                <label for="lastname" class="form-label">Last Name</label>
-                <input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
+				<label for="lastname" class="form-label">Last Name</label>
+				<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
 
-                <label for="username" class="form-label">Username</label>
-                <input id="username" name="username" th:field="*{username}" class="form-control" required>
+				<label for="username" class="form-label">Username</label>
+				<input id="username" name="username" th:field="*{username}" class="form-control" required>
 
-                <label for="register-email" class="form-label">Email</label>
-                <input id="register-email" name="email" th:field="*{email}" class="form-control" required>
+				<label for="register-email" class="form-label">Email</label>
+				<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
 
-                <input value="Save Changes" th:type="submit" class="submit-button">
-            </form>
+				<input value="Save Changes" th:type="submit" class="submit-button">
+			</form>
 
-            <form th:action="@{/profile/editpassword}" th:method="POST">
+			<form th:action="@{/profile/editpassword}" th:method="POST">
 
-                <label for="oldpassword" class="form-label">Old Password</label>
-                <input id="oldpassword" name="oldpassword" type="password"  class="form-control">
+				<label for="oldpassword" class="form-label">Old Password</label>
+				<input id="oldpassword" name="oldpassword" type="password" class="form-control">
 
-                <label for="register-password" class="form-label">New Password</label>
-                <input id="register-password" name="register-password" type="password"
-                       class="form-control"
-                       pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
+				<label for="register-password" class="form-label">New Password</label>
+				<input id="register-password" name="register-password" type="password"
+					   class="form-control"
+					   pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
 
-                <label for="register-pw-verification" class="form-label">Re-Type New Password</label>
-                <input id="register-pw-verification" name="register-pw-verification" type="password"
-                       class="form-control" required>
+				<label for="register-pw-verification" class="form-label">Re-Type New Password</label>
+				<input id="register-pw-verification" name="register-pw-verification" type="password"
+					   class="form-control" required>
 
-                <div id="message1">
-                    <h5>Email must contain:</h5>
-                    <p id="asperand-register" class="invalid">@</p>
-                    <p id=".com-register" class="invalid">domain must be ".com"</p>
-                    <p>E.g. example@example.com</p>
-                </div>
+				<div id="message1">
+					<h5>Email must contain:</h5>
+					<p id="asperand-register" class="invalid">@</p>
+					<p id=".com-register" class="invalid">domain must be ".com"</p>
+					<p>E.g. example@example.com</p>
+				</div>
 
-                <div id="message2">
-                    <h3>Password must contain the following:</h3>
-                    <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
-                    <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
-                    <p id="number" class="invalid">One <strong>number</strong></p>
-                    <p id="special" class="invalid">One <strong>special </strong>character</p>
-                    <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
-                        characters</strong></p>
-                    <p id="empty" class="invalid">No <strong>spaces</strong></p>
-                    <p id="password-match" class="invalid">Password must match</p>
-                </div>
-
-
-
-
-
-
-                <input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
-            </form>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Delete account
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-body">
-                                Are you sure you want to delete your account?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <form th:action="@{/profile/delete}" th:method="post">
-                                    <button type="submit" class="btn btn-danger">Delete Account</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div id="message2">
+					<h3>Password must contain the following:</h3>
+					<p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
+					<p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
+					<p id="number" class="invalid">One <strong>number</strong></p>
+					<p id="special" class="invalid">One <strong>special </strong>character</p>
+					<p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
+						characters</strong></p>
+					<p id="empty" class="invalid">No <strong>spaces</strong></p>
+					<p id="password-match" class="invalid">Password must match</p>
+				</div>
 
 
-        </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
+				<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
+			</form>
 
-            <form id="uploadForm">
-                <input type="file" name="file" id="fileInput">
-                <button type="submit">Upload</button>
-            </form>
-            <div id="preview"></div>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				Delete account
+			</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						</div>
+						<div class="modal-body">
+							<div class="modal-body">
+								Are you sure you want to delete your account?
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+								<form th:action="@{/profile/delete}" th:method="post">
+									<button type="submit" class="btn btn-danger">Delete Account</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
+		</div>
+		<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
 
+			<form th:method="post" th:action="@{/profile/change-photo}">
+				<label for="profile-photo-btn">Profile Picture</label>
+				<button id="profile-photo-btn" type="button" class="btn btn-secondary"
+						onclick="openFileStackModalProfile()">Change profile photo
+				</button>
+				<p id="display-file-name"></p>
+				<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}" th:name="photo-url">
+				<br>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
 
-        </div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
-    </div>
+			<br>
+
+			<form th:method="post" th:action="@{/profile/change-bio}">
+				<label>Bio</label>
+				<input th:name="bio-input" type="text" th:value="${user.bio}">
+				<br>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
+
+		</div>
+
+		<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
+		<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
+	</div>
 </div>
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/register_password_verification.js}"></script>

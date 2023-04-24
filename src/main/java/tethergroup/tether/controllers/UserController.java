@@ -71,6 +71,7 @@ public class UserController {
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
+        user.setProfilePhotoUrl("https://cdn.filestackcontent.com/8VHpiTBmQxazs1q0X7ZS");
         userDao.save(user);
         return "redirect:/login";
     }
@@ -176,6 +177,34 @@ public class UserController {
         return "redirect:/profile/" + user.getUsername();
     }
 
+    @PostMapping("/profile/change-photo")
+    public String changeProfilePhoto(@RequestParam("photo-url") String profilePhotoURL) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            userObj.setProfilePhotoUrl(profilePhotoURL);
+            userDao.save(userObj);
+        } else {
+            return "redirect:/login";
+        }
+        return "redirect:/profile/my-account";
+    }
+
+    @PostMapping("/profile/change-bio")
+    public String changeProfileBio(@RequestParam("bio-input") String bio) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            userObj.setBio(bio);
+            userDao.save(userObj);
+        } else {
+            return "redirect:/login";
+        }
+        return "redirect:/profile/my-account";
+    }
+
     //    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {
@@ -239,15 +268,5 @@ public class UserController {
             throw new RuntimeException(e);
         }
         return "redirect:/";
-    }
-
-    @PostMapping(value = "/add-profile-photo", consumes = "application/json")
-    public String addProfilePhoto(@RequestBody PhotoURL profilePhotoURL) {
-        System.out.println(profilePhotoURL.getPhotoURL());
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User actualUser = userDao.findById(loggedInUser.getId()).get();
-        actualUser.setProfilePhotoUrl(profilePhotoURL.getPhotoURL());
-        userDao.save(actualUser);
-        return "redirect:/profile/" + actualUser.getUsername();
     }
 }
