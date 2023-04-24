@@ -40,7 +40,8 @@
          alt="Black Tether Full Logo">
 </div>
 
-<div class="gradient-under-photo"></div>
+<div sec:authorize="!isAuthenticated()" class="gradient-under-photo"></div>
+
 
 <div class="page-content">
     <div class="container">
@@ -76,6 +77,7 @@
             </div>
 
             <div class="col-8">
+                <h3>Explore</h3>
                 <div class="list-group post-card-holder">
                     <div th:each="post : ${posts}">
 
@@ -100,7 +102,14 @@
         </div>
     </div>
 </div>
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<div sec:authorize="!isAuthenticated()">
+    <footer class="footer">
+        <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name" alt="Tether Name"></span></p>
+    </footer>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/add_comments.js}"></script>
 </body>

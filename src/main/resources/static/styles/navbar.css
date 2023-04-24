@@ -1,6 +1,18 @@
 /*FULL SCREEN MEDIA QUERY*/
 /*font-family: 'Oswald', sans-serif;*/
-a.nav-link:hover {
+a.dropdown-item {
+    border-radius: 3px;
+    width: 160px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+a.dropdown-item:hover {
+    background-color: rgba(5, 134, 239, 0.34);
+    transition: 0.1s ease-in-out;
+}
+
+.nav-link:hover {
     text-decoration: underline 0.25em;
     text-decoration-color: #0586ef;
     transition: .1s ease-in-out;
@@ -43,6 +55,14 @@ i.search-icon:hover {
 img.tether-icon {
     max-width: 150px;
     max-height: 150px;
+    border-radius: 50px;
+    margin-left: 10px;
+}
+
+img.tether-icon:hover {
+    color: #0586ef;
+    background-color: rgba(5, 134, 239, 0.34);
+    transition: 0.1s ease-in-out;
 }
 
 input.nav-search-bar {
