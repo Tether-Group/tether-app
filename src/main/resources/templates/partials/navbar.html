@@ -27,7 +27,7 @@
                         <a class="nav-link" href="/groups">GROUPS</a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a class="nav-link nav-font" th:href="@{/notifications}">NOTIFICATIONS</a>
+                        <a class="nav-link nav-font" th:href="@{/notifications}">NOTIFICATIONS <span class="badge bg-dark" id="notification-count"></span></a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-font" href="#" id="navbarDropdown" role="button"

@@ -83,4 +83,14 @@ public class NotificationController {
         membershipDao.save(membershipToAccept);
         return "redirect:/notifications";
     }
+
+    @GetMapping(value = "/getNotificationCount", produces = "application/json")
+    @ResponseBody
+    public Long getNotificationCount() {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long groupRequestCount = groupDao.getCountOfGroupRequestsForLoggedInUserAndAdmin(loggedInUser.getId());
+        Long friendRequestCount = friendshipDao.getCountOfFriendRequestsForLoggedInUser(loggedInUser.getId());
+        Long notificationCount = groupRequestCount + friendRequestCount;
+        return notificationCount;
+    }
 }
