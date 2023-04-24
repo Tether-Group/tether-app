@@ -21,8 +21,6 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM groups g ORDER BY g.id DESC")
     List<Group> groupsByDescendingId();
 
-//    Group searchByGroupName(String name);
-
     //    query for searching groups in navbar
     @Query("FROM Group g WHERE g.name LIKE %:term% OR g.description LIKE %:term%")
     List<Group> findLikeGroupNameOrDescription(@Param("term") String group);
