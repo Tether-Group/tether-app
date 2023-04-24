@@ -1,6 +1,6 @@
 .individual-card-posts {
     border-radius: 6px !important;
-    padding: 20px;
+    padding: 15px 20px;
     box-shadow: 3px 3px 3px #e9e7e7ef;
     margin-bottom: 15px;
 }
@@ -10,4 +10,73 @@
     float: right;
     width: 55em;
     display: inline-block;
+}
+
+/* user post image and info (top of card) */
+
+.post-item {
+    margin-bottom: 15px;
+}
+
+.posted-by-info {
+    display: flex;
+}
+
+.user-photo {
+    display: inline-block;
+    background-color: lightgray;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100px;
+    border: 1px solid grey;
+}
+
+/*.profile-photo{*/
+/*    display: inline-block;*/
+/*    background-color: lightgray;*/
+/*    width: 5em;*/
+/*    height: 5em;*/
+/*    border-radius: 100px;*/
+/*}*/
+
+.user-post-info {
+    margin: auto auto auto 15px;
+}
+
+.post-info-font {
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.7px;
+}
+
+.user-post-info a, .comment-text a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.user-post-info a:hover, .comment-text a:hover {
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 2px;
+    color: black;
+    font-size: 20px;
+}
+
+.days-ago-info {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin: auto 0;
+}
+
+p.index-heading {
+    font-family: 'Nobile', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    width: 100%;
+    margin: auto;
+}
+
+.list-group-item-action:hover {
+    z-index: 0 !important;
 }

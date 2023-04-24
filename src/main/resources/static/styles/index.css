@@ -42,7 +42,7 @@ div.gradient-under-photo {
 }
 
 div.page-content {
-    background-color: rgba(214, 216, 217, 0.17);
+    background-color: rgba(255, 255, 255, 0.94);
 }
 
 /* cards general */
@@ -56,58 +56,6 @@ h3 {
     width: 25em;
     display: inline-block;
 }
-
-/* user post image and info (top of card) */
-
-.post-item {
-    margin-bottom: 15px;
-}
-
-.posted-by-info {
-    display: flex;
-}
-
-.user-photo {
-    display: inline-block;
-    background-color: lightgray;
-    width: 2.5em;
-    height: 2.5em;
-    border-radius: 100px;
-    margin-right: 15px;
-}
-
-
-.profile-photo{
-    display: inline-block;
-    background-color: lightgray;
-    width: 5em;
-    height: 5em;
-    border-radius: 100px;
-}
-
-.user-post-info {
-    margin: auto;
-    font-size: 16px;
-}
-
-.user-post-info a, .comment-text a {
-    text-decoration: none;
-    color: #0586ef;
-}
-
-.days-ago-info {
-    font-size: 14px;
-    color: #8a8a8a;
-}
-
-p.index-heading {
-    font-family: 'Nobile', sans-serif;
-    font-weight: 500;
-    font-size: 30px;
-    width: 100%;
-    margin: auto;
-}
-
 
 /* comments container (bottom of card) */
 
@@ -165,8 +113,4 @@ a.join-footer {
 a.join-footer:hover {
     text-decoration: underline;
     text-decoration-color: black;
-}
-
-.list-group-item-action:hover {
-    z-index: 0 !important;
 }
