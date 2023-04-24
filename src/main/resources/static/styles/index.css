@@ -15,34 +15,30 @@ div.logged-in-user {
 }
 
 div.welcome-div {
-    height: 100vh;
-    width: 100vw;
-}
-
-img.welcome-hands {
-    /*height: 56em;*/
-    height: 70em;
-    width: 108em;
-    position: absolute;
+    width: 100%;
+    display: flex;
 }
 
 img.welcome-logo {
-    width: 45em;
-    height: 25em;
+    width: 50em;
+    height: 15em;
     position: relative;
     z-index: 1;
-    margin-left: 8em;
+    margin: auto;
+    overflow: scroll;
 }
 
-div.gradient-under-photo {
-    margin-top: 14em;
-    width: 100%;
-    height: 15px;
-    background-image: linear-gradient(rgb(5 134 239 / 19%), #fcfcfc);
+hr {
+    color: #0586ef;
+    margin: 0 auto;
+    width: 60%;
+    height: 3px;
+    background-color: #0586ef;
 }
 
 div.page-content {
     background-color: rgba(255, 255, 255, 0.94);
+    margin-top: 20px;
 }
 
 /* cards general */
@@ -55,28 +51,6 @@ h3 {
     float: left;
     width: 25em;
     display: inline-block;
-}
-
-/* comments container (bottom of card) */
-
-.comments-container {
-    margin-top: 25px;
-}
-
-.comments-header-text {
-    font-size: 17px;
-    margin-bottom: 4px;
-}
-
-.comment-text {
-   font-size: 15px;
-}
-
-.comment-days-ago-info {
-    position: relative;
-    float: right;
-    color: #8a8a8a;
-    font-size: 14px;
 }
 
 footer.footer {
@@ -104,6 +78,14 @@ img.tether-name {
     margin-bottom: 5px;
 }
 
+p.index-heading {
+    font-family: 'Nobile', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    width: 100%;
+    margin: auto;
+}
+
 a.join-footer {
     color: black;
     text-decoration: none;
@@ -113,4 +95,38 @@ a.join-footer {
 a.join-footer:hover {
     text-decoration: underline;
     text-decoration-color: black;
+}
+
+/*suggest group styling*/
+
+.group-a {
+    font-family: 'Nobile', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.group-a:hover {
+    text-decoration: underline;
+    text-decoration-color: #0586ef;
+    text-decoration-thickness: 2px;
+}
+
+.group-bio {
+    font-family: 'Nobile', sans-serif;
+    font-size: 13px;
+}
+
+/*pills on groups*/
+.private-pill {
+    background-color: black;
+    color: white;
+    width: 60px;
+}
+
+.public-pill {
+    background-color: rgba(5, 134, 239, 0.91);
+    color: white;
+    width: 60px;
 }

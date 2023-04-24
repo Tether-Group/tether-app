@@ -5,31 +5,27 @@
             <div class="d-flex w-100 justify-content-between post-item">
                 <div class="posted-by-info">
                     <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
-                    <div class="user-post-info">
-                        <a th:href="@{'/profile/' + ${post.user.getUsername()}}">
-                            <span th:text="${post.user}"></span>
-                        </a>
-                        <span>posted in </span>
-                        <a th:href="@{'/group/' + ${post.group.getId()}}">
-                            <span th:text="${post.group}"></span>
-                        </a>
+                    <div class="user-post-info post-info-font">
+                        <a th:href="@{'/profile/' + ${post.user.username}}" th:text="${post.user}"></a>
+                        <span> posted in </span>
+                        <a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group.name}"></a>
                     </div>
                 </div>
                 <div class="days-ago-info">
                     <span th:text="${post.postDateToString()}"></span>
                 </div>
             </div>
-            <h5 class="mb-1"><span th:text="${post.header}"></span></h5>
-            <p class="mb-1"><span th:text="${post.eventDate}"></span></p>
+            <p class="post-header"><span th:text="${post.header}"></span></p>
+            <p class="post-details"><span th:text="${post.eventDate}"></span></p>
             <div>
                 <div sec:authorize="isAuthenticated()">
-                    <a class="mb-1" th:href="@{/post/event/{id}(id=${post.id})}"><span th:text="${post.eventAddress}"></span></a>
+                    <a class="post-details" th:href="@{/post/event/{id}(id=${post.id})}"><span th:text="${post.eventAddress}"></span></a>
                 </div>
                 <div sec:authorize="!isAuthenticated()">
-                    <p class="mb-1"><span th:text="${post.eventAddress}"></span></p>
+                    <p class="post-details"><span th:text="${post.eventAddress}"></span></p>
                 </div>
             </div>
-            <p class="mb-1"><span th:text="${post.body}"></span></p>
+            <p class="post-details"><span th:text="${post.body}"></span></p>
         </div>
 
         <div sec:authorize="isAuthenticated()">
