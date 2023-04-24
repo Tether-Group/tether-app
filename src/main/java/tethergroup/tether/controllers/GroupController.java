@@ -206,7 +206,12 @@ public class GroupController {
         User admin = groupDao.findById(groupId).get().getAdmin();
         boolean loggedInUserIsGroupAdmin = loggedInUser.getId() == admin.getId();
         model.addAttribute("loggedInUserIsAdmin", loggedInUserIsGroupAdmin);
-        List<User> members = userDao.findByGroupId(groupId);
+        List<Membership> memberships = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(groupId);
+        List<User> members = new ArrayList<>();
+        for (Membership membership : memberships) {
+            User member = userDao.findById(membership.getUser().getId()).get();
+            members.add(member);
+        }
         model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";
