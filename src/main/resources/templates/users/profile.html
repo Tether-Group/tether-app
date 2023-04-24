@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/index.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -11,154 +12,152 @@
 <h1>This is the PROFILE page</h1>
 <div>
 
-    <div th:if="${!isMyAccountPage}">
-        <!--add friend button-->
-        <div sec:authorize="isAuthenticated()">
-            <div th:if="${!requestExists}">
-                <form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
-                    <button id="add-friend-btn" type="submit" class="btn btn-primary">
-                        Add Friend
-                    </button>
-                </form>
-            </div>
-        </div>
-        <!--message the user-->
-        <div>
-            <a th:href="@{/messages/talk/{username}(username=${user.username})}">Send Message</a>
-        </div>
-        <!--    cancel friend request button-->
-        <div sec:authorize="isAuthenticated()">
-            <div th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
-                <form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
-                    <button id="cancel-friend-request-btn" type="submit" class="btn btn-warning">
-                        Cancel Friend Request
-                    </button>
-                </form>
-            </div>
-        </div>
-        <!--    leave group button/form-->
-        <div sec:authorize="isAuthenticated()">
-            <div th:if="${requestExists && !isPending}">
-                <form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
-                    <button id="remove-friend-btn" type="submit" class="btn btn-danger">
-                        Remove Friend
-                    </button>
-                </form>
-            </div>
-        </div>
+	<div th:if="${!isMyAccountPage}">
+		<!--add friend button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${!requestExists}">
+				<form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
+					<button id="add-friend-btn" type="submit" class="btn btn-primary">
+						Add Friend
+					</button>
+				</form>
+			</div>
+		</div>
+		<!--message the user-->
+		<div>
+			<a th:href="@{/messages/talk/{username}(username=${user.username})}">Send Message</a>
+		</div>
+		<!--    cancel friend request button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
+				<form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
+					<button id="cancel-friend-request-btn" type="submit" class="btn btn-warning">
+						Cancel Friend Request
+					</button>
+				</form>
+			</div>
+		</div>
+		<!--    leave group button/form-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && !isPending}">
+				<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+					<button id="remove-friend-btn" type="submit" class="btn btn-danger">
+						Remove Friend
+					</button>
+				</form>
+			</div>
+		</div>
 
-        <!--accept or decline friend request button-->
-        <div sec:authorize="isAuthenticated()">
-            <div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}">
-                <form th:action="@{/profile/{userId}/accept(userId=${user.id})}" th:method="POST">
-                    <input th:name="currentPage" th:value="profile-page" hidden>
-                    <button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
-                        Accept Friend Request
-                    </button>
-                </form>
+		<!--accept or decline friend request button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}">
+				<form th:action="@{/profile/{userId}/accept(userId=${user.id})}" th:method="POST">
+					<input th:name="currentPage" th:value="profile-page" hidden>
+					<button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
+						Accept Friend Request
+					</button>
+				</form>
 
-                <form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
-                    <input th:name="currentPage" th:value="profile-page" hidden>
-                    <button id="decline-friend-request-btn" type="submit" class="btn btn-primary">
-                        Decline Friend Request
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+				<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+					<input th:name="currentPage" th:value="profile-page" hidden>
+					<button id="decline-friend-request-btn" type="submit" class="btn btn-primary">
+						Decline Friend Request
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
-    <!--	PROFILE PAGE DISPLAY-->
-    <div class="row row-cols-auto">
-        <div class="profile-header">
-            <img class="img-circle profile-image col" src="https://randomuser.me/api/portraits/men/12.jpg" alt="user">
-        </div>
-        <div class="profile-username col">
-            <h3><span th:text="${user.username}"></span></h3>
-        </div>
-    </div>
-    <hr class="profile-hr">
+	<!--	PROFILE PAGE DISPLAY-->
+	<div class="row row-cols-auto">
+		<div class="profile-header">
+			<img class="img-circle profile-image profile-photo" th:src="${user.profilePhotoUrl}" alt="user">
+		</div>
+		<div class="profile-username col">
+			<h3><span th:text="${user.username}"></span></h3>
+		</div>
+	</div>
+	<hr class="profile-hr">
 
-    <!--	<h1><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h1>-->
+	<!--	<h1><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h1>-->
 
 </div>
 
 <div class="container text-center">
-    <div class="row">
-        <div class="col" style="border: 1px solid green; border-radius: 5px">
-            <h3><u>My Groups</u></h3>
-            <div class="container">
-                <ul class="list-group group-cards">
-                    <li th:each="group: ${groups}"
-                        class="list-group-item d-flex justify-content-between align-items-start group-cards">
-                        <div class="ms-2 me-auto">
-                            <a th:href="@{/group/{id}(id=${group.getId()})}">
-                                <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
-                            </a>
-                            <span th:text="${group.getDescription()}"></span>
-                        </div>
-                        <div th:if="${group.private}">
-                            <span class="badge bg-dark rounded-pill">Private</span>
-                        </div>
-                        <div th:if="${!group.private}">
-                            <span class="badge bg-primary rounded-pill">Public</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-7 offset-1" style="border: 1px solid green; border-radius: 5px">
-            <h3><u>Posts</u></h3>
-            <div class="list-group post-card-holder">
-                <div th:each="post : ${posts}">
+	<div class="row">
+		<div class="col" style="border: 1px solid green; border-radius: 5px">
+			<h3><u>My Groups</u></h3>
+			<div class="container">
+				<ul class="list-group group-cards">
+					<li th:each="group: ${groups}"
+						class="list-group-item d-flex justify-content-between align-items-start group-cards">
+						<div class="ms-2 me-auto">
+							<a th:href="@{/group/{id}(id=${group.getId()})}">
+								<div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+							</a>
+							<span th:text="${group.getDescription()}"></span>
+						</div>
+						<div th:if="${group.private}">
+							<span class="badge bg-dark rounded-pill">Private</span>
+						</div>
+						<div th:if="${!group.private}">
+							<span class="badge bg-primary rounded-pill">Public</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-7 offset-1" style="border: 1px solid green; border-radius: 5px">
+			<h3><u>Posts</u></h3>
+			<div class="list-group post-card-holder">
+				<div th:each="post : ${posts}">
 
-                    <div th:if="${post.getPostType().getId() == 1}">
-                        <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
-                    </div>
+					<div th:if="${post.getPostType().getId() == 1}">
+						<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+					</div>
 
-                    <div th:if="${post.getPostType().getId() == 2}">
-                        <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-                    </div>
+					<div th:if="${post.getPostType().getId() == 2}">
+						<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+					</div>
 
-	<form id="uploadForm">
-		<input type="file" name="file" id="fileInput">
-		<button type="submit">Upload</button>
-	</form>
-	<div id="preview"></div>
-
-
+					<form id="uploadForm">
+						<input type="file" name="file" id="fileInput">
+						<button type="submit">Upload</button>
+					</form>
+					<div id="preview"></div>
 
 
+					<div th:if="${post.getPostType().getId() == 3}">
+						<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+					</div>
 
+					<div th:if="${post.getPostType().getId() == 4}">
+						<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+					</div>
 
-                    <div th:if="${post.getPostType().getId() == 3}">
-                        <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
-                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="col offset-1" style="border: 1px solid green; border-radius: 5px">
+			<h3><u>My Friends</u></h3>
+			<div class="container">
+				<ul class="list-friend friend-cards">
+					<li th:each="friend: ${friends}"
+						class="list-friend-item d-flex justify-content-between align-items-start friend-cards">
+						<div class="ms-2 me-auto">
+							<a th:href="@{/profile/{username}(username=${friend.username})}">
+								<div class="fw-bold"><span th:text="${friend.username}"></span></div>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-                    <div th:if="${post.getPostType().getId() == 4}">
-                        <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col offset-1" style="border: 1px solid green; border-radius: 5px">
-            <h3><u>My Friends</u></h3>
-            <div class="container">
-                <ul class="list-friend friend-cards">
-                    <li th:each="friend: ${friends}"
-                        class="list-friend-item d-flex justify-content-between align-items-start friend-cards">
-                        <div class="ms-2 me-auto">
-                            <a th:href="@{/friends/{id}(id=${friend.getId()})}">
-                                <div class="fw-bold"><span th:text="${friend.getName()}"></span></div>
-                            </a>
-        </div>
-    </div>
-</div>
-</div>
-
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
-<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script th:src="@{/js/filestack.js}"></script>
-<script th:src="@{/js/add_comments.js}"></script>
+	<th:block th:insert="~{partials/footer :: footer}"></th:block>
+	<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+	<script th:src="@{/js/filestack.js}"></script>
+	<script th:src="@{/js/add_comments.js}"></script>
 </body>
 </html>

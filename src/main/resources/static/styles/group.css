@@ -42,3 +42,11 @@ h1{
 .member-list-items{
     height: 50px;
 }
+
+.group-photo{
+    display: inline-block;
+    background-color: lightgray;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100px;
+}

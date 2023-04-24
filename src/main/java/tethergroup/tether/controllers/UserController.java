@@ -135,8 +135,18 @@ public class UserController {
             }
         }
 
-        List<Friendship> friendsOfUserOfProfilePage = friendshipDao.friendsOfUser(profilePageUserId);
-        List<Friendship> friends = new ArrayList<>();
+        List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(profilePageUserId);
+        List<User> friends = new ArrayList<>();
+        for (Friendship friendship : friendsOfUserOfProfilePage) {
+            User friend = new User();
+            if (friendship.getAcceptor().getId() == profilePageUserId) {
+                friend = userDao.findById(friendship.getRequester().getId()).get();
+                friends.add(friend);
+            } else if (friendship.getRequester().getId() == profilePageUserId) {
+                friend = userDao.findById(friendship.getAcceptor().getId()).get();
+                friends.add(friend);
+            }
+        }
 
         model.addAttribute("user", user);
         model.addAttribute("requestExists", friendRequestExists);
@@ -147,7 +157,7 @@ public class UserController {
         model.addAttribute("posts", postsOfUserOfProfilePage);
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("comments", comments);
-        model.addAttribute("friends", loggedInUser);
+        model.addAttribute("friends", friends);
         return "users/profile";
     }
 
