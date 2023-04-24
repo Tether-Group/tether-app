@@ -88,7 +88,8 @@ public class SecurityConfiguration {
                         "/comment/delete",
                         "/comment/edit",
                         "/add-profile-photo",
-                        "/verifyAddComments"
+                        "/verifyAddComments",
+                        "/groups/{username}"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
