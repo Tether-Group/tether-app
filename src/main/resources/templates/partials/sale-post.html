@@ -1,19 +1,22 @@
 <th:block th:fragment="sale-post">
 
-    <div class="post-card list-group-item list-group-item-action my-2">
+    <div class="individual-card-posts list-group-item list-group-item-action">
         <div th:id="'post-content'+${post.id}">
             <div class="d-flex w-100 justify-content-between post-item">
                 <div class="posted-by-info">
-                    <div class="group-photo"></div>
-                    <div class="user-photo">
+                    <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    <div class="user-post-info">
+                        <a th:href="@{'/profile/' + ${post.user.getUsername()}}">
+                            <span th:text="${post.user}"></span>
+                        </a>
+                        <span>posted in </span>
+                        <a th:href="@{'/group/' + ${post.group.getId()}}">
+                            <span th:text="${post.group}"></span>
+                        </a>
                     </div>
-                    <a th:href="@{'/profile/' + ${post.user.getUsername()}}"><small><span th:text="${post.user}"></span></small></a>
-                    <small>posted in </small>
-                    <a th:href="@{'/group/' + ${post.group.getId()}}"><small><span
-                            th:text="${post.group}"></span></small></a>
                 </div>
-                <div>
-                    <small th:text="${post.postDateToString()}"></small>
+                <div class="days-ago-info">
+                    <span th:text="${post.postDateToString()}"></span>
                 </div>
             </div>
             <div>
