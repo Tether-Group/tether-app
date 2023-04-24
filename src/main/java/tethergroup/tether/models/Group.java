@@ -47,6 +47,9 @@ public class Group {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private List<Comment> comments;
 
+    @Column(name = "group_photo_url")
+    private String groupPhotoURL;
+
     public String toString() {
         return "" + this.name;
     }

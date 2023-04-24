@@ -2,13 +2,11 @@ package tethergroup.tether.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import tethergroup.tether.models.*;
 import tethergroup.tether.repositories.*;
 
@@ -50,7 +48,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/create")
-    public String createGroup(@ModelAttribute("group") Group group) {
+    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
@@ -59,6 +57,9 @@ public class GroupController {
                 List<PostType> postTypesForGroup = group.getPostTypes();
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
                 group.setAdmin(userObj);
+                if (photoURL != null) {
+                    group.setGroupPhotoURL(photoURL);
+                }
                 groupDao.save(group);
             } else {
                 return "redirect:/login";
@@ -76,55 +77,96 @@ public class GroupController {
         if (group == null) {
             return "redirect:/error";
         }
-        User admin = groupDao.findById(groupId).get().getAdmin();
-        List<Post> posts = postDao.findByGroup_Id(group.getId());
-        List<PostType> postTypesIdsOfGroup = group.getPostTypes();
-        List<Long> postTypeIdsOfGroup = new ArrayList<>();
-        List<User> members = userDao.findByGroupIdLimitFive(groupId);
-        List<Comment> comments = commentDao.findCommentsByGroup_IdOrderByCommentDateDesc(groupId);
-        for (Comment comment : comments) {
-            System.out.println(comment.getPost().getId());
-        }
-        for (PostType postType : postTypesIdsOfGroup) {
-            postTypeIdsOfGroup.add(postType.getId());
-        }
-
-        model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
-        model.addAttribute("admin", admin);
-        model.addAttribute("group", group);
-        model.addAttribute("posts", posts);
-        model.addAttribute("members", members);
-        model.addAttribute("comments", comments);
+        boolean groupIsPrivate = group.isPrivate();
+        model.addAttribute("groupIsPrivate", groupIsPrivate);
         Membership membership = new Membership();
         try {
+            // does this stuff if user is logged in
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("loggedInUser", loggedInUser);
             membership = membershipDao.findMembershipByUser_IdAndGroup_Id(loggedInUser.getId(), group.getId());
 
             if (membership == null) {
+                // no membership request
                 model.addAttribute("isMember", false);
                 model.addAttribute("isPending", false);
             } else if (membership.isPending()) {
+                // membership request exists and is pending
                 model.addAttribute("isPending", true);
                 model.addAttribute("isMember", false);
             } else {
+                //membership request exists and is NOT pending
                 model.addAttribute("isPending", false);
                 model.addAttribute("isMember", true);
             }
+            User admin = groupDao.findById(groupId).get().getAdmin();
+            if (loggedInUser.getId() == admin.getId()) {
+                model.addAttribute("isAdmin", true);
+            } else {
+                model.addAttribute("isAdmin", false);
+            }
+            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<PostType> postTypes = postTypeDao.findAll();
+            List<PostType> postTypesIdsOfGroup = group.getPostTypes();
+            List<Long> postTypeIdsOfGroup = new ArrayList<>();
+            List<User> members = userDao.findByGroupIdLimitFive(groupId);
+            List<Comment> comments = commentDao.findCommentsByGroup_IdOrderByCommentDateDesc(groupId);
+            for (Comment comment : comments) {
+                System.out.println(comment.getPost().getId());
+            }
+            for (PostType postType : postTypesIdsOfGroup) {
+                postTypeIdsOfGroup.add(postType.getId());
+            }
+
+            for (int i = 0; i < postTypes.size(); i++) {
+                model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
+            }
+
+            model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
+            model.addAttribute("admin", admin);
+            model.addAttribute("group", group);
+            model.addAttribute("posts", posts);
+            model.addAttribute("members", members);
+            model.addAttribute("comments", comments);
         } catch (Exception e) {
-            return "groups/group";
+            // does this instead if user is not logged in
+            if (group.isPrivate()) {
+                return "redirect:/login";
+            }
+            User admin = groupDao.findById(groupId).get().getAdmin();
+            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<PostType> postTypesIdsOfGroup = group.getPostTypes();
+            List<Long> postTypeIdsOfGroup = new ArrayList<>();
+            List<User> members = userDao.findByGroupIdLimitFive(groupId);
+            List<Comment> comments = commentDao.findCommentsByGroup_IdOrderByCommentDateDesc(groupId);
+            for (Comment comment : comments) {
+                System.out.println(comment.getPost().getId());
+            }
+            for (PostType postType : postTypesIdsOfGroup) {
+                postTypeIdsOfGroup.add(postType.getId());
+            }
+
+            model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
+            model.addAttribute("admin", admin);
+            model.addAttribute("group", group);
+            model.addAttribute("posts", posts);
+            model.addAttribute("members", members);
+            model.addAttribute("comments", comments);
+            model.addAttribute("isAdmin", false);
         }
         return "groups/group";
     }
 
     @PostMapping("/group/edit")
-    public String editGroup(@ModelAttribute("group") Group group) {
+    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
 
         List<PostType> postTypesForGroup = group.getPostTypes();
         postTypesForGroup.add(postTypeDao.findById(1L).get());
-
+        if (photoURL != null) {
+            group.setGroupPhotoURL(photoURL);
+        }
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupAdmin = originalGroup.getAdmin();
 
