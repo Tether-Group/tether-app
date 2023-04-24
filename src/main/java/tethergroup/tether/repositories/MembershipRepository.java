@@ -12,6 +12,8 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
 
     Membership findMembershipByUser_IdAndGroup_Id(Long userId, Long groupId);
 
+    List<Membership> findMembershipsByUser_Id(Long  userId);
+
     List<Membership> findMembershipsByGroup_Id(Long groupId);
 
     @Query(nativeQuery = true,

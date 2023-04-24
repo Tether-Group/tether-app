@@ -4,13 +4,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import tethergroup.tether.models.Friendship;
-import tethergroup.tether.models.User;
 
 import java.util.List;
 
 public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
 
     Friendship findByRequester_IdAndAcceptor_Id(Long requesterId, Long acceptorId);
+
+    List<Friendship> friendsOfUser(Long acceptorId);
 
     @Query(nativeQuery = true,
             value = "SELECT count(id) FROM friendships f WHERE f.acceptor = :user_id AND is_pending = 1")
