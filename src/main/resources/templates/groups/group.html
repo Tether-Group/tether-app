@@ -10,9 +10,9 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
-<h1><span th:text="${group.name}"></span></h1>
-<div class="group-photo-banner">
-
+<div>
+	<h1><span th:text="${group.name}"></span></h1>
+	<img class="group-photo-banner" th:src="${group.groupPhotoURL}">
 </div>
 
 <div class="container-fluid">
