@@ -123,6 +123,15 @@
 				<button type="submit" class="btn btn-primary">Save</button>
 			</form>
 
+			<br>
+
+			<form th:method="post" th:action="@{/profile/change-bio}">
+				<label>Bio</label>
+				<input th:name="bio-input" type="text" th:value="${user.bio}">
+				<br>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
+
 		</div>
 
 		<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
