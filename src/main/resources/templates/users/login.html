@@ -45,6 +45,9 @@
 
                 </div>
             </div>
+            <div th:if="${errorMessage}">
+                <p><span th:text="${errorMessage}"></span> - Incorrect username or password</p>
+            </div>
         </div>
 
 
@@ -67,20 +70,16 @@
                             <div class="has-validation">
                                 <label for="register-username" class="form-label">Username</label>
                                 <input id="register-username" name="register-username" th:field="*{username}"
-                                       th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" required>
+                                       th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
+                                       required>
                                 <div id="validationUsernameFeedback" class="invalid-feedback">
                                     Username already exists.
                                 </div>
                             </div>
 
-                            <div class="has-validation">
-                                <label for="register-email" class="form-label">Email</label>
-                                <input id="register-email" name="register-email" th:field="*{email}"
-                                       th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" required>
-                                <div id="validationEmailFeedback" class="invalid-feedback">
-                                    Please re-enter email
-                                </div>
-                            </div>
+                            <label for="register-email" class="form-label">Email</label>
+                            <input id="register-email" name="register-email" th:field="*{email}"
+                                   class="form-control" required>
 
                             <label for="register-password" class="form-label">Password</label>
                             <input id="register-password" name="register-password" type="password"
