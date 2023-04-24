@@ -102,6 +102,14 @@ h3 {
     color: #8a8a8a;
 }
 
+p.index-heading {
+    font-family: 'Nobile', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    width: 100%;
+    margin: auto;
+}
+
 
 /* comments container (bottom of card) */
 

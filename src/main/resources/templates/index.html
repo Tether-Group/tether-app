@@ -55,8 +55,8 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-4">
-                <h3>Suggested Groups</h3>
+            <div class="col-4 p-0">
+                <p class="index-heading">Suggested Groups</p>
                 <ul class="list-group group-cards">
                     <li th:each="group: ${randoGroups}"
                         class="list-group-item d-flex justify-content-between align-items-start group-cards">
@@ -76,8 +76,8 @@
                 </ul>
             </div>
 
-            <div class="col-8">
-                <h3>Explore</h3>
+            <div class="col-8 p-0">
+                <p class="index-heading">Explore</p>
                 <div class="list-group post-card-holder">
                     <div th:each="post : ${posts}">
 
