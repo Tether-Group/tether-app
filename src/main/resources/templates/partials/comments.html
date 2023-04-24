@@ -18,11 +18,11 @@
 
         <ul class="list-group" th:each="comment : ${comments}" th:if="${!comments.isEmpty()}">
             <li th:if="${comment.post.id == post.id}" class="list-group-item comment-box">
-                <div class="comment-text">
-                    <a th:href="@{/profile/{username}(username=${comment.commenter.username})}">
-                        <span th:text="${comment.commenter}"></span>
+                <div>
+                    <a class="commenter" th:href="@{/profile/{username}(username=${comment.commenter.username})}">
+                        <span th:text="${comment.commenter}"> </span>
                     </a>
-                    <span th:text="${comment.content}"></span>
+                    <span class="comment-text" th:text="${comment.content}"></span>
                     <span class="comment-days-ago-info" th:text="${comment.commentDateToString()}"></span>
                 </div>
 

@@ -5,14 +5,10 @@
             <div class="d-flex w-100 justify-content-between post-item">
                 <div class="posted-by-info">
                     <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
-                    <div class="user-post-info">
-                        <a th:href="@{'/profile/' + ${post.user.getUsername()}}">
-                            <span th:text="${post.user}"></span>
-                        </a>
-                        <span>posted in </span>
-                        <a th:href="@{'/group/' + ${post.group.getId()}}">
-                            <span th:text="${post.group}"></span>
-                        </a>
+                    <div class="user-post-info post-info-font">
+                        <a th:href="@{'/profile/' + ${post.user.getUsername()}}" th:text="${post.user}"></a>
+                        <span> posted in </span>
+                        <a th:href="@{'/group/' + ${post.group.getId()}}" th:text="${post.group.name}"></a>
                     </div>
                 </div>
                 <div class="days-ago-info">
@@ -20,10 +16,10 @@
                 </div>
             </div>
             <div>
-                <h3 class="mb-1">$<span th:text="${post.postPrice}"></span></h3>
+                <p class="post-info-font">$<span th:text="${post.postPrice}"></span></p>
             </div>
-            <h5 class="mb-1"><span th:text="${post.header}"></span></h5>
-            <p class="mb-1"><span th:text="${post.body}"></span></p>
+            <p class="post-header"><span th:text="${post.header}"></span></p>
+            <p class="post-details"><span th:text="${post.body}"></span></p>
         </div>
 
         <div sec:authorize="isAuthenticated()">

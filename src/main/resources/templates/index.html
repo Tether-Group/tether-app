@@ -34,21 +34,17 @@
     </div>
 </div>
 
-<div sec:authorize="!isAuthenticated()" class="welcome-div">
-<!--    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">-->
-    <img th:src="@{/img/bionic-hand-touching.jpg}" class="welcome-hands" alt="Bionic Hand Touching Human Hand">
+<div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
+    <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
+</div>
+<div class="welcome-div">
     <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
          alt="Black Tether Full Logo">
 </div>
 
-<div sec:authorize="!isAuthenticated()" class="gradient-under-photo"></div>
-
+<hr>
 
 <div class="page-content">
-    <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
-        <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
-    </div>
-    <br>
     <div class="container">
         <div class="row">
             <div class="col-4 p-0">
@@ -57,16 +53,16 @@
                     <li th:each="group: ${randoGroups}"
                         class="list-group-item d-flex justify-content-between align-items-start group-cards">
                         <div class="ms-2 me-auto">
-                            <a th:href="@{/group/{id}(id=${group.getId()})}">
-                                <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+                            <a class="group-a" th:href="@{/group/{id}(id=${group.getId()})}">
+                                <div><span th:text="${group.getName()}"></span></div>
                             </a>
-                            <span th:text="${group.getDescription()}"></span>
+                            <span class="group-bio" th:text="${group.getDescription()}"></span>
                         </div>
                         <div th:if="${group.private}">
-                            <span class="badge bg-dark rounded-pill">Private</span>
+                            <span class="badge rounded-pill private-pill">Private</span>
                         </div>
                         <div th:if="${!group.private}">
-                            <span class="badge bg-primary rounded-pill">Public</span>
+                            <span class="badge rounded-pill public-pill">Public</span>
                         </div>
                     </li>
                 </ul>

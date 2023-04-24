@@ -67,7 +67,7 @@ img.tether-icon:hover {
 
 input.nav-search-bar {
     height: 2.5em;
-    width: 30em;
+    width: 35em;
     background-color: rgb(185 185 185 / 38%);
     border: 1px solid transparent;
     border-radius: 0.25em;
@@ -76,11 +76,10 @@ input.nav-search-bar {
     transition: 0.5s;
     font-family: 'Oswald', sans-serif;
     margin: auto 0;
-    letter-spacing: 0.7px;
+    letter-spacing: 1.2px;
 }
 
 input.nav-search-bar:focus {
-    /*border: 1px solid rgba(169, 167, 167, 0.55);*/
     border: 2px solid rgba(5, 134, 239, 0.34);
 }
 
