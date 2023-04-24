@@ -15,49 +15,52 @@
 	<img class="group-photo-banner" th:src="${group.groupPhotoURL}">
 </div>
 
+
 <div class="container-fluid">
-	<div sec:authorize="isAuthenticated()">
-		<div th:if="${(isMember && !isPending) || isAdmin}">
-			<th:block th:insert="~{partials/create-post :: create-post}"></th:block>
+	<div class="button-container">
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${(isMember && !isPending) || isAdmin}">
+				<th:block th:insert="~{partials/create-post :: create-post}"></th:block>
+			</div>
+		</div>
+
+		<div class="container">
+			<!--    join group button/form-->
+			<div sec:authorize="isAuthenticated()">
+				<div th:if="${!isAdmin && !isMember && !isPending}">
+					<form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
+						<button id="join-group-btn" type="submit" class="btn btn-primary join-pending-leave">
+							Join Group
+						</button>
+					</form>
+				</div>
+			</div>
+			<!--    pending button-->
+			<div sec:authorize="isAuthenticated()">
+				<div th:if="${!isAdmin && !isMember && isPending}">
+					<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
+						<button id="pending-group-btn" type="submit" class="btn btn-warning join-pending-leave">
+							Cancel Request
+						</button>
+					</form>
+				</div>
+			</div>
+			<!--    leave group button/form-->
+			<div sec:authorize="isAuthenticated()">
+				<div th:if="${!isAdmin && isMember && !isPending}">
+					<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
+						<button id="leave-group-btn" type="submit" class="btn btn-danger join-pending-leave">
+							Leave Group
+						</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div class="container">
-		<!--    join group button/form-->
-		<div sec:authorize="isAuthenticated()">
-			<div th:if="${!isAdmin && !isMember && !isPending}">
-				<form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
-					<button id="join-group-btn" type="submit" class="btn btn-primary">
-						Join Group
-					</button>
-				</form>
-			</div>
-		</div>
-		<!--    pending button-->
-		<div sec:authorize="isAuthenticated()">
-			<div th:if="${!isAdmin && !isMember && isPending}">
-				<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
-					<button id="pending-group-btn" type="submit" class="btn btn-warning">
-						Cancel Request
-					</button>
-				</form>
-			</div>
-		</div>
-		<!--    leave group button/form-->
-		<div sec:authorize="isAuthenticated()">
-			<div th:if="${!isAdmin && isMember && !isPending}">
-				<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
-					<button id="leave-group-btn" type="submit" class="btn btn-danger">
-						Leave Group
-					</button>
-				</form>
-			</div>
-		</div>
 		<div class="group-header">
 			<p>The admin of this group is <span th:text="${group.admin}"></span></p>
 			<h5><span th:text="${group.description}"></span></h5>
 		</div>
-	</div>
 
 	<div sec:authorize="isAuthenticated()">
 		<!--button displays on page-->
@@ -308,19 +311,23 @@
 			<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="list-group">
 				<div class="list-group-item list-group-item-action my-2">
 					<div sec:authorize="isAuthenticated()">
-						<a th:href="@{/profile/{username}(username=${admin.username})}"><h2><span
-								th:text="${admin.username}"></span></h2></a>
+						<a th:href="@{/profile/{username}(username=${admin.username})}"><h2>
+							<img class="user-photo" th:src="${admin.profilePhotoUrl}">
+							<span th:text="${admin.username}"></span></h2></a>
 					</div>
 					<div sec:authorize="!isAuthenticated()">
+						<img class="user-photo" th:src="${admin.profilePhotoUrl}">
 						<h2><span th:text="${admin.username}"></span></h2>
 					</div>
 				</div>
 				<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
 					<div sec:authorize="isAuthenticated()">
-						<a th:href="@{/profile/{username}(username=${member.username})}"><h2><span
-								th:text="${member.username}"></span></h2></a>
+						<a th:href="@{/profile/{username}(username=${member.username})}"><h2>
+							<img class="user-photo" th:src="${member.profilePhotoUrl}">
+							<span th:text="${member.username}"></span></h2></a>
 					</div>
 					<div sec:authorize="!isAuthenticated()">
+						<img class="user-photo" th:src="${member.profilePhotoUrl}">
 						<h2><span th:text="${member.username}"></span></h2>
 					</div>
 					<div sec:authorize="isAuthenticated()" th:if="${loggedInUser.id == admin.id}">
