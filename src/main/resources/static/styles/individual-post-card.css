@@ -1,0 +1,13 @@
+.individual-card-posts {
+    border-radius: 6px !important;
+    padding: 20px;
+    box-shadow: 3px 3px 3px #e9e7e7ef;
+    margin-bottom: 15px;
+}
+
+.post-card-holder {
+    position: relative;
+    float: right;
+    width: 55em;
+    display: inline-block;
+}

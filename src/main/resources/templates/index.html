@@ -35,7 +35,8 @@
 </div>
 
 <div sec:authorize="!isAuthenticated()" class="welcome-div">
-    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">
+<!--    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">-->
+    <img th:src="@{/img/bionic-hand-touching.jpg}" class="welcome-hands" alt="Bionic Hand Touching Human Hand">
     <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
          alt="Black Tether Full Logo">
 </div>
@@ -44,13 +45,8 @@
 
 
 <div class="page-content">
-    <div class="container">
-        <div sec:authorize="isAuthenticated()">
-            <!--        Welcome <span th:text="${#authentication.principal.firstName}"/> <span-->
-            <!--            th:text="${#authentication.principal.lastName}"/>-->
-            Username: <span th:text="${#authentication.principal.username}"/>
-            <!--        Email: <span th:text="${#authentication.principal.email}"/>-->
-        </div>
+    <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
+        <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
     </div>
     <br>
     <div class="container">
