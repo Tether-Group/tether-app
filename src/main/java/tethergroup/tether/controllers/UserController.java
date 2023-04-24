@@ -83,6 +83,9 @@ public class UserController {
         // checks if logged in user is viewing their own profile and redirects them to "/my/account" get mapping
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findByUsername(username);
+        if (loggedInUser.getId() == user.getId()) {
+            return "redirect:/profile/my-account";
+        }
        if (user == null) {
             return "redirect:/error";
         }
@@ -170,12 +173,47 @@ public class UserController {
         Optional<User> actualUser = userDao.findById(user.getId());
         if (actualUser.isPresent()) {
             User userObj = actualUser.get();
+            Long idOfLoggedInUser = userObj.getId();
             model.addAttribute("user", userObj);
             model.addAttribute("isMyAccountPage", true);
+            List<Membership> memberships = membershipDao.findMembershipsByUser_Id(idOfLoggedInUser);
+            List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(idOfLoggedInUser);
+            List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+            for (Membership membership : memberships) {
+                Group group = groupDao.findById(membership.getGroup().getId()).get();
+                groups.add(group);
+            }
+            List<Post> postsOfLoggedInUser = postDao.findPostsByUser_Id(idOfLoggedInUser);
+            List<Comment> comments = new ArrayList<>();
+            for (Post post : postsOfLoggedInUser) {
+                System.out.println(post.getPostType().getId());
+                List<Comment> commentsOfPost = commentDao.findCommentsByPost_Id(post.getId());
+                for (Comment comment : commentsOfPost) {
+                    comments.add(comment);
+                }
+            }
+            List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(idOfLoggedInUser);
+            List<User> friends = new ArrayList<>();
+            for (Friendship friendship : friendsOfUserOfProfilePage) {
+                User friend = new User();
+                if (friendship.getAcceptor().getId() == idOfLoggedInUser) {
+                    friend = userDao.findById(friendship.getRequester().getId()).get();
+                    friends.add(friend);
+                } else if (friendship.getRequester().getId() == idOfLoggedInUser) {
+                    friend = userDao.findById(friendship.getAcceptor().getId()).get();
+                    friends.add(friend);
+                }
+            }
+            model.addAttribute("groups", groups);
+            model.addAttribute("posts", postsOfLoggedInUser);
+            model.addAttribute("loggedInUser", userObj);
+            model.addAttribute("comments", comments);
+            model.addAttribute("friends", friends);
+
         } else {
             return "redirect:/login";
         }
-        return "redirect:/profile/" + user.getUsername();
+        return "users/profile";
     }
 
     @PostMapping("/profile/change-photo")
