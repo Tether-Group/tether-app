@@ -176,6 +176,20 @@ public class UserController {
         return "redirect:/profile/" + user.getUsername();
     }
 
+    @PostMapping("/profile/change-photo")
+    public String changeProfilePhoto(@RequestParam("photo-url") String profilePhotoURL) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            userObj.setProfilePhotoUrl(profilePhotoURL);
+            userDao.save(userObj);
+        } else {
+            return "redirect:/login";
+        }
+        return "redirect:/profile/my-account";
+    }
+
     //    viewing friends list
     @GetMapping("/friends")
     public String returnFriendsListPage() {
