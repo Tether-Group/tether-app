@@ -71,6 +71,7 @@ public class UserController {
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
+        user.setProfilePhotoUrl("https://cdn.filestackcontent.com/8VHpiTBmQxazs1q0X7ZS");
         userDao.save(user);
         return "redirect:/login";
     }
