@@ -1,9 +1,13 @@
-.search-form{
+.search-form-container{
     margin: 25px auto;
     display: flex;
     justify-content: center;
-    width:80%;
 }
+
+.search-form{
+    width: 80%;
+}
+
 .post-card{
     float: left;
     width: 53em;
@@ -17,11 +21,30 @@
     margin-bottom: 200px;
 }
 
+.group-card-container{
+    margin-right: 20px;
+    float: right;
+    width: 430px;
+    margin-bottom: .75em;
+    padding: 10px;
+}
+
+
 .group-card{
     margin-right: 20px;
     float: right;
     width: 430px;
     margin-bottom: .75em;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #e9e7e7ef;
+}
+
+.user-card-container{
+    margin-right: 20px;
+    float: right;
+    width: 430px;
+    margin-bottom: .75em;
+    padding: 10px;
 }
 
 .user-card{
@@ -29,5 +52,7 @@
     float: right;
     width: 430px;
     margin-bottom: .75em;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #e9e7e7ef;
 }
 
