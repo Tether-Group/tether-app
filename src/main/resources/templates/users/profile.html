@@ -71,7 +71,8 @@
 	<!--	PROFILE PAGE DISPLAY-->
 	<div class="row row-cols-auto">
 		<div class="profile-header">
-			<img class="img-circle profile-image profile-photo" th:src="${user.profilePhotoUrl}" alt="user" height="100px" width="100px">
+			<img class="img-circle profile-image profile-photo" th:src="${user.profilePhotoUrl}" alt="user"
+				 height="100px" width="100px">
 		</div>
 		<div class="profile-username col">
 			<h3><span th:text="${user.username}"></span></h3>
@@ -151,9 +152,10 @@
 	</div>
 </div>
 
-	<th:block th:insert="~{partials/footer :: footer}"></th:block>
-	<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-	<script th:src="@{/js/filestack.js}"></script>
-	<script th:src="@{/js/add_comments.js}"></script>
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:src="@{/js/filestack.js}"></script>
+<script th:src="@{/js/add_comments.js}"></script>
+<script th:src="@{/js/posts.js}"></script>
 </body>
 </html>
