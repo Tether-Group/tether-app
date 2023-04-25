@@ -144,10 +144,10 @@ public class UserController {
         List<User> friends = new ArrayList<>();
         for (Friendship friendship : friendsOfUserOfProfilePage) {
             User friend = new User();
-            if (friendship.getAcceptor().getId() == profilePageUserId) {
+            if (friendship.getAcceptor().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getRequester().getId()).get();
                 friends.add(friend);
-            } else if (friendship.getRequester().getId() == profilePageUserId) {
+            } else if (friendship.getRequester().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getAcceptor().getId()).get();
                 friends.add(friend);
             }
@@ -196,10 +196,10 @@ public class UserController {
             List<User> friends = new ArrayList<>();
             for (Friendship friendship : friendsOfUserOfProfilePage) {
                 User friend = new User();
-                if (friendship.getAcceptor().getId() == idOfLoggedInUser) {
+                if (friendship.getAcceptor().getId() == idOfLoggedInUser && !friendship.isPending()) {
                     friend = userDao.findById(friendship.getRequester().getId()).get();
                     friends.add(friend);
-                } else if (friendship.getRequester().getId() == idOfLoggedInUser) {
+                } else if (friendship.getRequester().getId() == idOfLoggedInUser && !friendship.isPending()) {
                     friend = userDao.findById(friendship.getAcceptor().getId()).get();
                     friends.add(friend);
                 }
