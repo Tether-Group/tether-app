@@ -1,68 +1,52 @@
 <th:block th:fragment="comments">
-    <div sec:authorize="isAuthenticated()" th:id="'add-comment-box'+${post.id}" hidden>
-        <form th:method="post" th:action="@{/{postId}/comment/add(postId=${post.id})}">
-            <div class="input-group">
-                <input th:name="commentContent" type="text" class="form-control comment-content"
-                       placeholder="Add a comment...">
-                <input th:name="groupId" th:value="${post.group.id}" hidden>
-                <div class="input-group-append">
-                    <button class="comment-button" type="submit">Comment</button>
+    <div>
+        <div sec:authorize="isAuthenticated()" th:id="'add-comment-box'+${post.id}" hidden>
+            <form th:method="post" th:action="@{/{postId}/comment/add(postId=${post.id})}">
+                <div class="input-group">
+                    <input th:name="commentContent" type="text" class="form-control comment-content"
+                           placeholder="Add a comment...">
+                    <input th:name="groupId" th:value="${post.group.id}" hidden>
+                    <div class="input-group-append">
+                        <button class="comment-button" type="submit">Comment</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <ul class="list-group" th:each="comment : ${comments}" th:if="${!comments.isEmpty()}">
+            <li th:if="${comment.post.id == post.id}" class="comment-box">
+                <div class="flexed-comment-edit-delete">
+                    <div>
+                        <p class="m-0">
+                            <a class="commenter"
+                               th:href="@{/profile/{username}(username=${comment.commenter.username})}">
+                                <span th:text="${comment.commenter}"> </span>
+                            </a>
+                            <span class="comment-text" th:text="${comment.content}"></span>
+                        </p>
+                        <p class="comment-days-ago-info" th:text="${comment.commentDateToString()}"></p>
+                    </div>
+                    <div sec:authorize="isAuthenticated()" th:if="${comment.commenter.id == loggedInUser.id}">
+                        <div class="flexed-comment-edit-delete">
+                            <i class="bi bi-pencil"></i>
+                            <button type="button" th:id="'edit-comment-button'+${comment.id}"
+                                    onclick="showEditCommentForm(event)" class="edit-button"></button>
+                            <form hidden th:id="'edit-comment-form'+${comment.id}" th:action="@{/comment/edit}"
+                                  th:method="post">
+                                <input th:name="commentId" th:value="${comment.id}" hidden>
+                                <input th:name="commentContent" type="text" class="edit-comment-content comment-text">
+                                <button type="button" th:id="'cancel-edit-comment-button'+${comment.id}"
+                                        onclick="hideEditCommentForm(event)" class="btn btn-warning">Cancel
+                                </button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                            <form th:action="@{/comment/delete}" th:method="post">
+                                <input th:name="commentId" th:value="${comment.id}" hidden>
+                                <button type="submit" class="delete-button"><i class="bi bi-x-square"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
-
-    <ul class="list-group" th:each="comment : ${comments}" th:if="${!comments.isEmpty()}">
-        <li th:if="${comment.post.id == post.id}" class="comment-box">
-            <div class="flexed-comment-edit-delete">
-                <div>
-                    <p class="m-0">
-                        <a class="commenter" th:href="@{/profile/{username}(username=${comment.commenter.username})}">
-                            <span th:text="${comment.commenter}"> </span>
-                        </a>
-                        <span class="comment-text" th:text="${comment.content}"></span>
-                    </p>
-                    <p class="comment-days-ago-info" th:text="${comment.commentDateToString()}"></p>
-                </div>
-
-                <div sec:authorize="isAuthenticated()" th:if="${comment.commenter.id == loggedInUser.id}" class="flexed-comment-edit-delete">
-                    <button th:id="'edit-comment-button'+${comment.id}" onclick="showEditCommentForm(event)"
-                            class="edit-button"><i class="bi bi-pencil-square"></i>
-                    </button>
-                    <form hidden th:id="'edit-comment-form'+${comment.id}" th:action="@{/comment/edit}"
-                          th:method="post">
-                        <input th:name="commentId" th:value="${comment.id}" hidden>
-                        <input th:name="commentContent" type="text">
-                        <button type="button" th:id="'cancel-edit-comment-button'+${comment.id}"
-                                onclick="hideEditCommentForm(event)" class="btn btn-warning">Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                    <form th:action="@{/comment/delete}" th:method="post">
-                        <input th:name="commentId" th:value="${comment.id}" hidden>
-                        <button type="submit" class="delete-button"><i class="bi bi-x-square"></i></button>
-                    </form>
-                </div>
-            </div>
-
-            <!--            <div sec:authorize="isAuthenticated()" th:if="${comment.commenter.id == loggedInUser.id}">-->
-            <!--                <button th:id="'edit-comment-button'+${comment.id}" onclick="showEditCommentForm(event)"-->
-            <!--                        class="btn btn-warning"><i class="bi bi-pencil-square"></i>-->
-            <!--                </button>-->
-            <!--                <form hidden th:id="'edit-comment-form'+${comment.id}" th:action="@{/comment/edit}"-->
-            <!--                      th:method="post">-->
-            <!--                    <input th:name="commentId" th:value="${comment.id}" hidden>-->
-            <!--                    <input th:name="commentContent" type="text">-->
-            <!--                    <button type="button" th:id="'cancel-edit-comment-button'+${comment.id}"-->
-            <!--                            onclick="hideEditCommentForm(event)" class="btn btn-warning">Cancel-->
-            <!--                    </button>-->
-            <!--                    <button type="submit" class="btn btn-primary">Save</button>-->
-            <!--                </form>-->
-            <!--                <form th:action="@{/comment/delete}" th:method="post">-->
-            <!--                    <input th:name="commentId" th:value="${comment.id}" hidden>-->
-            <!--                    <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i></button>-->
-            <!--                </form>-->
-            <!--            </div>-->
-        </li>
-    </ul>
 </th:block>

@@ -159,26 +159,67 @@ button.comment-button:hover {
     padding-top: 2px;
 }
 
-i {
+i.bi-pencil {
     color: black;
     font-size: 17px;
-    line-height: normal;
+    z-index: 0;
+    position: relative;
+    left: 22px;
+    top: 1px;
+}
+
+i.bi-x-square {
+    color: black;
+    font-size: 17px;
+    position: relative;
+    right: 8px;
+    bottom: 12px;
+}
+
+i.bi-x-square:hover {
+    color: #e30202;
 }
 
 .edit-button {
     border: none;
     background-color: transparent;
     margin: 0;
-    padding: 0;
+    padding: 13px;
     height: 20px;
     width: 20px;
+    z-index: 2;
+}
+
+.edit-button:hover {
+    background-color: rgba(241, 215, 48, 0.29);
+    border-radius: 5px;
 }
 
 .delete-button {
     border: none;
     background-color: transparent;
     margin: 0;
-    padding: 0;
+    padding: 13px;
     height: 20px;
     width: 20px;
+    z-index: 2;
+}
+
+.flex-the-whole-comment-box {
+    display: flex;
+}
+
+.edit-comment-content {
+    border: none;
+    border-radius: 5px;
+    height: 25px;
+    margin-left: 25px;
+    background-color: #8080802e;
+    width: 400px;
+    padding-top: 8px;
+    padding-left: 10px;
+}
+
+.edit-comment-content:focus {
+    border: 1px solid #3091f170;
 }
