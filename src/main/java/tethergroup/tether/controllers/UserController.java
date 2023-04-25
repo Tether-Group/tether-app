@@ -126,12 +126,21 @@ public class UserController {
 
         List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_Id(profilePageUserId);
         List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(user.getId());
-        List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+        List<Group> allGroupsOfUser = new ArrayList<>(groupsWhereUserIsAdmin);
         for (Membership membership : membershipsOfUserOfProfilePage) {
             Group group = membership.getGroup();
-            groups.add(group);
+            allGroupsOfUser.add(group);
         }
-
+        List<Group> groups = new ArrayList<>();
+        if (allGroupsOfUser.size() < 5) {
+            for (int i = 0; i < allGroupsOfUser.size(); i++) {
+                groups.add(allGroupsOfUser.get(i));
+            }
+        } else if (allGroupsOfUser.size() >= 5) {
+            for (int i = 0; i < 5; i++) {
+                groups.add(allGroupsOfUser.get(i));
+            }
+        }
         List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_Id(profilePageUserId);
         List<Comment> comments = new ArrayList<>();
         for (Post post : postsOfUserOfProfilePage) {
@@ -143,15 +152,25 @@ public class UserController {
         }
 
         List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(profilePageUserId);
-        List<User> friends = new ArrayList<>();
+        List<User> allFriendsOfUser = new ArrayList<>();
         for (Friendship friendship : friendsOfUserOfProfilePage) {
             User friend = new User();
             if (friendship.getAcceptor().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getRequester().getId()).get();
-                friends.add(friend);
+                allFriendsOfUser.add(friend);
             } else if (friendship.getRequester().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getAcceptor().getId()).get();
-                friends.add(friend);
+                allFriendsOfUser.add(friend);
+            }
+        }
+        List<User> friends = new ArrayList<>();
+        if (allFriendsOfUser.size() < 5) {
+            for (int i = 0; i < allFriendsOfUser.size(); i++) {
+                friends.add(allFriendsOfUser.get(i));
+            }
+        } else if (allFriendsOfUser.size() >= 5) {
+            for (int i = 0; i < 5; i++) {
+                friends.add(allFriendsOfUser.get(i));
             }
         }
 
@@ -180,11 +199,22 @@ public class UserController {
             model.addAttribute("isMyAccountPage", true);
             List<Membership> memberships = membershipDao.findMembershipsByUser_Id(idOfLoggedInUser);
             List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(idOfLoggedInUser);
-            List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+            List<Group> allGroupsOfUser = new ArrayList<>(groupsWhereUserIsAdmin);
             for (Membership membership : memberships) {
                 Group group = groupDao.findById(membership.getGroup().getId()).get();
-                groups.add(group);
+                allGroupsOfUser.add(group);
             }
+            List<Group> groups = new ArrayList<>();
+            if (allGroupsOfUser.size() < 5) {
+                for (int i = 0; i < allGroupsOfUser.size(); i++) {
+                    groups.add(allGroupsOfUser.get(i));
+                }
+            } else if (allGroupsOfUser.size() >= 5) {
+                for (int i = 0; i < 5; i++) {
+                    groups.add(allGroupsOfUser.get(i));
+                }
+            }
+
             List<Post> postsOfLoggedInUser = postDao.findPostsByUser_Id(idOfLoggedInUser);
             List<Comment> comments = new ArrayList<>();
             for (Post post : postsOfLoggedInUser) {
@@ -195,15 +225,25 @@ public class UserController {
                 }
             }
             List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(idOfLoggedInUser);
-            List<User> friends = new ArrayList<>();
+            List<User> allFriendsOfUser = new ArrayList<>();
             for (Friendship friendship : friendsOfUserOfProfilePage) {
                 User friend = new User();
                 if (friendship.getAcceptor().getId() == idOfLoggedInUser && !friendship.isPending()) {
                     friend = userDao.findById(friendship.getRequester().getId()).get();
-                    friends.add(friend);
+                    allFriendsOfUser.add(friend);
                 } else if (friendship.getRequester().getId() == idOfLoggedInUser && !friendship.isPending()) {
                     friend = userDao.findById(friendship.getAcceptor().getId()).get();
-                    friends.add(friend);
+                    allFriendsOfUser.add(friend);
+                }
+            }
+            List<User> friends = new ArrayList<>();
+            if (allFriendsOfUser.size() < 5) {
+                for (int i = 0; i < allFriendsOfUser.size(); i++) {
+                    friends.add(allFriendsOfUser.get(i));
+                }
+            } else if (allFriendsOfUser.size() >= 5) {
+                for (int i = 0; i < 5; i++) {
+                    friends.add(allFriendsOfUser.get(i));
                 }
             }
             model.addAttribute("groups", groups);
