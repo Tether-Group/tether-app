@@ -16,11 +16,13 @@ import tethergroup.tether.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.PhotoURL;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
+
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class UserController {
     private final PostRepository postDao;
     private final CommentRepository commentDao;
 
-//    display custom login error message
+    //    display custom login error message
     @GetMapping("/login-error")
     public String login(HttpServletRequest request, Model model, @ModelAttribute User user) {
         HttpSession session = request.getSession(false);
@@ -86,7 +88,7 @@ public class UserController {
         if (loggedInUser.getId() == user.getId()) {
             return "redirect:/profile/my-account";
         }
-       if (user == null) {
+        if (user == null) {
             return "redirect:/error";
         }
         boolean friendRequestExists = false;

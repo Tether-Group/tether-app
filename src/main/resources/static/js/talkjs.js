@@ -16,7 +16,7 @@ Talk.ready.then(async function () {
         id: loggedInUser.id,
         name: loggedInUser.username,
         email: loggedInUser.email,
-        photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
+        photoUrl: loggedInUser.photoUrl,
     });
     window.talkSession = new Talk.Session({
         appId: app_id,
@@ -27,12 +27,13 @@ Talk.ready.then(async function () {
     let otherUserID = document.getElementById("friendID").value
     let otherUserUsername = document.getElementById('friendUsername').value
     let otherUserEmail = document.getElementById('friendEmail').value
+    let otherUserPhotoURL = document.getElementById('friendPhotoURL').value;
 
     var other = new Talk.User({
         id: otherUserID,
         name: otherUserUsername,
         email: otherUserEmail,
-        photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+        photoUrl: otherUserPhotoURL,
         welcomeMessage: 'Start the conversation...',
     });
 
