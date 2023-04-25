@@ -16,7 +16,7 @@
                         <div th:if="${loggedInUser.getId() == post.user.id}">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown button
+                                    <i class="bi bi-three-dots"></i>
                                 </button>
                                 <div class="dropdown-menu">
                                     <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
