@@ -12,17 +12,44 @@
                     </div>
                 </div>
                 <div class="days-ago-info">
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${loggedInUser.getId() == post.user.id}">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+                                            class="btn btn-warning">
+                                        Edit
+                                    </button>
+                                    <form th:method="post" th:action="@{/post/delete}">
+                                        <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+                                        <input th:name="groupId" th:value="${post.group.id}" hidden>
+                                        <button type="submit" th:id="'delete-button'+${post.id}"
+                                                class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <span th:text="${post.postDateToString()}"></span>
                 </div>
             </div>
             <p class="post-header"><span th:text="${post.header}"></span></p>
-            <p class="post-details"><span th:text="${post.eventDate}"></span></p>
+            <p class="post-details">
+                <span th:text="${#temporals.month(post.eventDate)}"></span> /
+                <span th:text="${#temporals.day(post.eventDate)}"></span> /
+                <span th:text="${#temporals.year(post.eventDate)}"></span>
+            </p>
             <div>
                 <div sec:authorize="isAuthenticated()">
-                    <a class="post-details" th:href="@{/post/event/{id}(id=${post.id})}"><span th:text="${post.eventAddress}"></span></a>
+                    <a class="post-details" th:href="@{/post/event/{id}(id=${post.id})}">view event details</a>
                 </div>
                 <div sec:authorize="!isAuthenticated()">
-                    <p class="post-details"><span th:text="${post.eventAddress}"></span></p>
+                    <p class="post-details">Location: <span th:text="${post.eventAddress}"></span></p>
                 </div>
             </div>
             <p class="post-details"><span th:text="${post.body}"></span></p>
@@ -54,25 +81,11 @@
                     </button>
                 </div>
             </form>
-
-            <div th:if="${loggedInUser.getId() == post.user.id}">
-                <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
-                        class="btn btn-warning">
-                    Edit
-                </button>
-
-                <form th:method="post" th:action="@{/post/delete}">
-                    <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
-                    <input th:name="groupId" th:value="${post.group.id}" hidden>
-                    <button type="submit" th:id="'delete-button'+${post.id}"
-                            class="btn btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </div>
         </div>
 
-        <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        <div class="comments-container">
+            <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        </div>
 
     </div>
 

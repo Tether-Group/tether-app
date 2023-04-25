@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div>
-                <p class="post-info-font">$<span th:text="${post.postPrice}"></span></p>
+                <p class="post-info-font">Asking price: $<span th:text="${post.postPrice}"></span></p>
             </div>
             <p class="post-header"><span th:text="${post.header}"></span></p>
             <p class="post-details"><span th:text="${post.body}"></span></p>
@@ -65,7 +65,9 @@
             </div>
         </div>
 
-        <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        <div class="comments-container">
+            <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        </div>
 
     </div>
 
