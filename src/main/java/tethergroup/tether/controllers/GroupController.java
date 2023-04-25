@@ -29,14 +29,30 @@ public class GroupController {
     @Transactional
     public String showGroupsListPage(Model model) {
         //        if the viewer is not logged in... show random groups
-        List<Group> randomGroups = groupDao.randomGroupsLimitFifty();
-        model.addAttribute("randoGroups", randomGroups);
+//        List<Group> randomGroups = groupDao.randomGroupsLimitFifty();
+//        model.addAttribute("randoGroups", randomGroups);
 
         //        if the user is logged in, show their groups at random
-        List<Group> latestGroups = groupDao.groupsByDescendingId();
-        model.addAttribute("descGroups", latestGroups);
+//        List<Group> latestGroups = groupDao.groupsByDescendingId();
+//        model.addAttribute("descGroups", latestGroups);
 
         List<Group> groups = groupDao.findAll();
+        model.addAttribute("groups", groups);
+        return "groups/group-list";
+    }
+
+    @GetMapping ("/groups/{username}")
+    @Transactional
+    public String showGroupsListPage(Model model, @PathVariable String username) {
+        User userOfProfilePage = userDao.findByUsername(username);
+
+        List<Membership> memberships = membershipDao.findMembershipsByUser_Id(userOfProfilePage.getId());
+        List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userOfProfilePage.getId());
+        List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+        for (Membership membership : memberships) {
+            Group group = groupDao.findById(membership.getGroup().getId()).get();
+            groups.add(group);
+        }
         model.addAttribute("groups", groups);
         return "groups/group-list";
     }

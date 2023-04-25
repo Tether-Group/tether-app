@@ -88,7 +88,10 @@ public class SecurityConfiguration {
                         "/comment/delete",
                         "/comment/edit",
                         "/add-profile-photo",
-                        "/verifyAddComments"
+                        "/verifyAddComments",
+                        "/groups/{username}",
+                        "/getNotificationCount",
+                        "/profile/settings/usernameExists/{attemptedUsername}"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
@@ -112,9 +115,9 @@ public class SecurityConfiguration {
                         "/reset_password"
                         )
                 .permitAll()
-                .and()
-                .csrf()
-                .ignoringRequestMatchers("/add-profile-photo")
+//                .and()
+//                .csrf()
+//                .ignoringRequestMatchers("/getNotificationCount")
 
         ;
         return http.build();

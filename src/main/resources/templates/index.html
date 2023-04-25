@@ -9,6 +9,7 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
+
 <!--EDIT POST MODAL-->
 <div class="modal fade" tabindex="-1" id="edit-post-modal">
     <div class="modal-dialog">
@@ -34,21 +35,17 @@
     </div>
 </div>
 
-<div sec:authorize="!isAuthenticated()" class="welcome-div">
-<!--    <img th:src="@{/img/hands-touching-bw.jpg}" class="welcome-hands" alt="Hands Touching">-->
-    <img th:src="@{/img/bionic-hand-touching.jpg}" class="welcome-hands" alt="Bionic Hand Touching Human Hand">
+<div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
+    <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
+</div>
+<div class="welcome-div">
     <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
          alt="Black Tether Full Logo">
 </div>
 
-<div sec:authorize="!isAuthenticated()" class="gradient-under-photo"></div>
-
+<hr class="under-tether-logo">
 
 <div class="page-content">
-    <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
-        <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
-    </div>
-    <br>
     <div class="container">
         <div class="row">
             <div class="col-4 p-0">
@@ -57,16 +54,16 @@
                     <li th:each="group: ${randoGroups}"
                         class="list-group-item d-flex justify-content-between align-items-start group-cards">
                         <div class="ms-2 me-auto">
-                            <a th:href="@{/group/{id}(id=${group.getId()})}">
-                                <div class="fw-bold"><span th:text="${group.getName()}"></span></div>
+                            <a class="group-a" th:href="@{/group/{id}(id=${group.getId()})}">
+                                <div><span th:text="${group.getName()}"></span></div>
                             </a>
-                            <span th:text="${group.getDescription()}"></span>
+                            <span class="group-bio" th:text="${group.getDescription()}"></span>
                         </div>
                         <div th:if="${group.private}">
-                            <span class="badge bg-dark rounded-pill">Private</span>
+                            <span class="badge rounded-pill private-pill">Private</span>
                         </div>
                         <div th:if="${!group.private}">
-                            <span class="badge bg-primary rounded-pill">Public</span>
+                            <span class="badge rounded-pill public-pill">Public</span>
                         </div>
                     </li>
                 </ul>
@@ -99,6 +96,7 @@
     </div>
 </div>
 <div sec:authorize="!isAuthenticated()">
+    <th:block th:insert="~{partials/loading-spinner :: loading-spinner}"></th:block>
     <footer class="footer">
         <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name" alt="Tether Name"></span></p>
     </footer>
@@ -112,6 +110,7 @@
             <script th:src="@{/js/chat_bar.js}"></script>
         </div>
     </div>
+    <script th:src="@{/js/loading-spinner.js}"></script>
 </div>
 <div sec:authorize="isAuthenticated()">
     <th:block th:insert="~{partials/footer :: footer}"></th:block>

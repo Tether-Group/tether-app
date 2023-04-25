@@ -39,4 +39,8 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
             "INNER JOIN memberships m ON m.group_id = g.id\n" +
             "WHERE m.user_id = :user_id")
     List<Group> getGroupsWhereLoggedInUserCanAddComments(@Param("user_id") Long userId);
+
+    @Query(nativeQuery = true,
+    value = "select * from groups g where g.admin_id = :user_id")
+    List<Group> getAllGroupsByAdminId(@Param("user_id") Long userId);
 }

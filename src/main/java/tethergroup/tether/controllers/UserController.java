@@ -16,11 +16,13 @@ import tethergroup.tether.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import tethergroup.tether.models.Friendship;
 import tethergroup.tether.models.PhotoURL;
 import tethergroup.tether.models.User;
 import tethergroup.tether.repositories.FriendshipRepository;
 import tethergroup.tether.repositories.UserRepository;
+
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class UserController {
     private final PostRepository postDao;
     private final CommentRepository commentDao;
 
-//    display custom login error message
+    //    display custom login error message
     @GetMapping("/login-error")
     public String login(HttpServletRequest request, Model model, @ModelAttribute User user) {
         HttpSession session = request.getSession(false);
@@ -83,7 +85,10 @@ public class UserController {
         // checks if logged in user is viewing their own profile and redirects them to "/my/account" get mapping
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findByUsername(username);
-       if (user == null) {
+        if (loggedInUser.getId() == user.getId()) {
+            return "redirect:/profile/my-account";
+        }
+        if (user == null) {
             return "redirect:/error";
         }
         boolean friendRequestExists = false;
@@ -120,7 +125,8 @@ public class UserController {
         }
 
         List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_Id(profilePageUserId);
-        List<Group> groups = new ArrayList<>();
+        List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(user.getId());
+        List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
         for (Membership membership : membershipsOfUserOfProfilePage) {
             Group group = membership.getGroup();
             groups.add(group);
@@ -140,10 +146,10 @@ public class UserController {
         List<User> friends = new ArrayList<>();
         for (Friendship friendship : friendsOfUserOfProfilePage) {
             User friend = new User();
-            if (friendship.getAcceptor().getId() == profilePageUserId) {
+            if (friendship.getAcceptor().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getRequester().getId()).get();
                 friends.add(friend);
-            } else if (friendship.getRequester().getId() == profilePageUserId) {
+            } else if (friendship.getRequester().getId() == profilePageUserId && !friendship.isPending()) {
                 friend = userDao.findById(friendship.getAcceptor().getId()).get();
                 friends.add(friend);
             }
@@ -169,12 +175,47 @@ public class UserController {
         Optional<User> actualUser = userDao.findById(user.getId());
         if (actualUser.isPresent()) {
             User userObj = actualUser.get();
+            Long idOfLoggedInUser = userObj.getId();
             model.addAttribute("user", userObj);
             model.addAttribute("isMyAccountPage", true);
+            List<Membership> memberships = membershipDao.findMembershipsByUser_Id(idOfLoggedInUser);
+            List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(idOfLoggedInUser);
+            List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+            for (Membership membership : memberships) {
+                Group group = groupDao.findById(membership.getGroup().getId()).get();
+                groups.add(group);
+            }
+            List<Post> postsOfLoggedInUser = postDao.findPostsByUser_Id(idOfLoggedInUser);
+            List<Comment> comments = new ArrayList<>();
+            for (Post post : postsOfLoggedInUser) {
+                System.out.println(post.getPostType().getId());
+                List<Comment> commentsOfPost = commentDao.findCommentsByPost_Id(post.getId());
+                for (Comment comment : commentsOfPost) {
+                    comments.add(comment);
+                }
+            }
+            List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(idOfLoggedInUser);
+            List<User> friends = new ArrayList<>();
+            for (Friendship friendship : friendsOfUserOfProfilePage) {
+                User friend = new User();
+                if (friendship.getAcceptor().getId() == idOfLoggedInUser && !friendship.isPending()) {
+                    friend = userDao.findById(friendship.getRequester().getId()).get();
+                    friends.add(friend);
+                } else if (friendship.getRequester().getId() == idOfLoggedInUser && !friendship.isPending()) {
+                    friend = userDao.findById(friendship.getAcceptor().getId()).get();
+                    friends.add(friend);
+                }
+            }
+            model.addAttribute("groups", groups);
+            model.addAttribute("posts", postsOfLoggedInUser);
+            model.addAttribute("loggedInUser", userObj);
+            model.addAttribute("comments", comments);
+            model.addAttribute("friends", friends);
+
         } else {
             return "redirect:/login";
         }
-        return "redirect:/profile/" + user.getUsername();
+        return "users/profile";
     }
 
     @PostMapping("/profile/change-photo")
@@ -226,13 +267,34 @@ public class UserController {
         return "users/edit-user";
     }
 
+    @GetMapping("/profile/settings/usernameExists/{attemptedUsername}")
+    public String returnSettingsPageAfterUsernameAlreadyExists(Model model, @PathVariable String attemptedUsername) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+            model.addAttribute("usernameExists", true);
+            model.addAttribute("attemptedUsername", attemptedUsername);
+        } else {
+            return "redirect:/login";
+        }
+        return "users/edit-user";
+    }
+
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute User user, HttpSession session) {
-        System.out.println(user.getId());
+    public String updateProfile(@ModelAttribute User user) {
+        User userWithUniqueUsername = userDao.findByUsername(user.getUsername());
+
+        if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(user.getUsername())) {
+            return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
+        }
         String userPassword = userDao.findById(user.getId()).get().getPassword();
+        String userPhotoURL = userDao.findById(user.getId()).get().getProfilePhotoUrl();
         user.setPassword(userPassword);
+        user.setProfilePhotoUrl(userPhotoURL);
         userDao.save(user);
-        return "redirect:/";
+        return "redirect:/profile/my-account";
     }
 
     @PostMapping("/profile/editpassword")

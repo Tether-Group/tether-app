@@ -13,5 +13,4 @@ document.addEventListener("DOMContentLoaded", async function () {
             postToAppendAddCommentBox.hidden = false;
         }
     })
-    console.log(idsOfPostsThatLoggedInUserCanCommentOn);
 });

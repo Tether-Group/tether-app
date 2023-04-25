@@ -1,73 +1,82 @@
 <th:block th:fragment="text-post">
+<!--posted by in which group showing-->
+    <div class="individual-card-posts list-group-item list-group-item-action">
+        <div th:id="'post-content'+${post.id}">
+            <div class="d-flex w-100 justify-content-between post-item">
+                <div class="posted-by-info">
+                    <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    <div class="user-post-info post-info-font">
+                        <a th:href="@{'/profile/' + ${post.user.username}}" th:text="${post.user}"></a>
+                        <span> posted in </span>
+                        <a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group}"></a>
+                    </div>
+                </div>
+<!--three dot edit/delete-->
+                <div class="days-ago-info">
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${loggedInUser.getId() == post.user.id}">
+                            <div class="post-options-dropdown">
+                                <button class="three-dot-button" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <div class="dropdown-menu custom-post-dropdown">
+                                    <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+                                            class="dropdown-edit-button">
+                                        Edit
+                                    </button>
+                                    <form th:method="post" th:action="@{/post/delete}">
+                                        <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+                                        <input th:name="groupId" th:value="${post.group.id}" hidden>
+                                        <button type="submit" th:id="'delete-button'+${post.id}"
+                                                class="dropdown-delete-button">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span th:text="${post.postDateToString()}"></span>
+                </div>
+            </div>
+<!--post details-->
+            <p class="post-header"><span th:text="${post.header}"></span></p>
+            <p class="post-details"><span th:text="${post.body}"></span></p>
+        </div>
 
-	<div class="individual-card-posts list-group-item list-group-item-action">
-		<div th:id="'post-content'+${post.id}">
-			<div class="d-flex w-100 justify-content-between post-item">
-				<div class="posted-by-info">
-					<img class="user-photo" th:src="${post.user.profilePhotoUrl}">
-					<div class="user-post-info">
-						<a class="post-info-font" th:href="@{'/profile/' + ${post.user.username}}">
-							<span th:text="${post.user}"></span>
-						</a>
-						<span>posted in </span>
-						<a class="post-info-font" th:href="@{'/group/' + ${post.group.id}}">
-							<span th:text="${post.group}"></span>
-						</a>
-					</div>
-				</div>
-				<div class="days-ago-info">
-					<span th:text="${post.postDateToString()}"></span>
-				</div>
-			</div>
-			<h5 class="m-0"><span th:text="${post.header}"></span></h5>
-			<p class="m-0"><span th:text="${post.body}"></span></p>
-		</div>
+<!--edit modal-->
+        <div sec:authorize="isAuthenticated()">
 
-		<div sec:authorize="isAuthenticated()">
+            <form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/text/edit}" hidden>
+                <input th:name="header" class="edit-post-input" th:value="${post.header}">
+                <label>Title</label>
+                <br>
+                <input th:name="body" class="edit-post-input" th:value="${post.body}">
+                <label>Description</label>
+                <br>
 
-			<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/text/edit}" hidden>
-				<div class="d-flex w-100 justify-content-between post-item">
-					<input th:name="header" class="mb-1" th:value="${post.header}">
-					<small th:text="${post.postDateToString()}"></small>
-				</div>
-				<input th:name="body" class="mb-1" th:value="${post.body}">
-				<br>
-				<small><span th:text="${post.user}"></span></small>
-
-				<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+                <input th:name="id" th:value="${post.id}" hidden>
 
 
-				<div th:if="${loggedInUser.id == post.user.id}">
-					<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
-							class="btn btn-secondary">Cancel
-					</button>
+                <div th:if="${loggedInUser.id == post.user.id}">
+                    <button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
+                            class="cancel-post-button">Cancel
+                    </button>
 
-					<button type="submit" th:id="'save-button'+${post.id}"
-							class="btn btn-success">Save
-					</button>
-				</div>
-			</form>
+                    <button type="submit" th:id="'save-button'+${post.id}"
+                            class=update-post-button>Save
+                    </button>
+                </div>
+            </form>
+        </div>
 
-			<div th:if="${loggedInUser.id == post.user.id}">
-				<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
-						class="btn btn-warning">
-					Edit
-				</button>
+<!--comments-->
+        <div class="comments-container">
+            <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        </div>
 
-				<form th:method="post" th:action="@{/post/delete}">
-					<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
-					<input th:name="groupId" class="mb-1" th:value="${post.group.id}" hidden>
-					<button type="submit" th:id="'delete-button'+${post.id}"
-							class="btn btn-danger">
-						Delete
-					</button>
-				</form>
-			</div>
-		</div>
-
-		<th:block th:insert="~{partials/comments :: comments}"></th:block>
-
-	</div>
+    </div>
 
 </th:block>
 

@@ -36,22 +36,24 @@ public class CommentController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         newComment.setCommentDate(timestamp);
         commentDao.save(newComment);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
     @PostMapping("/comment/edit")
     public String editPost(@RequestParam("commentId") Long commentId, @RequestParam("commentContent") String commentContent) {
         Comment comment = commentDao.findById(commentId).get();
+        Long groupId = comment.getGroup().getId();
         comment.setContent(commentContent);
         commentDao.save(comment);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
     @PostMapping("/comment/delete")
     public String deleteComment(@RequestParam("commentId") Long commentId) {
         Comment comment = commentDao.findById(commentId).get();
+        Long groupId = comment.getGroup().getId();
         commentDao.delete(comment);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
     @GetMapping(value = "/verifyAddComments", produces = "application/json")

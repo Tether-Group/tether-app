@@ -27,6 +27,47 @@ h1{
     margin-bottom: 30px;
 }
 
+.button-container{
+    float: right;
+    width: 19%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#join-group-btn{
+    position: relative;
+    right: 30px;
+    padding-right: 15px;
+    padding-left: 15px;
+    text-align: center;
+    background-color: #0b80e5;
+    padding: 10px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+#pending-group-btn{
+    padding: 10px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+#leave-group-btn{
+    padding: 10px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+.create-post-btn{
+    background-color: #0b80e5;
+    padding: 10px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+
+
 
 .three-main{
     display: flex;
