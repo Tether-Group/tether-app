@@ -1,6 +1,6 @@
 <th:block th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-tether">
-        <div class="container-fluid w-100">
+        <div class="container-fluid">
             <!--tether logo-->
             <a class="navbar-brand" th:href="@{/}">
                 <img class="tether-icon" th:src="@{/img/black_icon_transparent_background.png}" alt="Tether Icon">
@@ -12,7 +12,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse rest-of-nav  w-100" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse rest-of-nav" id="navbarSupportedContent">
                 <!--searchbar-->
                 <form class="search-form" th:action="@{/search-results}" th:method="GET">
                     <input class="nav-search-bar" type="search" placeholder="Search for Groups, Posts, or Users" name="search">
@@ -26,9 +26,6 @@
                     <li class="nav-item nav-font">
                         <a class="nav-link" href="/groups">GROUPS</a>
                     </li>
-                    <li class="nav-item nav-font">
-                        <a class="nav-link" th:href="@{/group/create}">CREATE GROUP</a>
-                    </li>
                     <li sec:authorize="isAuthenticated()">
                         <a class="nav-link nav-font" th:href="@{/notifications}">NOTIFICATIONS <span class="badge bg-dark" id="notification-count"></span></a>
                     </li>
@@ -38,6 +35,9 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item nav-font" th:href="@{/profile/my-account}">MY PROFILE</a>
+                            </li>
+                            <li class="nav-item nav-font">
+                                <a class="nav-link" th:href="@{/group/create}">CREATE GROUP</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
