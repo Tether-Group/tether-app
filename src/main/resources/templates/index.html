@@ -9,6 +9,7 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
+
 <!--EDIT POST MODAL-->
 <div class="modal fade" tabindex="-1" id="edit-post-modal">
     <div class="modal-dialog">
@@ -95,6 +96,7 @@
     </div>
 </div>
 <div sec:authorize="!isAuthenticated()">
+    <th:block th:insert="~{partials/loading-spinner :: loading-spinner}"></th:block>
     <footer class="footer">
         <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name" alt="Tether Name"></span></p>
     </footer>
@@ -108,6 +110,7 @@
             <script th:src="@{/js/chat_bar.js}"></script>
         </div>
     </div>
+    <script th:src="@{/js/loading-spinner.js}"></script>
 </div>
 <div sec:authorize="isAuthenticated()">
     <th:block th:insert="~{partials/footer :: footer}"></th:block>
