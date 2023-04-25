@@ -287,8 +287,14 @@ public class UserController {
     }
 
     //    viewing friends list
-    @GetMapping("/friends")
-    public String returnFriendsListPage() {
+    @GetMapping("/profile/{username}/friends")
+    public String returnFriendsListPage(@PathVariable String username) {
+        User user = userDao.findByUsername(username);
+        List<Friendship> friendships = friendshipDao.getFriendshipsOfUser(user.getId());
+        List<User> friends = new ArrayList<>();
+        for (Friendship friendship : friendships) {
+            User friend = userDao.findById(friendship.);
+        }
         return "users/friends";
     }
 

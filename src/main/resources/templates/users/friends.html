@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
@@ -11,7 +13,26 @@
 
 <h1>This is the FRIENDS LIST page</h1>
 
-
+<div class="container">
+	<div class="list-friend friend-cards">
+		<div class="list-friend-item list-friend-item-action my-2">
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/profile/{username}(username=${friend.username})}"><h1><span th:text="${friend.username}"></span></h1></a>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<h1><span th:text="${friend.username}"></span></h1>
+			</div>
+		</div>
+		<div th:each="friend: ${friends}" class="list-group-item list-group-item-action my-2">
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/profile/{username}(username=${friend.username})}"><h1><span th:text="${friend.username}"></span></h1></a>
+			</div>
+			<div sec:authorize="!isAuthenticated()">
+				<h1><span th:text="${friend.username}"></span></h1>
+			</div>
+		</div>
+	</div>
+</div>
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
