@@ -90,7 +90,8 @@ public class SecurityConfiguration {
                         "/add-profile-photo",
                         "/verifyAddComments",
                         "/groups/{username}",
-                        "/getNotificationCount"
+                        "/getNotificationCount",
+                        "/profile/settings/usernameExists/{attemptedUsername}"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */

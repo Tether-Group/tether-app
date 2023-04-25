@@ -267,13 +267,34 @@ public class UserController {
         return "users/edit-user";
     }
 
+    @GetMapping("/profile/settings/usernameExists/{attemptedUsername}")
+    public String returnSettingsPageAfterUsernameAlreadyExists(Model model, @PathVariable String attemptedUsername) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            model.addAttribute("user", userObj);
+            model.addAttribute("usernameExists", true);
+            model.addAttribute("attemptedUsername", attemptedUsername);
+        } else {
+            return "redirect:/login";
+        }
+        return "users/edit-user";
+    }
+
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute User user, HttpSession session) {
-        System.out.println(user.getId());
+    public String updateProfile(@ModelAttribute User user) {
+        User userWithUniqueUsername = userDao.findByUsername(user.getUsername());
+
+        if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(user.getUsername())) {
+            return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
+        }
         String userPassword = userDao.findById(user.getId()).get().getPassword();
+        String userPhotoURL = userDao.findById(user.getId()).get().getProfilePhotoUrl();
         user.setPassword(userPassword);
+        user.setProfilePhotoUrl(userPhotoURL);
         userDao.save(user);
-        return "redirect:/";
+        return "redirect:/profile/my-account";
     }
 
     @PostMapping("/profile/editpassword")

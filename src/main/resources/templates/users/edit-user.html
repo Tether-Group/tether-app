@@ -34,8 +34,13 @@
 				<label for="lastname" class="form-label">Last Name</label>
 				<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
 
-				<label for="username" class="form-label">Username</label>
-				<input id="username" name="username" th:field="*{username}" class="form-control" required>
+				<div class="has-validation">
+					<label for="username" class="form-label">Username</label>
+					<input id="username" name="username" th:field="*{username}" th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" class="form-control" required>
+					<div id="validationUsernameFeedback" class="invalid-feedback">
+						Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
+					</div>
+				</div>
 
 				<label for="register-email" class="form-label">Email</label>
 				<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
