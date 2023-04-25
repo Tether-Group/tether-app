@@ -88,7 +88,7 @@ p.post-header {
     color: #8a8a8a;
     font-family: 'Nobile', sans-serif;
     font-size: 10px;
-    margin: 0 0 0 16px;
+    margin: 0 0 0 30px;
 }
 
 a.commenter {
@@ -108,12 +108,43 @@ a.commenter:hover {
 .comment-text {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
+    margin-left: 6px;
+    max-width: 100%;
+    word-wrap: break-word;
+    width: 90%;
+    margin-top: 2px;
+}
+
+.comment-text2 {
+    font-family: 'Nobile', sans-serif;
+    font-size: 13px;
+    margin-left: 6px;
+    max-width: 100%;
+    word-wrap: break-word;
+    width: 90%;
+    margin-top: 2px;
 }
 
 .comments-container {
     margin-top: 15px;
     border-radius: 0;
     border-top: 1px solid rgb(214 214 214 / 42%);
+}
+
+div.max-comment-width {
+    max-width: 47%;
+}
+
+div.max-comment-width2 {
+    max-width: 100%;
+}
+
+.flex-span {
+    display: flex;
+}
+
+.flex-span2 {
+    display: flex;
 }
 
 li.comment-box {
@@ -155,7 +186,7 @@ button.comment-button:hover {
 
 .flexed-comment-edit-delete {
     display: flex;
-    padding-left: 15px;
+    padding-left: 0;
     padding-top: 2px;
 }
 
@@ -165,7 +196,7 @@ i.bi-pencil {
     z-index: 0;
     position: relative;
     left: 22px;
-    top: 1px;
+    top: 5px;
 }
 
 i.bi-x-square {
@@ -195,11 +226,11 @@ i.bi-trash:hover {
 .edit-button {
     border: none;
     background-color: transparent;
-    margin: 0;
-    padding: 13px;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
+    padding: 12px;
     z-index: 2;
+    margin-top: 5px;
 }
 
 .edit-button:hover {
@@ -210,11 +241,11 @@ i.bi-trash:hover {
 .delete-button {
     border: none;
     background-color: transparent;
-    margin: 0;
-    padding: 13px;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
+    padding: 12px;
     z-index: 2;
+    margin-top: 5px;
 }
 
 .flex-the-whole-comment-box {
@@ -226,12 +257,40 @@ i.bi-trash:hover {
     border-radius: 5px;
     height: 25px;
     margin-left: 25px;
+    margin-top: 5px;
     background-color: #8080802e;
     width: 200px;
-    padding-top: 8px;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 .edit-comment-content:focus {
     border: 1px solid #3091f170;
+}
+
+button.cancel-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 10px;
+    border: 2px solid #3091f170;
+    margin-left: 2px;
+    border-radius: 5px;
+    height: 27px;
+    background-color: transparent;
+}
+
+button.cancel-button:hover {
+    background-color: #3091f170;
+}
+
+button.update-comment-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 10px;
+    border: 2px solid #3091f170;
+    margin-left: 2px;
+    border-radius: 5px;
+    height: 27px;
+    background-color: transparent;
+}
+
+button.update-comment-button:hover {
+    background-color: #3091f170;
 }

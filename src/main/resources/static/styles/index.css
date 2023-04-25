@@ -29,7 +29,7 @@ img.welcome-logo {
     overflow: scroll;
 }
 
-hr {
+hr.under-tether-logo {
     color: #0586ef;
     margin: 0 auto;
     width: 60%;
