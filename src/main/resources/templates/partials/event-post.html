@@ -19,7 +19,8 @@
             <p class="post-details"><span th:text="${post.eventDate}"></span></p>
             <div>
                 <div sec:authorize="isAuthenticated()">
-                    <a class="post-details" th:href="@{/post/event/{id}(id=${post.id})}"><span th:text="${post.eventAddress}"></span></a>
+                    <a class="post-details" th:href="@{/post/event/{id}(id=${post.id})}"><span
+                            th:text="${post.eventAddress}"></span></a>
                 </div>
                 <div sec:authorize="!isAuthenticated()">
                     <p class="post-details"><span th:text="${post.eventAddress}"></span></p>
@@ -72,7 +73,9 @@
             </div>
         </div>
 
-        <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        <div class="comments-container">
+            <th:block th:insert="~{partials/comments :: comments}"></th:block>
+        </div>
 
     </div>
 

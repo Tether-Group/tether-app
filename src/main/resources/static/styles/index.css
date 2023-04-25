@@ -3,8 +3,9 @@
 /* welcome image */
 p.logged-in-user-index {
     margin: 10px 5px 0 0;
-    font-family: 'Nobile', sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-size: 15px;
+    letter-spacing: 0.7px;
 }
 
 div.logged-in-user {

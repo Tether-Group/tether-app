@@ -79,21 +79,16 @@ p.post-header {
 
 /* comments container (bottom of card) */
 
-.comments-container {
-    margin-top: 15px;
-}
-
 .comments-header-text {
     font-size: 17px;
     margin-bottom: 4px;
 }
 
 .comment-days-ago-info {
-    position: relative;
-    float: right;
     color: #8a8a8a;
     font-family: 'Nobile', sans-serif;
-    font-size: 13px;
+    font-size: 10px;
+    margin: 0 0 0 16px;
 }
 
 a.commenter {
@@ -113,4 +108,77 @@ a.commenter:hover {
 .comment-text {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
+}
+
+.comments-container {
+    margin-top: 15px;
+    border-radius: 0;
+    border-top: 1px solid rgb(214 214 214 / 42%);
+}
+
+li.comment-box {
+    border: none;
+    list-style: none;
+    margin: 3px 15px;
+}
+
+div.input-group {
+    margin-top: 15px;
+    font-family: 'Nobile', sans-serif;
+}
+
+input.comment-content {
+    font-family: 'Nobile', sans-serif;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px !important;
+    background-color: #d1d4d730;
+}
+
+input.comment-content:focus {
+    background-color: rgba(194, 195, 199, 0.19);
+}
+
+button.comment-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 12px;
+    border: 2px solid #3091f170;
+    margin-left: 3px;
+    border-radius: 5px;
+    height: 30px;
+    background-color: transparent;
+}
+
+button.comment-button:hover {
+    background-color: #3091f170;
+}
+
+.flexed-comment-edit-delete {
+    display: flex;
+    padding-left: 15px;
+    padding-top: 2px;
+}
+
+i {
+    color: black;
+    font-size: 17px;
+    line-height: normal;
+}
+
+.edit-button {
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    width: 20px;
+}
+
+.delete-button {
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    width: 20px;
 }
