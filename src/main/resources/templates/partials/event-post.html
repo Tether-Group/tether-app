@@ -1,5 +1,5 @@
 <th:block th:fragment="event-post">
-
+<!--posted by in which group showing-->
     <div class="individual-card-posts list-group-item list-group-item-action">
         <div th:id="'post-content'+${post.id}">
             <div class="d-flex w-100 justify-content-between post-item">
@@ -11,23 +11,24 @@
                         <a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group.name}"></a>
                     </div>
                 </div>
+<!--three dot edit/delete-->
                 <div class="days-ago-info">
                     <div sec:authorize="isAuthenticated()">
                         <div th:if="${loggedInUser.getId() == post.user.id}">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="post-options-dropdown">
+                                <button class="three-dot-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu custom-post-dropdown">
                                     <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
-                                            class="btn btn-warning">
+                                            class="dropdown-edit-button">
                                         Edit
                                     </button>
                                     <form th:method="post" th:action="@{/post/delete}">
                                         <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
                                         <input th:name="groupId" th:value="${post.group.id}" hidden>
                                         <button type="submit" th:id="'delete-button'+${post.id}"
-                                                class="btn btn-danger">
+                                                class="dropdown-delete-button">
                                             Delete
                                         </button>
                                     </form>
@@ -38,6 +39,7 @@
                     <span th:text="${post.postDateToString()}"></span>
                 </div>
             </div>
+<!--post details-->
             <p class="post-header"><span th:text="${post.header}"></span></p>
             <p class="post-details">
                 <span th:text="${#temporals.month(post.eventDate)}"></span> /
@@ -54,35 +56,38 @@
             </div>
             <p class="post-details"><span th:text="${post.body}"></span></p>
         </div>
-
+<!--edit modal-->
         <div sec:authorize="isAuthenticated()">
 
             <form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/event/edit}" hidden>
-                <div class="d-flex w-100 justify-content-between post-item">
-                    <input th:name="header" class="mb-1" th:value="${post.header}">
-                    <small th:text="${post.postDateToString()}"></small>
-                </div>
-                <input th:name="eventDate" class="mb-1" th:value="${post.eventDate}"><br>
-                <input th:name="eventAddress" class="mb-1" th:value="${post.eventAddress}"><br>
-                <input th:name="body" class="mb-1" th:value="${post.body}">
+                <input th:name="header" class="edit-post-input" th:value="${post.header}">
+                <label>Title</label>
                 <br>
-                <small><span th:text="${post.user}"></span></small>
+                <input th:name="eventDate" class="edit-post-input" th:value="${post.eventDate}">
+                <label>Date</label>
+                <br>
+                <input th:name="eventAddress" class="edit-post-input" th:value="${post.eventAddress}">
+                <label>Address </label>
+                <br>
+                <input th:name="body" class="edit-post-input" th:value="${post.body}">
+                <label>Description</label>
+                <br>
 
-                <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
-
+                <input th:name="id" th:value="${post.id}" hidden>
 
                 <div th:if="${loggedInUser.getId() == post.user.id}">
                     <button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
-                            class="btn btn-secondary">Cancel
+                            class="cancel-post-button">Cancel
                     </button>
 
                     <button type="submit" th:id="'save-button'+${post.id}"
-                            class="btn btn-success search-location-btn">Save
+                            class="update-post-button search-location-btn">Save
                     </button>
                 </div>
             </form>
         </div>
 
+<!--comments-->
         <div class="comments-container">
             <th:block th:insert="~{partials/comments :: comments}"></th:block>
         </div>
