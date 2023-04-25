@@ -41,7 +41,8 @@
                             </form>
                             <form th:action="@{/comment/delete}" th:method="post">
                                 <input th:name="commentId" th:value="${comment.id}" hidden>
-                                <button type="submit" class="delete-button"><i class="bi bi-x-square"></i></button>
+<!--                                <button type="submit" class="delete-button"><i class="bi bi-x-square"></i></button>-->
+                                <button type="submit" class="delete-button"><i class="bi bi-trash"></i></button>
                             </form>
                         </div>
                     </div>

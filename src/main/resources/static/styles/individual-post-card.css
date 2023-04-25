@@ -180,6 +180,18 @@ i.bi-x-square:hover {
     color: #e30202;
 }
 
+i.bi-trash {
+    color: black;
+    font-size: 18px;
+    position: relative;
+    right: 8px;
+    bottom: 12px;
+}
+
+i.bi-trash:hover {
+    color: #e30202;
+}
+
 .edit-button {
     border: none;
     background-color: transparent;
@@ -215,7 +227,7 @@ i.bi-x-square:hover {
     height: 25px;
     margin-left: 25px;
     background-color: #8080802e;
-    width: 400px;
+    width: 200px;
     padding-top: 8px;
     padding-left: 10px;
 }
