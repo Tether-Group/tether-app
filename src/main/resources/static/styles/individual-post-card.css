@@ -14,10 +14,6 @@
 
 /* user post image and info (top of card) */
 
-.post-item {
-    margin-bottom: 15px;
-}
-
 .posted-by-info {
     display: flex;
 }
@@ -38,13 +34,15 @@
 p.post-header {
     margin: 6px 0 0 0;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 800;
+    font-family: 'Nobile', sans-serif;
 }
 
 .post-details {
     margin: 0;
     font-size: 16px;
     font-weight: 300;
+    font-family: 'Nobile', sans-serif;
 }
 
 .days-ago-info {
@@ -81,6 +79,62 @@ button.dot-dropdown {
 
 .list-group-item-action:hover {
     z-index: 0 !important;
+}
+
+/*dropdown dots*/
+
+div.post-options-dropdown {
+    color: black;
+}
+
+.three-dot-button {
+    color: black;
+    background-color: transparent;
+    border: none;
+    margin-right: 10px;
+}
+
+.custom-post-dropdown {
+    inset: 0;
+    margin: 0;
+    transform: translate3d(738px, 45px, 0px)!important;
+    padding: 0;
+    min-width: 60px;
+    width: 60px;
+    border: none;
+    background-color: transparent;
+}
+
+button.dropdown-edit-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 12px;
+    border: none;
+    margin-left: 3px;
+    padding-top: 4px;
+    border-radius: 5px;
+    height: 23px;
+    width: 50px;
+    background-color: rgb(226 227 227 / 74%);
+}
+
+button.dropdown-edit-button:hover {
+    background-color: rgba(48, 145, 241, 0.26);
+}
+
+button.dropdown-delete-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 12px;
+    border: none;
+    margin-left: 3px;
+    padding-top: 4px;
+    border-radius: 5px;
+    height: 23px;
+    width: 50px;
+    background-color: rgba(248, 99, 6, 0.59);
+}
+
+button.dropdown-delete-button:hover {
+    background-color: rgba(246, 0, 0, 0.83);
 }
 
 /* comments container (bottom of card) */
@@ -297,5 +351,48 @@ button.update-comment-button {
 }
 
 button.update-comment-button:hover {
+    background-color: #3091f170;
+}
+
+/*edit post css*/
+
+input.edit-post-input {
+    width: 50%;
+    border: 1px solid #00000038;
+    border-radius: 5px;
+    background-color: rgba(215, 215, 215, 0.58);
+    height: 25px;
+    margin: 10px 0;
+}
+
+input.edit-post-input:focus {
+    border: 1px solid #3091f170;
+}
+
+button.cancel-post-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 15px;
+    border: 2px solid #3091f170;
+    margin-left: 2px;
+    border-radius: 5px;
+    height: 27px;
+    background-color: transparent;
+}
+
+button.cancel-post-button:hover {
+    background-color: #3091f170;
+}
+
+button.update-post-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 15px;
+    border: 2px solid #3091f170;
+    margin-left: 2px;
+    border-radius: 5px;
+    height: 27px;
+    background-color: transparent;
+}
+
+button.update-post-button:hover {
     background-color: #3091f170;
 }
