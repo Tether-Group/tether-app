@@ -52,7 +52,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
 
@@ -75,7 +75,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
 
@@ -99,7 +99,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
 
@@ -119,7 +119,7 @@ public class PostController {
         Timestamp timestamp = new Timestamp((new Date()).getTime());
         post.setPostDate(timestamp);
         postDao.save(post);
-        return "redirect:/";
+        return "redirect:/group/" + groupId;
     }
 
 
@@ -133,9 +133,11 @@ public class PostController {
             User userOfPost = postDao.findById(postId).get().getUser();
             if (userOfPost.getId() == loggedInUser.getId()) {
                 Post editedPost = postDao.findById(postId).get();
+                Long groupId = editedPost.getGroup().getId();
                 editedPost.setHeader(header);
                 editedPost.setBody(body);
                 postDao.save(editedPost);
+                return "redirect:/group/" + groupId;
             } else {
                 System.out.println("User is not the original poster of the post");
             }
@@ -159,11 +161,13 @@ public class PostController {
             User userOfPost = postDao.findById(postId).get().getUser();
             if (userOfPost.getId() == loggedInUser.getId()) {
                 Post editedPost = postDao.findById(postId).get();
+                Long groupId = editedPost.getGroup().getId();
                 editedPost.setHeader(header);
                 editedPost.setBody(body);
                 editedPost.setEventDate(eventDate);
                 editedPost.setEventAddress(eventAddress);
                 postDao.save(editedPost);
+                return "redirect:/group/" + groupId;
             } else {
                 System.out.println("User is not the original poster of the post");
             }
@@ -185,10 +189,12 @@ public class PostController {
             User userOfPost = postDao.findById(postId).get().getUser();
             if (userOfPost.getId() == loggedInUser.getId()) {
                 Post editedPost = postDao.findById(postId).get();
+                Long groupId = editedPost.getGroup().getId();
                 editedPost.setHeader(header);
                 editedPost.setBody(body);
                 editedPost.setPostPrice(postPrice);
                 postDao.save(editedPost);
+                return "redirect:/group/" + groupId;
             } else {
                 System.out.println("User is not the original poster of the post");
             }
@@ -209,6 +215,7 @@ public class PostController {
             if (userOfPost.getId() == loggedInUser.getId() || groupAdmin.getId() == loggedInUser.getId()) {
                 Post postToBeDeleted = postDao.findById(postId).get();
                 postDao.delete(postToBeDeleted);
+                return "redirect:/group/" + groupId;
             } else {
                 System.out.println("User is not the original poster of the post or group admin");
             }
