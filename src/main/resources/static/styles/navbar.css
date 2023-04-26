@@ -99,3 +99,21 @@ nav.navbar-tether {
     margin: auto 3px;
 }
 
+i.bi-bell-fill {
+    position: relative;
+    font-size: 25px;
+    top: 3px;
+    left: 13px;
+}
+
+#notification-count {
+    position: relative;
+    left: 2px;
+    bottom: 19px;
+    height: 20px;
+    width: 20px;
+    background-color: #e00202!important;
+    font-size: 11px;
+    border-radius: 50px;
+}
+

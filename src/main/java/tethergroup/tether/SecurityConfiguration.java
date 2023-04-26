@@ -91,7 +91,8 @@ public class SecurityConfiguration {
                         "/verifyAddComments",
                         "/groups/{username}",
                         "/getNotificationCount",
-                        "/profile/settings/usernameExists/{attemptedUsername}"
+                        "/profile/settings/usernameExists/{attemptedUsername}",
+                        "/profile/{username}/friends"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */

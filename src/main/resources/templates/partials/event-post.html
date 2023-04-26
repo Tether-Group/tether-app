@@ -25,7 +25,7 @@
                                         Edit
                                     </button>
                                     <form th:method="post" th:action="@{/post/delete}">
-                                        <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+                                        <input th:name="id" th:value="${post.id}" hidden>
                                         <input th:name="groupId" th:value="${post.group.id}" hidden>
                                         <button type="submit" th:id="'delete-button'+${post.id}"
                                                 class="dropdown-delete-button">
