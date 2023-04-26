@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8">
+	<title>My Groups - Tether</title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/my-groups.css"/>
+</head>
+<body>
+<th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+
+<div class="container">
+
+	<h1 class="header-font m-5 row">MY GROUPS</h1>
+
+	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab">All Groups</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab">Owned Groups</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab">Joined Groups</button>
+		</li>
+	</ul>
+	<div class="tab-content" id="pills-tabContent">
+
+		<div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+			<div th:each="group: ${allGroups}" class="group-card">
+				<a th:href="@{/group/{id}(id=${group.id})}">
+					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
+				</a>
+				<p class="mb-1"><span th:text="${group.description}"></span></p>
+			</div>
+		</div>
+
+		<div class="tab-pane fade" id="pills-profile" role="tabpanel">
+				<div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
+					<a th:href="@{/group/{id}(id=${group.id})}">
+						<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
+					</a>
+					<p class="mb-1"><span th:text="${group.description}"></span></p>
+				</div>
+		</div>
+
+		<div class="tab-pane fade" id="pills-contact" role="tabpanel">
+				<div th:each="group: ${groupsWhereUserIsMember}" class="group-card">
+					<a th:href="@{/group/{id}(id=${group.id})}">
+						<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
+					</a>
+					<p class="mb-1"><span th:text="${group.description}"></span></p>
+					<a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span
+							th:text="${group.admin}"></span></small></a>
+				</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</body>
+</html>

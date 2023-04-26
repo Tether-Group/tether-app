@@ -66,16 +66,20 @@ public class GroupController {
             User userObj = actualUser.get();
             List<Membership> memberships = membershipDao.findMembershipsByUser_Id(userObj.getId());
             List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userObj.getId());
-            List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+            List<Group> groupsWhereUserIsMember = new ArrayList<>();
+            List<Group> allGroups = new ArrayList<>(groupsWhereUserIsAdmin);
             for (Membership membership : memberships) {
                 Group group = groupDao.findById(membership.getGroup().getId()).get();
-                groups.add(group);
+                groupsWhereUserIsMember.add(group);
+                allGroups.add(group);
             }
-            model.addAttribute("groups", groups);
+            model.addAttribute("allGroups", allGroups);
+            model.addAttribute("groupsWhereUserIsAdmin", groupsWhereUserIsAdmin);
+            model.addAttribute("groupsWhereUserIsMember", groupsWhereUserIsMember);
         } else {
             return "redirect:/login";
         }
-        return "groups/group-list";
+        return "groups/my-groups";
     }
 
     @GetMapping("/group/create")
