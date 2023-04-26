@@ -28,3 +28,18 @@
     float: left;
     width: 25em;
 }
+
+button.profile-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #3091f170;
+    margin-left: 3px;
+    border-radius: 5px;
+    height: 30px;
+    background-color: transparent;
+}
+
+button.profile-button:hover {
+    background-color: #3091f170;
+}

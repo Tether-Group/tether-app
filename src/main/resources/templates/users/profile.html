@@ -10,73 +10,77 @@
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
 
-<div th:if="${!isMyAccountPage}">
-	<!--add friend button-->
-	<div sec:authorize="isAuthenticated()">
-		<div th:if="${!requestExists}">
-			<form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
-				<button id="add-friend-btn" type="submit" class="btn btn-primary">
-					Add Friend
-				</button>
-			</form>
-		</div>
-	</div>
-
-	<!--message the user-->
-	<div>
-		<a th:href="@{/messages/talk/{username}(username=${user.username})}">Send Message</a>
-	</div>
-
-	<!--    cancel friend request button-->
-	<div sec:authorize="isAuthenticated()">
-		<div th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
-			<form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
-				<button id="cancel-friend-request-btn" type="submit" class="btn btn-warning">
-					Cancel Friend Request
-				</button>
-			</form>
-		</div>
-	</div>
-	<!--    leave group button/form-->
-	<div sec:authorize="isAuthenticated()">
-		<div th:if="${requestExists && !isPending}">
-			<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
-				<button id="remove-friend-btn" type="submit" class="btn btn-danger">
-					Remove Friend
-				</button>
-			</form>
-		</div>
-	</div>
-
-	<!--accept or decline friend request button-->
-	<div sec:authorize="isAuthenticated()">
-		<div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}">
-			<form th:action="@{/profile/{userId}/accept(userId=${user.id})}" th:method="POST">
-				<input th:name="currentPage" th:value="profile-page" hidden>
-				<button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
-					Accept Friend Request
-				</button>
-			</form>
-
-			<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
-				<input th:name="currentPage" th:value="profile-page" hidden>
-				<button id="decline-friend-request-btn" type="submit" class="btn btn-primary">
-					Decline Friend Request
-				</button>
-			</form>
-		</div>
-	</div>
-
-</div>
-
 <!--	PROFILE PAGE DISPLAY-->
-<div class="row row-cols-auto w-100">
+<div class="row row-cols-auto w-100 d-flex m-2">
 	<div class="profile-header">
 		<img class="img-circle profile-image profile-photo" th:src="${user.profilePhotoUrl}" alt="user"
 			 height="100px" width="100px">
 	</div>
 	<div class="profile-username col">
-		<h3><span th:text="${user.username}"></span></h3>
+		<h2 class="m-0"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h2>
+		<h6 class="m-0"><em><span th:text="${user}"></span></em></h6>
+	</div>
+
+
+	<!--	THESE ARE THE BUTTONS FOR OTHER USER'S PROFILE PAGE-->
+	<div class="align-self-end" th:if="${!isMyAccountPage}">
+
+		<!--message the user-->
+		<div>
+			<a th:href="@{/messages/talk/{username}(username=${user.username})}">Send Message</a>
+		</div>
+
+		<!--add friend button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${!requestExists}">
+				<form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
+					<button id="add-friend-btn" type="submit" class="profile-button">
+						Add Friend
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!--    cancel friend request button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
+				<form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
+					<button id="cancel-friend-request-btn" type="submit" class="profile-button">
+						Cancel Friend Request
+					</button>
+				</form>
+			</div>
+		</div>
+		<!--    leave group button/form-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && !isPending}">
+				<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+					<button id="remove-friend-btn" type="submit" class="profile-button">
+						Remove Friend
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!--accept or decline friend request button-->
+		<div sec:authorize="isAuthenticated()">
+			<div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}">
+				<form th:action="@{/profile/{userId}/accept(userId=${user.id})}" th:method="POST">
+					<input th:name="currentPage" th:value="profile-page" hidden>
+					<button id="accept-friend-request-btn" type="submit" class="profile-button">
+						Accept Friend Request
+					</button>
+				</form>
+
+				<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+					<input th:name="currentPage" th:value="profile-page" hidden>
+					<button id="decline-friend-request-btn" type="submit" class="profile-button">
+						Decline Friend Request
+					</button>
+				</form>
+			</div>
+		</div>
+
 	</div>
 </div>
 
