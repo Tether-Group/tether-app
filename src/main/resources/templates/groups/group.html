@@ -313,7 +313,7 @@
 					<div sec:authorize="isAuthenticated()">
 						<a th:href="@{/profile/{username}(username=${admin.username})}"><h2>
 							<img class="user-photo" th:src="${admin.profilePhotoUrl}">
-							<span th:text="${admin.username}"></span></h2></a>
+							<span th:text="${admin.username}"></span> <span class="badge bg-dark">Admin</span></h2></a>
 					</div>
 					<div sec:authorize="!isAuthenticated()">
 						<img class="user-photo" th:src="${admin.profilePhotoUrl}">

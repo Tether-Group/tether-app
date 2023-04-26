@@ -141,7 +141,7 @@ public class UserController {
                 groups.add(allGroupsOfUser.get(i));
             }
         }
-        List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_Id(profilePageUserId);
+        List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_IdOrderByPostDateDesc(profilePageUserId);
         List<Comment> comments = new ArrayList<>();
         for (Post post : postsOfUserOfProfilePage) {
             System.out.println(post.getPostType().getId());
@@ -215,7 +215,7 @@ public class UserController {
                 }
             }
 
-            List<Post> postsOfLoggedInUser = postDao.findPostsByUser_Id(idOfLoggedInUser);
+            List<Post> postsOfLoggedInUser = postDao.findPostsByUser_IdOrderByPostDateDesc(idOfLoggedInUser);
             List<Comment> comments = new ArrayList<>();
             for (Post post : postsOfLoggedInUser) {
                 System.out.println(post.getPostType().getId());
@@ -287,8 +287,23 @@ public class UserController {
     }
 
     //    viewing friends list
-    @GetMapping("/friends")
-    public String returnFriendsListPage() {
+    @GetMapping("/profile/{username}/friends")
+    public String returnFriendsListPage(Model model, @PathVariable String username) {
+        User user = userDao.findByUsername(username);
+        List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(user.getId());
+        List<User> friends = new ArrayList<>();
+        for (Friendship friendship : friendsOfUserOfProfilePage) {
+            User friend = new User();
+            if (friendship.getAcceptor().getId() == user.getId() && !friendship.isPending()) {
+                friend = userDao.findById(friendship.getRequester().getId()).get();
+                friends.add(friend);
+            } else if (friendship.getRequester().getId() == user.getId() && !friendship.isPending()) {
+                friend = userDao.findById(friendship.getAcceptor().getId()).get();
+                friends.add(friend);
+            }
+        }
+        model.addAttribute("friends", friends);
+        model.addAttribute("userOfFriendsList", user);
         return "users/friends";
     }
 
