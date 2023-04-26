@@ -57,6 +57,27 @@ public class GroupController {
         return "groups/group-list";
     }
 
+    @GetMapping("/profile/my-account/groups")
+    @Transactional
+    public String showMyGroupsPage(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> actualUser = userDao.findById(user.getId());
+        if (actualUser.isPresent()) {
+            User userObj = actualUser.get();
+            List<Membership> memberships = membershipDao.findMembershipsByUser_Id(userObj.getId());
+            List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userObj.getId());
+            List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+            for (Membership membership : memberships) {
+                Group group = groupDao.findById(membership.getGroup().getId()).get();
+                groups.add(group);
+            }
+            model.addAttribute("groups", groups);
+        } else {
+            return "redirect:/login";
+        }
+        return "groups/group-list";
+    }
+
     @GetMapping("/group/create")
     public String returnGroupCreatePage(Model model) {
         model.addAttribute("group", new Group());

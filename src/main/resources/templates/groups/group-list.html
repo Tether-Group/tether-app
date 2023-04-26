@@ -28,7 +28,7 @@
 					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
 				</a>
 			<p class="mb-1"><span th:text="${group.description}"></span></p>
-			<a th:href="@{/profile/{id}(id=${group.getAdmin().getUsername()})}"><small>Admined by: <span th:text="${group.getAdmin()}"></span></small></a>
+			<a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span th:text="${group.admin}"></span></small></a>
 		</div>
 </div>
 
