@@ -69,7 +69,7 @@
 </div>
 
 <!--	PROFILE PAGE DISPLAY-->
-<div class="row row-cols-auto">
+<div class="row row-cols-auto w-100">
 	<div class="profile-header">
 		<img class="img-circle profile-image profile-photo" th:src="${user.profilePhotoUrl}" alt="user"
 			 height="100px" width="100px">
@@ -82,10 +82,10 @@
 <hr class="profile-hr">
 
 
-<div class="container-fluid d-flex justify-content-center text-center">
-	<div class="container-fluid d-flex justify-content-center row">
+<div class="container-fluid d-flex justify-content-center p-0">
+	<div class="container-fluid d-flex justify-content-center row p-0">
 
-		<div class="col-4">
+		<div class="col-4 p-0">
 
 			<div class="row">
 				<p class="index-heading">Groups</p>
@@ -132,7 +132,7 @@
 
 		</div>
 
-		<div class="col-7">
+		<div class="col-7 p-0">
 			<p class="index-heading">Posts</p>
 			<div class="list-group post-card-holder-width">
 				<div th:each="post : ${posts}">

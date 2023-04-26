@@ -92,7 +92,8 @@ public class SecurityConfiguration {
                         "/groups/{username}",
                         "/getNotificationCount",
                         "/profile/settings/usernameExists/{attemptedUsername}",
-                        "/profile/{username}/friends"
+                        "/profile/{username}/friends",
+                        "/profile/my-account/groups"
                         )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
