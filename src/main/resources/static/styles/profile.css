@@ -43,3 +43,9 @@ button.profile-button {
 button.profile-button:hover {
     background-color: #3091f170;
 }
+
+.profile-img-circle {
+    border-radius: 50%;
+    border: 3px solid #3091f170;
+    margin-left: 2em;
+}
