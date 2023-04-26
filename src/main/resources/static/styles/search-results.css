@@ -1,3 +1,7 @@
+*{
+    font-family: 'Nobile', sans-serif;
+}
+
 .search-form-container{
     margin: 25px auto;
     display: flex;
@@ -28,7 +32,6 @@
     margin-bottom: .75em;
     padding: 10px;
 }
-
 
 .group-card{
     margin-right: 20px;

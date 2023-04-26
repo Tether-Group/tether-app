@@ -44,10 +44,13 @@
 
 				<label for="register-email" class="form-label">Email</label>
 				<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
-
+				<div id="message1" class="form-text">
+					Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span id=".com-register" class="invalid">domain must be ".com"</span>
+					<p>E.g. example@example.com</p>
+				</div>
 				<input value="Save Changes" th:type="submit" class="submit-button">
 			</form>
-
+<br>
 			<form th:action="@{/profile/editpassword}" th:method="POST">
 
 				<label for="oldpassword" class="form-label">Old Password</label>
@@ -62,29 +65,23 @@
 				<input id="register-pw-verification" name="register-pw-verification" type="password"
 					   class="form-control" required>
 
-				<div id="message1">
-					<h5>Email must contain:</h5>
-					<p id="asperand-register" class="invalid">@</p>
-					<p id=".com-register" class="invalid">domain must be ".com"</p>
-					<p>E.g. example@example.com</p>
-				</div>
-
-				<div id="message2">
-					<h3>Password must contain the following:</h3>
-					<p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
-					<p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
-					<p id="number" class="invalid">One <strong>number</strong></p>
-					<p id="special" class="invalid">One <strong>special </strong>character</p>
-					<p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
-						characters</strong></p>
-					<p id="empty" class="invalid">No <strong>spaces</strong></p>
+				<div id="message2" class="form-text">
+					Your password must be
+					<span id="length" class="invalid"> 8-20 characters long</span>
+					, contain <span id="lowercase" class="invalid">lowercase</span>
+					and<span id="uppercase" class="invalid"> uppercase</span>
+					letters and <span id="number" class="invalid"> numbers</span>,
+					<br>
+					and at least one <span id="special" class="invalid">special character</span>.  It can not contain
+					<span id="empty" class="invalid"> spaces</span> or emojis.
+					<br>
 					<p id="password-match" class="invalid">Password must match</p>
 				</div>
 
 
 				<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
 			</form>
-
+<br>
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				Delete account

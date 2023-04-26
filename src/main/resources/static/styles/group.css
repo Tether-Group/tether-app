@@ -1,3 +1,7 @@
+* {
+    font-family: 'Nobile', sans-serif;
+}
+
 h1{
     float: left;
     position: relative;
@@ -12,9 +16,7 @@ h1{
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-
 }
-
 
 .group-photo-banner{
     width: 100%;
@@ -33,7 +35,6 @@ h1{
     display: flex;
     justify-content: space-between;
 }
-
 
 #join-group-btn{
     position: relative;
@@ -66,9 +67,6 @@ h1{
     width: 120px;
 }
 
-
-
-
 .three-main{
     display: flex;
     justify-content: space-between;
@@ -82,8 +80,6 @@ h1{
 .group-nav-pane{
     width: 900px;
 }
-
-
 
 .members-list{
     width: 25%;
