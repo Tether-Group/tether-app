@@ -1,3 +1,7 @@
+* {
+    font-family: 'Nobile', sans-serif;
+}
+
 h1{
     color: black;
     float: left;
@@ -14,7 +18,6 @@ h1{
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     font-family: 'Oswald', sans-serif;
-
 }
 
 
@@ -57,7 +60,6 @@ h5{
     justify-content: space-between;
 }
 
-
 #join-group-btn{
     position: relative;
     right: 30px;
@@ -89,6 +91,7 @@ h5{
     width: 120px;
 }
 
+
 #edit-group-btn{
     background-color: #0b80e5;
     padding: 10px;
@@ -102,9 +105,6 @@ h5{
     width: 120px;
     margin-left: 25px;
 }
-
-
-
 
 .three-main{
     display: flex;
@@ -124,7 +124,6 @@ div#v-pills-tab {
     margin-top: 48px;
     width: 200px;
 }
-
 
 .members-list{
     width: 25%;

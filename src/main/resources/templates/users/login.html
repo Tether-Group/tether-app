@@ -80,6 +80,12 @@
                             <label for="register-email" class="form-label">Email</label>
                             <input id="register-email" name="register-email" th:field="*{email}"
                                    class="form-control" required>
+                            <div id="message1" class="form-text">
+                                Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span
+                                    id=".com-register" class="invalid">domain must be ".com"</span>
+                                <p>E.g. example@example.com</p>
+                            </div>
+
 
                             <label for="register-password" class="form-label">Password</label>
                             <input id="register-password" name="register-password" type="password"
@@ -89,6 +95,19 @@
                             <label for="register-pw-verification" class="form-label">Re-Type Password</label>
                             <input id="register-pw-verification" name="register-pw-verification" type="password"
                                    class="form-control" required>
+                            <div id="message2" class="form-text">
+                                Your password must be
+                                <span id="length" class="invalid"> 8-20 characters long</span>
+                                , contain <span id="lowercase" class="invalid">lowercase</span>
+                                and<span id="uppercase" class="invalid"> uppercase</span>
+                                letters and <span id="number" class="invalid"> numbers</span>,
+                                <br>
+                                and at least one <span id="special" class="invalid">special character</span>. It can not
+                                contain
+                                <span id="empty" class="invalid"> spaces</span> or emojis.
+                                <br>
+                                <p id="password-match" class="invalid">Password must match</p>
+                            </div>
 
                             <input id="submit-pw" value="Sign me up!" th:type="submit"
                                    class="submit-button-password submit-button">
@@ -96,30 +115,9 @@
                     </div>
                 </div>
             </div>
-
-            <div id="message1">
-                <h5>Email must contain:</h5>
-                <p id="asperand-register" class="invalid">@</p>
-                <p id=".com-register" class="invalid">domain must be ".com"</p>
-                <p>E.g. example@example.com</p>
-            </div>
-
-            <!--https://www.w3schools.com/howto/howto_js_password_validation.asp-->
-            <div id="message2">
-                <h5>Password must contain the following:</h5>
-                <p id="lowercase" class="invalid">One <strong>lowercase</strong> letter</p>
-                <p id="uppercase" class="invalid">One <strong>capital (uppercase)</strong> letter</p>
-                <p id="number" class="invalid">One <strong>number</strong></p>
-                <p id="special" class="invalid">One <strong>special </strong>character</p>
-                <p id="length" class="invalid">Minimum <strong>8 characters</strong>, Maximum <strong>20
-                    characters</strong></p>
-                <p id="empty" class="invalid">No <strong>spaces</strong></p>
-                <p id="password-match" class="invalid">Password must match</p>
-            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/register_password_verification.js}"></script>

@@ -1,3 +1,7 @@
+* {
+    font-family: 'Nobile', sans-serif;
+}
+
 /* The message box is shown when the user clicks on the password field */
 #message {
     display:none;
