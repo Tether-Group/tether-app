@@ -96,24 +96,32 @@ nav.navbar-tether {
     font-family: 'Oswald', sans-serif;
     font-size: 1.25em;
     font-weight: bold;
-    margin: auto 3px;
+    margin: 0;
 }
 
 i.bi-bell-fill {
     position: relative;
-    font-size: 25px;
-    top: 3px;
-    left: 13px;
+    font-size: 20px;
+    left: 16px;
 }
 
 #notification-count {
     position: relative;
-    left: 2px;
-    bottom: 19px;
-    height: 20px;
+    left: 5px;
+    bottom: 13px;
+    height: 15px;
     width: 20px;
     background-color: #e00202!important;
-    font-size: 11px;
+    font-size: 9px;
     border-radius: 50px;
+}
+
+li.notification {
+    width: 65px!important;
+}
+
+a.group-dropdown {
+    padding-left: 13px!important;
+    padding-right: 1px!important;
 }
 

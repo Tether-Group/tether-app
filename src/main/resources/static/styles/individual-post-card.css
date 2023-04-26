@@ -47,6 +47,10 @@ a.post-details {
     color: grey;
 }
 
+a.post-details:hover {
+    color: #f87102;
+}
+
 .days-ago-info {
     font-family: 'Nobile', sans-serif;
     font-size: 14px;
