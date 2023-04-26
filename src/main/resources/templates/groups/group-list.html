@@ -14,16 +14,8 @@
 
 <h1>This is the GROUPS LIST page</h1>
 
-<!--<form class="search-form" th:action="@{/search-results}" th:method="GET">-->
-<!--	<input class="search-bar form-control me-2" type="search" placeholder="Search" name="search">-->
-<!--	<button class="search-button btn btn-outline-success" type="submit">Search</button>-->
-<!--</form>-->
-
 <div class="container">
 		<div th:each="group: ${groups}" class="group-card">
-				<div class="group-photo">
-
-				</div>
 				<a th:href="@{/group/{id}(id=${group.id})}">
 					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
 				</a>
