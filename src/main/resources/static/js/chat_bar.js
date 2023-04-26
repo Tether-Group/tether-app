@@ -8,9 +8,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let x = "";
     for (let i = 0; i < friends.length; i++) {
-        x += `<li><a href="/messages/talk/${friends[i].username}"><i class="bi bi-messenger"></i>${friends[i].username}</a></li>`
+        x += `<li><a class="dropdown-item" href="/messages/talk/${friends[i].username}">${friends[i].username}</a></li><hr class="m-0">`
     }
-    document.getElementById("list-friends").innerHTML = x;
+    // console.log(x);
+    const friendsDropdown = document.getElementById("list-friends");
+    // console.log(friendsDropdown);
+    if (friendsDropdown != null) {
+        friendsDropdown.innerHTML = x;
+    }
 })
 
 //for each friendship, add the attributes using what we get from the json object, THEN we can pass it to the html??
