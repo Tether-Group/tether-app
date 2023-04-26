@@ -1,0 +1,36 @@
+h1{
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
+}
+
+.form-container{
+    border: 5px solid;
+    text-align: center;
+}
+
+label{
+    color: #3e72f6;
+}
+
+.group-name-div{
+    width: 60%;
+    text-align: center;
+    margin: auto;
+}
+
+.photo-btn{
+    background-color: #0b80e5;
+    font-size: 20px;
+
+}
+
+textarea {
+    width: 60%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #0b80e5;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}

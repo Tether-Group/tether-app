@@ -12,16 +12,16 @@
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-
-<h1>This is the CREATE GROUP page</h1>
-
-
+<div class="form-container">
+	<h1>Create A New Group</h1>
 <form th:method="post" th:action="@{/group/create}" th:object="${group}">
 	<div class="mx-auto">
-		<label for="group-name">Group Name:</label>
-		<input type="text" name="name" id="group-name" th:field="*{name}" required>
+		<div class="group-name-div form-floating mb-3">
+			<input type="text" class="form-control" id="group-name" placeholder="Example Group Name" th:field="*{name}" required>
+			<label for="group-name">Group Name</label>
+		</div>
 		<br>
-		<button type="button" class="btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
+		<button type="button" class="photo-btn btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
 		<input hidden id="photo-url" th:name="photo-url">
 		<br>
 		<label for="description">Description:</label>
@@ -47,6 +47,7 @@
 		<button type="submit" class="btn btn-primary">Create Group</button>
 	</div>
 </form>
+</div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
