@@ -16,13 +16,50 @@ label{
     width: 60%;
     text-align: center;
     margin: auto;
+    margin-bottom: 20px;
+}
+
+.photo-container{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 .photo-btn{
     background-color: #0b80e5;
     font-size: 20px;
+    height: 50px;
+    margin-top: 25px;
+    width: 35%
+}
+
+#preview{
+    height: 100px;
+    width: 300px;
+    border: solid lightgray 1px;
+    border-radius: 2px;
+}
+
+.no-photo-selected{
+    vertical-align: middle;
+}
+
+img{
+    height: 98px;
+    width: 298px;
+}
+
+.group-description-text-area{
+    width: 60%;
+    text-align: center;
+    margin: auto;
 
 }
+
+
 
 textarea {
     width: 60%;

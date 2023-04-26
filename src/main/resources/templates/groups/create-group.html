@@ -16,18 +16,22 @@
 	<h1>Create A New Group</h1>
 <form th:method="post" th:action="@{/group/create}" th:object="${group}">
 	<div class="mx-auto">
+
+		<div class="photo-container">
+			<button type="button" class="photo-btn btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
+			<input hidden id="photo-url" th:name="photo-url">
+			<div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>
+		</div>
+
 		<div class="group-name-div form-floating mb-3">
 			<input type="text" class="form-control" id="group-name" placeholder="Example Group Name" th:field="*{name}" required>
 			<label for="group-name">Group Name</label>
 		</div>
 		<br>
-		<button type="button" class="photo-btn btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
-		<input hidden id="photo-url" th:name="photo-url">
-		<br>
-		<label for="description">Description:</label>
-		<textarea name="paragraph_text" cols="50" rows="10" id="description" th:field="*{description}"
-				  required></textarea>
-
+		<div class="form-floating group-description-text-area">
+			<textarea class="form-control" placeholder="Group Description Here" id="description" th:field="*{description}" style="height: 150px"></textarea>
+			<label for="description">Group Description</label>
+		</div>
 		<br>
 		<label for="visibility">Visibility:</label>
 		<input type="checkbox" name="private" th:field="*{private}" id="visibility">
@@ -52,13 +56,16 @@
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
-
+	const preview = document.getElementById("preview");
+	const photoText = document.getElementById("no-photo-selected")
     const inputForPhotoURL = document.getElementById("photo-url");
 
     const client = filestack.init(FILESTACK_API_KEY);
 	const options = {
         onFileUploadFinished(file) {
             inputForPhotoURL.value = file.url;
+			photoText.style.display = "none"
+			preview.innerHTML = `<img src="${file.url}" alt="preview">`
 		}
 	}
     const openFileStackModal = () => {
