@@ -20,6 +20,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             value = "SELECT DISTINCT p.* FROM posts p INNER JOIN users u ON u.id = p.user_id INNER JOIN memberships m ON m.user_id = u.id INNER JOIN groups g ON g.id = m.group_id WHERE u.id = :user_id")
     List<Post> getAllPostsThatLoggedInUserUserCanCommentOn(@Param("user_id") Long userId);
 
-    List<Post> findPostsByUser_Id(Long postId);
+    List<Post> findPostsByUser_IdOrderByPostDateDesc(Long postId);
 
 }
