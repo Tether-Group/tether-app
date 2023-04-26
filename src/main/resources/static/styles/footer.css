@@ -51,3 +51,18 @@ div.dropup {
     bottom: 2px;
     right: 2px;
 }
+
+ul.custom-chat {
+ --bs-dropdown-padding-y: 0!important;
+}
+
+.custom-chat-btn {
+    color: black;
+    background-color: rgba(204, 204, 204, 0.98);
+    border-radius: 5px;
+    border: none;
+}
+
+.custom-chat-btn:hover {
+    background-color: #8a8a8a;
+}
