@@ -1,5 +1,69 @@
 /*blue to re-use #0586ef*/
 
-* {
-    font-family: 'Nobile', sans-serif;
+footer.main-footer {
+    background-color: #00000012;
+    border-top: 2px solid black;
+    border-top: 1px solid #beddff;
+}
+
+.flex-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+img.tether-icon-footer {
+    max-width: 125px;
+    max-height: 1250px;
+    border-radius: 50px;
+    margin: 10px auto;
+}
+
+img.tether-icon-footer:hover {
+    color: #0586ef;
+    background-color: rgba(5, 134, 239, 0.34);
+    transition: 0.1s ease-in-out;
+}
+
+a.footer-links {
+    text-decoration: none;
+    color: #000000;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.6px;
+}
+
+a.footer-links:hover {
+    text-decoration: underline 0.25em;
+    text-decoration-color: #0586ef;
+    transition: .1s ease-in-out;
+}
+
+i, .footer-links2 {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+i:hover, .footer-links2:hover {
+    color: #0586ef;
+    transition: .1s ease-in-out;
+}
+
+/*fixed chat bar*/
+div.dropup {
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+}
+
+ul.custom-chat {
+ --bs-dropdown-padding-y: 0!important;
+}
+
+.custom-chat-btn {
+    color: black;
+    background-color: rgba(204, 204, 204, 0.98);
+    border-radius: 5px;
+    border: none;
+}
+
+.custom-chat-btn:hover {
+    background-color: #8a8a8a;
 }

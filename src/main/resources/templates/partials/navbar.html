@@ -25,7 +25,7 @@
                     </li>
 <!--group dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-font" href="#" id="navbarDropdown2" role="button"
+                        <a class="nav-link dropdown-toggle nav-font group-dropdown" href="#" id="navbarDropdown2" role="button"
                            data-bs-toggle="dropdown">GROUPS</a>
                         <ul class="dropdown-menu">
                             <li>
@@ -43,8 +43,8 @@
                         <a class="nav-link nav-font" href="/groups">GROUPS</a>
                     </li>
 <!--end of dropdown-->
-                    <li sec:authorize="isAuthenticated()">
-                        <a class="nav-link p-0" th:href="@{/notifications}"><i class="bi bi-bell-fill"></i><span class="badge bg-dark" id="notification-count"></span></a>
+                    <li sec:authorize="isAuthenticated()" class="nav-item notification">
+                        <a class="nav-link nav-font" th:href="@{/notifications}"><i class="bi bi-bell-fill"></i><span class="badge bg-dark" id="notification-count"></span></a>
                     </li>
 <!--account dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">

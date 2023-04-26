@@ -1,0 +1,30 @@
+.user-post-info a {
+    font-family: 'Nobile', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.user-post-info a:hover {
+    text-decoration: underline;
+    text-decoration-color: #0586ef;
+    text-decoration-thickness: 2px;
+}
+
+.friend-name {
+    font-size: large;
+}
+
+.friend-photo {
+    background-color: lightgray;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 100px;
+    border: 1px solid grey;
+}
+
+.friend-cards {
+    float: left;
+    width: 25em;
+}

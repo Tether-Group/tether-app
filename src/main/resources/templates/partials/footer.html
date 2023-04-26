@@ -12,44 +12,35 @@
             <script th:src="@{/js/notifications.js}"></script>
         </div>
     </div>
-
-    <footer class="main-footer">
+    <!--fixed chat bar-->
+    <div>
         <th:block th:insert="~{partials/chat-bar :: chat-bar}"></th:block>
+    </div>
 
-        <div class="container-fluid text-body-secondary">
-            <div class="row">
-                <div class="col-4">
-                    <a href="/" aria-label="Bootstrap"></a>
-                    <ul>
-                        <li><img class="tether-icon" th:src="@{/img/black_icon_transparent_background.png}" alt="Tether Icon"><br></i>-- Designed and built by the Tether team.</li>
-                    </ul>
+    <!--footer-->
+    <footer class="main-footer">
+
+        <div class="container-fluid">
+            <div class="flex-footer">
+                <div class="d-flex justify-content-center my-auto w-25">
+                    <a class="fs-6 mx-3 footer-links" href="/">HOME</a></li>
+                    <a class="fs-6 mx-3 footer-links" th:href="@{/groups}">GROUPS</a></li>
+                    <a class="fs-6 mx-3 footer-links" th:href="@{/about}">ABOUT</a></li>
                 </div>
 
-                <div class="col-4">
-                    <h5>Links</h5>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a th:href="@{/groups}">Groups</a></li>
-                        <li><a th:href="@{/about}">About</a></li>
-                    </ul>
+                <div class="d-flex justify-content-center my-auto w-50">
+                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-instagram"></i></a>
+                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-facebook"></i></a>
+                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-twitter"></i></a>
+                    <a class="fs-2 mx-4 footer-links2" href="https://github.com/Tether-Group/tether-app"><i class="bi bi-github"></i></a>
                 </div>
 
-                <div class="col-4">
-                    <h5>Socials</h5>
-                    <ul>
-                        <li>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/Tether-Group/tether-app"><i class="bi bi-github"></i></a>
-                        </li>
-                    </ul>
+                <div class="my-auto text-center w-25">
+                    <a href="/" aria-label="Bootstrap">
+                        <img class="tether-icon-footer mx-auto" th:src="@{/img/black_icon_transparent_background.png}"
+                             alt="Tether Icon">
+                    </a>
+                    <br>
                 </div>
             </div>
         </div>

@@ -1,7 +1,12 @@
 <div th:fragment="chat-bar">
     <div sec:authorize="isAuthenticated()">
-        <ul id="list-friends">
+        <div class="btn-group dropup">
+            <button type="button" class="btn dropdown-toggle custom-chat-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-messenger"></i> Messenger
+            </button>
+            <ul class="dropdown-menu custom-chat" id="list-friends">
 
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>
