@@ -12,6 +12,7 @@ div#page-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-left: 600px;
 }
 
 .register-card {
@@ -37,4 +38,15 @@ div#page-content {
 
 input {
     margin: 5px 0;
+}
+
+div.margin-top {
+    margin-top: 140px;
+}
+
+.login-tether-logo {
+    position: fixed;
+    bottom: 550px;
+    left: 60px;
+    width: 780px
 }
