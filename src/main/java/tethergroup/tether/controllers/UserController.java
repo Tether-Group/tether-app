@@ -173,7 +173,21 @@ public class UserController {
                 friends.add(allFriendsOfUser.get(i));
             }
         }
-
+        if (postsOfUserOfProfilePage.isEmpty()) {
+            model.addAttribute("noPosts", true);
+        } else {
+            model.addAttribute("noPosts", false);
+        }
+        if (friends.isEmpty()) {
+            model.addAttribute("noFriends", true);
+        } else {
+            model.addAttribute("noFriends", false);
+        }
+        if (groups.isEmpty()) {
+            model.addAttribute("noGroups", true);
+        } else {
+            model.addAttribute("noGroups", false);
+        }
         model.addAttribute("user", user);
         model.addAttribute("requestExists", friendRequestExists);
         model.addAttribute("isPending", friendRequestIsPending);
@@ -245,6 +259,21 @@ public class UserController {
                 for (int i = 0; i < 5; i++) {
                     friends.add(allFriendsOfUser.get(i));
                 }
+            }
+            if (postsOfLoggedInUser.isEmpty()) {
+                model.addAttribute("noPosts", true);
+            } else {
+                model.addAttribute("noPosts", false);
+            }
+            if (friends.isEmpty()) {
+                model.addAttribute("noFriends", true);
+            } else {
+                model.addAttribute("noFriends", false);
+            }
+            if (groups.isEmpty()) {
+                model.addAttribute("noGroups", true);
+            } else {
+                model.addAttribute("noGroups", false);
             }
             model.addAttribute("groups", groups);
             model.addAttribute("posts", postsOfLoggedInUser);

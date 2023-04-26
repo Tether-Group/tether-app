@@ -49,3 +49,7 @@ button.profile-button:hover {
     border: 3px solid #3091f170;
     margin-left: 2em;
 }
+
+.profile-page-content {
+    min-height: 75vh;
+}
