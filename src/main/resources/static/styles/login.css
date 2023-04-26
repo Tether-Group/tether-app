@@ -1,0 +1,40 @@
+
+
+/*fixed footer for the login page*/
+div.fixed-footer-login {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+div#page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-card {
+    width: 18rem;
+    text-align: center;
+    margin: auto;
+}
+
+.requirement-verification {
+    font-size: 14px;
+    position: relative;
+    left: 320px;
+    bottom: 305px;
+    width: 74%;
+    border: 1px solid #8080805e;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+* {
+    font-family: 'Nobile', sans-serif;
+}
+
+input {
+    margin: 5px 0;
+}
