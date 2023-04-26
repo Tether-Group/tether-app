@@ -31,11 +31,20 @@ p.post-header {
     font-family: 'Nobile', sans-serif;
 }
 
-.post-details {
+p.post-details {
     margin: 0;
     font-size: 16px;
     font-weight: 300;
     font-family: 'Nobile', sans-serif;
+}
+
+a.post-details {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Nobile', sans-serif;
+    text-decoration: wavy;
+    color: grey;
 }
 
 .days-ago-info {
