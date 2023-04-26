@@ -31,7 +31,7 @@ img.welcome-logo {
 
 hr.under-tether-logo {
     color: #0586ef;
-    margin: 0 auto;
+    margin: 0 auto 55px auto;
     width: 60%;
     height: 3px;
     background-color: #0586ef;
@@ -64,6 +64,18 @@ footer.footer {
      color: black;
      text-align: center;
     border-radius: 3px;
+}
+
+.post-card-holder {
+    position: relative;
+    float: right;
+    display: inline-block;
+}
+
+.post-card-holder-width {
+    max-width: 880px;
+    width: 880px;
+    min-width: 880px;
 }
 
 p.index-footer-text {
