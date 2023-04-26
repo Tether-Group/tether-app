@@ -129,6 +129,9 @@ a.join-footer:hover {
 .group-bio {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
+    width: 250px;
+    height: 50px;
+    overflow: hidden;
 }
 
 /*pills on groups*/
