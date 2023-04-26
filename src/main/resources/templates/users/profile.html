@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title th:text="${user.username}"></title>
 	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/profile.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -89,14 +90,14 @@
 
 			<div class="row">
 				<p class="index-heading">Groups</p>
-				<ul class="list-group group-cards">
+				<ul class="list-group group-cards user-post-info">
 					<li th:each="group: ${groups}"
-						class="list-group-item d-flex justify-content-between align-items-start group-cards">
+						class="list-group-item d-flex justify-content-between align-items-start group-cards mx-1 mt-1">
 						<div class="ms-2 me-auto">
 							<a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
 								<div><span th:text="${group.name}"></span></div>
 							</a>
-							<span class="group-bio" th:text="${group.description}"></span>
+							<div class="group-bio" th:text="${group.description}"></div>
 						</div>
 						<div th:if="${group.private}">
 							<span class="badge rounded-pill private-pill">Private</span>
@@ -105,7 +106,7 @@
 							<span class="badge rounded-pill public-pill">Public</span>
 						</div>
 					</li>
-					<li class="list-group-item d-flex justify-content-between align-items-start group-cards">
+					<li class="list-group-item d-flex justify-content-between align-items-start group-cards mx-1">
 						<div th:if="${loggedInUser.id != user.id}">
 							<a th:href="@{'/groups/' + ${user.username}}">View all groups</a>
 						</div>
@@ -121,15 +122,14 @@
 			<div class="row">
 				<p class="index-heading">Friends</p>
 
-				<ul class="list-group">
-					<li th:each="friend: ${friends}" class="list-group-item d-flex justify-content-between align-items-start group-cards">
-						<div sec:authorize="isAuthenticated()">
-							<a th:href="@{/profile/{username}(username=${friend.username})}"><h2>
-								<img class="user-photo" th:src="${friend.profilePhotoUrl}">
-								<span th:text="${friend.username}"></span></h2></a>
-						</div>
+				<ul class="list-group group-cards user-post-info">
+					<li th:each="friend: ${friends}" class="list-group-item d-flex align-items-center friend-cards mx-1 mt-1">
+						<img class="friend-photo" th:src="${friend.profilePhotoUrl}">
+						<a th:href="@{/profile/{username}(username=${friend.username})}">
+							<div class="friend-name ps-3" th:text="${friend.username}"></div>
+						</a>
 					</li>
-					<li class="list-group-item d-flex justify-content-between align-items-start group-cards">
+					<li class="list-group-item d-flex justify-content-between align-items-start group-cards mx-1">
 						<a th:href="@{/profile/{username}/friends(username=${user.username})}">View all friends</a>
 					</li>
 				</ul>

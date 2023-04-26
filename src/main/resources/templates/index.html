@@ -10,31 +10,6 @@
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
 
-<!--EDIT POST MODAL-->
-<div class="modal fade" tabindex="-1" id="edit-post-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="/post/edit/text">
-                    <label>Title:</label>
-                    <input type="text" id="edit-modal-header-input"><br><br>
-                    <label>Content:</label>
-                    <input type="text" id="edit-modal-body-input"> <br><br>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--show logged-in user on index page when logged in-->
 <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
     <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span>
@@ -59,12 +34,12 @@
                 <p class="index-heading">Suggested Groups</p>
                 <ul class="list-group group-cards">
                     <li th:each="group: ${randoGroups}"
-                        class="list-group-item d-flex justify-content-between align-items-start group-cards">
+                        class="list-group-item d-flex justify-content-between align-items-start group-cards m-1">
                         <div class="ms-2 me-auto">
-                            <a class="group-a" th:href="@{/group/{id}(id=${group.getId()})}">
-                                <div><span th:text="${group.getName()}"></span></div>
+                            <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
+                                <div><span th:text="${group.name}"></span></div>
                             </a>
-                            <span class="group-bio" th:text="${group.getDescription()}"></span>
+                            <div class="group-bio" th:text="${group.description}"></div>
                         </div>
                         <div th:if="${group.private}">
                             <span class="badge rounded-pill private-pill">Private</span>
@@ -82,19 +57,19 @@
                 <div class="list-group post-card-holder post-card-holder-width">
                     <div th:each="post : ${posts}">
 
-                        <div th:if="${post.getPostType().getId() == 1}">
+                        <div th:if="${post.postType.id == 1}">
                             <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.getPostType().getId() == 2}">
+                        <div th:if="${post.postType.id == 2}">
                             <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.getPostType().getId() == 3}">
+                        <div th:if="${post.postType.id == 3}">
                             <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.getPostType().getId() == 4}">
+                        <div th:if="${post.postType.id == 4}">
                             <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
                         </div>
                     </div>
