@@ -126,12 +126,25 @@ a.join-footer:hover {
     text-decoration-thickness: 2px;
 }
 
-.group-bio {
-    font-family: 'Nobile', sans-serif;
-    font-size: 13px;
-    width: 250px;
-    height: 50px;
-    overflow: hidden;
+.group-bio{
+    width: 300px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    max-height:70px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    content: "";
+    position:relative;
+}
+
+.group-bio:before {
+    content:'';
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background:linear-gradient(transparent 10px, white);
 }
 
 /*pills on groups*/
