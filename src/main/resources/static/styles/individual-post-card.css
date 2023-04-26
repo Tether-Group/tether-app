@@ -5,13 +5,6 @@
     margin-bottom: 15px;
 }
 
-.post-card-holder {
-    position: relative;
-    float: right;
-    width: 55em;
-    display: inline-block;
-}
-
 /* user post image and info (top of card) */
 
 .posted-by-info {

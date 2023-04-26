@@ -134,7 +134,7 @@
 
 		<div class="col-7">
 			<p class="index-heading">Posts</p>
-			<div class="container-fluid list-group">
+			<div class="list-group post-card-holder-width">
 				<div th:each="post : ${posts}">
 
 					<div th:if="${post.getPostType().getId() == 1}">

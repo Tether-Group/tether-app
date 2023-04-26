@@ -25,7 +25,7 @@
     </div>
     <div th:if="${!searchedPosts.isEmpty()}">
         <h3>Posts related to your search</h3>
-        <div class="list-group" th:each="post: ${searchedPosts}">
+        <div class="list-group post-card-holder-width" th:each="post: ${searchedPosts}">
             <div>
                 <div th:if="${post.getPostType().getId() == 1}">
                     <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
