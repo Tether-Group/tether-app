@@ -70,26 +70,38 @@ div#v-pills-tab {
     justify-content: space-around;
 }
 
-.rounded-pill{
-    position: relative;
-    max-height: 20px;
-    float: right;
-    display: inline;
-    z-index: 1;
-    background-color: #0b80e5;
+.member-post-info a {
+    font-family: 'Nobile', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+    font-weight: 700;
 }
 
-.group-photo{
-    display: inline-block;
+.member-post-info a:hover {
+    text-decoration: underline;
+    text-decoration-color: #0586ef;
+    text-decoration-thickness: 2px;
+}
+
+.member-name {
+    font-size: large;
+}
+
+.member-photo {
     background-color: lightgray;
-    width: 2.5em;
-    height: 2.5em;
+    width: 3.5em;
+    height: 3.5em;
     border-radius: 100px;
+    border: 1px solid grey;
 }
 
-.user-photo{
-    position: relative;
+.member-cards {
     float: left;
-    margin-right: 10px;
+    width: 100%;
+}
 
+
+.group-page-content {
+    min-height: 75vh;
 }
