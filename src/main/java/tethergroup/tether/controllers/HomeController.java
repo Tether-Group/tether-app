@@ -29,6 +29,10 @@ public class HomeController {
     public String returnLandingPage(Model model) {
         List<Group> randomGroups = groupDao.randomGroupsLimitFive();
         List<Post> posts = postDao.findByOrderByPostDateDesc();
+        for (Post post : posts) {
+            System.out.println(post.getUser().getId());
+            System.out.println(post.getGroup().getAdmin().getId());
+        }
         model.addAttribute("randoGroups", randomGroups);
         User loggedInUser = new User();
         try {
@@ -47,8 +51,6 @@ public class HomeController {
         model.addAttribute("comments", comments);
         return "index";
     }
-
-//    @GetMapping("/")
 
     @GetMapping("/about")
     public String returnAboutPage() {return "about";}
