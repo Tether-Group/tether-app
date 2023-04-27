@@ -114,7 +114,8 @@ public class SecurityConfiguration {
                         "/about",
                         "/keys.js",
                         "/forgot_password",
-                        "/reset_password"
+                        "/reset_password",
+                        "/favicon.ico"
                         )
                 .permitAll()
 //                .and()
