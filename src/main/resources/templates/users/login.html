@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
     <link rel="stylesheet" href="/styles/login.css">
@@ -21,15 +21,15 @@
             <!--nav between login/register-->
             <div class="margin-top">
                 <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button th:class="${usernameExists} ? 'nav-link' : 'nav-link active'" id="pills-home-tab"
-                                data-bs-toggle="pill" data-bs-target="#pills-home"
+                    <li class="button-li" role="presentation">
+                        <button th:class="${usernameExists} ? 'nav-link' : 'nav-link active'" id="pills-login-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-login"
                                 type="button" role="tab">Log-in
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button th:class="${usernameExists} ? 'nav-link active' : 'nav-link'" id="pills-profile-tab"
-                                data-bs-toggle="pill" data-bs-target="#pills-profile"
+                    <li class="button-li" role="presentation">
+                        <button th:class="${usernameExists} ? 'nav-link active' : 'nav-link'" id="pills-register-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-register"
                                 type="button" role="tab">Register
                         </button>
                     </li>
@@ -39,7 +39,7 @@
             <!--content for each tab-->
             <!--if the username is good to go from the register, then the login will appear-->
             <div class="tab-content" id="pills-tabContent">
-                <div th:class="${usernameExists} ? 'tab-pane fade' : 'tab-pane fade show active'" id="pills-home"
+                <div th:class="${usernameExists} ? 'tab-pane fade' : 'tab-pane fade show active'" id="pills-login"
                      role="tabpanel">
                     <div class="card register-card bg-light">
                         <div class="card-body">
@@ -65,7 +65,7 @@
                 </div>
 
                 <!--if the username is not good, then the register will still be active-->
-                <div th:class="${usernameExists} ? 'tab-pane fade show active' : 'tab-pane fade'" id="pills-profile"
+                <div th:class="${usernameExists} ? 'tab-pane fade show active' : 'tab-pane fade'" id="pills-register"
                      role="tabpanel">
                     <div>
                         <div class="card register-card bg-light">

@@ -13,10 +13,18 @@
     justify-content: space-evenly;
 }
 
-#group-and-friend-container {
-    width: 25%;
+#group-flex-container, #user-flex-container {
+    width: 20%;
     display: flex;
     flex-direction: column;
+}
+
+/*all of the headers at the top of the page*/
+h3.content-header {
+    font-family: Oswald, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px 0;
 }
 
 /*keep footer at the bottom*/
@@ -34,4 +42,40 @@
     bottom: 0;
     width: 100%;
     height: 110px;
+}
+
+/*group cards*/
+.search-results-group-container {
+    padding-right: 5px;
+}
+
+.search-results-group-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 7px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9 !important;
+    height: 70px;
+}
+
+.group-bio-search-results {
+    margin-bottom: 5px;
+    max-height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    content: "";
+    position: relative;
+    font-size: 12px;
+    font-family: 'Nobile', sans-serif;
+}
+
+.group-bio-search-results:before {
+    content:'';
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background:linear-gradient(transparent 10px, white);
 }

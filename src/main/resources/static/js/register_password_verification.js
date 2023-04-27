@@ -1,5 +1,6 @@
 "use strict";
 
+//register password functions
 let myInput = document.getElementById('register-password');
 let lowercase = document.getElementById('lowercase');
 let uppercase = document.getElementById('uppercase');

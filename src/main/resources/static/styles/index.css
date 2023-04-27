@@ -112,15 +112,15 @@ a.join-footer:hover {
 
 /*suggest group styling*/
 
-.group-a {
+.search-results-group-a {
     font-family: 'Nobile', sans-serif;
     text-decoration: none;
     color: black;
-    font-size: 19px;
+    font-size: 15px;
     font-weight: 900;
 }
 
-.group-a:hover {
+.search-results-group-a:hover {
     text-decoration: underline;
     text-decoration-color: #0586ef;
     text-decoration-thickness: 2px;
