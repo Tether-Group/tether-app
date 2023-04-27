@@ -101,10 +101,6 @@ div.post-options-dropdown {
 }
 
 .custom-post-dropdown {
-    inset: 0;
-    margin: 0;
-    transform: translate3d(738px, 45px, 0px)!important;
-    padding: 0;
     min-width: 60px;
     width: 60px;
     border: none;

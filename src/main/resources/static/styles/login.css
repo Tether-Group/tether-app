@@ -54,6 +54,14 @@ img.margin-top {
     height: 260px;
 }
 
+.custom-height {
+    height: 385px;
+}
+
+.button-no-show {
+
+}
+
 /*fix footer to bottom of page*/
 #login-page-container {
     position: relative;
@@ -72,4 +80,14 @@ img.margin-top {
     bottom: 0;
     width: 100%;
     height: 110px;
+}
+
+button.nav-link {
+    text-decoration: none;
+    color: #ababab;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: white;
+    background-color: #212b3a;
 }
