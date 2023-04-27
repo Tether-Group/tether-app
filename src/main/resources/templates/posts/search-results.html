@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
     <link rel="stylesheet" href="/styles/search-results.css"/>
@@ -20,13 +20,42 @@
 
 <div id="page-content-with-footer">
     <div id="page-content-without-footer" class="page-content">
+
+        <div id="group-flex-container">
+            <div class="group-container">
+                <div th:if="${searchedGroups.isEmpty()}">
+                    <h3 class="content-header">There are no Groups related to your search.</h3>
+                </div>
+                <div th:if="${!searchedGroups.isEmpty()}">
+                    <h3 class="content-header">Groups related to your search</h3>
+                    <ul class="list-group">
+                        <li th:each="group: ${searchedGroups}"
+                            class="list-group-item search-results-group-card">
+                            <div class="search-results-group-container">
+                                <a class="search-results-group-a" th:href="@{/group/{id}(id=${group.id})}">
+                                    <div><span th:text="${group.name}"></span></div>
+                                </a>
+                                <div class="group-bio-search-results" th:text="${group.description}"></div>
+                            </div>
+                            <div th:if="${group.private}">
+                                <span class="badge rounded-pill private-pill">Private</span>
+                            </div>
+                            <div th:if="${!group.private}">
+                                <span class="badge rounded-pill public-pill">Public</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="post-container">
             <div>
                 <div th:if="${searchedPosts.isEmpty()}" class="no-postcard">
-                    <h3>There are no Posts related to your search.</h3>
+                    <h3 class="content-header">There are no Posts related to your search.</h3>
                 </div>
                 <div th:if="${!searchedPosts.isEmpty()}">
-                    <h3>Posts related to your search</h3>
+                    <h3 class="content-header">Posts related to your search</h3>
                     <div class="list-group post-card-holder-width" th:each="post: ${searchedPosts}">
                         <div>
                             <div th:if="${post.getPostType().getId() == 1}">
@@ -50,51 +79,26 @@
             </div>
         </div>
 
-        <div id="group-and-friend-container">
-            <div class="group-container">
-                <div th:if="${searchedGroups.isEmpty()}">
-                    <h3>There are no Groups related to your search.</h3>
-                </div>
-                <div th:if="${!searchedGroups.isEmpty()}">
-                    <h3>Groups related to your search</h3>
-                    <div class="card group-card" th:each="group: ${searchedGroups}">
-                        <div class="ms-2 me-auto">
-                            <a th:href="@{/group/{id}(id=${group.getId()})}">
-                                <h4><span th:text="${group.getName()}"></span></h4>
-                            </a>
-                            <span th:text="${group.getDescription()}"></span>
-                        </div>
-                        <div th:if="${group.private}">
-                            <span class="badge bg-dark rounded-pill">Private</span>
-                        </div>
-                        <div th:if="${!group.private}">
-                            <span class="badge bg-primary rounded-pill">Public</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+        <div id="user-flex-container">
             <div class="user-container">
                 <div th:if="${searchedUsers.isEmpty()}">
-                    <h3>There are no Users related to your search.</h3>
+                    <h3 class="content-header">There are no Users related to your search.</h3>
                 </div>
                 <div th:if="${!searchedUsers.isEmpty()}">
-                    <h3>Users related to your search</h3>
+                    <h3 class="content-header">Users related to your search</h3>
                     <div class="card user-card" th:each="user: ${searchedUsers}">
                         <div class="ms-2 me-auto">
                             <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
                                 <img class="user-photo" th:src="${user.profilePhotoUrl}">
                                 <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
                             </a>
-                            <p><span th:text="${user.bio}"></span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
     <div class="footer-stationary">
         <th:block th:insert="~{partials/footer :: footer}"></th:block>
     </div>

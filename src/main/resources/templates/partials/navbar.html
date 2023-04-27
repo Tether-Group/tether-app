@@ -42,6 +42,9 @@
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link nav-font" href="/groups">GROUPS</a>
                     </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link nav-font about-us-link-nav" href="/about">ABOUT US</a>
+                    </li>
 <!--end of dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item notification">
                         <a class="nav-link nav-font" th:href="@{/notifications}"><i class="bi bi-bell-fill"></i><span class="badge bg-dark" id="notification-count"></span></a>
