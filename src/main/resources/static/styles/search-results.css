@@ -1,57 +1,37 @@
-.search-form-container{
-    margin: 25px auto;
+/*.search-form-container{*/
+/*    margin: 25px auto;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.search-form{*/
+/*    width: 80%;*/
+/*}*/
+
+.page-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
-.search-form{
-    width: 80%;
+#group-and-friend-container {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
 }
 
-.post-card{
-    float: left;
-    width: 53em;
-    display: inline-block;
-    margin-right: 2em;
-    margin-bottom: .75em;
-    margin-left: 20px;
+/*keep footer at the bottom*/
+#page-content-with-footer {
+    position: relative;
+    min-height: 100vh;
 }
 
-.no-postcard{
-    margin-bottom: 200px;
+#page-content-without-footer {
+    padding-bottom: 130px;
 }
 
-.group-card-container{
-    margin-right: 20px;
-    float: right;
-    width: 430px;
-    margin-bottom: .75em;
-    padding: 10px;
+.footer-stationary {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
 }
-
-.group-card{
-    margin-right: 20px;
-    float: right;
-    width: 430px;
-    margin-bottom: .75em;
-    padding: 10px;
-    box-shadow: 3px 3px 3px #e9e7e7ef;
-}
-
-.user-card-container{
-    margin-right: 20px;
-    float: right;
-    width: 430px;
-    margin-bottom: .75em;
-    padding: 10px;
-}
-
-.user-card{
-    margin-right: 20px;
-    float: right;
-    width: 430px;
-    margin-bottom: .75em;
-    padding: 10px;
-    box-shadow: 3px 3px 3px #e9e7e7ef;
-}
-

@@ -8,13 +8,6 @@
 /*    bottom: 0;*/
 /*}*/
 
-#login-page-container {
-    position: relative;
-    height: 100vh;
-}
-
-
-
 div#page-content {
     display: flex;
     flex-direction: column;
@@ -62,6 +55,11 @@ img.margin-top {
 }
 
 /*fix footer to bottom of page*/
+#login-page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
 #login-page-wrap {
     width: 100%;
     display: flex;
