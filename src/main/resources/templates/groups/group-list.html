@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Groups List</title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
-	<link rel="stylesheet" href="/styles/group-list.css"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups List</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/group-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-
-<h1>This is the GROUPS LIST page</h1>
-
 <div class="container">
-		<div th:each="group: ${groups}" class="group-card">
-				<a th:href="@{/group/{id}(id=${group.id})}">
-					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-				</a>
-			<p class="mb-1"><span th:text="${group.description}"></span></p>
-			<a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span th:text="${group.admin}"></span></small></a>
-		</div>
+    <h1 class="header-font m-5 row">GROUP LIST</h1>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+            <div th:each="group: ${groups}" class="group-card">
+                <a th:href="@{/group/{id}(id=${group.id})}">
+                    <h5 class="mb-1"><span th:text="${group.name}"></span></h5>
+                </a>
+                <p class="mb-1"><span th:text="${group.description}"></span></p>
+                <a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span
+                        th:text="${group.admin}"></span></small></a>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
