@@ -1,18 +1,19 @@
 
 
 /*fixed footer for the login page*/
-div.fixed-footer-login {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-}
+/*div.fixed-footer-login {*/
+/*    position: fixed;*/
+/*    width: 100%;*/
+/*    left: 0;*/
+/*    bottom: 0;*/
+/*}*/
 
 div#page-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-left: 600px;
+    align-items: flex-start;
+    width: 40%
+    /*padding-left: 600px;*/
 }
 
 .register-card {
@@ -44,9 +45,31 @@ div.margin-top {
     margin-top: 140px;
 }
 
+img.margin-top {
+    margin-top: 200px;
+}
+
 .login-tether-logo {
+    width: 800px;
+    height: 260px;
+}
+
+/*fix footer to bottom of page*/
+#login-page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#login-page-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 110px;
+}
+
+.fixed-footer-login {
     position: fixed;
-    bottom: 550px;
-    left: 60px;
-    width: 780px
+    bottom: 0;
+    width: 100%;
+    height: 110px;
 }

@@ -7,128 +7,142 @@
     <link rel="stylesheet" href="/styles/login.css">
 </head>
 <body>
-<div id="page-content">
-    <!--nav between login/register-->
-    <div class="margin-top">
-        <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button th:class="${usernameExists} ? 'nav-link' : 'nav-link active'" id="pills-home-tab"
-                        data-bs-toggle="pill" data-bs-target="#pills-home"
-                        type="button" role="tab">Log-in
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button th:class="${usernameExists} ? 'nav-link active' : 'nav-link'" id="pills-profile-tab"
-                        data-bs-toggle="pill" data-bs-target="#pills-profile"
-                        type="button" role="tab">Register
-                </button>
-            </li>
-        </ul>
-    </div>
-
-    <!--content for each tab-->
-    <!--if the username is good to go from the register, then the login will appear-->
-    <div class="tab-content" id="pills-tabContent">
-        <div th:class="${usernameExists} ? 'tab-pane fade' : 'tab-pane fade show active'" id="pills-home"
-             role="tabpanel">
-            <div class="card register-card bg-light">
-                <div class="card-body">
-                    <h3>Log in</h3>
-
-                    <form th:action="@{/login}" th:method="POST" th:object="${user}">
-                        <input id="username" class="form-control" name="username" type="text" placeholder="Username">
-                        <input id="password" class="form-control" name="password" type="password" placeholder="Password">
-                        <input type="submit" class="submit-button submit-button-password w-100" value="Log In"/>
-                        <input type="hidden" th:field="${user.id}">
-                    </form>
-
-                    <div th:if="${errorMessage}">
-                        <p><span th:text="${errorMessage}"></span> - Incorrect username or password</p>
-                    </div>
-
-                    <a th:href="@{/forgot_password}">Reset Password</a>
-
-                </div>
-            </div>
+<!--footer to wrap-->
+<div id="login-page-container">
+<!--flexing the contents of the page to be next to one another-->
+    <div id="login-page-wrap">
+        <div>
+            <!--tether logo fixed on the left-->
+            <img th:src="@{/img/customcolor_logo_transparent_background.png}" alt="Tether Logo"
+                 class="login-tether-logo margin-top">
         </div>
+<!--flexing the right side of the page (login/register) to make it look much better-->
+        <div id="page-content">
+            <!--nav between login/register-->
+            <div class="margin-top">
+                <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button th:class="${usernameExists} ? 'nav-link' : 'nav-link active'" id="pills-home-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-home"
+                                type="button" role="tab">Log-in
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button th:class="${usernameExists} ? 'nav-link active' : 'nav-link'" id="pills-profile-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-profile"
+                                type="button" role="tab">Register
+                        </button>
+                    </li>
+                </ul>
+            </div>
 
-        <!--if the username is not good, then the register will still be active-->
-        <div th:class="${usernameExists} ? 'tab-pane fade show active' : 'tab-pane fade'" id="pills-profile"
-             role="tabpanel">
-            <div>
-                <div class="card register-card bg-light">
-                    <div class="card-body">
+            <!--content for each tab-->
+            <!--if the username is good to go from the register, then the login will appear-->
+            <div class="tab-content" id="pills-tabContent">
+                <div th:class="${usernameExists} ? 'tab-pane fade' : 'tab-pane fade show active'" id="pills-home"
+                     role="tabpanel">
+                    <div class="card register-card bg-light">
+                        <div class="card-body">
+                            <h3>Log in</h3>
 
-                        <h3>Register</h3>
-                        <div class="container">
-                            <form th:action="@{/register}" th:method="POST" th:object="${user}">
-                                <input id="register-first-name" name="register-first-name" th:field="*{firstName}"
-                                       class="form-control" placeholder="First name" required>
-
-                                <input id="register-last-name" name="register-last-name" th:field="*{lastName}"
-                                       class="form-control" placeholder="Last name" required>
-
-                                <div class="has-validation">
-                                    <input id="register-username" name="register-username" th:field="*{username}"
-                                           th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
-                                           placeholder="Username" required>
-                                    <div id="validationUsernameFeedback" class="invalid-feedback">
-                                        Username already exists.
-                                    </div>
-                                </div>
-
-                                <input id="register-email" name="register-email" th:field="*{email}"
-                                       class="form-control" placeholder="Email" required>
-
-                                <input id="register-password" name="register-password" type="password"
-                                       th:field="*{password}" class="form-control" placeholder="Password"
-                                       pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
-
-                                <input id="register-pw-verification" name="register-pw-verification" type="password"
-                                       class="form-control" placeholder="Re-enter password" required>
-
-                                <input id="submit-pw" value="Sign up" th:type="submit"
-                                       class="submit-button-password submit-button submit w-100">
+                            <form th:action="@{/login}" th:method="POST" th:object="${user}">
+                                <input id="username" class="form-control" name="username" type="text"
+                                       placeholder="Username">
+                                <input id="password" class="form-control" name="password" type="password"
+                                       placeholder="Password">
+                                <input type="submit" class="submit-button submit-button-password w-100" value="Log In"/>
+                                <input type="hidden" th:field="${user.id}">
                             </form>
+
+                            <div th:if="${errorMessage}">
+                                <p><span th:text="${errorMessage}"></span> - Incorrect username or password</p>
+                            </div>
+
+                            <a th:href="@{/forgot_password}">Reset Password</a>
+
                         </div>
                     </div>
-                    <!--                insert message here to see how it looks-->
+                </div>
+
+                <!--if the username is not good, then the register will still be active-->
+                <div th:class="${usernameExists} ? 'tab-pane fade show active' : 'tab-pane fade'" id="pills-profile"
+                     role="tabpanel">
                     <div>
+                        <div class="card register-card bg-light">
+                            <div class="card-body">
+
+                                <h3>Register</h3>
+                                <div class="container">
+                                    <form th:action="@{/register}" th:method="POST" th:object="${user}">
+                                        <input id="register-first-name" name="register-first-name"
+                                               th:field="*{firstName}"
+                                               class="form-control" placeholder="First name" required>
+
+                                        <input id="register-last-name" name="register-last-name" th:field="*{lastName}"
+                                               class="form-control" placeholder="Last name" required>
+
+                                        <div class="has-validation">
+                                            <input id="register-username" name="register-username"
+                                                   th:field="*{username}"
+                                                   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
+                                                   placeholder="Username" required>
+                                            <div id="validationUsernameFeedback" class="invalid-feedback">
+                                                Username already exists.
+                                            </div>
+                                        </div>
+
+                                        <input id="register-email" name="register-email" th:field="*{email}"
+                                               class="form-control" placeholder="Email" required>
+
+                                        <input id="register-password" name="register-password" type="password"
+                                               th:field="*{password}" class="form-control" placeholder="Password"
+                                               pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
+
+                                        <input id="register-pw-verification" name="register-pw-verification"
+                                               type="password"
+                                               class="form-control" placeholder="Re-enter password" required>
+
+                                        <input id="submit-pw" value="Sign up" th:type="submit"
+                                               class="submit-button-password submit-button submit w-100">
+                                    </form>
+                                </div>
+                            </div>
+                            <!--                insert message here to see how it looks-->
+                            <div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="requirement-verification bg-light">
-                <div id="message1" class="form-text">
-                    <p>Email Requirements:</p>
-                    <ul>
-                        <li id="asperand-register" class="invalid">Contain '@'</li>
-                        <li id=".com-register" class="invalid">Domain must be ".com"</li>
-                    </ul>
-                    <p>E.g. example@example.com</p>
-                </div>
-                <!--message for users registering-->
-                <div id="message2" class="form-text">
-                    <p>Password Requirements:</p>
-                    <ul>
-                    <li id="length" class="invalid">8-20 characters long</li>
-                    <li id="lowercase" class="invalid">Lowercase letters</li>
-                    <li id="uppercase" class="invalid">Uppercase letters</li>
-                    <li id="number" class="invalid">1 number</li>
-                    <li id="special" class="invalid">1 special character</li>
-                    <li id="empty" class="invalid">NO spaces</li>
-                    <li id="password-match" class="invalid">Password must match</li>
-                    </ul>
+                    <div class="requirement-verification bg-light">
+                        <div id="message1" class="form-text">
+                            <p>Email Requirements:</p>
+                            <ul>
+                                <li id="asperand-register" class="invalid">Contain '@'</li>
+                                <li id=".com-register" class="invalid">Domain must be ".com"</li>
+                            </ul>
+                            <p>E.g. example@example.com</p>
+                        </div>
+                        <!--message for users registering-->
+                        <div id="message2" class="form-text">
+                            <p>Password Requirements:</p>
+                            <ul>
+                                <li id="length" class="invalid">8-20 characters long</li>
+                                <li id="lowercase" class="invalid">Lowercase letters</li>
+                                <li id="uppercase" class="invalid">Uppercase letters</li>
+                                <li id="number" class="invalid">1 number</li>
+                                <li id="special" class="invalid">1 special character</li>
+                                <li id="empty" class="invalid">NO spaces</li>
+                                <li id="password-match" class="invalid">Password must match</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<!--tether logo fixed on the left-->
-<img th:src="@{/img/customcolor_logo_transparent_background.png}" alt="Tether Logo" class="login-tether-logo">
-<!--fixed login footer-->
-<div class="fixed-footer-login">
-    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    <!--fixed login footer-->
+    <div class="fixed-footer-login">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
 </div>
 <script th:src="@{/js/register_password_verification.js}"></script>
 </body>
