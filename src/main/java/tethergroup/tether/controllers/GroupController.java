@@ -89,7 +89,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/create")
-    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
+    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
@@ -101,6 +101,7 @@ public class GroupController {
                 if (photoURL != null) {
                     group.setGroupPhotoURL(photoURL);
                 }
+                group.setPrivate(isPrivate);
                 groupDao.save(group);
             } else {
                 return "redirect:/login";
