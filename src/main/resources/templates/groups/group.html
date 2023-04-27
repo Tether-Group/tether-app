@@ -192,15 +192,15 @@
 					<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
 							role="tab">All Posts
 					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-event" type="button"
+					<button th:if="${postTypeIdsOfGroup.contains(postType2Id)}" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-event" type="button"
 							role="tab">
 						Event Posts
 					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sale" type="button"
+					<button th:if="${postTypeIdsOfGroup.contains(postType3Id)}" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sale" type="button"
 							role="tab">
 						Sale Posts
 					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-qanda" type="button"
+					<button th:if="${postTypeIdsOfGroup.contains(postType4Id)}" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-qanda" type="button"
 							role="tab">
 						Q&A Posts
 					</button>
