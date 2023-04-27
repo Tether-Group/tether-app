@@ -21,7 +21,7 @@
 
 	<div class="d-flex">
 		<span class="header-font" th:text="${group.name}"></span>
-		<div class="align-self-center">
+		<div class="ms-1 align-self-center">
 			<!--    join group button/form-->
 			<div sec:authorize="isAuthenticated()">
 				<div th:if="${!isAdmin && !isMember && !isPending}">
@@ -170,7 +170,7 @@
 
 	</div>
 
-	<div class="row">
+	<div class="row mb-3">
 		<div sec:authorize="isAuthenticated()">
 			<div th:if="${(isMember && !isPending) || isAdmin}">
 				<th:block th:insert="~{partials/create-post :: create-post}"></th:block>
@@ -251,18 +251,6 @@
 								<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
 							</div>
 
-							<div th:if="${loggedInUser != null}">
-								<form th:if="${loggedInUser.id == admin.id && loggedInUser.id != post.user.id}"
-									  th:method="post"
-									  th:action="@{/post/delete}">
-									<input th:name="id" th:value="${post.id}" hidden>
-									<input th:name="groupId" th:value="${group.id}" hidden>
-									<button type="submit" class="btn btn-danger">
-										Delete
-									</button>
-								</form>
-							</div>
-
 						</div>
 					</div>
 
@@ -279,17 +267,6 @@
 						<div th:each="post: ${posts}">
 							<div th:if="${post.postType.id == 2}">
 								<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-								<div th:if="${loggedInUser != null}">
-									<form th:if="${loggedInUser.id == admin.id && loggedInUser.id != post.user.id}"
-										  th:method="post"
-										  th:action="@{/post/delete}">
-										<input th:name="id" th:value="${post.id}" hidden>
-										<input th:name="groupId" th:value="${group.id}" hidden>
-										<button type="submit" class="btn btn-danger">
-											Delete
-										</button>
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -300,17 +277,6 @@
 					<div class="post-list list-group">
 						<div th:each="post: ${posts}">
 							<div th:if="${post.postType.id == 3}">
-								<div th:if="${loggedInUser != null}">
-									<form th:if="${loggedInUser.id == admin.id && loggedInUser.id != post.user.id}"
-										  th:method="post"
-										  th:action="@{/post/delete}">
-										<input th:name="id" th:value="${post.id}" hidden>
-										<input th:name="groupId" th:value="${group.id}" hidden>
-										<button type="submit" class="btn btn-danger">
-											Delete
-										</button>
-									</form>
-								</div>
 								<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
 							</div>
 						</div>
@@ -323,17 +289,6 @@
 						<div th:each="post: ${posts}">
 							<div th:if="${post.postType.id == 4}">
 								<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-								<div th:if="${loggedInUser != null}">
-									<form th:if="${loggedInUser.id == admin.id && loggedInUser.id != post.user.id}"
-										  th:method="post"
-										  th:action="@{/post/delete}">
-										<input th:name="id" th:value="${post.id}" hidden>
-										<input th:name="groupId" th:value="${group.id}" hidden>
-										<button type="submit" class="btn btn-danger">
-											Delete
-										</button>
-									</form>
-								</div>
 							</div>
 						</div>
 					</div>
