@@ -65,6 +65,10 @@ ul.custom-chat {
     border: none;
 }
 
+.btn.show {
+    background-color: rgba(204, 204, 204, 0.98)!important;
+}
+
 .custom-chat-btn:hover {
     background-color: #8a8a8a;
 }
