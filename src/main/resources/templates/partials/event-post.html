@@ -1,22 +1,25 @@
 <th:block th:fragment="event-post">
-<!--posted by in which group showing-->
+    <!--posted by in which group showing-->
     <div class="individual-card-posts list-group-item list-group-item-action">
         <div th:id="'post-content'+${post.id}">
             <div class="d-flex w-100 justify-content-between post-item">
                 <div class="posted-by-info">
-                    <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    <a th:href="@{/profile/{username}(username=${post.user.username})}">
+                        <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    </a>
                     <div class="user-post-info post-info-font">
                         <a th:href="@{'/profile/' + ${post.user.username}}" th:text="${post.user}"></a>
                         <span> posted in </span>
                         <a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group.name}"></a>
                     </div>
                 </div>
-<!--three dot edit/delete-->
+                <!--three dot edit/delete-->
                 <div class="days-ago-info">
                     <div sec:authorize="isAuthenticated()">
                         <div th:if="${loggedInUser.getId() == post.user.id}">
-                            <div class="post-options-dropdown">
-                                <button class="three-dot-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="post-options-dropdown dropstart">
+                                <button class="three-dot-button" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                                 <div class="dropdown-menu custom-post-dropdown">
@@ -39,7 +42,7 @@
                     <span th:text="${post.postDateToString()}"></span>
                 </div>
             </div>
-<!--post details-->
+            <!--post details-->
             <p class="post-header"><span th:text="${post.header}"></span></p>
             <p class="post-details">
                 <span th:text="${#temporals.month(post.eventDate)}"></span> /
@@ -56,7 +59,7 @@
             </div>
             <p class="post-details"><span th:text="${post.body}"></span></p>
         </div>
-<!--edit modal-->
+        <!--edit modal-->
         <div sec:authorize="isAuthenticated()">
 
             <form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/event/edit}" hidden>
@@ -87,7 +90,7 @@
             </form>
         </div>
 
-<!--comments-->
+        <!--comments-->
         <div class="comments-container">
             <th:block th:insert="~{partials/comments :: comments}"></th:block>
         </div>

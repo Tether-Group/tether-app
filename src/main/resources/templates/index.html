@@ -12,8 +12,7 @@
 
 <!--show logged-in user on index page when logged in-->
 <div class="container-fluid logged-in-user" sec:authorize="isAuthenticated()">
-    <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span>
-    </p>
+    <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
 </div>
 
 <!--welcome logo-->
@@ -25,21 +24,21 @@
 <hr class="under-tether-logo">
 
 <!--page content-->
-<div class="page-content">
-    <div class="container">
-        <div class="row">
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer" class="page-content-index">
 
-<!-- groups-->
-            <div class="col-4 p-0">
-                <p class="index-heading">Suggested Groups</p>
-                <ul class="list-group group-cards">
+        <!-- groups-->
+        <div id="group-flex-container-index">
+            <div class="group-container">
+                <h3 class="content-header-index">Suggested Groups</h3>
+                <ul class="list-group">
                     <li th:each="group: ${randoGroups}"
-                        class="list-group-item d-flex justify-content-between align-items-start group-cards m-1">
-                        <div class="ms-2 me-auto">
-                            <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
+                        class="list-group-item index-group-card">
+                        <div class="index-group-container">
+                            <a class="index-group-a" th:href="@{/group/{id}(id=${group.id})}">
                                 <div><span th:text="${group.name}"></span></div>
                             </a>
-                            <div class="group-bio" th:text="${group.description}"></div>
+                            <div class="group-bio-index" th:text="${group.description}"></div>
                         </div>
                         <div th:if="${group.private}">
                             <span class="badge rounded-pill private-pill">Private</span>
@@ -50,60 +49,65 @@
                     </li>
                 </ul>
             </div>
+        </div>
 
-<!-- posts-->
-            <div class="col-8 p-0">
-                <p class="index-heading">Explore</p>
-                <div class="list-group post-card-holder post-card-holder-width">
-                    <div th:each="post : ${posts}">
-
-                        <div th:if="${post.postType.id == 1}">
+        <!-- posts-->
+        <div class="index-post-container">
+            <div>
+                <h3 class="content-header-index">Explore</h3>
+                <div class="list-group" th:each="post: ${posts}">
+                    <div>
+                        <div th:if="${post.getPostType().getId() == 1}">
                             <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.postType.id == 2}">
+                        <div th:if="${post.getPostType().getId() == 2}">
                             <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.postType.id == 3}">
+                        <div th:if="${post.getPostType().getId() == 3}">
                             <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
                         </div>
 
-                        <div th:if="${post.postType.id == 4}">
+                        <div th:if="${post.getPostType().getId() == 4}">
                             <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!--footer when not logged in-->
-<div sec:authorize="!isAuthenticated()">
-    <th:block th:insert="~{partials/loading-spinner :: loading-spinner}"></th:block>
-    <footer class="footer">
-        <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img
-                th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name"
-                alt="Tether Name"></span></p>
-    </footer>
-    <div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.3.js"
-                integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-                crossorigin="anonymous"></script>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
-        <script src="/keys.js"></script>
-        <div sec:authorize="isAuthenticated()">
-            <script th:src="@{/js/chat_bar.js}"></script>
+    </div>
+
+
+    <!--footer when not logged in-->
+    <div sec:authorize="!isAuthenticated()">
+        <th:block th:insert="~{partials/loading-spinner :: loading-spinner}"></th:block>
+        <footer class="footer">
+            <p class="index-footer-text"><a th:href="@{/login}" class="join-footer">Join</a> <span><img
+                    th:src="@{/img/black_text-logoname_transparent_background.png}" class="tether-name"
+                    alt="Tether Name"></span></p>
+        </footer>
+        <div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.3.js"
+                    integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+                    crossorigin="anonymous"></script>
+            <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
+            <script src="/keys.js"></script>
+            <div sec:authorize="isAuthenticated()">
+                <script th:src="@{/js/chat_bar.js}"></script>
+            </div>
+        </div>
+        <script th:src="@{/js/loading-spinner.js}"></script>
+    </div>
+
+    <!--footer when logged in-->
+    <div sec:authorize="isAuthenticated()">
+        <div class="footer-stationary">
+            <th:block th:insert="~{partials/footer :: footer}"></th:block>
         </div>
     </div>
-    <script th:src="@{/js/loading-spinner.js}"></script>
-</div>
-
-<!--footer when logged in-->
-<div sec:authorize="isAuthenticated()">
-    <th:block th:insert="~{partials/footer :: footer}"></th:block>
 </div>
 
 <script th:src="@{/js/posts.js}"></script>

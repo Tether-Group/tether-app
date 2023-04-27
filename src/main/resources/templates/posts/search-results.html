@@ -21,6 +21,7 @@
 <div id="page-content-with-footer">
     <div id="page-content-without-footer" class="page-content">
 
+<!--groups-->
         <div id="group-flex-container">
             <div class="group-container">
                 <div th:if="${searchedGroups.isEmpty()}">
@@ -49,6 +50,7 @@
             </div>
         </div>
 
+<!--posts-->
         <div class="post-container">
             <div>
                 <div th:if="${searchedPosts.isEmpty()}" class="no-postcard">
@@ -86,13 +88,16 @@
                 </div>
                 <div th:if="${!searchedUsers.isEmpty()}">
                     <h3 class="content-header">Users related to your search</h3>
-                    <div class="card user-card" th:each="user: ${searchedUsers}">
-                        <div class="ms-2 me-auto">
-                            <a th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                    <div class="card search-results-user-card" th:each="user: ${searchedUsers}">
+                        <a class="no-text-decoration" th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                            <div class="search-results-user-card-a">
                                 <img class="user-photo" th:src="${user.profilePhotoUrl}">
-                                <h4 class="fw-bold"><span th:text="${user.getUsername()}"></span></h4>
-                            </a>
-                        </div>
+                                <div>
+                                    <p class="search-results-user-card-p1"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
+                                    <p class="search-results-user-card-p2">@<span th:text="${user.getUsername()}"></span></p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

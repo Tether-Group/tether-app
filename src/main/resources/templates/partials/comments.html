@@ -20,9 +20,16 @@
                             <span class="m-0 flex-span">
                                 <a class="commenter"
                                    th:href="@{/profile/{username}(username=${comment.commenter.username})}">
-                                    <span th:text="${comment.commenter}"></span>
+                                    <img class="comment-photo" th:src="${comment.commenter.profilePhotoUrl}">
                                 </a>
-                                <span class="comment-text" th:text="${comment.content}"></span>
+                                <div class="comment-text">
+                                    <div>
+                                        <a class="commenter-name" th:href="@{/profile/{username}(username=${comment.commenter.username})}">
+                                            <span th:text="${comment.commenter.firstName}"></span> <span th:text="${comment.commenter.lastName}"></span>
+                                        </a>
+                                    </div>
+                                    <div><span class="commenter-comment" th:text="${comment.content}"></span></div>
+                                </div>
                                 <span class="comment-days-ago-info" th:text="${comment.commentDateToString()}"></span>
                             </span>
                         </div>

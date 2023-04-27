@@ -4,7 +4,9 @@
         <div th:id="'post-content'+${post.id}">
             <div class="d-flex w-100 justify-content-between post-item">
                 <div class="posted-by-info">
-                    <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    <a th:href="@{/profile/{username}(username=${post.user.username})}">
+                        <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    </a>
                     <div class="user-post-info post-info-font">
                         <a th:href="@{'/profile/' + ${post.user.getUsername()}}" th:text="${post.user}"></a>
                         <span> posted in </span>
@@ -15,7 +17,7 @@
                 <div class="days-ago-info">
                     <div sec:authorize="isAuthenticated()">
                         <div th:if="${loggedInUser.getId() == post.user.id}">
-                            <div class="post-options-dropdown">
+                            <div class="post-options-dropdown dropstart">
                                 <button class="three-dot-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
