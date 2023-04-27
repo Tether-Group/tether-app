@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Event</title>
-  <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -14,14 +14,27 @@
     <div th:id="event-map"></div>
 </div>
 
-<div class="container">
-    <p>Group: <a th:text="${eventPost.group}" th:href="@{/group/{id}(id=${eventPost.group.id})}"></a></p>
-    <p>Posted by <span th:text="${eventPost.user.firstName}"> </span> <span th:text="${eventPost.user.lastName}"></span></p>
-    <p><span th:text="${eventPost.header}"></span></p>
-    <p><span th:text="${eventPost.body}"></span></p>
-    <p>When: <span th:text="${eventPost.eventDate}"></span></p>
-    <p>Where: <span id="event-address" th:text="${eventPost.eventAddress}"></span></p>
-    <p>Please <a th:href="@{/messages/talk/{username}(username=${eventPost.user.username})}">Contact <span th:text="${eventPost.user.username}"></span></a> for more information</p>
+<div class="container-fluid d-flex justify-content-center my-4">
+    <div class="card w-50">
+        <h5 class="card-header"><span th:text="${eventPost.header}"></span>
+        </h5>
+        <div class="card-body">
+            <h5 class="card-title">Group: <a th:text="${eventPost.group}"
+                                             th:href="@{/group/{id}(id=${eventPost.group.id})}"></a></h5>
+            <p class="card-text">
+                <span th:text="${eventPost.body}"></span>
+                <br>
+                <br>
+                When: <span th:text="${eventPost.eventDate}"></span>
+                <br>
+                Where: <span id="event-address" th:text="${eventPost.eventAddress}"></span>
+            <br>
+            <div class="card-footer text-body-secondary">
+                Please Contact <a th:href="@{/messages/talk/{username}(username=${eventPost.user.username})}"><span
+                    th:text="${eventPost.user.username}"></span></a> for more information</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
