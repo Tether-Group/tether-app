@@ -16,3 +16,20 @@
     top: 54px;
     left: 57px;
 }
+
+.edit-profile-nav-link {
+    color: black;
+
+}
+
+.edit-profile-nav-link:hover {
+    color: black;
+    background-color: lightgray;
+}
+
+.edit-profile-nav-link.active {
+    color: black;
+    font-weight: bold;
+    background-color: lightgray;
+    border-left: #42a1ff solid 3px;
+}
