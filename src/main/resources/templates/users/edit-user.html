@@ -72,8 +72,8 @@
 
 						<div class="col-4 d-flex flex-column align-items-center">
 							<div>
-								<div><i class="bi bi-pencil"></i> Edit</div>
 								<button type="button" id="profile-photo-btn" onclick="openFileStackModalProfile()">
+									<div id="edit-profile-photo-badge" class="badge bg-dark">Edit</div>
 									<img
 											id="profile-photo-display" class="edit-profile-img-circle"
 											th:src="${user.profilePhotoUrl}"
