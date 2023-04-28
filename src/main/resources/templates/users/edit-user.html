@@ -6,140 +6,164 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Settings</title>
 	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/edit-profile.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
-<div class="d-flex align-items-start">
-	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
-		<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-				type="button" role="tab">Account Settings
-		</button>
-		<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-				type="button" role="tab">Profile Settings
-		</button>
-		<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-				type="button" role="tab">Security
-		</button>
-		<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-				type="button" role="tab">Messsages
-		</button>
-	</div>
-	<div class="tab-content" id="v-pills-tabContent">
-		<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel">
-			<form th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
-				<input id="id" type="hidden" th:field="*{id}">
-				<label for="firstname" class="form-label">First Name</label>
-				<input id="firstname" name="firstname" th:field="*{firstName}" class="form-control" required>
 
-				<label for="lastname" class="form-label">Last Name</label>
-				<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
-
-				<div class="has-validation">
-					<label for="username" class="form-label">Username</label>
-					<input id="username" name="username" th:field="*{username}" th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'" class="form-control" required>
-					<div id="validationUsernameFeedback" class="invalid-feedback">
-						Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
-					</div>
-				</div>
-
-				<label for="register-email" class="form-label">Email</label>
-				<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
-				<div id="message1" class="form-text">
-					Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span id=".com-register" class="invalid">domain must be ".com"</span>
-					<p>E.g. example@example.com</p>
-				</div>
-				<input value="Save Changes" th:type="submit" class="submit-button">
-			</form>
-<br>
-			<form th:action="@{/profile/editpassword}" th:method="POST">
-
-				<label for="oldpassword" class="form-label">Old Password</label>
-				<input id="oldpassword" name="oldpassword" type="password" class="form-control">
-
-				<label for="register-password" class="form-label">New Password</label>
-				<input id="register-password" name="register-password" type="password"
-					   class="form-control"
-					   pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
-
-				<label for="register-pw-verification" class="form-label">Re-Type New Password</label>
-				<input id="register-pw-verification" name="register-pw-verification" type="password"
-					   class="form-control" required>
-
-				<div id="message2" class="form-text">
-					Your password must be
-					<span id="length" class="invalid"> 8-20 characters long</span>
-					, contain <span id="lowercase" class="invalid">lowercase</span>
-					and<span id="uppercase" class="invalid"> uppercase</span>
-					letters and <span id="number" class="invalid"> numbers</span>,
-					<br>
-					and at least one <span id="special" class="invalid">special character</span>.  It can not contain
-					<span id="empty" class="invalid"> spaces</span> or emojis.
-					<br>
-					<p id="password-match" class="invalid">Password must match</p>
-				</div>
-
-
-				<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
-			</form>
-<br>
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				Delete account
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-body">
-								Are you sure you want to delete your account?
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-								<form th:action="@{/profile/delete}" th:method="post">
-									<button type="submit" class="btn btn-danger">Delete Account</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-		</div>
-		<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
-
-			<form th:method="post" th:action="@{/profile/change-photo}">
-				<img th:src="${user.profilePhotoUrl}" height="100px" width="100px">
-				<button id="profile-photo-btn" type="button" class="btn btn-secondary"
-						onclick="openFileStackModalProfile()">Change profile photo
+<div class="container m-5">
+	<div class="row">
+		<!-- Tab buttons for profile settings -->
+		<div class="d-flex align-items-start">
+			<div class="nav flex-column nav-pills me-3 col-2" id="v-pills-tab" role="tablist">
+				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-home"
+						type="button" role="tab">Edit Profile
 				</button>
-				<p id="display-file-name"></p>
-				<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}" th:name="photo-url">
-				<br>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</form>
-
-			<br>
-
-			<div class="form-floating">
-				<form th:method="post" th:action="@{/profile/change-bio}">
-				<textarea class="form-control" placeholder="Your Bio: " id="floatingTextarea2" style="height: 100px" th:name="bio-input" type="text" th:value="${user.bio}"></textarea>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</form>
+				<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-profile"
+						type="button" role="tab">Change Password
+				</button>
+				<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-messages"
+						type="button" role="tab">Security
+				</button>
+				<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-settings"
+						type="button" role="tab">Messsages
+				</button>
 			</div>
 
+			<div class="tab-content w-100 col-9" id="v-pills-tabContent">
+
+				<!--		edit profile tab -->
+				<div class="tab-pane fade show active container-fluid" id="v-pills-home" role="tabpanel">
+					<form class="row" th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
+						<input id="id" type="hidden" th:field="*{id}">
+						<div class="col-6 offset-1">
+
+							<br>
+							<label for="firstname" class="form-label">First Name</label>
+							<input id="firstname" name="firstname" th:field="*{firstName}" class="form-control"
+								   required>
+
+							<label for="lastname" class="form-label">Last Name</label>
+							<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
+
+							<div class="has-validation">
+								<label for="username" class="form-label">Username</label>
+								<input id="username" name="username" th:field="*{username}"
+									   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
+									   class="form-control" required>
+								<div id="validationUsernameFeedback" class="invalid-feedback">
+									Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
+								</div>
+							</div>
+
+							<label for="register-email" class="form-label">Email</label>
+							<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
+							<div id="message1" class="form-text">
+								Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span
+									id=".com-register" class="invalid">domain must be ".com"</span>
+								<p>E.g. example@example.com</p>
+							</div>
+							<input value="Save Changes" th:type="submit" class="submit-button">
+						</div>
+
+						<div class="col-4 d-flex flex-column align-items-center">
+							<div>
+								<div><i class="bi bi-pencil"></i> Edit</div>
+								<button type="button" id="profile-photo-btn" onclick="openFileStackModalProfile()">
+									<img
+											id="profile-photo-display" class="edit-profile-img-circle"
+											th:src="${user.profilePhotoUrl}"
+											th:field="${profilePhotoUrl}" alt="user" width="150px" height="150px">
+								</button>
+								<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
+									   th:name="photo-url">
+							</div>
+							<br>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-danger" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">
+								Delete account
+							</button>
+						</div>
+					</form>
+
+					<br>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								</div>
+								<div class="modal-body">
+									<div class="modal-body">
+										Are you sure you want to delete your account?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
+										</button>
+										<form th:action="@{/profile/delete}" th:method="post">
+											<button type="submit" class="btn btn-danger">Delete Account</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--		edit password tab -->
+				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
+
+					<form th:action="@{/profile/editpassword}" th:method="POST">
+
+						<label for="oldpassword" class="form-label">Old Password</label>
+						<input id="oldpassword" name="oldpassword" type="password" class="form-control">
+
+						<label for="register-password" class="form-label">New Password</label>
+						<input id="register-password" name="register-password" type="password"
+							   class="form-control"
+							   pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
+
+						<label for="register-pw-verification" class="form-label">Re-Type New Password</label>
+						<input id="register-pw-verification" name="register-pw-verification" type="password"
+							   class="form-control" required>
+
+						<div id="message2" class="form-text">
+							Your password must be
+							<span id="length" class="invalid"> 8-20 characters long</span>
+							, contain <span id="lowercase" class="invalid">lowercase</span>
+							and<span id="uppercase" class="invalid"> uppercase</span>
+							letters and <span id="number" class="invalid"> numbers</span>,
+							<br>
+							and at least one <span id="special" class="invalid">special character</span>. It can not
+							contain
+							<span id="empty" class="invalid"> spaces</span> or emojis.
+							<br>
+							<p id="password-match" class="invalid">Password must match</p>
+						</div>
+
+
+						<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
+					</form>
+
+				</div>
+
+				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
+				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
+			</div>
 		</div>
 
-		<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
-		<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
 	</div>
+
 </div>
+
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/register_password_verification.js}"></script>
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
