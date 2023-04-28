@@ -5,23 +5,32 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages</title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/messages.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
-<h2>this is the message page</h2>
-<!--<div sec:authentication="isAuthenticated()">-->
-    <!-- container element in which TalkJS will display a chat UI -->
-<input type="hidden" id="friendID" th:value="${friend.id}">
-<input type="hidden" id="friendUsername" th:name="username" th:value="${friend.username}">
-<input type="hidden" id="friendEmail" th:value="${friend.email}">
-<input type="hidden" id="friendPhotoURL" th:value="${friend.profilePhotoUrl}">
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer" class="page-content-messages">
 
-    <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
-        <i>Loading chat...</i>
+        <input type="hidden" id="myPhotoURL" th:value="${loggedInUser.profilePhotoUrl}">
+        <input type="hidden" id="friendID" th:value="${friend.id}">
+        <input type="hidden" id="friendUsername" th:name="username" th:value="${friend.username}">
+        <input type="hidden" id="friendEmail" th:value="${friend.email}">
+        <input type="hidden" id="friendPhotoURL" th:value="${friend.profilePhotoUrl}">
+
+        <div class="talk-js-styling">
+            <div id="talkjs-container">
+                <i>Loading chat...</i>
+            </div>
+        </div>
+
     </div>
-<!--</div>-->
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
+
+</div>
 <script th:src="@{/js/talkjs.js}"></script>
 </body>
 </html>

@@ -32,6 +32,8 @@ public class MessageController {
 
     @GetMapping("/messages/talk/{username}")
     public String startNewMessage(Model model, @PathVariable String username) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("loggedInUser", loggedInUser);
         User friend = userDao.findByUsername(username);
         model.addAttribute("friend", friend);
         return "users/messages";
