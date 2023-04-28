@@ -20,20 +20,16 @@
 
 		<h3>Group Requests</h3>
 
-		<div th:each="user : ${users}">
-			<div th:each="membership : ${user.memberships}">
-				<div th:if="${membership.pending == true}">
-					<a th:text="${user.username}" th:href="@{/profile/{username}(username=${user.username})}"></a>
-					would like to join your group
-					<span th:text="${membership.group}"></span>
-					<form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
-						<button class="btn btn-outline-success">Accept</button>
-					</form>
-					<form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
-						<button class="btn btn-outline-danger">Deny</button>
-					</form>
-				</div>
-			</div>
+		<div th:each="membership : ${membershipRequests}">
+			<a th:text="${membership.user.username}" th:href="@{/profile/{username}(username=${membership.user.username})}"></a>
+			would like to join your group <span th:text="${membership.group}"></span>
+
+			<form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
+				<button class="btn btn-outline-success">Accept</button>
+			</form>
+			<form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
+				<button class="btn btn-outline-danger">Deny</button>
+			</form>
 		</div>
 
 		<br>
