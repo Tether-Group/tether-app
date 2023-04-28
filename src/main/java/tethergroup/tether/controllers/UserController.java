@@ -73,7 +73,7 @@ public class UserController {
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
-        user.setProfilePhotoUrl("https://cdn.filestackcontent.com/8VHpiTBmQxazs1q0X7ZS");
+        user.setProfilePhotoUrl("https://cdn.filestackcontent.com/WIu7r67PS0qWdCtNEbIb");
         userDao.save(user);
         return "redirect:/login";
     }
@@ -287,19 +287,19 @@ public class UserController {
         return "users/profile";
     }
 
-    @PostMapping("/profile/change-photo")
-    public String changeProfilePhoto(@RequestParam("photo-url") String profilePhotoURL) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> actualUser = userDao.findById(user.getId());
-        if (actualUser.isPresent()) {
-            User userObj = actualUser.get();
-            userObj.setProfilePhotoUrl(profilePhotoURL);
-            userDao.save(userObj);
-        } else {
-            return "redirect:/login";
-        }
-        return "redirect:/profile/my-account";
-    }
+//    @PostMapping("/profile/change-photo")
+//    public String changeProfilePhoto(@RequestParam("photo-url") String profilePhotoURL) {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Optional<User> actualUser = userDao.findById(user.getId());
+//        if (actualUser.isPresent()) {
+//            User userObj = actualUser.get();
+//            userObj.setProfilePhotoUrl(profilePhotoURL);
+//            userDao.save(userObj);
+//        } else {
+//            return "redirect:/login";
+//        }
+//        return "redirect:/profile/my-account";
+//    }
 
     @PostMapping("/profile/change-bio")
     public String changeProfileBio(@RequestParam("bio-input") String bio) {
@@ -367,16 +367,15 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute User user) {
+    public String updateProfile(@ModelAttribute User user, @RequestParam("photo-url") String photoURL) {
         User userWithUniqueUsername = userDao.findByUsername(user.getUsername());
 
         if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(user.getUsername())) {
             return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
         }
         String userPassword = userDao.findById(user.getId()).get().getPassword();
-        String userPhotoURL = userDao.findById(user.getId()).get().getProfilePhotoUrl();
         user.setPassword(userPassword);
-        user.setProfilePhotoUrl(userPhotoURL);
+        user.setProfilePhotoUrl(photoURL);
         userDao.save(user);
         return "redirect:/profile/my-account";
     }

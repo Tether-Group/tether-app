@@ -11,50 +11,62 @@
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-<div class="container">
+<div class="container my-groups-page-content">
 
-	<h1 class="header-font m-5 row">MY GROUPS</h1>
+	<div class="row my-1">
 
-	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-		<li class="nav-item" role="presentation">
-			<button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab">All Groups</button>
-		</li>
-		<li class="nav-item" role="presentation">
-			<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab">Owned Groups</button>
-		</li>
-		<li class="nav-item" role="presentation">
-			<button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab">Joined Groups</button>
-		</li>
-	</ul>
-	<div class="tab-content" id="pills-tabContent">
+		<h1 class="header-font m-5 row">MY GROUPS</h1>
 
-		<div class="tab-pane fade show active" id="pills-home" role="tabpanel">
-			<div th:each="group: ${allGroups}" class="group-card">
-				<a th:href="@{/group/{id}(id=${group.id})}">
-					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-				</a>
-				<p class="mb-1"><span th:text="${group.description}"></span></p>
+		<div class="col-6">
+
+			<div class="card">
+				<h5 class="card-header">Owned Groups</h5>
+				<div class="card-body scroll">
+					<div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card group-info">
+						<a th:href="@{/group/{id}(id=${group.id})}">
+							<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
+						</a>
+						<p class="mb-1 group-bio"><span th:text="${group.description}"></span></p>
+					</div>
+				</div>
 			</div>
+
 		</div>
 
-		<div class="tab-pane fade" id="pills-profile" role="tabpanel">
-				<div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
-					<a th:href="@{/group/{id}(id=${group.id})}">
-						<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-					</a>
-					<p class="mb-1"><span th:text="${group.description}"></span></p>
-				</div>
-		</div>
+		<div class="col-6">
 
-		<div class="tab-pane fade" id="pills-contact" role="tabpanel">
-				<div th:each="group: ${groupsWhereUserIsMember}" class="group-card">
-					<a th:href="@{/group/{id}(id=${group.id})}">
-						<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-					</a>
-					<p class="mb-1"><span th:text="${group.description}"></span></p>
-					<a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span
-							th:text="${group.admin}"></span></small></a>
+			<div class="card">
+				<h5 class="card-header">Joined Groups</h5>
+				<div class="card-body scroll">
+<!--					<div th:each="group: ${groupsWhereUserIsMember}" class="group-card group-info">-->
+<!--						<a th:href="@{/group/{id}(id=${group.id})}">-->
+<!--							<h5 class="mb-1"><span th:text="${group.name}"></span></h5>-->
+<!--						</a>-->
+<!--						<p class="mb-1 group-bio"><span th:text="${group.description}"></span></p>-->
+<!--					</div>-->
+
+
+					<ul class="list-group group-cards user-post-info">
+						<li th:each="group: ${groupsWhereUserIsMember}"
+							class="list-group-item d-flex justify-content-between align-items-start group-cards mx-1 mt-1">
+							<div class="ms-2 me-auto">
+								<a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
+									<div><span th:text="${group.name}"></span></div>
+								</a>
+								<div class="group-bio" th:text="${group.description}"></div>
+							</div>
+							<div th:if="${group.private}">
+								<span class="badge rounded-pill private-pill">Private</span>
+							</div>
+							<div th:if="${!group.private}">
+								<span class="badge rounded-pill public-pill">Public</span>
+							</div>
+						</li>
+					</ul>
+
 				</div>
+			</div>
+
 		</div>
 
 	</div>
