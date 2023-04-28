@@ -14,21 +14,21 @@
 <div class="container m-5">
 	<div class="row">
 		<!-- Tab buttons for profile settings -->
-		<div class="d-flex align-items-start">
-			<div class="nav flex-column nav-pills me-3 col-2" id="v-pills-tab" role="tablist">
-				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+		<div class="d-flex align-items-start" style="overflow: hidden">
+			<div class="nav flex-column me-3 col-2" id="v-pills-tab" role="tablist">
+				<button class="nav-link edit-profile-nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home"
 						type="button" role="tab">Edit Profile
 				</button>
-				<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+				<button class="nav-link edit-profile-nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-profile"
 						type="button" role="tab">Change Password
 				</button>
-				<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+				<button class="nav-link edit-profile-nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-messages"
 						type="button" role="tab">Security
 				</button>
-				<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+				<button class="nav-link edit-profile-nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-settings"
 						type="button" role="tab">Messsages
 				</button>
@@ -40,7 +40,7 @@
 				<div class="tab-pane fade show active container-fluid" id="v-pills-home" role="tabpanel">
 					<form class="row" th:action="@{/profile/edit}" th:method="POST" th:object="${user}">
 						<input id="id" type="hidden" th:field="*{id}">
-						<div class="col-6 offset-1">
+						<div class="col-6">
 
 							<br>
 							<label for="firstname" class="form-label">First Name</label>
@@ -70,28 +70,27 @@
 							<input value="Save Changes" th:type="submit" class="submit-button">
 						</div>
 
-						<div class="col-4 d-flex flex-column align-items-center">
-							<div>
-								<button type="button" id="profile-photo-btn" onclick="openFileStackModalProfile()">
-									<div id="edit-profile-photo-badge" class="badge bg-dark">Edit</div>
-									<img
-											id="profile-photo-display" class="edit-profile-img-circle"
-											th:src="${user.profilePhotoUrl}"
-											th:field="${profilePhotoUrl}" alt="user" width="150px" height="150px">
-								</button>
-								<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
-									   th:name="photo-url">
-							</div>
-							<br>
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-									data-bs-target="#exampleModal">
-								Delete account
+						<div class="col-3 d-flex flex-column align-items-center">
+							<button type="button" id="profile-photo-btn" onclick="openFileStackModalProfile()">
+								<div id="edit-profile-photo-badge" class="badge bg-dark">Edit</div>
+								<img
+										id="profile-photo-display" class="edit-profile-img-circle"
+										th:src="${user.profilePhotoUrl}"
+										th:field="${profilePhotoUrl}" alt="user" width="150px" height="150px">
 							</button>
+							<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
+								   th:name="photo-url">
+							<br>
 						</div>
 					</form>
 
 					<br>
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal"
+							data-bs-target="#exampleModal">
+						Delete account
+					</button>
 
 					<!-- Modal -->
 					<div class="modal fade" id="exampleModal" tabindex="-1">
@@ -119,38 +118,39 @@
 				</div>
 
 				<!--		edit password tab -->
-				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel">
+				<div class="tab-pane fade container-fluid" id="v-pills-profile" role="tabpanel">
 
-					<form th:action="@{/profile/editpassword}" th:method="POST">
+					<form class="row" th:action="@{/profile/editpassword}" th:method="POST">
+						<div class="col-6">
+							<label for="oldpassword" class="form-label">Old Password</label>
+							<input id="oldpassword" name="oldpassword" type="password" class="form-control">
 
-						<label for="oldpassword" class="form-label">Old Password</label>
-						<input id="oldpassword" name="oldpassword" type="password" class="form-control">
+							<label for="register-password" class="form-label">New Password</label>
+							<input id="register-password" name="register-password" type="password"
+								   class="form-control"
+								   pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
 
-						<label for="register-password" class="form-label">New Password</label>
-						<input id="register-password" name="register-password" type="password"
-							   class="form-control"
-							   pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,20}$" required>
+							<label for="register-pw-verification" class="form-label">Re-Type New Password</label>
+							<input id="register-pw-verification" name="register-pw-verification" type="password"
+								   class="form-control" required>
 
-						<label for="register-pw-verification" class="form-label">Re-Type New Password</label>
-						<input id="register-pw-verification" name="register-pw-verification" type="password"
-							   class="form-control" required>
+							<div id="message2" class="form-text">
+								Your password must be
+								<span id="length" class="invalid"> 8-20 characters long</span>
+								, contain <span id="lowercase" class="invalid">lowercase</span>
+								and<span id="uppercase" class="invalid"> uppercase</span>
+								letters and <span id="number" class="invalid"> numbers</span>,
+								<br>
+								and at least one <span id="special" class="invalid">special character</span>. It can not
+								contain
+								<span id="empty" class="invalid"> spaces</span> or emojis.
+								<br>
+								<p id="password-match" class="invalid">Password must match</p>
+							</div>
 
-						<div id="message2" class="form-text">
-							Your password must be
-							<span id="length" class="invalid"> 8-20 characters long</span>
-							, contain <span id="lowercase" class="invalid">lowercase</span>
-							and<span id="uppercase" class="invalid"> uppercase</span>
-							letters and <span id="number" class="invalid"> numbers</span>,
-							<br>
-							and at least one <span id="special" class="invalid">special character</span>. It can not
-							contain
-							<span id="empty" class="invalid"> spaces</span> or emojis.
-							<br>
-							<p id="password-match" class="invalid">Password must match</p>
+
+							<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
 						</div>
-
-
-						<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
 					</form>
 
 				</div>
