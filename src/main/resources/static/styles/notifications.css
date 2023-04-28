@@ -31,7 +31,6 @@
 .group-cards-container, .friend-cards-container {
     border: 1px solid lightgrey;
     border-radius: 0.35em;
-    padding: 0.5em 0;
     box-shadow: 3px 3px 3px #e9e7e7ef;
 }
 
@@ -49,9 +48,8 @@
 .request-div {
     display: flex;
     flex-direction: row;
-    padding: 0 0.5em 0.5em 0.5em;
+    padding: 0.5em;
     border-bottom: 1px solid lightgrey;
-    margin-bottom: 0.5em;
 }
 
 .notifications-image-a {
@@ -115,6 +113,28 @@
 
 .sent-you-a-request-p {
     margin: 0 0.5em;
+}
+
+i.bi-person-circle {
+    font-size: 1.2em;
+    color: #3091f1;
+    border-radius: 10em;
+}
+
+i.bi-people-fill {
+    font-size: 1.2em;
+    color: #3091f1;
+    border: none
+}
+
+.group-friend-icon-div {
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0.7em;
+    top: 2em;
+    border: none;
+    background: transparent;
 }
 
 /*keep footer at the bottom*/

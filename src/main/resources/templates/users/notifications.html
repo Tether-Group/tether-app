@@ -38,6 +38,10 @@
                                 </a>
                             </div>
 
+                            <div class="group-friend-icon-div">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
                             <div class="notifications-group-request-font">
                                 <div class="d-flex">
                                     <a class="notif-username-a"
@@ -81,6 +85,10 @@
                                 </a>
                             </div>
 
+                            <div class="group-friend-icon-div">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+
                             <div class="notifications-group-request-font">
                                 <div class="d-flex">
                                     <a class="notif-username-a"
@@ -95,11 +103,13 @@
                                     <form class="notification-form-width"
                                           th:action="@{/profile/{userId}/accept(userId=${friendship.requester.id})}"
                                           th:method="POST">
+                                        <input th:name="currentPage" th:value="notifications-page" hidden>
                                         <button class="notification-confirm-button">Confirm</button>
                                     </form>
                                     <form class="notification-form-width"
                                           th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}"
-                                          th:method="POST">
+                                          th:method="GET">
+                                        <input th:name="currentPage" th:value="notifications-page" hidden>
                                         <button class="notification-delete-button">Delete</button>
                                     </form>
                                 </div>
