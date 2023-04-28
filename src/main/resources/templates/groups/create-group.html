@@ -1,73 +1,111 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Create group</title>
 		<th:block th:insert="~{partials/styles :: styles}"></th:block>
 		<link rel="stylesheet" href="/styles/create-group.css"/>
-	</head>
+</head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
 <div class="form-container">
-	<h1>Create A New Group</h1>
-<form th:method="post" th:action="@{/group/create}" th:object="${group}">
-	<div class="mx-auto">
+    <h1>Create A New Group</h1>
+    <form th:method="post" th:action="@{/group/create}" th:object="${group}">
+        <div class="mx-auto">
 
-		<div class="photo-container">
-			<button type="button" class="photo-btn btn btn-secondary" onclick="openFileStackModal()">Add cover photo</button>
-			<input hidden id="photo-url" th:name="photo-url">
-			<div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>
-		</div>
+            <div class="photo-container">
+                <button type="button" class="photo-btn btn btn-primary" onclick="openFileStackModal()"><p>Add cover
+                    photo</p>
+                </button>
+                <input hidden id="photo-url" th:name="photo-url">
+                <div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>
+            </div>
 
-		<div class="group-name-div form-floating mb-3">
-			<input type="text" class="form-control" id="group-name" placeholder="Example Group Name" th:field="*{name}" required>
-			<label for="group-name">Group Name</label>
-		</div>
-		<br>
-		<div class="form-floating group-description-text-area">
-			<textarea class="form-control" placeholder="Group Description Here" id="description" th:field="*{description}" style="height: 150px"></textarea>
-			<label for="description">Group Description</label>
-		</div>
-		<br>
-		<label for="visibility">Visibility:</label>
-		<input type="checkbox" name="private" th:field="*{private}" id="visibility">
-		<span>Private</span>
-		<br>
-		<label for="post-types">Post Types:</label>
-		<select name="postTypes" id="post-types" th:field="*{postTypes}" multiple>
-			<option value="2">Event</option>
-			<option value="3">For Sale</option>
-			<option value="4">Q&A</option>
-		</select>
-		<br>
-		<input type="hidden" th:field="*{id}">
-	</div>
-	<div class="mx-auto">
-		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		<button type="submit" class="btn btn-primary">Create Group</button>
-	</div>
-</form>
+            <div class="group-name-div form-floating mb-3">
+                <input type="text" class="form-control" id="group-name" placeholder="Example Group Name"
+                       th:field="*{name}" required>
+                <label for="group-name"><p>Group Name</p></label>
+            </div>
+            <br>
+            <div class="form-floating group-description-text-area">
+                <textarea class="form-control" placeholder="Group Description Here" id="description"
+                          th:field="*{description}" style="height: 150px"></textarea>
+                <label for="description"><P>Group Description</p></label>
+            </div>
+            <br>
+
+            <h2>Visibility:</h2>
+            <div class="visibility-container">
+                <div>
+                    <label class="visibility-form"><p>Public</p>
+                    <input type="radio" id="public" name="visibility" value="false" checked>
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="visibility-form"><p>Private</p>
+                    <input type="radio" id="private" name="visibility" value="true">
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+
+            </div>
+
+
+            <br>
+            <h2>Additional Post Types:</h2>
+            <div class="post-type-container">
+                <div>
+                    <label class="post-type-form"><p>Event</p>
+                    <input type="checkbox" name="postTypes" value="2" th:checked="*{postTypes}">
+                    <span class="checkmark2"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="post-type-form"><p style="width: 85px">For Sale</p>
+                    <input type="checkbox" name="postTypes" value="3" th:checked="*{postTypes}">
+                    <span class="checkmark2"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="post-type-form"><p>QandA</p>
+                    <input type="checkbox" name="postTypes" value="4" th:checked="*{postTypes}">
+                    <span class="checkmark2"></span>
+                    </label>
+                </div>
+
+            </div>
+
+
+
+
+            <br>
+            <input type="hidden" th:field="*{id}">
+        </div>
+        <div class="mx-auto">
+            <button type="submit" class="btn btn-primary submit-button">Create Group</button>
+        </div>
+    </form>
 </div>
 
 <th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
-	const preview = document.getElementById("preview");
-	const photoText = document.getElementById("no-photo-selected")
+    const preview = document.getElementById("preview");
+    const photoText = document.getElementById("no-photo-selected")
     const inputForPhotoURL = document.getElementById("photo-url");
 
     const client = filestack.init(FILESTACK_API_KEY);
-	const options = {
+    const options = {
         onFileUploadFinished(file) {
             inputForPhotoURL.value = file.url;
-			photoText.style.display = "none"
-			preview.innerHTML = `<img src="${file.url}" alt="preview">`
-		}
-	}
+            photoText.style.display = "none"
+            preview.innerHTML = `<img src="${file.url}" alt="preview">`
+        }
+    }
     const openFileStackModal = () => {
         client.picker(options).open();
     };

@@ -49,41 +49,41 @@
             <p class="post-details"><span th:text="${post.body}"></span></p>
         </div>
 
-<!--edit modal-->
-        <div sec:authorize="isAuthenticated()">
+		<!--edit modal-->
+		<div sec:authorize="isAuthenticated()">
 
-            <form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/sale/edit}" hidden>
-                <input th:name="price" class="edit-post-input" th:value="${post.postPrice}">
-                <label>Price</label>
-                <br>
-                <input th:name="header" class="edit-post-input" th:value="${post.header}">
-                <label>Title</label>
-                <br>
-                <input th:name="body" class="edit-post-input" th:value="${post.body}">
-                <label>Description</label>
-                <br>
+			<form method="post" th:id="'hidden-form'+${post.id}" th:action="@{/post/sale/edit}" hidden>
+				<input th:name="price" class="edit-post-input" th:value="${post.postPrice}">
+				<label>Price</label>
+				<br>
+				<input th:name="header" class="edit-post-input" th:value="${post.header}">
+				<label>Title</label>
+				<br>
+				<input th:name="body" class="edit-post-input" th:value="${post.body}">
+				<label>Description</label>
+				<br>
 
-                <input th:name="id" th:value="${post.id}" hidden>
+				<input th:name="id" th:value="${post.id}" hidden>
 
 
-                <div th:if="${loggedInUser.getId() == post.user.id}">
-                    <button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
-                            class="cancel-post-button">Cancel
-                    </button>
+				<div th:if="${loggedInUser.getId() == post.user.id}">
+					<button type="button" onclick="cancelEditingPost(event)" th:id="'cancel-button'+${post.id}"
+							class="cancel-post-button">Cancel
+					</button>
 
-                    <button type="submit" th:id="'save-button'+${post.id}"
-                            class="update-post-button">Save
-                    </button>
-                </div>
-            </form>
-        </div>
+					<button type="submit" th:id="'save-button'+${post.id}"
+							class="update-post-button">Save
+					</button>
+				</div>
+			</form>
+		</div>
 
-<!--comments-->
-        <div class="comments-container">
-            <th:block th:insert="~{partials/comments :: comments}"></th:block>
-        </div>
+		<!--comments-->
+		<div class="comments-container">
+			<th:block th:insert="~{partials/comments :: comments}"></th:block>
+		</div>
 
-    </div>
+	</div>
 
 </th:block>
 
