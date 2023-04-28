@@ -1,0 +1,155 @@
+/*flexing entire page minus footer*/
+.page-content-notifications {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+/*div right under nav for the user and notification count*/
+.general-notification-info {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-family: Oswald, sans-serif;
+    font-size: 2.2em;
+    margin-top: 0.76em;
+}
+
+/*contains the group and friend requests*/
+.all-request-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 2em;
+}
+
+.group-request-container, .friend-request-container {
+    max-width: 45%;
+}
+
+.group-cards-container, .friend-cards-container {
+    border: 1px solid lightgrey;
+    border-radius: 0.35em;
+    box-shadow: 3px 3px 3px #e9e7e7ef;
+}
+
+.group-cards-container:hover, .friend-cards-container:hover {
+    box-shadow: 3px 3px 3px #d8eafc;
+}
+
+.content-header-notifications {
+    font-family: Oswald, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.1em;
+}
+
+.request-div {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    border-bottom: 1px solid lightgrey;
+}
+
+.notifications-image-a {
+    display: inline-block;
+    background-color: transparent;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 100px;
+    border: none;
+    text-decoration: none;
+    margin-right: 0.5em;
+}
+
+.notification-user-photo {
+    display: inline-block;
+    background-color: lightgray;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 100px;
+    border: 1px solid grey;
+    text-decoration: none;
+}
+
+.notifications-group-request-font { /*also used for the friend request font*/
+    font-family: 'Nobile', sans-serif;
+    font-size: 1em;
+}
+
+.notif-username-a {
+    text-decoration: none;
+    color: black;
+}
+
+.notification-button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 0.2em;
+}
+
+.notification-form-width {
+    width: 30%;
+}
+
+.notification-confirm-button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+}
+
+.notification-delete-button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #e5e5e5;
+}
+
+.sent-you-a-request-p {
+    margin: 0 0.5em;
+}
+
+i.bi-person-circle {
+    font-size: 1.2em;
+    color: #3091f1;
+    border-radius: 10em;
+}
+
+i.bi-people-fill {
+    font-size: 1.2em;
+    color: #3091f1;
+    border: none
+}
+
+.group-friend-icon-div {
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0.7em;
+    top: 2em;
+    border: none;
+    background: transparent;
+}
+
+/*keep footer at the bottom*/
+#page-content-with-footer {
+    position: relative;
+    min-height: 100vh;
+}
+
+#page-content-without-footer {
+    padding-bottom: 130px;
+}
+
+.footer-stationary {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
+}

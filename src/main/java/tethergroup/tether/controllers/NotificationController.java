@@ -34,8 +34,10 @@ public class NotificationController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("loggedInUser", loggedInUser);
 
+//        getting the notification count
         Long groupRequestCount = groupDao.getCountOfGroupRequestsForLoggedInUserAndAdmin(loggedInUser.getId());
 
+//        getting the friend requests for the logged in user to accept/deny
         Long friendRequestCount = friendshipDao.getCountOfFriendRequestsForLoggedInUser(loggedInUser.getId());
         Long notificationCount = groupRequestCount + friendRequestCount;
         model.addAttribute("requestCount", notificationCount);
@@ -47,18 +49,16 @@ public class NotificationController {
         for (Friendship friendshipRequest : friendshipRequests) {
             System.out.println(friendshipRequest.getRequester());
         }
+        System.out.println(friendshipRequests);
         model.addAttribute("friendshipRequests", friendshipRequests);
 
-//       the code first converts the users collection to a stream, then maps each User object to a stream of its pending
-//       Membership objects (using flatMap()), and collects all the pending Membership objects into a Set
-//       using the collect() method with the toSet() collector from the Collectors class. The resulting set is then
-//       added as an attribute to the model object to store it in the model.
-        model.addAttribute("needThisToDisplayMemberships",
-            users
-                .stream()
-                .flatMap(u -> u.getMemberships().stream().filter(m -> m.isPending()))
-                .collect(Collectors.toSet())
-        );
+//        getting the pending group requests for the logged in user to accept/deny
+        List<Membership> membershipRequests = membershipDao.findMembershipsFromGroupJoinRequestsForTheLoggedInUser(loggedInUser.getId());
+        for (Membership membershipRequest : membershipRequests) {
+            System.out.println(membershipRequest.getUser().getId());
+        }
+        System.out.println(membershipRequests);
+        model.addAttribute("membershipRequests", membershipRequests);
 
         return "users/notifications";
 //        return "redirect:/error";

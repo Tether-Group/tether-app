@@ -1,51 +1,51 @@
 <th:block th:fragment="text-post">
-	<!--posted by in which group showing-->
-	<div class="individual-card-posts list-group-item list-group-item-action">
-		<div th:id="'post-content'+${post.id}">
-			<div class="d-flex w-100 justify-content-between post-item">
-				<div class="posted-by-info">
-					<img class="user-photo" th:src="${post.user.profilePhotoUrl}">
-					<div class="user-post-info post-info-font">
-						<a th:href="@{'/profile/' + ${post.user.username}}" th:text="${post.user}"></a>
-						<span> posted in </span>
-						<a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group}"></a>
-					</div>
-				</div>
-				<!--three dot edit/delete-->
-				<div class="days-ago-info">
-					<div sec:authorize="isAuthenticated()">
-						<div th:if="${loggedInUser.id == post.user.id or loggedInUser.id == post.group.admin.id}">
-							<div class="post-options-dropdown">
-								<button class="three-dot-button" type="button" data-bs-toggle="dropdown"
-										aria-expanded="false">
-									<i class="bi bi-three-dots"></i>
-								</button>
-								<div class="dropdown-menu custom-post-dropdown">
-									<div th:if="${loggedInUser.id == post.user.id}">
-										<button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
-												class="dropdown-edit-button">
-											Edit
-										</button>
-									</div>
-									<form th:method="post" th:action="@{/post/delete}">
-										<input th:name="id" class="mb-1" th:value="${post.id}" hidden>
-										<input th:name="groupId" th:value="${post.group.id}" hidden>
-										<button type="submit" th:id="'delete-button'+${post.id}"
-												class="dropdown-delete-button">
-											Delete
-										</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<span th:text="${post.postDateToString()}"></span>
-				</div>
-			</div>
-			<!--post details-->
-			<p class="post-header"><span th:text="${post.header}"></span></p>
-			<p class="post-details"><span th:text="${post.body}"></span></p>
-		</div>
+<!--posted by in which group showing-->
+    <div class="individual-card-posts list-group-item list-group-item-action">
+        <div th:id="'post-content'+${post.id}">
+            <div class="d-flex w-100 justify-content-between post-item">
+                <div class="posted-by-info">
+                    <a th:href="@{/profile/{username}(username=${post.user.username})}">
+                        <img class="user-photo" th:src="${post.user.profilePhotoUrl}">
+                    </a>
+                    <div class="user-post-info post-info-font">
+                        <a th:href="@{'/profile/' + ${post.user.username}}" th:text="${post.user}"></a>
+                        <span> posted in </span>
+                        <a th:href="@{'/group/' + ${post.group.id}}" th:text="${post.group}"></a>
+                    </div>
+                </div>
+<!--three dot edit/delete-->
+                <div class="days-ago-info">
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${loggedInUser.getId() == post.user.id}">
+                            <div class="post-options-dropdown dropstart">
+                                <button class="three-dot-button" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <div class="dropdown-menu custom-post-dropdown">
+                                    <button type="button" onclick="editPost(event)" th:id="'edit-button'+${post.id}"
+                                            class="dropdown-edit-button">
+                                        Edit
+                                    </button>
+                                    <form th:method="post" th:action="@{/post/delete}">
+                                        <input th:name="id" class="mb-1" th:value="${post.id}" hidden>
+                                        <input th:name="groupId" th:value="${post.group.id}" hidden>
+                                        <button type="submit" th:id="'delete-button'+${post.id}"
+                                                class="dropdown-delete-button">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span th:text="${post.postDateToString()}"></span>
+                </div>
+            </div>
+<!--post details-->
+            <p class="post-header"><span th:text="${post.header}"></span></p>
+            <p class="post-details"><span th:text="${post.body}"></span></p>
+        </div>
 
 		<!--edit modal-->
 		<div sec:authorize="isAuthenticated()">

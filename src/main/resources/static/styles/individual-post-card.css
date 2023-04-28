@@ -5,6 +5,11 @@
     margin-bottom: 15px;
 }
 
+.individual-card-posts:hover {
+    box-shadow: 2px 2px 2px #c2deff;
+    background-color: transparent!important;
+}
+
 /* user post image and info (top of card) */
 
 .posted-by-info {
@@ -33,7 +38,7 @@ p.post-header {
 
 p.post-details {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
     font-family: 'Nobile', sans-serif;
 }
@@ -104,6 +109,7 @@ div.post-options-dropdown {
     min-width: 60px;
     width: 60px;
     border: none;
+    text-align: center;
     background-color: transparent;
 }
 
@@ -140,6 +146,9 @@ button.dropdown-delete-button:hover {
 }
 
 /* comments container (bottom of card) */
+a.commenter {
+    width: 4%;
+}
 
 .comments-header-text {
     font-size: 17px;
@@ -150,31 +159,29 @@ button.dropdown-delete-button:hover {
     color: #8a8a8a;
     font-family: 'Nobile', sans-serif;
     font-size: 10px;
-    margin: 5px 0 5px auto;
+    min-width: 10%;
+    max-width: 13%;
+    margin-top: 4px;
+    text-align: end;
 }
 
-a.commenter {
-    font-family: 'Nobile', sans-serif;
-    text-decoration: none;
-    font-weight: 500;
-    color: black;
-    font-size: 17px;
-}
-
-a.commenter:hover {
-    text-decoration: underline;
-    text-decoration-color: #0586ef;
-    text-decoration-thickness: 2px;
+.comment-photo {
+    display: inline-block;
+    background-color: lightgray;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100px;
+    border: 1px solid grey;
 }
 
 .comment-text {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
-    margin-left: 12px;
-    max-width: 75%;
-    word-wrap: break-word;
-    width: 90%;
-    margin-top: 4px;
+    margin-left: 1.5em;
+    /*word-wrap: break-word;*/
+    word-break: break-word;
+    width:95%;
+    margin-right: 3px;
 }
 
 .comments-container {
@@ -183,9 +190,18 @@ a.commenter:hover {
     border-top: 1px solid rgb(214 214 214 / 42%);
 }
 
+a.commenter-name {
+    text-decoration: none;
+    color: #606060;
+}
+
+.commenter-comment {
+    font-size: 11px;
+}
+
 .flexed-comment-edit-delete {
     display: flex;
-    margin-left: 10px;
+    margin-left: 1.2em;
 }
 
 .edit-icon-div {
@@ -211,7 +227,7 @@ div.max-comment-width {
 li.comment-box {
     border: none;
     list-style: none;
-    margin: 3px 15px;
+    margin: .5em 0 0 0;
 }
 
 div.input-group {

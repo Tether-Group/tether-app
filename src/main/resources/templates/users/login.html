@@ -17,7 +17,7 @@
                  class="login-tether-logo margin-top">
         </div>
 <!--flexing the right side of the page (login/register) to make it look much better-->
-        <div id="page-content">
+        <div id="login-page-content">
             <!--nav between login/register-->
             <div class="margin-top">
                 <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
@@ -50,7 +50,7 @@
                                        placeholder="Username">
                                 <input id="password" class="form-control" name="password" type="password"
                                        placeholder="Password">
-                                <input type="submit" class="submit-button submit-button-password w-100" value="Log In"/>
+                                <input type="submit" class="login-register-button" value="Log In"/>
                                 <input type="hidden" th:field="${user.id}">
                             </form>
 
@@ -103,7 +103,7 @@
                                                class="form-control" placeholder="Re-enter password" required>
 
                                         <input id="submit-pw" value="Sign up" th:type="submit"
-                                               class="submit-button-password submit-button submit w-100">
+                                               class="login-register-button">
                                     </form>
                                 </div>
                             </div>

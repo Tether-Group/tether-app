@@ -1,67 +1,131 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<head>
-		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Notifications</title>
-		<th:block th:insert="~{partials/styles :: styles}"></th:block>
-	</head>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notifications</title>
+        <th:block th:insert="~{partials/styles :: styles}"></th:block>
+        <link rel="stylesheet" href="/styles/notifications.css"/>
+    </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-<div class="container">
-	<div sec:authorize="isAuthenticated()">
-		<h1>This is the notifications page</h1>
-		<h2 th:text="${loggedInUser.username}"></h2>
+<!--page content-->
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer" class="page-content-notifications" sec:authorize="isAuthenticated()">
 
-		<div>You have <span th:text="${requestCount}"></span> notifications.</div>
+        <div class="general-notification-info">
+            <div><span th:text="${loggedInUser.username}"></span>, you have <span th:text="${requestCount}"></span>
+                notifications
+            </div>
+        </div>
 
-		<h3>Group Requests</h3>
+        <div class="all-request-container">
 
-		<div th:each="user : ${users}">
-			<div th:each="membership : ${user.memberships}">
-				<div th:if="${membership.pending == true}">
-					<a th:text="${user.username}" th:href="@{/profile/{username}(username=${user.username})}"></a>
-					would like to join your group
-					<span th:text="${membership.group}"></span>
-					<form th:action="@{/notifications/accept/{id}(id=${membership.id})}" th:method="POST">
-						<button class="btn btn-outline-success">Accept</button>
-					</form>
-					<form th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
-						<button class="btn btn-outline-danger">Deny</button>
-					</form>
-				</div>
-			</div>
-		</div>
+            <!--group requests-->
+            <div class="group-request-container">
+                <h3 class="content-header-notifications">Group Requests</h3>
+                <div class="group-cards-container">
+                    <div th:each="membership : ${membershipRequests}">
+                        <div class="request-div">
+                            <div>
+                                <a class="notifications-image-a"
+                                   th:href="@{/profile/{username}(username=${membership.user.username})}">
+                                    <img class="notification-user-photo" th:src="${membership.user.profilePhotoUrl}"
+                                         alt="friend photo">
+                                </a>
+                            </div>
 
-		<br>
+                            <div class="group-friend-icon-div">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
 
-		<h3>Friend Requests</h3>
+                            <div class="notifications-group-request-font">
+                                <div class="d-flex">
+                                    <a class="notif-username-a"
+                                       th:href="@{/profile/{username}(username=${membership.user.username})}">
+                                        <span th:text="${membership.user.firstName}"></span> <span
+                                            th:text="${membership.user.lastName}"></span>
+                                    </a>
+                                    <p class="sent-you-a-request-p">sent you a group request for <span
+                                            th:text="${membership.group}"></span></p>
+                                </div>
 
-		<div th:each="friendship : ${friendshipRequests}">
-			<div>
-				<p><a th:text="${friendship.requester.username}"
-					  th:href="@{/profile/{username}(username=${friendship.requester.username})}"></a> wants
-					to be friends</p>
-				<form th:action="@{/profile/{userId}/accept(userId=${friendship.requester.id})}" th:method="POST">
-					<input th:name="currentPage" th:value="notifications-page" hidden>
-					<button id="accept-friend-request-btn" type="submit" class="btn btn-primary">
-						Accept Friend Request
-					</button>
-				</form>
-				<form th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}" th:method="GET">
-					<input th:name="currentPage" th:value="notifications-page" hidden>
-					<button id="remove-friend-btn" type="submit" class="btn btn-danger">
-						Remove Friend
-					</button>
-				</form>
-			</div>
-		</div>
+                                <div class="notification-button-div">
+                                    <form class="notification-form-width"
+                                          th:action="@{/notifications/accept/{id}(id=${membership.id})}"
+                                          th:method="POST">
+                                        <button class="notification-confirm-button">Confirm</button>
+                                    </form>
+                                    <form class="notification-form-width"
+                                          th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
+                                        <button class="notification-delete-button">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	</div>
+            <!--friend requests-->
+            <div class="friend-request-container">
+                <h3 class="content-header-notifications">Friend Requests</h3>
+                <div class="friend-cards-container">
+                    <div th:each="friendship : ${friendshipRequests}">
+                        <div class="request-div">
+                            <div>
+                                <a class="notifications-image-a"
+                                   th:href="@{/profile/{username}(username=${friendship.requester.username})}">
+                                    <img class="notification-user-photo"
+                                         th:src="${friendship.requester.profilePhotoUrl}"
+                                         alt="friend photo">
+                                </a>
+                            </div>
 
-	<th:block th:insert="~{partials/footer :: footer}"></th:block>
+                            <div class="group-friend-icon-div">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+
+                            <div class="notifications-group-request-font">
+                                <div class="d-flex">
+                                    <a class="notif-username-a"
+                                       th:href="@{/profile/{username}(username=${friendship.requester.username})}">
+                                        <span th:text="${friendship.requester.firstName}"></span> <span
+                                            th:text="${friendship.requester.lastName}"></span>
+                                    </a>
+                                    <p class="sent-you-a-request-p">sent you a friend request</p>
+                                </div>
+
+                                <div class="notification-button-div">
+                                    <form class="notification-form-width"
+                                          th:action="@{/profile/{userId}/accept(userId=${friendship.requester.id})}"
+                                          th:method="POST">
+                                        <input th:name="currentPage" th:value="notifications-page" hidden>
+                                        <button class="notification-confirm-button">Confirm</button>
+                                    </form>
+                                    <form class="notification-form-width"
+                                          th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}"
+                                          th:method="GET">
+                                        <input th:name="currentPage" th:value="notifications-page" hidden>
+                                        <button class="notification-delete-button">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
+</div>
 </body>
 </html>
