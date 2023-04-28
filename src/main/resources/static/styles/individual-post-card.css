@@ -162,6 +162,7 @@ a.commenter {
     min-width: 10%;
     max-width: 13%;
     margin-top: 4px;
+    text-align: end;
 }
 
 .comment-photo {

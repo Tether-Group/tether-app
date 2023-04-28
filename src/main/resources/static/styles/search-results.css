@@ -8,7 +8,7 @@
 /*    width: 80%;*/
 /*}*/
 
-.page-content {
+.page-content-search-results {
     display: flex;
     justify-content: space-evenly;
 }
@@ -85,6 +85,13 @@ h3.content-header {
     background:linear-gradient(transparent 10px, white);
 }
 
+/*post*/
+.search-results-post-container {
+    width: 50%;
+    min-width: 50%;
+    max-width: 80%;
+}
+
 /*user cards*/
 .search-results-user-card {
     margin: 5px 0;
@@ -116,8 +123,7 @@ a.no-text-decoration {
 }
 
 .search-results-user-card-p1:hover {
-    text-decoration: underline;
-    text-decoration-color: black;
+    text-decoration: none;
 }
 
 .search-results-user-card-p2 {
@@ -128,5 +134,5 @@ a.no-text-decoration {
 }
 
 .search-results-user-card-p2:hover {
-    color: black;
+    color: grey;
 }

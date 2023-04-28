@@ -11,15 +11,8 @@
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
-<!--<div class="container search-form-container">-->
-<!--<form class="search-form" th:action="@{/search-results}" th:method="GET">-->
-<!--    <input class="search-bar form-control me-2" type="search" placeholder="Search" name="search">-->
-<!--    <button class="search-button btn btn-outline-primary" type="submit">Search</button>-->
-<!--</form>-->
-<!--</div>-->
-
 <div id="page-content-with-footer">
-    <div id="page-content-without-footer" class="page-content">
+    <div id="page-content-without-footer" class="page-content-search-results">
 
 <!--groups-->
         <div id="group-flex-container">
@@ -51,7 +44,7 @@
         </div>
 
 <!--posts-->
-        <div class="post-container">
+        <div class="search-results-post-container">
             <div>
                 <div th:if="${searchedPosts.isEmpty()}" class="no-postcard">
                     <h3 class="content-header">There are no Posts related to your search.</h3>
