@@ -24,6 +24,21 @@
     margin-top: 2em;
 }
 
+.group-request-container, .friend-request-container {
+    max-width: 45%;
+}
+
+.group-cards-container, .friend-cards-container {
+    border: 1px solid lightgrey;
+    border-radius: 0.35em;
+    padding: 0.5em 0;
+    box-shadow: 3px 3px 3px #e9e7e7ef;
+}
+
+.group-cards-container:hover, .friend-cards-container:hover {
+    box-shadow: 3px 3px 3px #d8eafc;
+}
+
 .content-header-notifications {
     font-family: Oswald, sans-serif;
     display: flex;
@@ -34,36 +49,72 @@
 .request-div {
     display: flex;
     flex-direction: row;
+    padding: 0 0.5em 0.5em 0.5em;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 0.5em;
 }
 
 .notifications-image-a {
     display: inline-block;
     background-color: transparent;
-    width: 2.5em;
-    height: 2.5em;
+    width: 3.5em;
+    height: 3.5em;
     border-radius: 100px;
     border: none;
     text-decoration: none;
+    margin-right: 0.5em;
 }
 
 .notification-user-photo {
     display: inline-block;
     background-color: lightgray;
-    width: 2.5em;
-    height: 2.5em;
+    width: 3.5em;
+    height: 3.5em;
     border-radius: 100px;
     border: 1px solid grey;
     text-decoration: none;
 }
 
-.group-font-notifications {
-    font-weight: 700;
+.notifications-group-request-font { /*also used for the friend request font*/
+    font-family: 'Nobile', sans-serif;
+    font-size: 1em;
+}
+
+.notif-username-a {
+    text-decoration: none;
+    color: black;
 }
 
 .notification-button-div {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 0.2em;
+}
+
+.notification-form-width {
+    width: 30%;
+}
+
+.notification-confirm-button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+}
+
+.notification-delete-button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #e5e5e5;
+}
+
+.sent-you-a-request-p {
+    margin: 0 0.5em;
 }
 
 /*keep footer at the bottom*/
