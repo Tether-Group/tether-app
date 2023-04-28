@@ -124,7 +124,7 @@ public class UserController {
             friendRequestExists = true;
         }
 
-        List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_Id(profilePageUserId);
+        List<Membership> membershipsOfUserOfProfilePage = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(profilePageUserId);
         List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(user.getId());
         List<Group> allGroupsOfUser = new ArrayList<>(groupsWhereUserIsAdmin);
         for (Membership membership : membershipsOfUserOfProfilePage) {
@@ -211,7 +211,7 @@ public class UserController {
             Long idOfLoggedInUser = userObj.getId();
             model.addAttribute("user", userObj);
             model.addAttribute("isMyAccountPage", true);
-            List<Membership> memberships = membershipDao.findMembershipsByUser_Id(idOfLoggedInUser);
+            List<Membership> memberships = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(idOfLoggedInUser);
             List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(idOfLoggedInUser);
             List<Group> allGroupsOfUser = new ArrayList<>(groupsWhereUserIsAdmin);
             for (Membership membership : memberships) {

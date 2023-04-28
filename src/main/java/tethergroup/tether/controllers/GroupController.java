@@ -46,7 +46,7 @@ public class GroupController {
     public String showGroupsListPage(Model model, @PathVariable String username) {
         User userOfProfilePage = userDao.findByUsername(username);
 
-        List<Membership> memberships = membershipDao.findMembershipsByUser_Id(userOfProfilePage.getId());
+        List<Membership> memberships = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(userOfProfilePage.getId());
         List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userOfProfilePage.getId());
         List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
         for (Membership membership : memberships) {
@@ -64,7 +64,7 @@ public class GroupController {
         Optional<User> actualUser = userDao.findById(user.getId());
         if (actualUser.isPresent()) {
             User userObj = actualUser.get();
-            List<Membership> memberships = membershipDao.findMembershipsByUser_Id(userObj.getId());
+            List<Membership> memberships = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(userObj.getId());
             List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userObj.getId());
             List<Group> groupsWhereUserIsMember = new ArrayList<>();
             List<Group> allGroups = new ArrayList<>(groupsWhereUserIsAdmin);
