@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title th:text="${'Tether - '+userOfFriendsList.username + '''s Friends'}"></title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${'Tether - '+userOfFriendsList.username + '''s Friends'}"></title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/friends-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
-<h4 class="index-heading" th:text="${userOfFriendsList.username + '''s Friends'}"></h4>
-<div th:each="friend: ${friends}" class="list-group-item list-group-item-action my-2">
-		<a th:href="@{/profile/{username}(username=${friend.username})}"><h1><span th:text="${friend.username}"></span></h1></a>
-</div>
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer" class="page-content-friends-members-list">
+
+        <div th:if="${loggedInUser.id == userOfFriendsList.id}">
+            <p class="friends-members-main-header">My Friends</p>
+        </div>
+        <div th:if="${loggedInUser.id != userOfFriendsList.id}">
+            <p class="friends-members-main-header" th:text="${userOfFriendsList.username + '''s Friends'}"></p>
+        </div>
+
+        <div class="friends-members-cards-container">
+            <div th:each="friend: ${friends}" class="friend-member-outer-card">
+                <a th:href="@{/profile/{username}(username=${friend.username})}">
+                    <div class="friend-member-card">
+                        <div class="friend-member-photo-holder">
+                            <img class="friend-member-photo" th:src="${friend.profilePhotoUrl}" alt="friend's profile photo">
+                        </div>
+                        <div>
+                            <div th:text="${friend.firstName + ' ' + friend.lastName}"></div>
+                            <div th:text="${friend.username}"></div>
+                            <div th:text="${friend.bio}"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
+
+</div>
 </body>
 </html>

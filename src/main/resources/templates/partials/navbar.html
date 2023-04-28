@@ -15,7 +15,8 @@
             <div class="collapse navbar-collapse rest-of-nav" id="navbarSupportedContent">
                 <!--searchbar-->
                 <form class="search-form" th:action="@{/search-results}" th:method="GET">
-                    <input class="nav-search-bar" type="search" placeholder="Search for groups, posts, or users" name="search">
+                    <input class="nav-search-bar" type="search" placeholder="Search for groups, posts, or users"
+                           name="search">
                     <button class="btn" type="submit"><i class="bi bi-search search-icon"></i></button>
                 </form>
 
@@ -23,17 +24,20 @@
                     <li class="nav-item nav-font">
                         <a class="nav-link" href="/">HOME</a>
                     </li>
-<!--group dropdown-->
+                    <!--group dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-font group-dropdown" href="#" id="navbarDropdown2" role="button"
+                        <a class="nav-link dropdown-toggle nav-font group-dropdown" href="#" id="navbarDropdown2"
+                           role="button"
                            data-bs-toggle="dropdown">GROUPS</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-navbar">
                             <li>
                                 <a class="dropdown-item nav-font" href="/groups">ALL GROUPS</a>
                             </li>
+                            <hr class="navbar-dropdown-divider">
                             <li>
                                 <a class="dropdown-item nav-font" th:href="@{/profile/my-account/groups}">MY GROUPS</a>
                             </li>
+                            <hr class="navbar-dropdown-divider">
                             <li>
                                 <a class="dropdown-item nav-font" th:href="@{/group/create}">CREATE GROUP</a>
                             </li>
@@ -45,21 +49,20 @@
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link nav-font about-us-link-nav" href="/about">ABOUT US</a>
                     </li>
-<!--end of dropdown-->
+                    <!--end of dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item notification">
-                        <a class="nav-link nav-font" th:href="@{/notifications}"><i class="bi bi-bell-fill"></i><span class="badge bg-dark" id="notification-count"></span></a>
+                        <a class="nav-link nav-font" th:href="@{/notifications}"><i class="bi bi-bell-fill"></i><span
+                                class="badge bg-dark" id="notification-count"></span></a>
                     </li>
-<!--account dropdown-->
+                    <!--account dropdown-->
                     <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-font" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown">ACCOUNT</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-navbar">
                             <li>
                                 <a class="dropdown-item nav-font" th:href="@{/profile/my-account}">MY PROFILE</a>
                             </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <hr class="navbar-dropdown-divider">
                             <li>
                                 <a class="dropdown-item nav-font" th:href="@{/profile/settings}">SETTINGS</a>
                             </li>
