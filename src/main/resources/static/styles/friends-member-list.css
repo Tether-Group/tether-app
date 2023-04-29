@@ -35,10 +35,16 @@ p.friends-members-main-header {
 
 .friend-member-outer-card {
     width: 40%;
-    padding: 0.5em;
+    padding: 1em;
     border: 1px solid lightgray;
     border-radius: 0.35em;
     box-shadow: 2px 2px 2px #e9e7e7ef;
+    margin: 1em 0;
+}
+
+.friend-member-a {
+    text-decoration: none!important;
+    color: black;
 }
 
 .friend-member-outer-card:hover {
@@ -49,6 +55,8 @@ p.friends-members-main-header {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+    font-family: Nobile, sans-serif;
+    font-size: 1em;
 }
 
 .friend-member-photo {
@@ -62,4 +70,28 @@ p.friends-members-main-header {
 .friend-member-photo-holder {
     justify-content: center;
     align-self: center;
+}
+
+.friend-member-content {
+    align-self: center;
+    margin-left: 1em;
+    max-width: 40%;
+}
+
+.friend-member-bio {
+    align-self: center;
+    margin-left: 1em;
+    font-size: 0.8em;
+}
+
+.admin-icon-member {
+    width: 0;
+    height: 0;
+}
+
+i.bi-star-fill {
+    font-size: 1.25em;
+    position: relative;
+    bottom: 5.4em;
+    left: 6em;
 }

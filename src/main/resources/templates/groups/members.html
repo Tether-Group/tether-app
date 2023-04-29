@@ -1,45 +1,107 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Title</title>
-  <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Members</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/friends-member-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 
 
-<h1>This is the MEMBERS LIST page</h1>
+<!--<h1>This is the MEMBERS LIST page</h1>-->
 
-<div class="container">
-	<div class="list-group">
-		<div class="list-group-item list-group-item-action my-2">
-			<div sec:authorize="isAuthenticated()">
-				<a th:href="@{/profile/{username}(username=${adminMember.username})}"><h1><span th:text="${adminMember.username}"></span></h1></a>
-			</div>
-			<div sec:authorize="!isAuthenticated()">
-				<h1><span th:text="${adminMember.username}"></span></h1>
-			</div>
-		</div>
-		<div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">
-			<div sec:authorize="isAuthenticated()">
-				<a th:href="@{/profile/{username}(username=${member.username})}"><h1><span th:text="${member.username}"></span></h1></a>
-			</div>
-			<div sec:authorize="!isAuthenticated()">
-			<h1><span th:text="${member.username}"></span></h1>
-			</div>
-			<div sec:authorize="isAuthenticated()" th:if="${loggedInUserIsAdmin}">
-				<form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}" th:method="post">
-						<button type="submit" class="btn btn-danger">Remove</button>
-				</form>
-			</div>
-		</div>
-	</div>
+<!--<div class="container">-->
+<!--    <div class="list-group">-->
+<!--        <div class="list-group-item list-group-item-action my-2">-->
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <a th:href="@{/profile/{username}(username=${adminMember.username})}"><h1><span-->
+<!--                        th:text="${adminMember.username}"></span></h1></a>-->
+<!--            </div>-->
+<!--            <div sec:authorize="!isAuthenticated()">-->
+<!--                <h1><span th:text="${adminMember.username}"></span></h1>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:each="member: ${members}" class="list-group-item list-group-item-action my-2">-->
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <a th:href="@{/profile/{username}(username=${member.username})}"><h1><span-->
+<!--                        th:text="${member.username}"></span></h1></a>-->
+<!--            </div>-->
+<!--            <div sec:authorize="!isAuthenticated()">-->
+<!--                <h1><span th:text="${member.username}"></span></h1>-->
+<!--            </div>-->
+<!--            <div sec:authorize="isAuthenticated()" th:if="${loggedInUserIsAdmin}">-->
+<!--                <form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}"-->
+<!--                      th:method="post">-->
+<!--                    <button type="submit" class="btn btn-danger">Remove</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<th:block th:insert="~{partials/footer :: footer}"></th:block>-->
+
+<!---->
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer" class="page-content-friends-members-list">
+
+        <div>
+            <p class="friends-members-main-header"
+               th:text="${thisGroup.name + '''s Group Members'}"></p>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <div class="friends-members-cards-container">
+                <!--admin member here-->
+                <div class="friend-member-outer-card">
+                    <a class="friend-member-a" th:href="@{/profile/{username}(username=${adminMember.username})}">
+                        <div class="friend-member-card">
+                            <div class="friend-member-photo-holder">
+                                <img class="friend-member-photo" th:src="${adminMember.profilePhotoUrl}"
+                                     alt="members profile photo">
+                            </div>
+                            <div class="friend-member-content">
+                                <div th:text="${adminMember.firstName + ' ' + adminMember.lastName}"></div>
+                                <div th:text="${'@' + adminMember.username}"></div>
+                            </div>
+                            <div class="friend-member-bio" th:text="${adminMember.bio}"></div>
+                        </div>
+                        <div class="admin-icon-member">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </a>
+                </div>
+                <!--rest of the members-->
+                <div th:each="member: ${members}" class="friend-member-outer-card">
+                    <a class="friend-member-a" th:href="@{/profile/{username}(username=${member.username})}">
+                        <div class="friend-member-card">
+                            <div class="friend-member-photo-holder">
+                                <img class="friend-member-photo" th:src="${member.profilePhotoUrl}"
+                                     alt="members profile photo">
+                            </div>
+                            <div class="friend-member-content">
+                                <div th:text="${member.firstName + ' ' + member.lastName}"></div>
+                                <div th:text="${'@' + member.username}"></div>
+                            </div>
+                            <div class="friend-member-bio" th:text="${member.bio}"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
+
 </div>
-
-
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+<!---->
 </body>
 </html>

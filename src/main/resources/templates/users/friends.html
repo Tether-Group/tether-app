@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${'Tether - '+userOfFriendsList.username + '''s Friends'}"></title>
+    <title th:text="${'Tether - ' + userOfFriendsList.username + '''s Friends'}"></title>
     <th:block th:insert="~{partials/styles :: styles}"></th:block>
-    <link rel="stylesheet" href="/styles/friends-list.css"/>
+    <link rel="stylesheet" href="/styles/friends-member-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
@@ -21,16 +21,16 @@
 
         <div class="friends-members-cards-container">
             <div th:each="friend: ${friends}" class="friend-member-outer-card">
-                <a th:href="@{/profile/{username}(username=${friend.username})}">
+                <a class="friend-member-a" th:href="@{/profile/{username}(username=${friend.username})}">
                     <div class="friend-member-card">
                         <div class="friend-member-photo-holder">
                             <img class="friend-member-photo" th:src="${friend.profilePhotoUrl}" alt="friend's profile photo">
                         </div>
-                        <div>
+                        <div class="friend-member-content">
                             <div th:text="${friend.firstName + ' ' + friend.lastName}"></div>
-                            <div th:text="${friend.username}"></div>
-                            <div th:text="${friend.bio}"></div>
+                            <div th:text="${'@' + friend.username}"></div>
                         </div>
+                        <div class="friend-member-bio" th:text="${friend.bio}"></div>
                     </div>
                 </a>
             </div>

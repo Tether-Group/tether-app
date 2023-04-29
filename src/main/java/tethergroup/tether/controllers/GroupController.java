@@ -254,6 +254,10 @@ public class GroupController {
             User member = userDao.findById(membership.getUser().getId()).get();
             members.add(member);
         }
+
+        Group thisGroup = groupDao.findById(groupId).get();
+
+        model.addAttribute("thisGroup", thisGroup);
         model.addAttribute("adminMember", admin);
         model.addAttribute("members", members);
         return "groups/members";
