@@ -51,17 +51,19 @@
     <div class="row d-flex">
         <div class="col-9">
             <div class="container2">
-            <h2>Stephen Talbot</h2>
-            <p class="title">Software developer</p>
-            <p class="personal-bio">Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in</p>
-                <a href="https://www.linkedin.com/in/stephen-talbot/"><i class="bi bi-linkedin"></i></a>
-               <a href="https://github.com/stalbot0"><i class="bi bi-github"></i></a>
-            <p>Steven@example.com</p>
+                <h2>Stephen Talbot</h2>
+                <p class="title">Software developer</p>
+                <p class="personal-bio">Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in</p>
+                    <div>
+                       <a href="https://www.linkedin.com/in/stephen-talbot/"><i class="bi bi-linkedin"></i></a>
+                       <a href="https://github.com/stalbot0"><i class="bi bi-github"></i></a>
+                    </div>
+                <p>stephen.clark.talbot@gmail.com</p>
             </div>
             <p>
                 <button onclick="location.href='mailto:stephen.clark.talbot@gmail.com'" class="button2">Contact</button>
@@ -87,7 +89,7 @@
                 expertise in the field.</p>
             <i class="bi bi-linkedin"></i>
             <i class="bi bi-github"></i>
-            <p>Matt@example.com</p>
+            <p>matt.g.guardiola@gmail.com</p>
             <p>
                 <button onclick="location.href='mailto:matt.g.guardiola@gmail.com'" class="button">Contact</button>
             </p>
@@ -107,20 +109,23 @@
                     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                     dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                     nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in</p>
-                <a href="https://www.linkedin.com/in/josephmccomas"><i class="bi bi-linkedin"></i></a>
-                <a href="https://github.com/josephmccomas"><i class="bi bi-github"></i></a>
-                <p class="inside-contents">Joseph@example.com</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/josephmccomas"><i class="bi bi-linkedin"></i></a>
+                    <a href="https://github.com/josephmccomas"><i class="bi bi-github"></i></a>
+                </div>
+                <p class="inside-contents">joseph.mccomas@proton.me</p>
             </div>
             <p>
                 <button onclick="location.href='mailto:joseph.mccomas@proton.me'" class="button2">Contact</button>
             </p>
         </div>
-        <img class="col-3 column" src="https://cdn.filestackcontent.com/3tAcDkPmQZeytZJOzPfq" alt="Stephen">
+        <img class="col-3 column" th:src="@{/img/Joseph.jpg}" alt="Stephen">
     </div>
 
 
 </div>
 <script th:src="@{/js/loading-spinner.js}"></script>
+<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
 
