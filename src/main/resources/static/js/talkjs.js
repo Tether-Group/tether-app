@@ -12,11 +12,13 @@ Talk.ready.then(async function () {
         return request.json();
     })
 
+    let myUserPhoto = document.getElementById('myPhotoURL').value;
+
     var me = new Talk.User({
         id: loggedInUser.id,
         name: loggedInUser.username,
         email: loggedInUser.email,
-        photoUrl: loggedInUser.photoUrl,
+        photoUrl: myUserPhoto,
     });
     window.talkSession = new Talk.Session({
         appId: app_id,
@@ -24,9 +26,9 @@ Talk.ready.then(async function () {
     });
 
     //instead of doing this, use the document.getelementbyId to access that users info from the page (hidden input use th:value ---- .value)
-    let otherUserID = document.getElementById("friendID").value
-    let otherUserUsername = document.getElementById('friendUsername').value
-    let otherUserEmail = document.getElementById('friendEmail').value
+    let otherUserID = document.getElementById("friendID").value;
+    let otherUserUsername = document.getElementById('friendUsername').value;
+    let otherUserEmail = document.getElementById('friendEmail').value;
     let otherUserPhotoURL = document.getElementById('friendPhotoURL').value;
 
     var other = new Talk.User({

@@ -318,6 +318,9 @@ public class UserController {
     //    viewing friends list
     @GetMapping("/profile/{username}/friends")
     public String returnFriendsListPage(Model model, @PathVariable String username) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("loggedInUser", loggedInUser);
+
         User user = userDao.findByUsername(username);
         List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(user.getId());
         List<User> friends = new ArrayList<>();
