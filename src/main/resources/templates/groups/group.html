@@ -99,7 +99,7 @@
 										<p class="vis-types">Visibility:</p>
 										<div class="visibility-container">
 
-											<div th:if="${!group.private}">
+											<div class="d-flex justify-content-between" th:if="${!group.private}">
 
 												<div>
 													<label class="visibility-form"><p>Public</p>
@@ -116,7 +116,7 @@
 												</div>
 											</div>
 
-											<div th:if="${group.private}">
+											<div class="d-flex justify-content-between" th:if="${group.private}">
 												<div>
 													<label class="visibility-form"><p>Public</p>
 														<input type="radio" id="public" name="visibility" value="false">
