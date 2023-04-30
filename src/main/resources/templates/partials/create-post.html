@@ -15,14 +15,11 @@
 				</div>
 
 				<div class="modal-body">
-
-					<h6>Choose the type of post you would like to make</h6>
-
-					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+					<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
 						<!--						Normal post tab-->
 						<li th:if="${postTypeIdsOfGroup.contains(postType1Id)}" class="nav-item" role="presentation">
 							<button class="nav-link active" id="pills-post-tab" data-bs-toggle="pill"
-									data-bs-target="#pills-post" type="button" role="tab">Default
+									data-bs-target="#pills-post" type="button" role="tab">Basic Text
 							</button>
 						</li>
 						<!--						Event post tab-->
@@ -55,18 +52,19 @@
 							<div class="card" style="width: 18rem;">
 								<div class="card-body">
 
-									<h3>Default</h3>
-
-									<p>This is the form for a default post</p>
 									<form th:method="@{post}" th:action="@{/post/create/text}">
 										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
-										<label for="header">Title:</label>
-										<input type="text" name="header"><br><br>
-										<label>Content:</label>
-										<textarea name="body"></textarea><br><br>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="header" class="form-control" id="text-post-title" placeholder="Example Post Title">
+											<label for="text-post-title"><p>Title</p></label>
+										</div>
+										<div class="form-floating group-description-text-area">
+                							<textarea class="form-control" placeholder="Example Post Content" id="text-post-content" name="body" style="height: 150px"></textarea>
+											<label for="text-post-content"><P>Content</p></label>
+										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-success">Save</button>
+											<button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="post-button">Post</button>
 										</div>
 									</form>
 
@@ -79,21 +77,25 @@
 							<div class="card" style="width: 18rem;">
 								<div class="card-body">
 
-									<h3>Event</h3>
-									<p>This is a form for an event post </p>
 									<form th:method="@{post}" th:action="@{/post/create/event}">
 										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
-										<label for="header">Title:</label>
-										<input type="text" name="header"><br><br>
 										<label for="date">Date:</label>
 										<input type="date" id="date" name="date"><br><br>
-										<label>Address:</label>
-										<input type="text" name="address" id="search-location-input"><br><br>
-										<label>Content:</label>
-										<textarea name="body"></textarea><br><br>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="header" class="form-control" id="event-post-title" placeholder="Example Post Title">
+											<label for="event-post-title"><p>Title</p></label>
+										</div>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="header" class="form-control" id="event-post-address" placeholder="Example Post address">
+											<label for="event-post-address"><p>Address</p></label>
+										</div>
+										<div class="form-floating group-description-text-area">
+											<textarea class="form-control" placeholder="Example Post Content" id="event-post-content" name="body" style="height: 150px"></textarea>
+											<label for="event-post-content"><P>Content</p></label>
+										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-success search-location-btn">Save</button>
+											<button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="post-button search-location-btn">Post</button>
 										</div>
 									</form>
 
@@ -106,44 +108,45 @@
 							<div class="card" style="width: 18rem;">
 								<div class="card-body">
 
-									<h3>For Sale</h3>
-									<p>This is a form for a for sale post </p>
 									<form th:method="@{post}" th:action="@{/post/create/sell}">
 										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
-										<label for="header">Title:</label>
-										<input type="text" name="header"><br><br>
-										<label for="price">Price:</label>
-										<input type="text" id="price" name="price"><br><br>
-										<label>Address:</label>
-										<input type="text" name="address"><br><br>
-										<label>Content:</label>
-										<textarea name="body"></textarea><br><br>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="header" class="form-control" id="sell-post-title" placeholder="Example Post Title">
+											<label for="sell-post-title"><p>Title</p></label>
+										</div>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="price" class="form-control" id="sell-post-price" placeholder="Example Post Price">
+											<label for="sell-post-price"><p>Price</p></label>
+										</div>
+										<div class="form-floating group-description-text-area">
+											<textarea class="form-control" placeholder="Example Post Content" id="sell-post-content" name="body" style="height: 150px"></textarea>
+											<label for="text-post-content"><P>Content</p></label>
+										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-success">Save</button>
+											<button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="post-button">Post</button>
 										</div>
 									</form>
-
 								</div>
 							</div>
 						</div>
 
-
 						<div th:if="${postTypeIdsOfGroup.contains(postType4Id)}" class="tab-pane fade" id="pills-QandA" role="tabpanel">
 							<div class="card" style="width: 18rem;">
 								<div class="card-body">
-
-									<h3>Q and A</h3>
-									<p>This is a form for a Q and A post </p>
 									<form th:method="@{post}" th:action="@{/post/create/QandA}">
 										<input th:name="id" class="mb-1" th:value="${group.id}" hidden>
-										<label for="header">Question:</label>
-										<input type="text" id="header" name="header"><br><br>
-										<label>Context:</label>
-										<textarea name="body"></textarea><br><br>
+										<div class="group-name-div form-floating mb-3">
+											<input type="text" name="header" class="form-control" id="QandA-title" placeholder="Example Post Title">
+											<label for="QandA-title"><p>Question</p></label>
+										</div>
+										<div class="form-floating group-description-text-area">
+											<textarea class="form-control" placeholder="Group Description Here" id="QandA-Content" name="body" style="height: 150px"></textarea>
+											<label for="QandA-Content"><P>Context</p></label>
+										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-success">Save</button>
+											<button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="post-button">Post</button>
 										</div>
 									</form>
 								</div>
