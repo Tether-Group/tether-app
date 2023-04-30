@@ -14,7 +14,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByOrderByPostDateDesc();
 
-    List<Post> findByGroup_Id(Long groupId);
+    List<Post> findByGroup_IdOrderByPostDateDesc(Long groupId);
 
     @Query(nativeQuery = true,
             value = "SELECT DISTINCT p.* FROM posts p INNER JOIN users u ON u.id = p.user_id INNER JOIN memberships m ON m.user_id = u.id INNER JOIN groups g ON g.id = m.group_id WHERE u.id = :user_id")

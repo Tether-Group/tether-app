@@ -147,7 +147,7 @@ public class GroupController {
             } else {
                 model.addAttribute("isAdmin", false);
             }
-            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<Post> posts = postDao.findByGroup_IdOrderByPostDateDesc(group.getId());
             List<PostType> postTypes = postTypeDao.findAll();
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
@@ -181,7 +181,7 @@ public class GroupController {
                 return "redirect:/login";
             }
             User admin = groupDao.findById(groupId).get().getAdmin();
-            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<Post> posts = postDao.findByGroup_IdOrderByPostDateDesc(group.getId());
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
             List<User> members = userDao.findByGroupIdLimitFive(groupId);
