@@ -205,15 +205,27 @@ public class GroupController {
     }
 
     @PostMapping("/group/edit")
-    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL) {
+    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
 
-        List<PostType> postTypesForGroup = group.getPostTypes();
+        List<PostType> postTypesForGroup = new ArrayList<>();
         postTypesForGroup.add(postTypeDao.findById(1L).get());
+
+        if (eventPostType != null) {
+            postTypesForGroup.add(postTypeDao.findById(2L).get());
+        }
+        if (forSalePostType != null) {
+            postTypesForGroup.add(postTypeDao.findById(3L).get());
+        }
+        if (qAndAPostType != null) {
+            postTypesForGroup.add(postTypeDao.findById(4L).get());
+        }
+        group.setPostTypes(postTypesForGroup);
         if (photoURL != null) {
             group.setGroupPhotoURL(photoURL);
         }
+        group.setPrivate(isPrivate);
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User groupAdmin = originalGroup.getAdmin();
 
@@ -224,6 +236,13 @@ public class GroupController {
             return "redirect:/groups";
         }
         groupDao.save(group);
+        if (group.isPrivate() == false) {
+            List<Membership> membershipsStillPendingForGroup = membershipDao.findMembershipsByGroup_IdAndIsPendingIsTrue(group.getId());
+            for (Membership membership : membershipsStillPendingForGroup) {
+                membership.setPending(false);
+                membershipDao.save(membership);
+            }
+        }
         return "redirect:/group/" + group.getId();
     }
 

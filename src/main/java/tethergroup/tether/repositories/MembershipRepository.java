@@ -16,6 +16,10 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
     value = "select * from memberships m where m.user_id = :user_id and m.is_pending = 0")
     List<Membership> findMembershipsByUser_IdAndIsPendingIsFalse(@Param("user_id") Long  userId);
 
+    @Query(nativeQuery = true,
+            value = "select * from memberships m where m.group_id = :group_id and m.is_pending = 1")
+    List<Membership> findMembershipsByGroup_IdAndIsPendingIsTrue(@Param("group_id") Long  groupId);
+
     List<Membership> findMembershipsByGroup_Id(Long groupId);
 
     @Query(nativeQuery = true,
