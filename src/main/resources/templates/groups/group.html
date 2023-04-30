@@ -112,6 +112,7 @@
 										<div class="visibility-container">
 
 											<div th:if="${!group.private}">
+
 												<div>
 													<label class="visibility-form"><p>Public</p>
 														<input type="radio" id="public" name="visibility" value="false"
@@ -148,27 +149,31 @@
 
 										<p class="vis-types">Additional Post Types:</p>
 										<div class="post-type-container">
+
 											<div>
 												<label class="post-type-form"><p>Event</p>
 													<input type="checkbox" name="postTypes" value="2"
-														   th:checked="*{postTypes}">
+														   th:checked="${postTypeIdsOfGroup.contains(postType2Id)}">
 													<span class="checkmark2"></span>
 												</label>
 											</div>
+
 											<div>
 												<label class="post-type-form"><p style="width: 85px">For Sale</p>
 													<input type="checkbox" name="postTypes" value="3"
-														   th:checked="*{postTypes}">
+														   th:checked="${postTypeIdsOfGroup.contains(postType3Id)}">
 													<span class="checkmark2"></span>
 												</label>
 											</div>
+
 											<div>
 												<label class="post-type-form"><p>QandA</p>
 													<input type="checkbox" name="postTypes" value="4"
-														   th:checked="*{postTypes}">
+														   th:checked="${postTypeIdsOfGroup.contains(postType4Id)}">
 													<span class="checkmark2"></span>
 												</label>
 											</div>
+
 										</div>
 									</div>
 
