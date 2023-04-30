@@ -236,6 +236,13 @@ public class GroupController {
             return "redirect:/groups";
         }
         groupDao.save(group);
+        if (group.isPrivate() == false) {
+            List<Membership> membershipsStillPendingForGroup = membershipDao.findMembershipsByGroup_IdAndIsPendingIsTrue(group.getId());
+            for (Membership membership : membershipsStillPendingForGroup) {
+                membership.setPending(false);
+                membershipDao.save(membership);
+            }
+        }
         return "redirect:/group/" + group.getId();
     }
 
