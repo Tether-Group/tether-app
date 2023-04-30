@@ -105,3 +105,264 @@ div#v-pills-tab {
 .group-page-content {
     min-height: 75vh;
 }
+
+
+.post-button{
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+    width: 25%;
+    height: 2em;
+    font-size: 18px;
+}
+
+.close-button{
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #e5e5e5;
+    width: 25%;
+    height: 2em;
+    font-size: 18px;
+}
+
+
+.card{
+    width: 29rem;
+    border: none;
+}
+
+.card-body{
+    width: 162%;
+}
+
+
+.date{
+    font-size: 20px;
+    border-radius: 5px;
+    padding-left: 50px;
+    padding-top: 6px;
+}
+
+.modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 23px;
+}
+
+.model-body{
+    font-family: 'Nobile', sans-serif;
+}
+
+.card-body{
+    font-family: 'Nobile', sans-serif;
+}
+
+.nav-item{
+    font-family: 'Nobile', sans-serif
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.visibility-container{
+    width: 60%;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    right: 1.7em;
+    margin-top: 10px;
+    font-family: 'Nobile', sans-serif;
+}
+
+
+
+
+.visibility-form {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 17px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 18%;
+    text-align: center;
+    margin: auto;
+}
+
+
+.visibility-form input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+.visibility-form:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+
+.visibility-form input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+.visibility-form input:checked ~ .checkmark:after {
+    display: block;
+}
+
+
+.visibility-form .checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+
+
+.post-type-container{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    right: 1.5em;
+    margin-top: 10px;
+    font-family: 'Nobile', sans-serif;
+}
+
+/* Customize the label (the container) */
+.post-type-form {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 18%;
+    text-align: center;
+    margin: auto;
+    font-size: 17px;
+}
+
+
+.post-type-form input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.checkmark2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+}
+
+
+.post-type-form:hover input ~ .checkmark2 {
+    background-color: #ccc;
+}
+
+
+.post-type-form input:checked ~ .checkmark2 {
+    background-color: #2196F3;
+}
+
+
+.checkmark2:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+.post-type-form input:checked ~ .checkmark2:after {
+    display: block;
+}
+
+
+.post-type-form .checkmark2:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.vis-types{
+    font-family: 'Nobile', sans-serif;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+textarea{
+    font-family: 'Nobile', sans-serif;
+}
+
+input{
+    font-family: 'Nobile', sans-serif;
+}
+
+.photo-btn{
+    margin-bottom: 20px;
+    font-family: 'Nobile', sans-serif;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+    height: 2em;
+    font-size: 18px;
+}
