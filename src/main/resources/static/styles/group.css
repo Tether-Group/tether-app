@@ -174,8 +174,6 @@ div#v-pills-tab {
     width: 60%;
     text-align: center;
     margin: auto;
-    display: flex;
-    justify-content: space-between;
     position: relative;
     right: 1.7em;
     margin-top: 10px;

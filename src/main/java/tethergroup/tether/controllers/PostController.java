@@ -84,7 +84,6 @@ public class PostController {
     public String createSalePost(
             @RequestParam("header") String title,
             @RequestParam("price") Integer price,
-            @RequestParam("address") String address,
             @RequestParam("body") String body,
             @RequestParam("id") Long groupId) {
         Post post = new Post();
@@ -92,7 +91,6 @@ public class PostController {
         post.setUser(loggedInUser);
         post.setGroup(groupDao.findById(groupId).get());
         post.setHeader(title);
-        post.setEventAddress(address);
         post.setPostPrice(price);
         post.setBody(body);
         post.setPostType(postTypeDao.findById(3L).get());

@@ -26,7 +26,7 @@
 				</button>
 				<button class="nav-link edit-profile-nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-messages"
-						type="button" role="tab">Account
+						type="button" role="tab">Account Settings
 				</button>
 			</div>
 
@@ -53,7 +53,7 @@
 									id=".com-register" class="invalid">domain must be ".com"</span>
 								<p>E.g. example@example.com</p>
 							</div>
-							<input value="Save Changes" th:type="submit" class="submit-button">
+							<input value="Save" th:type="submit" class="save-button">
 						</div>
 
 						<div class="col-3 d-flex flex-column align-items-center">
@@ -104,33 +104,41 @@
 							</div>
 
 
-							<input value="Change Password" th:type="submit" id="submit-pw" class="submit-button">
+							<input value="Change Password" th:type="submit" id="submit-pw" class="save-button">
 						</div>
 					</form>
 
 				</div>
 
 				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">
-
-					<form th:action="@{/profile/editusername}" th:method="post">
-						<div class="has-validation">
-							<label for="username" class="form-label mt-2">Username</label>
-							<input id="username" th:name="username" th:value="${user.username}"
-								   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
-								   class="form-control" required>
-							<div id="validationUsernameFeedback" class="invalid-feedback">
-								Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
+					<div class="row">
+						<form class="col-6" th:action="@{/profile/editusername}" th:method="post">
+							<div class="has-validation">
+								<label for="username" class="form-label mt-2">Username</label>
+								<input id="username" th:name="username" th:value="${user.username}"
+									   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
+									   class="form-control" required>
+								<div id="validationUsernameFeedback" class="invalid-feedback">
+									Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
+								</div>
 							</div>
-						</div>
-					</form>
+							<br>
+							<button type="submit" class="save-button">Save</button>
+						</form>
+					</div>
 
 					<br>
 
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-							data-bs-target="#exampleModal">
-						Delete account
-					</button>
+					<div class="row">
+						<div class="col-6">
+							<label for="delete-profile-button" class="form-label mt-2">Delete Account</label>
+							<br>
+							<button id="delete-profile-button" type="button" class="edit-profile-delete-button" data-bs-toggle="modal"
+									data-bs-target="#exampleModal">
+								Delete Account
+								</button>
+						</div>
+					</div>
 
 					<!-- Modal -->
 					<div class="modal fade" id="exampleModal" tabindex="-1">
@@ -145,10 +153,11 @@
 										Are you sure you want to delete your account?
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+										<button type="button" class="close-button" data-bs-dismiss="modal">Cancel
 										</button>
-										<form th:action="@{/profile/delete}" th:method="post">
-											<button type="submit" class="btn btn-danger">Delete Account</button>
+										</button>
+										<form class="modal-delete-profile-form d-flex justify-content-center" th:action="@{/profile/delete}" th:method="post">
+											<button type="submit" class="modal-delete-profile-button">Delete</button>
 										</form>
 									</div>
 								</div>
