@@ -14,7 +14,7 @@
 <div id="page-content-with-footer">
     <div id="page-content-without-footer" class="page-content-search-results">
 
-<!--groups-->
+        <!--groups-->
         <div id="group-flex-container">
             <div class="group-container">
                 <div th:if="${searchedGroups.isEmpty()}">
@@ -23,30 +23,31 @@
                 <div th:if="${!searchedGroups.isEmpty()}">
                     <h3 class="content-header">Groups related to your search</h3>
                     <ul class="list-group">
-                        <li th:each="group: ${searchedGroups}"
-                            class="list-group-item search-results-group-card">
-                            <div class="search-results-group-container">
-                                <a class="search-results-group-a" th:href="@{/group/{id}(id=${group.id})}">
+                        <li th:each="group: ${searchedGroups}" class="list-group-item search-results-group-card">
+                            <a class="search-results-group-a" th:href="@{/group/{id}(id=${group.id})}">
+                                <div class="name-bio-search-results">
                                     <div><span th:text="${group.name}"></span></div>
-                                </a>
-                                <div class="group-bio-search-results" th:text="${group.description}"></div>
-                            </div>
-                            <div th:if="${group.private}">
-                                <span class="badge rounded-pill private-pill">Private</span>
-                            </div>
-                            <div th:if="${!group.private}">
-                                <span class="badge rounded-pill public-pill">Public</span>
-                            </div>
+                                    <div class="group-bio-search-results" th:text="${group.description}"></div>
+                                </div>
+                                <div class="pill-group-search-results">
+                                    <div th:if="${group.private}">
+                                        <span class="badge rounded-pill private-pill">Private</span>
+                                    </div>
+                                    <div th:if="${!group.private}">
+                                        <span class="badge rounded-pill public-pill">Public</span>
+                                    </div>
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-<!--posts-->
+        <!--posts-->
         <div class="search-results-post-container">
             <div>
-                <div th:if="${searchedPosts.isEmpty()}" class="no-postcard">
+                <div th:if="${searchedPosts.isEmpty()}">
                     <h3 class="content-header">There are no Posts related to your search.</h3>
                 </div>
                 <div th:if="${!searchedPosts.isEmpty()}">
@@ -86,7 +87,8 @@
                             <div class="search-results-user-card-a">
                                 <img class="user-photo" th:src="${user.profilePhotoUrl}">
                                 <div>
-                                    <p class="search-results-user-card-p1"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
+                                    <p class="search-results-user-card-p1"><span th:text="${user.firstName}"></span>
+                                        <span th:text="${user.lastName}"></span></p>
                                     <p class="search-results-user-card-p2">@<span th:text="${user.username}"></span></p>
                                 </div>
                             </div>
