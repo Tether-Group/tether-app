@@ -33,6 +33,16 @@ div#login-page-content {
     padding: 0 10px;
 }
 
+.requirement-verification-2 {
+    font-size: 14px;
+    position: relative;
+    left: 370px;
+    bottom: 225px;
+    border: 1px solid #8080805e;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
 * {
     font-family: 'Nobile', sans-serif;
 }
@@ -43,6 +53,10 @@ input {
 
 div.margin-top {
     margin-top: 140px;
+}
+
+.margin-top-2 {
+    margin-top: 14em;
 }
 
 img.margin-top {
@@ -60,26 +74,6 @@ img.margin-top {
 
 .button-no-show {
 
-}
-
-/*fix footer to bottom of page*/
-#login-page-container {
-    position: relative;
-    min-height: 100vh;
-}
-
-#login-page-wrap {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 5em;
-}
-
-.fixed-footer-login {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 110px;
 }
 
 button.nav-link {
@@ -108,4 +102,34 @@ input.login-register-button {
 
 input.login-register-button:hover {
     background-color: #a5cafa;
+}
+
+input.login-register-button[disabled] {
+    background-color: #a1a0a0;
+    cursor: not-allowed;
+}
+
+input.login-register-button[disabled]:hover {
+    background-color: #a1a0a0;
+    cursor: not-allowed;
+}
+
+/*fix footer to bottom of page*/
+#login-page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#login-page-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5em;
+}
+
+.fixed-footer-login {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
 }
