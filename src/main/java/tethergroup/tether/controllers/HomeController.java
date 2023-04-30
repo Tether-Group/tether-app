@@ -12,6 +12,8 @@ import tethergroup.tether.repositories.GroupRepository;
 import tethergroup.tether.repositories.MembershipRepository;
 import tethergroup.tether.repositories.PostRepository;
 
+import java.rmi.MarshalException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,17 +30,35 @@ public class HomeController {
     @GetMapping("/")
     public String returnLandingPage(Model model) {
         List<Group> randomGroups = groupDao.randomGroupsLimitFive();
-        List<Post> posts = postDao.findByOrderByPostDateDesc();
-        for (Post post : posts) {
-            System.out.println(post.getUser().getId());
-            System.out.println(post.getGroup().getAdmin().getId());
-        }
+        List<Post> allPosts = postDao.findByOrderByPostDateDesc();
+        List<Post> posts = new ArrayList<>();
+
         model.addAttribute("randoGroups", randomGroups);
         User loggedInUser = new User();
         try {
             loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
             System.out.println("User is not logged in");
+        }
+        for (Post post : allPosts) {
+            if (!post.getGroup().isPrivate()) {
+                posts.add(post);
+            } else if (post.getGroup().isPrivate()) {
+                List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
+                for (Membership membership : membershipsForGroupOfPost) {
+                    if (loggedInUser.getUsername() != null) {
+                        if (loggedInUser.getId() == membership.getUser().getId()) {
+                            posts.add(post);
+                        } else if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
+                            posts.add(post);
+                        }
+                    }
+                }
+            }
+        }
+        for (Post post : posts) {
+            System.out.println(post.getUser().getId());
+            System.out.println(post.getGroup().getAdmin().getId());
         }
         model.addAttribute("loggedInUser", loggedInUser);
         List<Group> groups = groupDao.findAll();
