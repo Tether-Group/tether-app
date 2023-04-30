@@ -1,0 +1,97 @@
+
+
+/*fixed footer*/
+#page-content-with-footer {
+    position: relative;
+    min-height: 100vh;
+}
+
+#page-content-without-footer {
+    padding-bottom: 130px;
+}
+
+.footer-stationary {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
+}
+
+p.friends-members-main-header {
+    display: flex;
+    justify-content: center;
+    font-family: Oswald, sans-serif;
+    font-size: 2em;
+    margin-top: 1.5em;
+}
+
+.friends-members-cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0 2em;
+    flex-wrap: wrap;
+}
+
+.friend-member-outer-card {
+    width: 40%;
+    padding: 1em;
+    border: 1px solid lightgray;
+    border-radius: 0.35em;
+    box-shadow: 2px 2px 2px #e9e7e7ef;
+    margin: 1em 0;
+}
+
+.friend-member-a {
+    text-decoration: none!important;
+    color: black;
+}
+
+.friend-member-outer-card:hover {
+    box-shadow: 2px 2px 2px #b2d8ff;
+}
+
+.friend-member-card {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    font-family: Nobile, sans-serif;
+    font-size: 1em;
+}
+
+.friend-member-photo {
+    background-color: lightgray;
+    width: 6.5em;
+    height: 6.5em;
+    border-radius: 100px;
+    border: 1px solid grey;
+}
+
+.friend-member-photo-holder {
+    justify-content: center;
+    align-self: center;
+}
+
+.friend-member-content {
+    align-self: center;
+    margin-left: 1em;
+    max-width: 40%;
+}
+
+.friend-member-bio {
+    align-self: center;
+    margin-left: 1em;
+    font-size: 0.8em;
+}
+
+.admin-icon-member {
+    width: 0;
+    height: 0;
+}
+
+i.bi-star-fill {
+    font-size: 1.25em;
+    position: relative;
+    bottom: 5.4em;
+    left: 6em;
+}

@@ -57,6 +57,10 @@ ul.custom-chat {
  --bs-dropdown-padding-y: 0!important;
 }
 
+.chat-dropdown-divider {
+    margin: 0;
+}
+
 .custom-chat-btn {
     color: black;
     background-color: rgba(204, 204, 204, 0.98);

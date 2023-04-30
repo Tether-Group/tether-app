@@ -82,12 +82,12 @@
                 <div th:if="${!searchedUsers.isEmpty()}">
                     <h3 class="content-header">Users related to your search</h3>
                     <div class="card search-results-user-card" th:each="user: ${searchedUsers}">
-                        <a class="no-text-decoration" th:href="@{/profile/{username}(username=${user.getUsername()})}">
+                        <a class="no-text-decoration" th:href="@{/profile/{username}(username=${user.username})}">
                             <div class="search-results-user-card-a">
                                 <img class="user-photo" th:src="${user.profilePhotoUrl}">
                                 <div>
                                     <p class="search-results-user-card-p1"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
-                                    <p class="search-results-user-card-p2">@<span th:text="${user.getUsername()}"></span></p>
+                                    <p class="search-results-user-card-p2">@<span th:text="${user.username}"></span></p>
                                 </div>
                             </div>
                         </a>

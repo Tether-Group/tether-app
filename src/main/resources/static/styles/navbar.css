@@ -17,6 +17,14 @@ a.dropdown-item:hover {
     transition: .1s ease-in-out;
 }
 
+.navbar-dropdown-divider {
+    margin: 0;
+}
+
+.dropdown-menu-navbar {
+    padding: 0;
+}
+
 button.nav-btn {
     padding: 0;
     margin: auto 3px 4px;

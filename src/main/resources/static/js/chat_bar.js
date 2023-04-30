@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let x = "";
     for (let i = 0; i < friends.length; i++) {
-        x += `<li><a class="dropdown-item" href="/messages/talk/${friends[i].username}">${friends[i].firstName} ${friends[i].lastName}</a></li>`
+        x += `<li><a class="dropdown-item" href="/messages/talk/${friends[i].username}">${friends[i].firstName} ${friends[i].lastName}</a></li><hr class="chat-dropdown-divider">`
     }
     // console.log(x);
     const friendsDropdown = document.getElementById("list-friends");

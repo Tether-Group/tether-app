@@ -98,7 +98,7 @@ button.nav-link:hover {
 
 /* login/register buttons */
 input.login-register-button {
-    background-color: black;
+    background-color: #212b3a;
     color: white;
     border: none;
     border-radius: 0.35em;

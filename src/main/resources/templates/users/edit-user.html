@@ -18,7 +18,7 @@
 			<div class="nav flex-column me-3 col-2" id="v-pills-tab" role="tablist">
 				<button class="nav-link edit-profile-nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home"
-						type="button" role="tab">Edit Profile
+						type="button" role="tab">Public Profile
 				</button>
 				<button class="nav-link edit-profile-nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-profile"
@@ -26,11 +26,7 @@
 				</button>
 				<button class="nav-link edit-profile-nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-messages"
-						type="button" role="tab">Security
-				</button>
-				<button class="nav-link edit-profile-nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-						data-bs-target="#v-pills-settings"
-						type="button" role="tab">Messsages
+						type="button" role="tab">Account
 				</button>
 			</div>
 
@@ -43,24 +39,14 @@
 						<div class="col-6">
 
 							<br>
-							<label for="firstname" class="form-label">First Name</label>
+							<label for="firstname" class="form-label mt-2">First Name</label>
 							<input id="firstname" name="firstname" th:field="*{firstName}" class="form-control"
 								   required>
 
-							<label for="lastname" class="form-label">Last Name</label>
+							<label for="lastname" class="form-label mt-2">Last Name</label>
 							<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
 
-							<div class="has-validation">
-								<label for="username" class="form-label">Username</label>
-								<input id="username" name="username" th:field="*{username}"
-									   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
-									   class="form-control" required>
-								<div id="validationUsernameFeedback" class="invalid-feedback">
-									Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
-								</div>
-							</div>
-
-							<label for="register-email" class="form-label">Email</label>
+							<label for="register-email" class="form-label mt-2">Email</label>
 							<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
 							<div id="message1" class="form-text">
 								Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span
@@ -84,37 +70,6 @@
 						</div>
 					</form>
 
-					<br>
-
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-							data-bs-target="#exampleModal">
-						Delete account
-					</button>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								</div>
-								<div class="modal-body">
-									<div class="modal-body">
-										Are you sure you want to delete your account?
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
-										</button>
-										<form th:action="@{/profile/delete}" th:method="post">
-											<button type="submit" class="btn btn-danger">Delete Account</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 
 				<!--		edit password tab -->
@@ -155,8 +110,54 @@
 
 				</div>
 
-				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">...</div>
-				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel">...</div>
+				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">
+
+					<form th:action="@{/profile/editusername}" th:method="post">
+						<div class="has-validation">
+							<label for="username" class="form-label mt-2">Username</label>
+							<input id="username" th:name="username" th:value="${user.username}"
+								   th:class="${usernameExists} ? 'form-control is-invalid' : 'form-control'"
+								   class="form-control" required>
+							<div id="validationUsernameFeedback" class="invalid-feedback">
+								Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
+							</div>
+						</div>
+					</form>
+
+					<br>
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal"
+							data-bs-target="#exampleModal">
+						Delete account
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								</div>
+								<div class="modal-body">
+									<div class="modal-body">
+										Are you sure you want to delete your account?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+										</button>
+										<form th:action="@{/profile/delete}" th:method="post">
+											<button type="submit" class="btn btn-danger">Delete Account</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 		</div>
 

@@ -25,6 +25,7 @@
 .edit-profile-nav-link:hover {
     color: black;
     background-color: lightgray;
+    text-decoration: none;
 }
 
 .edit-profile-nav-link.active {

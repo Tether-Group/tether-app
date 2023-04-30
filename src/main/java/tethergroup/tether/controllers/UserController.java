@@ -3,6 +3,7 @@ package tethergroup.tether.controllers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -79,6 +80,7 @@ public class UserController {
     }
 
     // viewing profile when logged in
+    @Transactional
     @GetMapping("/profile/{username}")
     public String returnProfilePage(Model model, @PathVariable String username) {
 
@@ -140,6 +142,9 @@ public class UserController {
             for (int i = 0; i < 5; i++) {
                 groups.add(allGroupsOfUser.get(i));
             }
+        }
+        for (Group group : groups) {
+            System.out.println(group.getName());
         }
         List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_IdOrderByPostDateDesc(profilePageUserId);
         List<Comment> comments = new ArrayList<>();
@@ -318,6 +323,9 @@ public class UserController {
     //    viewing friends list
     @GetMapping("/profile/{username}/friends")
     public String returnFriendsListPage(Model model, @PathVariable String username) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("loggedInUser", loggedInUser);
+
         User user = userDao.findByUsername(username);
         List<Friendship> friendsOfUserOfProfilePage = friendshipDao.getFriendshipsOfUser(user.getId());
         List<User> friends = new ArrayList<>();
@@ -368,12 +376,10 @@ public class UserController {
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute User user, @RequestParam("photo-url") String photoURL) {
-        User userWithUniqueUsername = userDao.findByUsername(user.getUsername());
-
-        if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(user.getUsername())) {
-            return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
-        }
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User actualUser = userDao.findById(loggedInUser.getId()).get();
         String userPassword = userDao.findById(user.getId()).get().getPassword();
+        user.setUsername(actualUser.getUsername());
         user.setPassword(userPassword);
         user.setProfilePhotoUrl(photoURL);
         userDao.save(user);
@@ -394,6 +400,17 @@ public class UserController {
             userDao.save(user);
             return "redirect:/";
         }
+    }
+
+    @PostMapping("/profile/editusername")
+    public String updateUsername(@RequestParam("username") String username) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userWithUniqueUsername = userDao.findByUsername(username);
+
+        if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(loggedInUser.getUsername())) {
+            return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
+        }
+        return "redirect:/profile/my-account";
     }
 
     @PostMapping("/profile/delete")
