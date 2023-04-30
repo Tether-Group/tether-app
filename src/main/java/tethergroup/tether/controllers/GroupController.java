@@ -48,13 +48,15 @@ public class GroupController {
 
         List<Membership> memberships = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(userOfProfilePage.getId());
         List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userOfProfilePage.getId());
-        List<Group> groups = new ArrayList<>(groupsWhereUserIsAdmin);
+        List<Group> groupsWhereUserIsMember = new ArrayList<>();
         for (Membership membership : memberships) {
             Group group = groupDao.findById(membership.getGroup().getId()).get();
-            groups.add(group);
+            groupsWhereUserIsMember.add(group);
         }
-        model.addAttribute("groups", groups);
-        return "groups/group-list";
+        model.addAttribute("groupsWhereUserIsAdmin", groupsWhereUserIsAdmin);
+        model.addAttribute("groupsWhereUserIsMember", groupsWhereUserIsMember);
+        model.addAttribute("user", userOfProfilePage);
+        return "groups/users-groups";
     }
 
     @GetMapping("/profile/my-account/groups")
@@ -67,13 +69,10 @@ public class GroupController {
             List<Membership> memberships = membershipDao.findMembershipsByUser_IdAndIsPendingIsFalse(userObj.getId());
             List<Group> groupsWhereUserIsAdmin = groupDao.getAllGroupsByAdminId(userObj.getId());
             List<Group> groupsWhereUserIsMember = new ArrayList<>();
-            List<Group> allGroups = new ArrayList<>(groupsWhereUserIsAdmin);
             for (Membership membership : memberships) {
                 Group group = groupDao.findById(membership.getGroup().getId()).get();
                 groupsWhereUserIsMember.add(group);
-                allGroups.add(group);
             }
-            model.addAttribute("allGroups", allGroups);
             model.addAttribute("groupsWhereUserIsAdmin", groupsWhereUserIsAdmin);
             model.addAttribute("groupsWhereUserIsMember", groupsWhereUserIsMember);
         } else {
@@ -95,8 +94,9 @@ public class GroupController {
             Optional<User> actualUser = userDao.findById(user.getId());
             if (actualUser.isPresent()) {
                 User userObj = actualUser.get();
-                List<PostType> postTypesForGroup = group.getPostTypes();
+                List<PostType> postTypesForGroup = new ArrayList<>();
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
+                group.setPostTypes(postTypesForGroup);
                 group.setAdmin(userObj);
                 if (photoURL != null) {
                     group.setGroupPhotoURL(photoURL);
@@ -147,7 +147,7 @@ public class GroupController {
             } else {
                 model.addAttribute("isAdmin", false);
             }
-            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<Post> posts = postDao.findByGroup_IdOrderByPostDateDesc(group.getId());
             List<PostType> postTypes = postTypeDao.findAll();
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
@@ -181,7 +181,7 @@ public class GroupController {
                 return "redirect:/login";
             }
             User admin = groupDao.findById(groupId).get().getAdmin();
-            List<Post> posts = postDao.findByGroup_Id(group.getId());
+            List<Post> posts = postDao.findByGroup_IdOrderByPostDateDesc(group.getId());
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
             List<User> members = userDao.findByGroupIdLimitFive(groupId);
