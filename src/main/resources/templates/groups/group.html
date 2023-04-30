@@ -90,21 +90,9 @@
 											<textarea class="form-control" th:value="${group.description}"
 													  id="description" th:field="*{description}"
 													  style="height: 150px"></textarea>
-											<label for="description"><P>Group Description</p></label>
+											<label for="description"><p>Group Description</p></label>
 										</div>
 
-										<!--                                        <label for="visibility">Visibility:</label>-->
-										<!--                                        <input type="checkbox" name="private" th:value="${group.private}" th:field="*{private}" id="visibility">-->
-										<!--                                        <span>Private</span>-->
-										<!--                                        <label for="post-types">Post Types:</label>-->
-										<!--                                        <select name="postTypes" id="post-types" th:value="${group.postTypes}"-->
-										<!--                                                th:field="*{postTypes}"-->
-										<!--                                                multiple>-->
-										<!--                                            <option value="2">Event</option>-->
-										<!--                                            <option value="3">For Sale</option>-->
-										<!--                                            <option value="4">Q&A</option>-->
-										<!--                                        </select>-->
-										<!--                                        <br>-->
 										<input type="hidden" th:field="*{id}">
 
 
@@ -152,7 +140,7 @@
 
 											<div>
 												<label class="post-type-form"><p>Event</p>
-													<input type="checkbox" name="postTypes" value="2"
+													<input type="checkbox" name="postTypeTwo" value="2"
 														   th:checked="${postTypeIdsOfGroup.contains(postType2Id)}">
 													<span class="checkmark2"></span>
 												</label>
@@ -160,7 +148,7 @@
 
 											<div>
 												<label class="post-type-form"><p style="width: 85px">For Sale</p>
-													<input type="checkbox" name="postTypes" value="3"
+													<input type="checkbox" name="postTypeThree" value="3"
 														   th:checked="${postTypeIdsOfGroup.contains(postType3Id)}">
 													<span class="checkmark2"></span>
 												</label>
@@ -168,7 +156,7 @@
 
 											<div>
 												<label class="post-type-form"><p>QandA</p>
-													<input type="checkbox" name="postTypes" value="4"
+													<input type="checkbox" name="postTypeFour" value="4"
 														   th:checked="${postTypeIdsOfGroup.contains(postType4Id)}">
 													<span class="checkmark2"></span>
 												</label>
