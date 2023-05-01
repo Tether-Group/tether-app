@@ -193,6 +193,7 @@ public class GroupController {
             }
             User admin = groupDao.findById(groupId).get().getAdmin();
             List<Post> posts = postDao.findByGroup_IdOrderByPostDateDesc(group.getId());
+            List<PostType> postTypes = postTypeDao.findAll();
             List<PostType> postTypesIdsOfGroup = group.getPostTypes();
             List<Long> postTypeIdsOfGroup = new ArrayList<>();
             List<User> members = userDao.findByGroupIdLimitFive(groupId);
@@ -202,6 +203,9 @@ public class GroupController {
             }
             for (PostType postType : postTypesIdsOfGroup) {
                 postTypeIdsOfGroup.add(postType.getId());
+            }
+            for (int i = 0; i < postTypes.size(); i++) {
+                model.addAttribute("postType" + (i + 1) + "Id", postTypes.get(i).getId());
             }
 
             model.addAttribute("postTypeIdsOfGroup", postTypeIdsOfGroup);
@@ -269,7 +273,7 @@ public class GroupController {
             return "redirect:/error";
         }
         groupDao.deleteById(group.getId());
-        return "redirect:/groups";
+        return "redirect:/profile/my-account/groups";
     }
 
     @GetMapping("group/{groupId}/members")
