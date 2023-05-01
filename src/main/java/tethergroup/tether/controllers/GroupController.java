@@ -113,7 +113,8 @@ public class GroupController {
                     group.setGroupPhotoURL("https://cdn.filestackcontent.com/srWrNqvTyCSUHB3OmPiA");
                 }
                 group.setPrivate(isPrivate);
-                groupDao.save(group);
+                Long newGroupId = groupDao.save(group).getId();
+                return "redirect:/group/" + newGroupId;
             } else {
                 return "redirect:/login";
             }
@@ -121,7 +122,6 @@ public class GroupController {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        return "redirect:/groups";
     }
 
     @GetMapping("/group/{groupId}")
