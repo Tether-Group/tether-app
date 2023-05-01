@@ -40,17 +40,31 @@ button.profile-button {
     width: 12em;
 }
 
+.edit-profile-button {
+    font-family: 'Nobile', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 0.25em;
+    border: none;
+    margin-top: 3px;
+    border-radius: 5px;
+    height: 25px;
+    width: 9em;
+    background-color: #0e96ffd4;
+    color: white;
+}
+
 #send-message-btn, #add-friend-btn, #accept-friend-request-btn {
     background-color: #0e96ffd4;
     color: white;
 }
 
-.bi-messenger, .bi-person-fill-add, .bi-person-fill-check, i.bi-messenger:before, .bi-person-fill-add:before, .bi-person-fill-check:before {
+.bi-messenger, .bi-person-fill-add, .bi-person-fill-check, i.bi-messenger:before, .bi-person-fill-add:before, .bi-person-fill-check:before, .bi-gear-fill {
     background-color: transparent;
     color: white;
 }
 
-#send-message-btn:hover, #add-friend-btn:hover, .bi-messenger:hover, #accept-friend-request-btn:hover, .bi-person-fill-check:hover {
+#send-message-btn:hover, #add-friend-btn:hover, .bi-messenger:hover, #accept-friend-request-btn:hover, .bi-person-fill-check:hover, .bi-gear-fill:hover, .edit-profile-button:hover {
     background-color: #0368c5;
 }
 
