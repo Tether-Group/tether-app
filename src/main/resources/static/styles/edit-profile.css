@@ -36,17 +36,21 @@
     border-left: #42a1ff solid 3px;
 }
 
-.save-button{
+.save-button {
     border: none;
     border-radius: 5px;
+    background-color: #0e96ffd4;
     color: white;
-    background-color: #42a1ff;
     width: 25%;
     height: 2em;
     font-size: 18px;
 }
 
-.close-button{
+.save-button:hover {
+    background-color: #1688e0;
+}
+
+.close-button {
     border: none;
     border-radius: 5px;
     color: black;
@@ -56,11 +60,11 @@
     font-size: 18px;
 }
 
-.modal-delete-profile-button{
+.modal-delete-profile-button {
     border: none;
     border-radius: 5px;
     color: white;
-    background-color: #ff0a19;
+    background-color: rgba(169, 2, 2, 0.72);
     width: 100%;
     height: 2em;
     font-size: 18px;
@@ -76,7 +80,7 @@
     font-size: 18px;
 }
 
-.modal-delete-profile-form:hover {
+.modal-delete-profile-form:hover, .modal-delete-profile-button:hover {
     background-color: red;
 }
 
@@ -84,10 +88,14 @@
     border: none;
     border-radius: 5px;
     color: white;
-    background-color: #ff0a19;
+    background-color: rgba(169, 2, 2, 0.72);
     width: 25%;
     height: 2em;
     font-size: 18px;
+}
+
+.edit-profile-delete-button:hover {
+    background-color: red;
 }
 
 /*keep footer at the bottom*/

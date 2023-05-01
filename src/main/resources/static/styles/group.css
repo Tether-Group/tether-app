@@ -39,14 +39,14 @@ button.group-button {
 }
 
 .edit-group-button, .join-group-button, .cancel-request-group-button, .leave-group-button, .create-post-button {
-    background-color: #8a8a8a5e;
-    color: black;
+    background-color: #0e96ffd4;
+    color: white;
     width: 10em;
-    padding: 0.25em 0
+    padding: 0.25em 0;
 }
 
 .edit-group-button:hover {
-    background-color: #7c7c7c !important;
+    background-color: #1688e0 !important;
 }
 
 .join-group-button:hover {
@@ -55,13 +55,13 @@ button.group-button {
 }
 
 .cancel-request-group-button:hover {
-    background-color: rgba(255, 221, 0, 0.58);
-    color: black;
+    background-color: #fdc244;
+    color: white;
 }
 
 .leave-group-button:hover {
-    background-color: #ffb453;
-    color: black
+    background-color: #fdc244;
+    color: white;
 }
 
 .create-post-button:hover {
@@ -277,9 +277,13 @@ a.no-text-decoration {
 
 .remove-friend-button {
     font-size: 0.5em!important;
-    background-color: rgba(139, 0, 0, 0.63);
+    background-color: rgba(169, 2, 2, 0.72);
     color: white;
     height: 20px!important;
+}
+
+.remove-friend-button:hover {
+    background-color: red;
 }
 
 .view-all-members-container {
