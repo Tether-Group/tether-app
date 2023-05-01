@@ -19,6 +19,9 @@
             <!--owned groups-->
             <div class="owned-groups-container">
                 <h3 class="content-header mb-2">Owned Groups</h3>
+                <div th:if="${groupsWhereUserIsAdmin.isEmpty()}">
+                    <div>No owned groups, <a th:href="@{/group/create}">Create a group</a></div>
+                </div>
                 <div class="group-card-container">
                     <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
                         <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
@@ -36,8 +39,11 @@
             <!--joined groups-->
             <div class="joined-groups-container">
                 <h3 class="content-header mb-2">Joined Groups</h3>
+                <div th:if="${groupsWhereUserIsMember.isEmpty()}">
+                    <div>No joined groups, <a th:href="@{/groups}">Explore</a> to join</div>
+                </div>
                 <div class="group-card-container">
-                    <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
+                    <div th:each="group: ${groupsWhereUserIsMember}" class="group-card">
                         <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
                             <img class="group-header-group-list" th:src="${group.groupPhotoURL}"
                                  alt="group photo banner">
@@ -46,7 +52,7 @@
                                     <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
                                     <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
                                 </div>
-                                <div class="align-pill">
+                                <div>
                                     <div th:if="${group.private}">
                                         <span class="badge rounded-pill private-pill">Private</span>
                                     </div>
@@ -64,9 +70,9 @@
 
     </div>
 
-<div class="footer-stationary">
-    <th:block th:insert="~{partials/footer :: footer}"></th:block>
-</div>
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
 </div>
 </body>
 </html>

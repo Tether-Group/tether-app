@@ -19,9 +19,19 @@
             <div th:each="group: ${groups}" class="group-card">
                 <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
                     <img class="group-header-group-list" th:src="${group.groupPhotoURL}" alt="group photo banner">
-                    <div class="p-3">
-                        <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
-                        <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
+                    <div class="p-3 flex-pill">
+                        <div class="me-2">
+                            <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
+                            <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
+                        </div>
+                        <div>
+                            <div th:if="${group.private}">
+                                <span class="badge rounded-pill private-pill">Private</span>
+                            </div>
+                            <div th:if="${!group.private}">
+                                <span class="badge rounded-pill public-pill">Public</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
                 <a class="no-text-decoration2 text-secondary px-3 text-end"

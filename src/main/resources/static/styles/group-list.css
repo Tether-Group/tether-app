@@ -29,6 +29,11 @@ img.group-header-group-list {
     width: 100%;
 }
 
+.flex-pill {
+    display: flex;
+    justify-content: space-between;
+}
+
 .no-text-decoration1, .no-text-decoration2 {
     text-decoration: none;
 }
