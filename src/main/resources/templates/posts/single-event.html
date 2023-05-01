@@ -28,7 +28,9 @@
                         <span th:text="${eventPost.body}"></span>
                         <br>
                         <br>
-                        When: <span th:text="${eventPost.eventDate}"></span>
+                        When: <span th:text="${#temporals.month(eventPost.eventDate)}"></span> /
+                        <span th:text="${#temporals.day(eventPost.eventDate)}"></span> /
+                        <span th:text="${#temporals.year(eventPost.eventDate)}"></span>
                         <br>
                         Where: <span id="event-address" th:text="${eventPost.eventAddress}"></span>
                         <br>
