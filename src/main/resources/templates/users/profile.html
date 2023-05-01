@@ -1,207 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${user.username}"></title>
-    <th:block th:insert="~{partials/styles :: styles}"></th:block>
-    <link rel="stylesheet" href="/styles/profile.css"/>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="${user.username}"></title>
+	<th:block th:insert="~{partials/styles :: styles}"></th:block>
+	<link rel="stylesheet" href="/styles/profile.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
 <div id="page-content-with-footer">
-    <div id="page-content-without-footer">
-        <!--	PROFILE PAGE DISPLAY-->
-        <div class="row w-100 d-flex m-2">
-            <div class="col-4 d-flex profile-header">
-                <img class="profile-img-circle" th:src="${user.profilePhotoUrl}" alt="user" width="150px"
-                     height="150px">
-                <div class="profile-username ms-1">
-                    <h2 class="m-0"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
-                    </h2>
-                    <h6 class="m-0"><em><span th:text="${user}"></span></em></h6>
-                </div>
-            </div>
+	<div id="page-content-without-footer">
+		<!--	PROFILE PAGE DISPLAY-->
+		<div class="row w-100 d-flex m-2">
+			<div class="col-4 d-flex profile-header">
+				<img class="profile-img-circle" th:src="${user.profilePhotoUrl}" alt="user" width="150px"
+					 height="150px">
+				<div class="profile-username ms-1">
+					<h2 class="m-0"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
+					</h2>
+					<h6 class="m-0"><em><span th:text="${user}"></span></em></h6>
+				</div>
+			</div>
 
-            <div class="col-4 align-self-center text-center"><p><em><span th:text="${user.bio}"></span></em></p></div>
+			<div class="col-4 align-self-center text-center"><p><em><span th:text="${user.bio}"></span></em></p></div>
 
-            <!--	THESE ARE THE BUTTONS FOR OTHER USER'S PROFILE PAGE-->
-            <div class="col-4 d-flex align-self-center" th:if="${!isMyAccountPage}">
+			<!--	THESE ARE THE BUTTONS FOR OTHER USER'S PROFILE PAGE-->
+			<div class="col-4 d-flex align-self-center" th:if="${!isMyAccountPage}">
 
-                <!--message the user-->
-                <div class="m-1 align-self-center">
-                    <form th:action="@{/messages/talk/{username}(username=${user.username})}" th:method="GET">
-                        <button id="send-message-btn" type="submit" class="profile-button">
-                            <i class="bi bi-messenger"></i> Message
-                        </button>
-                    </form>
-                </div>
+				<!--message the user-->
+				<div class="m-1 align-self-center">
+					<form th:action="@{/messages/talk/{username}(username=${user.username})}" th:method="GET">
+						<button id="send-message-btn" type="submit" class="profile-button">
+							<i class="bi bi-messenger"></i> Message
+						</button>
+					</form>
+				</div>
 
-                <!--add friend button-->
-                <div sec:authorize="isAuthenticated()">
-                    <div class="m-1 align-self-center" th:if="${!requestExists}">
-                        <form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
-                            <button id="add-friend-btn" type="submit" class="profile-button">
-                                Add Friend
-                            </button>
-                        </form>
-                    </div>
-                </div>
+				<!--add friend button-->
+				<div sec:authorize="isAuthenticated()">
+					<div class="m-1 align-self-center" th:if="${!requestExists}">
+						<form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
+							<button id="add-friend-btn" type="submit" class="profile-button">
+								Add Friend
+							</button>
+						</form>
+					</div>
+				</div>
 
-                <!--    cancel friend request button-->
-                <div sec:authorize="isAuthenticated()">
-                    <div class="m-1 align-self-center"
-                         th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
-                        <form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
-                            <button id="cancel-friend-request-btn" type="submit" class="profile-button">
-                                Cancel Friend Request
-                            </button>
-                        </form>
-                    </div>
-                </div>
+				<!--    cancel friend request button-->
+				<div sec:authorize="isAuthenticated()">
+					<div class="m-1 align-self-center"
+						 th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
+						<form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
+							<button id="cancel-friend-request-btn" type="submit" class="profile-button">
+								Cancel Friend Request
+							</button>
+						</form>
+					</div>
+				</div>
 
-                <!--    leave group button/form-->
-                <div sec:authorize="isAuthenticated()">
-                    <div class="m-1 align-self-center" th:if="${requestExists && !isPending}">
-                        <form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
-                            <button id="remove-friend-btn" type="submit" class="profile-button">
-                                Remove Friend
-                            </button>
-                        </form>
-                    </div>
-                </div>
+				<!--    leave group button/form-->
+				<div sec:authorize="isAuthenticated()">
+					<div class="m-1 align-self-center" th:if="${requestExists && !isPending}">
+						<form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
+							<button id="remove-friend-btn" type="submit" class="profile-button">
+								Remove Friend
+							</button>
+						</form>
+					</div>
+				</div>
 
-                <!--accept or decline friend request button-->
-                <div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}" style="width: 50%;"
-                     class="m-1 d-flex justify-content-center align-self-center" sec:authorize="isAuthenticated()">
-                    <div>
-                        <p class="m-0 text-center"><span th:text="${user.username}"></span> has sent you a friend
-                            request
-                        </p>
-                        <div class="d-flex justify-content-center">
-                            <form class="me-1" th:action="@{/profile/{userId}/accept(userId=${user.id})}"
-                                  th:method="POST">
-                                <input th:name="currentPage" th:value="profile-page" hidden>
-                                <button id="accept-friend-request-btn" type="submit" class="profile-button">
-                                    Accept
-                                </button>
-                            </form>
+				<!--accept or decline friend request button-->
+				<div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}" style="width: 50%;"
+					 class="m-1 d-flex justify-content-center align-self-center" sec:authorize="isAuthenticated()">
+					<div>
+						<p class="m-0 text-center"><span th:text="${user.username}"></span> has sent you a friend
+							request
+						</p>
+						<div class="d-flex justify-content-center">
+							<form class="me-1" th:action="@{/profile/{userId}/accept(userId=${user.id})}"
+								  th:method="POST">
+								<input th:name="currentPage" th:value="profile-page" hidden>
+								<button id="accept-friend-request-btn" type="submit" class="profile-button">
+									Accept
+								</button>
+							</form>
 
-                            <form class="ms-1" th:action="@{/profile/{userId}/remove(userId=${user.id})}"
-                                  th:method="POST">
-                                <input th:name="currentPage" th:value="profile-page" hidden>
-                                <button id="decline-friend-request-btn" type="submit" class="profile-button">
-                                    Decline
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+							<form class="ms-1" th:action="@{/profile/{userId}/remove(userId=${user.id})}"
+								  th:method="POST">
+								<input th:name="currentPage" th:value="profile-page" hidden>
+								<button id="decline-friend-request-btn" type="submit" class="profile-button">
+									Decline
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
 
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <hr class="profile-hr">
+		<hr class="profile-hr">
 
-        <!--profile posts/groups/friends-->
-        <div class="group-post-friend-container">
+		<!--profile posts/groups/friends-->
+		<div class="group-post-friend-container">
 
-            <!--groups-->
-            <div id="group-flex-container">
-                <div class="group-container">
-                    <h3 class="content-header">Groups</h3>
-                    <div th:if="${noGroups}">
-                        <h5 class="content-header">No groups to display...</h5>
-                    </div>
-                    <ul class="list-group">
-                        <!--how to view either all of my groups or the users groups of the persons profile that I am on-->
-                        <div class="view-all-groups-friends-container">
-                            <div th:if="${loggedInUser.id != user.id}">
-                                <a class="view-all-groups-friends-a" th:href="@{'/groups/' + ${user.username}}">View all groups</a>
-                            </div>
-                            <div th:if="${loggedInUser.id == user.id}">
-                                <a class="view-all-groups-friends-a" th:href="@{/profile/my-account/groups}">View all groups</a>
-                            </div>
-                        </div>
-                        <!--my groups-->
-                        <li th:each="group: ${groups}" class="list-group-item profile-group-card">
-                            <a class="profile-group-a" th:href="@{/group/{id}(id=${group.id})}">
-                                <div class="name-bio-profile">
-                                    <div><span th:text="${group.name}"></span></div>
-                                    <div class="group-bio-profile" th:text="${group.description}"></div>
-                                </div>
-                                <div class="pill-group-profile">
-                                    <div th:if="${group.private}">
-                                        <span class="badge rounded-pill private-pill">Private</span>
-                                    </div>
-                                    <div th:if="${!group.private}">
-                                        <span class="badge rounded-pill public-pill">Public</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+			<!--groups-->
+			<div id="group-flex-container">
+				<div class="group-container">
+					<h3 class="content-header">Groups</h3>
+						<div th:if="${noGroups}">
+							<h5 class="content-header">No groups to display...</h5>
+						</div>
+						<ul class="list-group">
+							<!--how to view either all of my groups or the users groups of the persons profile that I am on-->
+							<div class="view-all-groups-friends-container">
+								<div th:if="${requestExists and isPending or !requestExists and !noGroups}">
+									<h5 class="content-header">Add friend to view all groups</h5>
+								</div>
+								<div th:if="${loggedInUser.id != user.id and requestExists and !isPending and !noGroups}">
+									<a class="view-all-groups-friends-a" th:href="@{'/groups/' + ${user.username}}">View
+										all groups</a>
+								</div>
+								<div th:if="${loggedInUser.id == user.id and !noGroups}">
+									<a class="view-all-groups-friends-a" th:href="@{/profile/my-account/groups}">View
+										all groups</a>
+								</div>
+							</div>
+							<!--my groups-->
+							<li th:each="group: ${groups}" class="list-group-item profile-group-card">
+								<a class="profile-group-a" th:href="@{/group/{id}(id=${group.id})}">
+									<div class="name-bio-profile">
+										<div><span th:text="${group.name}"></span></div>
+										<div class="group-bio-profile" th:text="${group.description}"></div>
+									</div>
+									<div class="pill-group-profile">
+										<div th:if="${group.private}">
+											<span class="badge rounded-pill private-pill">Private</span>
+										</div>
+										<div th:if="${!group.private}">
+											<span class="badge rounded-pill public-pill">Public</span>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+				</div>
+			</div>
 
-            <!--posts-->
-            <div class="profile-post-container">
-                <h3 class="content-header">Posts</h3>
-                <div th:if="${noPosts}">
-                    <h5 class="content-header">No posts to display...</h5>
-                </div>
-                <div class="list-group post-card-holder-width">
-                    <div th:each="post : ${posts}">
-                        <div th:if="${post.getPostType().getId() == 1}">
-                            <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
-                        </div>
+			<!--posts-->
+			<div class="profile-post-container">
+				<h3 class="content-header">Posts</h3>
+				<div th:if="${requestExists and isPending or !requestExists}">
+					<h5 class="content-header">Add friend to view posts</h5>
+				</div>
+				<div th:if="${requestExists and !isPending}">
+					<div th:if="${noPosts}">
+						<h5 class="content-header">No posts to display...</h5>
+					</div>
+					<div class="list-group post-card-holder-width">
+						<div th:each="post : ${posts}">
+							<div th:if="${post.getPostType().getId() == 1}">
+								<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+							</div>
 
-                        <div th:if="${post.getPostType().getId() == 2}">
-                            <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-                        </div>
+							<div th:if="${post.getPostType().getId() == 2}">
+								<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+							</div>
 
-                        <div th:if="${post.getPostType().getId() == 3}">
-                            <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
-                        </div>
+							<div th:if="${post.getPostType().getId() == 3}">
+								<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+							</div>
 
-                        <div th:if="${post.getPostType().getId() == 4}">
-                            <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-                        </div>
-                    </div>
-                </div>
-            </div>
+							<div th:if="${post.getPostType().getId() == 4}">
+								<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!--friends-->
-            <div id="user-flex-container">
-                <div class="user-container">
-                    <h3 class="content-header">Friends</h3>
-                    <div th:if="${noFriends}">
-                        <h5 class="content-header">No friends to display...</h5>
-                    </div>
-                    <div class="view-all-groups-friends-container">
-                        <a class="view-all-groups-friends-a" th:href="@{/profile/{username}/friends(username=${user.username})}">View all
-                            friends</a>
-                    </div>
-                    <div th:each="friend: ${friends}" class="card profile-user-card">
-                        <a class="no-text-decoration" th:href="@{/profile/{username}(username=${friend.username})}">
-                            <div class="profile-user-card-a">
-                                <img class="user-photo" th:src="${friend.profilePhotoUrl}">
-                                <div>
-                                    <p class="profile-user-card-p1"><span th:text="${friend.firstName}"></span>
-                                        <span th:text="${friend.lastName}"></span></p>
-                                    <p class="profile-user-card-p2">@<span th:text="${friend.username}"></span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+			<!--friends-->
+			<div id="user-flex-container">
+				<div class="user-container">
+					<h3 class="content-header">Friends</h3>
+						<div th:if="${noFriends}">
+							<h5 class="content-header">No friends to display...</h5>
+						</div>
+						<div th:if="${requestExists and isPending or !requestExists and !noFriends}">
+							<h5 class="content-header">Add friend to view all friends</h5>
+						</div>
+						<div th:if="${requestExists and !isPending and !noFriends}" class="view-all-groups-friends-container">
+							<a class="view-all-groups-friends-a"
+							   th:href="@{/profile/{username}/friends(username=${user.username})}">View all
+								friends</a>
+						</div>
+						<div th:each="friend: ${friends}" class="card profile-user-card">
+							<a class="no-text-decoration" th:href="@{/profile/{username}(username=${friend.username})}">
+								<div class="profile-user-card-a">
+									<img class="user-photo" th:src="${friend.profilePhotoUrl}">
+									<div>
+										<p class="profile-user-card-p1"><span th:text="${friend.firstName}"></span>
+											<span th:text="${friend.lastName}"></span></p>
+										<p class="profile-user-card-p2">@<span th:text="${friend.username}"></span></p>
+									</div>
+								</div>
+							</a>
+						</div>
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <div class="footer-stationary">
-        <th:block th:insert="~{partials/footer :: footer}"></th:block>
-    </div>
+	<div class="footer-stationary">
+		<th:block th:insert="~{partials/footer :: footer}"></th:block>
+	</div>
 
 </div>
 
