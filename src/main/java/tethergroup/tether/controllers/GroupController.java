@@ -25,7 +25,7 @@ public class GroupController {
     private final PostRepository postDao;
     private final CommentRepository commentDao;
 
-    @GetMapping ("/groups")
+    @GetMapping("/groups")
     @Transactional
     public String showGroupsListPage(Model model) {
         //        if the viewer is not logged in... show random groups
@@ -41,7 +41,7 @@ public class GroupController {
         return "groups/group-list";
     }
 
-    @GetMapping ("/groups/{username}")
+    @GetMapping("/groups/{username}")
     @Transactional
     public String showGroupsListPage(Model model, @PathVariable String username) {
         User userOfProfilePage = userDao.findByUsername(username);
@@ -88,7 +88,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/create")
-    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate) {
+    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
@@ -96,13 +96,25 @@ public class GroupController {
                 User userObj = actualUser.get();
                 List<PostType> postTypesForGroup = new ArrayList<>();
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
+                if (eventPostType != null) {
+                    postTypesForGroup.add(postTypeDao.findById(2L).get());
+                }
+                if (forSalePostType != null) {
+                    postTypesForGroup.add(postTypeDao.findById(3L).get());
+                }
+                if (qAndAPostType != null) {
+                    postTypesForGroup.add(postTypeDao.findById(4L).get());
+                }
                 group.setPostTypes(postTypesForGroup);
                 group.setAdmin(userObj);
-                if (photoURL != null) {
+                if (!photoURL.equals("")) {
                     group.setGroupPhotoURL(photoURL);
+                } else {
+                    group.setGroupPhotoURL("https://cdn.filestackcontent.com/srWrNqvTyCSUHB3OmPiA");
                 }
                 group.setPrivate(isPrivate);
-                groupDao.save(group);
+                Long newGroupId = groupDao.save(group).getId();
+                return "redirect:/group/" + newGroupId;
             } else {
                 return "redirect:/login";
             }
@@ -110,7 +122,6 @@ public class GroupController {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        return "redirect:/groups";
     }
 
     @GetMapping("/group/{groupId}")
@@ -282,7 +293,7 @@ public class GroupController {
         return "groups/members";
     }
 
-//    @Transactional
+    //    @Transactional
     @PostMapping("/group/{groupId}/join")
     public String requestToJoinGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();
@@ -301,7 +312,7 @@ public class GroupController {
         return "redirect:/group/" + group.getId();
     }
 
-//    @Transactional
+    //    @Transactional
     @PostMapping("/group/{groupId}/leave")
     public String leaveGroup(@PathVariable Long groupId) {
         Group group = groupDao.findById(groupId).get();

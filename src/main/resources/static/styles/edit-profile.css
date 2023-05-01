@@ -4,6 +4,7 @@
 }
 
 #profile-photo-btn {
+    width: 150px;
     border: none;
     cursor: pointer;
     appearance: none;
@@ -83,4 +84,8 @@
     width: 25%;
     height: 2em;
     font-size: 18px;
+}
+
+#bio-input {
+    height: 100px;
 }
