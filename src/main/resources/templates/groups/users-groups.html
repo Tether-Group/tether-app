@@ -3,87 +3,95 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${'Tether - ' + user.username + '''s Friends'}"></title>
-  <th:block th:insert="~{partials/styles :: styles}"></th:block>
-  <link rel="stylesheet" href="/styles/my-groups.css"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${'Tether - ' + user.username + '''s Friends'}"></title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/my-groups.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer">
 
-<div class="container my-groups-page-content">
+        <div class="container my-groups-page-content">
 
-  <div class="row my-1">
+            <div class="row my-1">
 
-    <h1 class="header-font m-5 row"><span th:text="${user.username + '''s GROUPS'}"></span></h1>
+                <h1 class="header-font m-5 row"><span th:text="${user.username + '''s GROUPS'}"></span></h1>
 
-    <div class="col-6">
+                <div class="col-6">
 
-      <div class="card">
-        <h5 class="card-header">Owned Groups</h5>
-        <div class="card-body scroll">
+                    <div class="card">
+                        <h5 class="card-header">Owned Groups</h5>
+                        <div class="card-body scroll">
 
-          <ul class="list-group group-cards user-post-info">
+                            <ul class="list-group group-cards user-post-info">
 
-            <li th:each="group: ${groupsWhereUserIsAdmin}"
-                class="list-group-item d-flex justify-content-between align-items-start groups-card mx-1 mt-1">
-              <div class="ms-2 me-auto">
-                <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
-                  <div><span th:text="${group.name}"></span></div>
-                </a>
-                <div class="group-bio" th:text="${group.description}"></div>
-              </div>
-              <div th:if="${group.private}">
-                <span class="badge rounded-pill private-pill">Private</span>
-              </div>
-              <div th:if="${!group.private}">
-                <span class="badge rounded-pill public-pill">Public</span>
-              </div>
-            </li>
+                                <li th:each="group: ${groupsWhereUserIsAdmin}"
+                                    class="list-group-item d-flex justify-content-between align-items-start groups-card mx-1 mt-1">
+                                    <img th:src="group.groupPhotoURL">
+                                    <div class="ms-2 me-auto">
+                                        <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
+                                            <div><span th:text="${group.name}"></span></div>
+                                        </a>
+                                        <div class="group-bio" th:text="${group.description}"></div>
+                                    </div>
+                                    <div th:if="${group.private}">
+                                        <span class="badge rounded-pill private-pill">Private</span>
+                                    </div>
+                                    <div th:if="${!group.private}">
+                                        <span class="badge rounded-pill public-pill">Public</span>
+                                    </div>
+                                </li>
 
-          </ul>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-6">
+
+                    <div class="card">
+                        <h5 class="card-header">Joined Groups</h5>
+                        <div class="card-body scroll">
+
+                            <ul class="list-group group-cards user-post-info">
+
+                                <li th:each="group: ${groupsWhereUserIsMember}"
+                                    class="list-group-item d-flex justify-content-between align-items-start groups-card mx-1 mt-1">
+                                    <div class="ms-2 me-auto">
+                                        <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
+                                            <div><span th:text="${group.name}"></span></div>
+                                        </a>
+                                        <div class="group-bio" th:text="${group.description}"></div>
+                                    </div>
+                                    <div th:if="${group.private}">
+                                        <span class="badge rounded-pill private-pill">Private</span>
+                                    </div>
+                                    <div th:if="${!group.private}">
+                                        <span class="badge rounded-pill public-pill">Public</span>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
-      </div>
 
     </div>
 
-    <div class="col-6">
-
-      <div class="card">
-        <h5 class="card-header">Joined Groups</h5>
-        <div class="card-body scroll">
-
-          <ul class="list-group group-cards user-post-info">
-
-            <li th:each="group: ${groupsWhereUserIsMember}"
-                class="list-group-item d-flex justify-content-between align-items-start groups-card mx-1 mt-1">
-              <div class="ms-2 me-auto">
-                <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
-                  <div><span th:text="${group.name}"></span></div>
-                </a>
-                <div class="group-bio" th:text="${group.description}"></div>
-              </div>
-              <div th:if="${group.private}">
-                <span class="badge rounded-pill private-pill">Private</span>
-              </div>
-              <div th:if="${!group.private}">
-                <span class="badge rounded-pill public-pill">Public</span>
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </div>
-
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
     </div>
-
-  </div>
 
 </div>
-
-
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>

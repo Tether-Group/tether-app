@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Groups List</title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
-	<link rel="stylesheet" href="/styles/group-list.css"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups List</title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/group-list.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer">
+
+        <h1 class="content-header">Explore Groups</h1>
+
+        <div class="group-card-container">
+            <div th:each="group: ${groups}" class="group-card">
+                <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
+                    <img class="group-header-group-list" th:src="${group.groupPhotoURL}" alt="group photo banner">
+                    <div class="p-3">
+                        <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
+                        <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
+                    </div>
+                </a>
+                <a class="no-text-decoration2 text-secondary px-3 text-end"
+                   th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admin: <span
+                        th:text="${group.admin}"></span></small></a>
+            </div>
+        </div>
 
 
-<h1>This is the GROUPS LIST page</h1>
+    </div>
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
 
-<div class="container">
-		<div th:each="group: ${groups}" class="group-card">
-				<a th:href="@{/group/{id}(id=${group.id})}">
-					<h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-				</a>
-			<p class="mb-1"><span th:text="${group.description}"></span></p>
-			<a th:href="@{/profile/{id}(id=${group.admin.username})}"><small>Admined by: <span th:text="${group.admin}"></span></small></a>
-		</div>
 </div>
-
-
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
