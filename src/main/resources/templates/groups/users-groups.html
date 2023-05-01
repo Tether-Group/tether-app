@@ -27,7 +27,6 @@
 
             <li th:each="group: ${groupsWhereUserIsAdmin}"
                 class="list-group-item d-flex justify-content-between align-items-start groups-card mx-1 mt-1">
-              <img th:src="group.groupPhotoURL">
               <div class="ms-2 me-auto">
                 <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
                   <div><span th:text="${group.name}"></span></div>

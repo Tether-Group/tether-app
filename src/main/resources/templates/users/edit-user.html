@@ -67,8 +67,8 @@
 							<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
 								   th:name="photo-url">
 							<br>
-							<label for="bio" class="form-label mt-2">Bio</label>
-							<input id="bio" name="bio" th:field="*{bio}" class="form-control">
+							<label for="bio-input" class="form-label mt-2">Bio</label>
+							<textarea id="bio-input" name="bio" th:field="*{bio}" class="form-control"></textarea>
 						</div>
 					</form>
 
