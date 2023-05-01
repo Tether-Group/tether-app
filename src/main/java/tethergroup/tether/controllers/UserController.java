@@ -387,6 +387,7 @@ public class UserController {
         user.setUsername(actualUser.getUsername());
         user.setPassword(userPassword);
         user.setProfilePhotoUrl(photoURL);
+        user.setEmail(actualUser.getEmail());
         userDao.save(user);
         return "redirect:/profile/my-account";
     }
@@ -408,13 +409,17 @@ public class UserController {
     }
 
     @PostMapping("/profile/editusername")
-    public String updateUsername(@RequestParam("username") String username) {
+    public String updateUsername(@RequestParam("username") String username, @ModelAttribute User user) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userWithUniqueUsername = userDao.findByUsername(username);
+        User actualLoggedInUser = userDao.findById(loggedInUser.getId()).get();
 
         if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(loggedInUser.getUsername())) {
             return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
         }
+        actualLoggedInUser.setUsername(username);
+        actualLoggedInUser.setEmail(user.getEmail());
+        userDao.save(actualLoggedInUser);
         return "redirect:/profile/my-account";
     }
 
