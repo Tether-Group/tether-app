@@ -11,6 +11,12 @@
     background-color: #3091f170;
 }
 
+.gradient-under-group-image {
+    width: 100%;
+    height: 10px;
+    background-image: linear-gradient(rgb(5 134 239 / 19%), rgba(214, 216, 217, 0.17));
+}
+
 .group-header{
     margin: 10px 0px 30px;
     display: flex;
@@ -24,17 +30,59 @@
 
 button.group-button {
     font-family: 'Nobile', sans-serif;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
-    border: 2px solid #3091f170;
+    border: none;
     margin-left: 3px;
     border-radius: 5px;
     height: 30px;
-    background-color: transparent;
 }
 
-button.group-button:hover {
-    background-color: #3091f170;
+.edit-group-button, .join-group-button, .cancel-request-group-button, .leave-group-button, .create-post-button {
+    background-color: #8a8a8a5e;
+    color: black;
+    width: 10em;
+    padding: 0.25em 0
+}
+
+.edit-group-button:hover {
+    background-color: #7c7c7c !important;
+}
+
+.join-group-button:hover {
+    background-color: #1a6b1a;
+    color: white;
+}
+
+.cancel-request-group-button:hover {
+    background-color: rgba(255, 221, 0, 0.58);
+    color: black;
+}
+
+.leave-group-button:hover {
+    background-color: #ffb453;
+    color: black
+}
+
+.create-post-button:hover {
+    background-color: #3e72f6;
+    color: white;
+}
+
+.delete-group-button {
+    background-color: rgba(169, 2, 2, 0.72);
+    color: white;
+    width: 10em;
+    padding: 0.25em 0
+}
+
+.delete-group-button:hover {
+    background-color: red;
+}
+
+.bottom-nav-tabs-border {
+    font-family: Nobile, sans-serif;
+    border-bottom: transparent;
 }
 
 .three-main{
@@ -55,6 +103,8 @@ div#v-pills-tab {
     margin-top: 48px;
     width: 200px;
 }
+
+/*members*/
 
 .members-list{
     width: 25%;
@@ -101,11 +151,9 @@ div#v-pills-tab {
     width: 100%;
 }
 
-
 .group-page-content {
     min-height: 75vh;
 }
-
 
 .post-button{
     border: none;
@@ -158,17 +206,88 @@ div#v-pills-tab {
     font-family: 'Nobile', sans-serif;
 }
 
+/*members edited*/
+#user-flex-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
+.content-header {
+    font-family: Oswald, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 10px 0;
+}
 
+.view-all-members-container-a {
+    color: grey!important;
+    text-decoration: none;
+}
 
+.view-all-members-container-a:hover {
+    color: #212b3a!important;
+}
 
+.group-user-card {
+    margin: 5px 0;
+    font-size: 18px;
+    font-family: 'Nobile', sans-serif;
+    box-shadow: 2px 2px 2px #e9e7e7ef;
+    width: 100%;
+    border: 1px solid #d3d3d38c;
+}
 
+.group-user-card:hover {
+    box-shadow: 2px 2px 2px #b2d8ff
+}
 
+a.no-text-decoration {
+    text-decoration: none;
+}
 
+.group-user-card-a {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 5px;
+}
 
+.group-user-card-p1 {
+    padding-top: 0.5em;
+    margin: 0 0 0 0.5em!important;
+    color: black;
+    font-size: 12px;
+}
 
+.group-user-card-p1:hover {
+    text-decoration: none;
+}
 
+.group-user-card-p2 {
+    padding-top: 0.25em;
+    margin: 0 0 0 0.5em!important;
+    color: grey;
+    font-size: 12px;
+}
 
+.group-user-card-p2:hover {
+    color: grey;
+}
+
+.remove-friend-button {
+    font-size: 0.5em!important;
+    background-color: rgba(139, 0, 0, 0.63);
+    color: white;
+    height: 20px!important;
+}
+
+.view-all-members-container {
+    border: none;
+    text-align: center;
+}
+
+/**/
 
 .visibility-container{
     width: 60%;
@@ -359,4 +478,21 @@ input{
     background-color: #42a1ff;
     height: 2em;
     font-size: 18px;
+}
+
+/*keep footer at the bottom*/
+#page-content-with-footer {
+    position: relative;
+    min-height: 100vh;
+}
+
+#page-content-without-footer {
+    padding-bottom: 130px;
+}
+
+.footer-stationary {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
 }

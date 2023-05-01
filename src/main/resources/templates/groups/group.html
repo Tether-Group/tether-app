@@ -1,414 +1,464 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title th:text="${group.name}"></title>
-	<th:block th:insert="~{partials/styles :: styles}"></th:block>
-	<link rel="stylesheet" href="/styles/group.css"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${group.name}"></title>
+    <th:block th:insert="~{partials/styles :: styles}"></th:block>
+    <link rel="stylesheet" href="/styles/group.css"/>
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer">
+
+        <div>
+            <img class="group-photo-banner w-100" th:src="${group.groupPhotoURL}">
+        </div>
+        <div class="gradient-under-group-image"></div>
 
 
-<div>
-	<img class="group-photo-banner w-100" th:src="${group.groupPhotoURL}">
-</div>
+        <div class="container mt-4">
+
+            <div class="d-flex justify-content-between">
+                <span class="header-font" th:text="${group.name}"></span>
+                <div class="align-self-center">
+                    <!--    join group button/form-->
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${!isAdmin && !isMember && !isPending}">
+                            <form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
+                                <button id="join-group-btn" type="submit" class="join-group-button group-button">
+                                    Join Group
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <!--    pending button-->
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${!isAdmin && !isMember && isPending}">
+                            <form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
+                                <button id="pending-group-btn" type="submit"
+                                        class="cancel-request-group-button group-button">
+                                    Cancel Request
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <!--    leave group button/form-->
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${!isAdmin && isMember && !isPending}">
+                            <form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
+                                <button id="leave-group-btn" type="submit" class="leave-group-button group-button">
+                                    Leave Group
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+
+                        <div sec:authorize="isAuthenticated()">
+                            <!--button displays on page-->
+                            <div th:if="${isAdmin}">
+                                <button id="edit-group-btn" type="button" class="edit-group-button group-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editGroupModal">
+                                    Edit Group
+                                </button>
+                            </div>
 
 
-<div class="container">
-
-	<div class="d-flex">
-		<span class="header-font" th:text="${group.name}"></span>
-		<div class="ms-1 align-self-center">
-			<!--    join group button/form-->
-			<div sec:authorize="isAuthenticated()">
-				<div th:if="${!isAdmin && !isMember && !isPending}">
-					<form th:action="@{/group/{groupId}/join(groupId=${group.id})}" th:method="POST">
-						<button id="join-group-btn" type="submit" class="group-button">
-							Join Group
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--    pending button-->
-			<div sec:authorize="isAuthenticated()">
-				<div th:if="${!isAdmin && !isMember && isPending}">
-					<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
-						<button id="pending-group-btn" type="submit" class="group-button">
-							Cancel Request
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--    leave group button/form-->
-			<div sec:authorize="isAuthenticated()">
-				<div th:if="${!isAdmin && isMember && !isPending}">
-					<form th:action="@{/group/{groupId}/leave(groupId=${group.id})}" th:method="POST">
-						<button id="leave-group-btn" type="submit" class="group-button">
-							Leave Group
-						</button>
-					</form>
-				</div>
-			</div>
-
-			<div class="d-flex">
-
-				<div sec:authorize="isAuthenticated()">
-					<!--button displays on page-->
-					<div th:if="${isAdmin}">
-						<button id="edit-group-btn" type="button" class="group-button" data-bs-toggle="modal"
-								data-bs-target="#editGroupModal">
-							Edit Group
-						</button>
-					</div>
-
-
-					<div class="modal fade" id="editGroupModal" tabindex="-1">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="editGroupModalLabel">Edit Post</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								</div>
-								<form th:method="post" th:action="@{/group/edit}" th:object="${group}">
-									<div class="modal-body">
-										<button type="button" class="photo-btn btn btn-secondary"
-												onclick="openFileStackModal()">
-											Edit cover photo
-										</button>
-										<input hidden id="photo-url" th:value="${group.groupPhotoURL}"
-											   th:name="photo-url">
-										<div class="group-name-div form-floating mb-3">
-											<input type="text" class="form-control" id="group-name"
-												   th:value="${group.name}" th:field="*{name}" required>
-											<label for="group-name"><p>Group Name</p></label>
-										</div>
-										<br>
-										<div class="form-floating group-description-text-area">
+                            <div class="modal fade" id="editGroupModal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editGroupModalLabel">Edit Group</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form th:method="post" th:action="@{/group/edit}" th:object="${group}">
+                                            <div class="modal-body">
+                                                <button type="button" class="photo-btn btn btn-secondary"
+                                                        onclick="openFileStackModal()">
+                                                    Change cover photo
+                                                </button>
+                                                <input hidden id="photo-url" th:value="${group.groupPhotoURL}"
+                                                       th:name="photo-url">
+                                                <div class="group-name-div form-floating mb-3">
+                                                    <input type="text" class="form-control" id="group-name"
+                                                           th:value="${group.name}" th:field="*{name}" required>
+                                                    <label for="group-name"><p>Group Name</p></label>
+                                                </div>
+                                                <br>
+                                                <div class="form-floating group-description-text-area">
 											<textarea class="form-control" th:value="${group.description}"
-													  id="description" th:field="*{description}"
-													  style="height: 150px"></textarea>
-											<label for="description"><p>Group Description</p></label>
-										</div>
+                                                      id="description" th:field="*{description}"
+                                                      style="height: 150px"></textarea>
+                                                    <label for="description"><p>Group Description</p></label>
+                                                </div>
 
-										<input type="hidden" th:field="*{id}">
-
-
-										<p class="vis-types">Visibility:</p>
-										<div class="visibility-container">
-
-											<div class="d-flex justify-content-between" th:if="${!group.private}">
-
-												<div>
-													<label class="visibility-form"><p>Public</p>
-														<input type="radio" id="public" name="visibility" value="false"
-															   checked>
-														<span class="checkmark"></span>
-													</label>
-												</div>
-												<div>
-													<label class="visibility-form"><p>Private</p>
-														<input type="radio" id="private" name="visibility" value="true">
-														<span class="checkmark"></span>
-													</label>
-												</div>
-											</div>
-
-											<div class="d-flex justify-content-between" th:if="${group.private}">
-												<div>
-													<label class="visibility-form"><p>Public</p>
-														<input type="radio" id="public" name="visibility" value="false">
-														<span class="checkmark"></span>
-													</label>
-												</div>
-												<div>
-													<label class="visibility-form"><p>Private</p>
-														<input type="radio" id="private" name="visibility" value="true"
-															   checked>
-														<span class="checkmark"></span>
-													</label>
-												</div>
-											</div>
-
-										</div>
+                                                <input type="hidden" th:field="*{id}">
 
 
-										<p class="vis-types">Additional Post Types:</p>
-										<div class="post-type-container">
+                                                <p class="vis-types">Visibility:</p>
+                                                <div class="visibility-container">
 
-											<div>
-												<label class="post-type-form"><p>Event</p>
-													<input type="checkbox" name="postTypeTwo" value="2"
-														   th:checked="${postTypeIdsOfGroup.contains(postType2Id)}">
-													<span class="checkmark2"></span>
-												</label>
-											</div>
+                                                    <div class="d-flex justify-content-between"
+                                                         th:if="${!group.private}">
 
-											<div>
-												<label class="post-type-form"><p style="width: 85px">For Sale</p>
-													<input type="checkbox" name="postTypeThree" value="3"
-														   th:checked="${postTypeIdsOfGroup.contains(postType3Id)}">
-													<span class="checkmark2"></span>
-												</label>
-											</div>
+                                                        <div>
+                                                            <label class="visibility-form"><p>Public</p>
+                                                                <input type="radio" id="public" name="visibility"
+                                                                       value="false"
+                                                                       checked>
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <label class="visibility-form"><p>Private</p>
+                                                                <input type="radio" id="private" name="visibility"
+                                                                       value="true">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
 
-											<div>
-												<label class="post-type-form"><p>QandA</p>
-													<input type="checkbox" name="postTypeFour" value="4"
-														   th:checked="${postTypeIdsOfGroup.contains(postType4Id)}">
-													<span class="checkmark2"></span>
-												</label>
-											</div>
+                                                    <div class="d-flex justify-content-between"
+                                                         th:if="${group.private}">
+                                                        <div>
+                                                            <label class="visibility-form"><p>Public</p>
+                                                                <input type="radio" id="public" name="visibility"
+                                                                       value="false">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <label class="visibility-form"><p>Private</p>
+                                                                <input type="radio" id="private" name="visibility"
+                                                                       value="true"
+                                                                       checked>
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
 
-										</div>
-									</div>
-
-
-									<div class="modal-footer">
-										<button type="button" class="close-button" data-bs-dismiss="modal">
-											Close
-										</button>
-										<button type="submit" class="post-button">Submit Edit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+                                                </div>
 
 
-				</div>
+                                                <p class="vis-types">Additional Post Types:</p>
+                                                <div class="post-type-container">
 
-				<div sec:authorize="isAuthenticated()">
-					<div th:if="${isAdmin}">
-						<button id="delete-group-btn" type="button" class="group-button" data-bs-toggle="modal"
-								data-bs-target="#deleteGroupModal">
-							Delete Group
-						</button>
-					</div>
-					<div class="modal fade" id="deleteGroupModal" tabindex="-1">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="deleteGroupModalLabel">Deleting <span
-											th:text="${group.name}"></span></h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								</div>
-								<form th:method="post" th:action="@{/group/delete}" th:object="${group}">
-									<div class="modal-body">
-										<div name="name" id="group-name-delete">Are you sure you want to continue?
-										</div>
-										<input type="hidden" th:field="*{name}">
-										<input type="hidden" th:field="*{id}">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-											Confirm
-										</button>
-										<button type="submit" class="btn btn-danger">Delete</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                                    <div>
+                                                        <label class="post-type-form"><p>Event</p>
+                                                            <input type="checkbox" name="postTypeTwo" value="2"
+                                                                   th:checked="${postTypeIdsOfGroup.contains(postType2Id)}">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </div>
 
-		</div>
-	</div>
+                                                    <div>
+                                                        <label class="post-type-form"><p style="width: 85px">For
+                                                            Sale</p>
+                                                            <input type="checkbox" name="postTypeThree" value="3"
+                                                                   th:checked="${postTypeIdsOfGroup.contains(postType3Id)}">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </div>
 
-	<div class="row">
-		<div class="group-header">
+                                                    <div>
+                                                        <label class="post-type-form"><p>QandA</p>
+                                                            <input type="checkbox" name="postTypeFour" value="4"
+                                                                   th:checked="${postTypeIdsOfGroup.contains(postType4Id)}">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </div>
 
-			<div class="col">
-				<div class="group-bio-container">
-					<h5><span th:text="${group.description}"></span></h5>
-				</div>
-			</div>
+                                                </div>
+                                            </div>
 
-		</div>
 
-	</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="close-button" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="post-button">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
-	<div class="row mb-3">
-		<div sec:authorize="isAuthenticated()">
-			<div th:if="${(isMember && !isPending) || isAdmin}">
-				<th:block th:insert="~{partials/create-post :: create-post}"></th:block>
-			</div>
-		</div>
-	</div>
 
+                        </div>
+
+                        <div sec:authorize="isAuthenticated()">
+                            <div th:if="${isAdmin}">
+                                <button id="delete-group-btn" type="button" class="delete-group-button group-button"
+                                        data-bs-toggle="deleteGroupModal"
+                                        data-bs-target="#deleteGroupModal">
+                                    Delete Group
+                                </button>
+                            </div>
+                            <div class="modal fade" id="deleteGroupModal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteGroupModalLabel">Deleting <span
+                                                    th:text="${group.name}"></span></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <form th:method="post" th:action="@{/group/delete}" th:object="${group}">
+                                            <div class="modal-body">
+                                                <div name="name" id="group-name-delete">Are you sure you want to
+                                                    continue?
+                                                </div>
+                                                <input type="hidden" th:field="*{name}">
+                                                <input type="hidden" th:field="*{id}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Confirm
+                                                </button>
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="group-header">
+
+                    <div class="col">
+                        <div class="group-bio-container">
+                            <h5><span th:text="${group.description}"></span></h5>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <div sec:authorize="isAuthenticated()">
+                    <div th:if="${(isMember && !isPending) || isAdmin}">
+                        <th:block th:insert="~{partials/create-post :: create-post}"></th:block>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-8 me-5" id="posts-tab-pane">
+                    <nav>
+                        <!--				non-disabled post tabs-->
+                        <div th:if="${!groupIsPrivate || isMember || isAdmin}"
+                             class="nav nav-tabs bottom-nav-tabs-border"
+                             id="nav-tab"
+                             role="tablist">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
+                                    role="tab">All Posts
+                            </button>
+                            <button th:if="${postTypeIdsOfGroup.contains(postType2Id)}" class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-event" type="button"
+                                    role="tab">
+                                Event Posts
+                            </button>
+                            <button th:if="${postTypeIdsOfGroup.contains(postType3Id)}" class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-sale" type="button"
+                                    role="tab">
+                                Sale Posts
+                            </button>
+                            <button th:if="${postTypeIdsOfGroup.contains(postType4Id)}" class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-qanda" type="button"
+                                    role="tab">
+                                Q&A Posts
+                            </button>
+                        </div>
+                        <!--				disabled post tabs-->
+                        <div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="nav nav-tabs" id="nav-tab"
+                             role="tablist">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
+                                    role="tab" disabled>All Posts
+                            </button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-event" type="button"
+                                    role="tab"
+                                    disabled>
+                                Event Posts
+                            </button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sale" type="button"
+                                    role="tab"
+                                    disabled>
+                                Sale Posts
+                            </button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-qanda" type="button"
+                                    role="tab"
+                                    disabled>
+                                Q&A Posts
+                            </button>
+                        </div>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent">
+
+                        <div class="tab-pane fade show active" id="nav-all" role="tabpanel">
+                            <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="post-list list-group">
+                                <div th:each="post: ${posts}">
+
+                                    <div th:if="${post.postType.id == 1}">
+                                        <th:block th:insert="~{partials/text-post :: text-post}"></th:block>
+                                    </div>
+
+                                    <div th:if="${post.postType.id == 2}">
+                                        <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+                                    </div>
+
+                                    <div th:if="${post.postType.id == 3}">
+                                        <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+                                    </div>
+
+                                    <div th:if="${post.postType.id == 4}">
+                                        <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="post-list list-group">
+                                <br>
+                                <br>
+                                <h6>Join group to see posts</h6>
+                            </div>
+                        </div>
+
+                        <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-event"
+                             role="tabpanel">
+                            <div class="post-list list-group">
+                                <div th:each="post: ${posts}">
+                                    <div th:if="${post.postType.id == 2}">
+                                        <th:block th:insert="~{partials/event-post :: event-post}"></th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-sale"
+                             role="tabpanel">
+                            <div class="post-list list-group">
+                                <div th:each="post: ${posts}">
+                                    <div th:if="${post.postType.id == 3}">
+                                        <th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-qanda"
+                             role="tabpanel">
+                            <div class="post-list list-group">
+                                <div th:each="post: ${posts}">
+                                    <div th:if="${post.postType.id == 4}">
+                                        <th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--members-->
+                <div class="col-3">
+                    <div id="user-flex-container">
+                        <div class="user-container">
+                            <h3 class="content-header">Members</h3>
+                            <!--
+                            -->
+                            <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="list-group">
+                                <div class="view-all-members-container">
+                                    <a class="view-all-members-container-a" th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
+                                </div>
+                                <div class="card group-user-card">
+                                    <a class="no-text-decoration"
+                                       th:href="@{/profile/{username}(username=${admin.username})}">
+                                        <div class="group-user-card-a">
+                                            <img class="user-photo" th:src="${admin.profilePhotoUrl}">
+                                            <div>
+                                                <p class="group-user-card-p1"><span th:text="${admin.firstName}"></span>
+                                                    <span th:text="${admin.lastName}"></span></p>
+                                                <p class="group-user-card-p2">@<span th:text="${admin.username}"></span>
+                                                </p>
+                                            </div>
+                                            <div sec:authorize="isAuthenticated()"
+                                                 th:if="${loggedInUser.id == admin.id}"
+                                                 class="ms-auto align-self-center">
+                                                <div>
+                                                    <span><i class="bi bi-star-fill"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div th:each="member: ${members}" class="card group-user-card">
+                                    <a class="no-text-decoration"
+                                       th:href="@{/profile/{username}(username=${member.username})}">
+                                        <div class="group-user-card-a">
+                                            <img class="user-photo" th:src="${member.profilePhotoUrl}">
+                                            <div>
+                                                <p class="group-user-card-p1"><span
+                                                        th:text="${member.firstName}"></span>
+                                                    <span th:text="${member.lastName}"></span></p>
+                                                <p class="group-user-card-p2">@<span
+                                                        th:text="${member.username}"></span></p>
+                                            </div>
+                                            <div sec:authorize="isAuthenticated()"
+                                                 th:if="${loggedInUser.id == admin.id}"
+                                                 class="ms-auto align-self-center">
+                                                <div>
+                                                    <form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}"
+                                                          th:method="post">
+                                                        <button type="submit" class="remove-friend-button group-button">
+                                                            Remove
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="list-group">
+                                <br>
+                                <br>
+                                <h6>Join group to see members</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
 </div>
 
-<div class="container">
-
-	<div class="row">
-
-		<div class="col-8 me-3" id="posts-tab-pane">
-			<nav>
-				<!--				non-disabled post tabs-->
-				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="nav nav-tabs" id="nav-tab"
-					 role="tablist">
-					<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
-							role="tab">All Posts
-					</button>
-					<button th:if="${postTypeIdsOfGroup.contains(postType2Id)}" class="nav-link" data-bs-toggle="tab"
-							data-bs-target="#nav-event" type="button"
-							role="tab">
-						Event Posts
-					</button>
-					<button th:if="${postTypeIdsOfGroup.contains(postType3Id)}" class="nav-link" data-bs-toggle="tab"
-							data-bs-target="#nav-sale" type="button"
-							role="tab">
-						Sale Posts
-					</button>
-					<button th:if="${postTypeIdsOfGroup.contains(postType4Id)}" class="nav-link" data-bs-toggle="tab"
-							data-bs-target="#nav-qanda" type="button"
-							role="tab">
-						Q&A Posts
-					</button>
-				</div>
-				<!--				disabled post tabs-->
-				<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="nav nav-tabs" id="nav-tab"
-					 role="tablist">
-					<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
-							role="tab" disabled>All Posts
-					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-event" type="button"
-							role="tab"
-							disabled>
-						Event Posts
-					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sale" type="button"
-							role="tab"
-							disabled>
-						Sale Posts
-					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-qanda" type="button"
-							role="tab"
-							disabled>
-						Q&A Posts
-					</button>
-				</div>
-			</nav>
-
-			<div class="tab-content" id="nav-tabContent">
-
-				<div class="tab-pane fade show active" id="nav-all" role="tabpanel">
-					<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="post-list list-group">
-						<div th:each="post: ${posts}">
-
-							<div th:if="${post.postType.id == 1}">
-								<th:block th:insert="~{partials/text-post :: text-post}"></th:block>
-							</div>
-
-							<div th:if="${post.postType.id == 2}">
-								<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-							</div>
-
-							<div th:if="${post.postType.id == 3}">
-								<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
-							</div>
-
-							<div th:if="${post.postType.id == 4}">
-								<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-							</div>
-
-						</div>
-					</div>
-
-					<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="post-list list-group">
-						<br>
-						<br>
-						<h6>Join group to see posts</h6>
-					</div>
-				</div>
-
-				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-event"
-					 role="tabpanel">
-					<div class="post-list list-group">
-						<div th:each="post: ${posts}">
-							<div th:if="${post.postType.id == 2}">
-								<th:block th:insert="~{partials/event-post :: event-post}"></th:block>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-sale"
-					 role="tabpanel">
-					<div class="post-list list-group">
-						<div th:each="post: ${posts}">
-							<div th:if="${post.postType.id == 3}">
-								<th:block th:insert="~{partials/sale-post :: sale-post}"></th:block>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="tab-pane fade" id="nav-qanda"
-					 role="tabpanel">
-					<div class="post-list list-group">
-						<div th:each="post: ${posts}">
-							<div th:if="${post.postType.id == 4}">
-								<th:block th:insert="~{partials/QandA-post :: QandA-post}"></th:block>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-
-
-		<div class="col-3">
-			<h3>Members</h3>
-			<div th:if="${!groupIsPrivate || isMember || isAdmin}" class="list-group">
-				<ul class="list-group member-cards member-post-info">
-					<li class="list-group-item d-flex align-items-center member-cards mx-1 mt-1">
-						<img class="member-photo" th:src="${admin.profilePhotoUrl}">
-						<a th:href="@{/profile/{username}(username=${admin.username})}">
-							<div class="member-name ps-3" th:text="${admin.username}"></div>
-						</a>
-						<!--						<small><em><i class="bi bi-people-fill"></i> NUMBER groups</em></small>-->
-						<span class="align-self-center ms-auto"><i class="bi bi-star-fill"></i></span>
-					</li>
-					<li th:each="member: ${members}"
-						class="list-group-item d-flex align-items-center member-cards mx-1 mt-1">
-						<img class="member-photo" th:src="${member.profilePhotoUrl}">
-						<a th:href="@{/profile/{username}(username=${member.username})}">
-							<div class="member-name ps-3" th:text="${member.username}"></div>
-						</a>
-						<!--						<div><small><em><i class="bi bi-people-fill"></i> NUMBER groups</em></small></div>-->
-						<div sec:authorize="isAuthenticated()" th:if="${loggedInUser.id == admin.id}">
-							<form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}"
-								  th:method="post">
-								<button type="submit" class="align-self-center ms-auto group-button">Remove</button>
-							</form>
-						</div>
-					</li>
-					<li class="list-group-item d-flex justify-content-between align-items-start member-cards mx-1">
-						<a th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
-					</li>
-				</ul>
-
-			</div>
-
-			<div th:if="${groupIsPrivate && !isMember && !isAdmin}" class="list-group">
-				<br>
-				<br>
-				<h6>Join group to see members</h6>
-			</div>
-
-		</div>
-
-	</div>
-
-</div>
-
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/add_comments.js}"></script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>

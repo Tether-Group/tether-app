@@ -22,10 +22,10 @@
                 </div>
             </div>
 
-            <div class="col-4 align-self-center text-center"><p><em><span th:text="${user.bio}"></span></em></p></div>
+            <div class="col-5 align-self-center text-center"><p><em><span th:text="${user.bio}"></span></em></p></div>
 
             <!--	THESE ARE THE BUTTONS FOR OTHER USER'S PROFILE PAGE-->
-            <div class="col-4 d-flex align-self-center" th:if="${!isMyAccountPage}">
+            <div class="col-3 d-flex align-self-center justify-content-end pe-5" th:if="${!isMyAccountPage}">
 
                 <!--message the user-->
                 <div class="m-1 align-self-center">
