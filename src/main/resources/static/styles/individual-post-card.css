@@ -177,8 +177,9 @@ a.commenter {
 .comment-text {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
-    margin-left: 1.5em;
+    margin-left: 1em;
     /*word-wrap: break-word;*/
+    align-self: end;
     word-break: break-word;
     width:95%;
     margin-right: 3px;

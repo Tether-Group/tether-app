@@ -13,75 +13,60 @@
 <div id="page-content-with-footer">
     <div id="page-content-without-footer">
 
-        <div class="container my-groups-page-content">
+        <h1 class="content-header">MY GROUPS</h1>
 
-            <div class="row my-1">
-
-                <h1 class="header-font m-5 row">MY GROUPS</h1>
-
-                <div class="col-6">
-
-                    <div class="card">
-                        <h5 class="card-header">Owned Groups</h5>
-                        <div class="card-body scroll">
-                            <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card group-info">
-                                <a th:href="@{/group/{id}(id=${group.id})}">
-                                    <h5 class="mb-1"><span th:text="${group.name}"></span></h5>
-                                </a>
-                                <p class="mb-1 group-bio"><span th:text="${group.description}"></span></p>
+        <div class="container-fluid my-groups-page-content">
+            <!--owned groups-->
+            <div class="owned-groups-container">
+                <h3 class="content-header mb-2">Owned Groups</h3>
+                <div class="group-card-container">
+                    <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
+                        <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
+                            <img class="group-header-group-list" th:src="${group.groupPhotoURL}"
+                                 alt="group photo banner">
+                            <div class="p-3">
+                                <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
+                                <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
                             </div>
-                        </div>
+                        </a>
                     </div>
-
                 </div>
+            </div>
 
-                <div class="col-6">
-
-                    <div class="card">
-                        <h5 class="card-header">Joined Groups</h5>
-                        <div class="card-body scroll">
-                            <!--					<div th:each="group: ${groupsWhereUserIsMember}" class="group-card group-info">-->
-                            <!--						<a th:href="@{/group/{id}(id=${group.id})}">-->
-                            <!--							<h5 class="mb-1"><span th:text="${group.name}"></span></h5>-->
-                            <!--						</a>-->
-                            <!--						<p class="mb-1 group-bio"><span th:text="${group.description}"></span></p>-->
-                            <!--					</div>-->
-
-
-                            <ul class="list-group group-cards user-post-info">
-                                <li th:each="group: ${groupsWhereUserIsMember}"
-                                    class="list-group-item d-flex justify-content-between align-items-start group-cards mx-1 mt-1">
-                                    <div class="ms-2 me-auto">
-                                        <a class="group-a" th:href="@{/group/{id}(id=${group.id})}">
-                                            <div><span th:text="${group.name}"></span></div>
-                                        </a>
-                                        <div class="group-bio" th:text="${group.description}"></div>
-                                    </div>
+            <!--joined groups-->
+            <div class="joined-groups-container">
+                <h3 class="content-header mb-2">Joined Groups</h3>
+                <div class="group-card-container">
+                    <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
+                        <a class="no-text-decoration1" th:href="@{/group/{id}(id=${group.id})}">
+                            <img class="group-header-group-list" th:src="${group.groupPhotoURL}"
+                                 alt="group photo banner">
+                            <div class="p-3 flex-pill">
+                                <div class="me-2">
+                                    <h5 class="mb-1 text-dark fw-bolder"><span th:text="${group.name}"></span></h5>
+                                    <p class="mb-1 text-dark"><span th:text="${group.description}"></span></p>
+                                </div>
+                                <div class="align-pill">
                                     <div th:if="${group.private}">
                                         <span class="badge rounded-pill private-pill">Private</span>
                                     </div>
                                     <div th:if="${!group.private}">
                                         <span class="badge rounded-pill public-pill">Public</span>
                                     </div>
-                                </li>
-                            </ul>
-
-                        </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-
                 </div>
-
             </div>
 
         </div>
 
-
     </div>
 
-    <div class="footer-stationary">
-        <th:block th:insert="~{partials/footer :: footer}"></th:block>
-    </div>
-
+<div class="footer-stationary">
+    <th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
 </div>
 </body>
 </html>

@@ -194,7 +194,7 @@
                         <div sec:authorize="isAuthenticated()">
                             <div th:if="${isAdmin}">
                                 <button id="delete-group-btn" type="button" class="delete-group-button group-button"
-                                        data-bs-toggle="deleteGroupModal"
+                                        data-bs-toggle="modal"
                                         data-bs-target="#deleteGroupModal">
                                     Delete Group
                                 </button>
@@ -217,7 +217,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Confirm
+                                                    Cancel
                                                 </button>
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </div>
