@@ -302,7 +302,9 @@ public class UserController {
             model.addAttribute("loggedInUser", userObj);
             model.addAttribute("comments", comments);
             model.addAttribute("friends", friends);
-
+            // necessary attributes that are used for looking at other profile page
+            model.addAttribute("requestExists", true);
+            model.addAttribute("isPending", false);
         } else {
             return "redirect:/login";
         }
