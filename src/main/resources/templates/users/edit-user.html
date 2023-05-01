@@ -10,6 +10,8 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+	<div id="page-content-without-footer">
 
 <div class="container m-5">
 	<div class="row">
@@ -174,7 +176,14 @@
 
 </div>
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+<div class="footer-stationary">
+	<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+</div>
+
 <script th:src="@{/js/register_password_verification.js}"></script>
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:src="@{/js/filestack.js}"></script>

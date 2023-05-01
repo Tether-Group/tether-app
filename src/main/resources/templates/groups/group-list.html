@@ -10,7 +10,8 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
-
+<div id="page-content-with-footer">
+	<div id="page-content-without-footer">
 
 <h1>This is the GROUPS LIST page</h1>
 
@@ -25,6 +26,12 @@
 </div>
 
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+<div class="footer-stationary">
+	<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+</div>
 </body>
 </html>
