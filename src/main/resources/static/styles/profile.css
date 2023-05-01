@@ -31,17 +31,31 @@
 
 button.profile-button {
     font-family: 'Nobile', sans-serif;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
-    border: 2px solid #3091f170;
+    border: none;
     margin-left: 3px;
     border-radius: 5px;
     height: 30px;
-    background-color: transparent;
+    width: 12em;
 }
 
-button.profile-button:hover {
-    background-color: #3091f170;
+#send-message-btn, #add-friend-btn, #cancel-friend-request-btn. #remove-friend-btn, #accept-friend-request-btn, #decline-friend-request-btn {
+    background-color: lightgrey;
+}
+
+#send-message-btn:hover, #add-friend-btn:hover, i.bi-messenger:hover, #cancel-friend-request-btn:hover, #accept-friend-request-btn:hover {
+    background-color: rgb(18 138 255 / 78%);
+    color: white!important;
+}
+
+#remove-friend-btn:hover, #decline-friend-request-btn:hover {
+    background-color: #cb0000;
+    color: white;
+}
+
+.profile-hr {
+    margin-top: 0;
 }
 
 .profile-img-circle {
@@ -50,6 +64,14 @@ button.profile-button:hover {
     margin-left: 2em;
 }
 
+.profile-requester-a {
+    text-decoration: none;
+    color: black;
+}
+
+.profile-requester-a:hover {
+    color: #8a8a8a;
+}
 /*
 
 
@@ -77,6 +99,7 @@ button.profile-button:hover {
 
 .profile-group-card {
     margin-bottom: 7px;
+    margin-top: 7px;
     border-radius: 5px;
     border: 1px solid #d9d9d9 !important;
     height: 70px;

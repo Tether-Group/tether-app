@@ -95,7 +95,7 @@
     width: 30%;
 }
 
-.notification-confirm-button {
+.group-notification-confirm-button {
     width: 100%;
     border: none;
     border-radius: 5px;
@@ -103,12 +103,44 @@
     background-color: #42a1ff;
 }
 
-.notification-delete-button {
+.group-notification-confirm-button:hover {
+    background-color: #0368c5;
+}
+
+.friend-notification-confirm-button {
+    width: 5em;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+}
+
+.friend-notification-confirm-button:hover {
+    background-color: #0368c5!important;
+}
+
+.group-notification-delete-button {
     width: 100%;
     border: none;
     border-radius: 5px;
     color: black;
     background-color: #e5e5e5;
+}
+
+.group-notification-delete-button:hover {
+    background-color: #a4a4a4;
+}
+
+.friend-notification-delete-button {
+    width: 5em;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #e5e5e5;
+}
+
+.friend-notification-delete-button:hover {
+    background-color: #a4a4a4;
 }
 
 .sent-you-a-request-p {
