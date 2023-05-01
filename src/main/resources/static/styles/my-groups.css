@@ -31,6 +31,22 @@
     display: flex;
 }
 
+.private-pill {
+    background-color: black;
+    color: white;
+    width: 60px;
+    font-weight: 900;
+    padding-top: 0.5em;
+}
+
+.public-pill {
+    background-color: rgba(5, 134, 239, 0.91);
+    color: white;
+    width: 60px;
+    font-weight: 900;
+    padding-top: 0.5em;
+}
+
 .no-groups {
     display: flex;
     justify-content: center;

@@ -43,10 +43,10 @@
                             <div class="group-bio-index" th:text="${group.description}"></div>
                         </div>
                         <div th:if="${group.private}">
-                            <span class="badge rounded-pill private-pill">Private</span>
+                            <span class="badge rounded-pill private-pill padding-pill">Private</span>
                         </div>
                         <div th:if="${!group.private}">
-                            <span class="badge rounded-pill public-pill">Public</span>
+                            <span class="badge rounded-pill public-pill padding-pill">Public</span>
                         </div>
                     </li>
                 </ul>

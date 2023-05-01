@@ -25,7 +25,7 @@
 }
 
 .group-request-container, .friend-request-container {
-    max-width: 45%;
+    width: 40%;
 }
 
 .group-cards-container, .friend-cards-container {
@@ -76,6 +76,7 @@
 .notifications-group-request-font { /*also used for the friend request font*/
     font-family: 'Nobile', sans-serif;
     font-size: 1em;
+    width: 100%;
 }
 
 .notif-username-a {
@@ -86,21 +87,25 @@
 .notification-button-div {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: start;
     align-items: center;
-    margin-top: 0.2em;
+    margin-top: 0.5em;
+    margin-left: 1em;
+    width: 100%;
 }
 
 .notification-form-width {
-    width: 30%;
+    margin-left: 1em;
 }
 
 .group-notification-confirm-button {
-    width: 100%;
+    width: 6em;
     border: none;
+    font-size: 0.8em;
+    padding-top: 0.3em;
     border-radius: 5px;
     color: white;
-    background-color: #42a1ff;
+    background-color: #0e96ffd4;
 }
 
 .group-notification-confirm-button:hover {
@@ -108,11 +113,13 @@
 }
 
 .friend-notification-confirm-button {
-    width: 5em;
+    width: 5.5em;
     border: none;
+    font-size: 0.8em;
+    padding-top: 0.25em;
     border-radius: 5px;
     color: white;
-    background-color: #42a1ff;
+    background-color: #0e96ffd4;
 }
 
 .friend-notification-confirm-button:hover {
@@ -120,27 +127,31 @@
 }
 
 .group-notification-delete-button {
-    width: 100%;
+    width: 6em;
     border: none;
+    font-size: 0.8em;
+    padding-top: 0.3em;
     border-radius: 5px;
-    color: black;
-    background-color: #e5e5e5;
+    color: white;
+    background-color: rgba(169, 2, 2, 0.72);
 }
 
 .group-notification-delete-button:hover {
-    background-color: #a4a4a4;
+    background-color: red;
 }
 
 .friend-notification-delete-button {
-    width: 5em;
+    width: 5.5em;
     border: none;
+    font-size: 0.8em;
+    padding-top: 0.25em;
     border-radius: 5px;
-    color: black;
-    background-color: #e5e5e5;
+    color: white;
+    background-color: rgba(169, 2, 2, 0.72);
 }
 
 .friend-notification-delete-button:hover {
-    background-color: #a4a4a4;
+    background-color: red;
 }
 
 .sent-you-a-request-p {

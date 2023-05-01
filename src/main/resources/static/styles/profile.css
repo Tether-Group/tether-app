@@ -40,18 +40,46 @@ button.profile-button {
     width: 12em;
 }
 
-#send-message-btn, #add-friend-btn, #cancel-friend-request-btn. #remove-friend-btn, #accept-friend-request-btn, #decline-friend-request-btn {
-    background-color: lightgrey;
-}
-
-#send-message-btn:hover, #add-friend-btn:hover, i.bi-messenger:hover, #cancel-friend-request-btn:hover, #accept-friend-request-btn:hover {
-    background-color: rgb(18 138 255 / 78%);
-    color: white!important;
-}
-
-#remove-friend-btn:hover, #decline-friend-request-btn:hover {
-    background-color: #cb0000;
+#send-message-btn, #add-friend-btn, #accept-friend-request-btn {
+    background-color: #0e96ffd4;
     color: white;
+}
+
+.bi-messenger, .bi-person-fill-add, .bi-person-fill-check, i.bi-messenger:before, .bi-person-fill-add:before, .bi-person-fill-check:before {
+    background-color: transparent;
+    color: white;
+}
+
+#send-message-btn:hover, #add-friend-btn:hover, .bi-messenger:hover, #accept-friend-request-btn:hover, .bi-person-fill-check:hover {
+    background-color: #0368c5;
+}
+
+#cancel-friend-request-btn, .bi-person-fill-slash, .bi-person-fill-slash:before {
+    color: white;
+    background-color: #fa9600;
+}
+
+.bi-person-fill-slash, .bi-person-fill-slash:before {
+    color: white;
+    background-color: transparent;
+}
+
+#cancel-friend-request-btn:hover, .bi-person-fill-slash:hover {
+    background-color: #d27001;
+}
+
+#remove-friend-btn, #decline-friend-request-btn {
+    color: white;
+    background-color: rgba(169, 2, 2, 0.72);
+}
+
+.bi-person-fill-dash, .bi-person-fill-x, .bi-person-fill-dash:before, .bi-person-fill-x:before {
+    color: white;
+    background-color: transparent;
+}
+
+#remove-friend-btn:hover, .bi-person-fill-dash:hover, #decline-friend-request-btn:hover, .bi-person-fill-x:hover {
+    background-color: red;
 }
 
 .profile-hr {
@@ -67,6 +95,7 @@ button.profile-button {
 .profile-requester-a {
     text-decoration: none;
     color: black;
+    font-family: Nobile, sans-serif;
 }
 
 .profile-requester-a:hover {
@@ -154,6 +183,22 @@ button.profile-button {
 
 .pill-group-search-results {
     max-width: 20%;
+}
+
+.private-pill {
+    background-color: black;
+    color: white;
+    width: 60px;
+    font-weight: 900;
+    padding-top: 0.5em;
+}
+
+.public-pill {
+    background-color: rgba(5, 134, 239, 0.91);
+    color: white;
+    width: 60px;
+    font-weight: 900;
+    padding-top: 0.5em;
 }
 
 .view-all-groups-friends-container {

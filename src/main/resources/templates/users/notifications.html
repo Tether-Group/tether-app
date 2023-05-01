@@ -61,7 +61,7 @@
                                     </form>
                                     <form class="notification-form-width"
                                           th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
-                                        <button class="group-notification-delete-button">Delete</button>
+                                        <button class="group-notification-delete-button">Decline</button>
                                     </form>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                           th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}"
                                           th:method="GET">
                                         <input th:name="currentPage" th:value="notifications-page" hidden>
-                                        <button class="friend-notification-delete-button">Delete</button>
+                                        <button class="friend-notification-delete-button">Decline</button>
                                     </form>
                                 </div>
                             </div>
