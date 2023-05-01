@@ -19,8 +19,8 @@
             <!--owned groups-->
             <div class="owned-groups-container">
                 <h3 class="content-header mb-2">Owned Groups</h3>
-                <div th:if="${groupsWhereUserIsAdmin.isEmpty()}">
-                    <div>No owned groups, <a th:href="@{/group/create}">Create a group</a></div>
+                <div th:if="${groupsWhereUserIsAdmin.isEmpty()}" class="no-groups">
+                    <div>No owned groups, <a th:href="@{/group/create}" class="no-groups-a">Create a group</a></div>
                 </div>
                 <div class="group-card-container">
                     <div th:each="group: ${groupsWhereUserIsAdmin}" class="group-card">
@@ -39,8 +39,8 @@
             <!--joined groups-->
             <div class="joined-groups-container">
                 <h3 class="content-header mb-2">Joined Groups</h3>
-                <div th:if="${groupsWhereUserIsMember.isEmpty()}">
-                    <div>No joined groups, <a th:href="@{/groups}">Explore</a> to join</div>
+                <div th:if="${groupsWhereUserIsMember.isEmpty()}" class="no-groups">
+                    <div>No joined groups, <a th:href="@{/groups}" class="no-groups-a">Explore</a> to join</div>
                 </div>
                 <div class="group-card-container">
                     <div th:each="group: ${groupsWhereUserIsMember}" class="group-card">

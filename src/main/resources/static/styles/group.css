@@ -299,12 +299,9 @@ a.no-text-decoration {
     font-family: 'Nobile', sans-serif;
 }
 
-.modal-dialog {
-    margin-top: 20%;
+.modal-dialog-delete {
+    margin-top: 10em;
 }
-
-
-
 
 .visibility-form {
     display: block;

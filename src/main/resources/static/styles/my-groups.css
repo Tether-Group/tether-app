@@ -30,6 +30,22 @@
     display: flex;
 }
 
+.no-groups {
+    display: flex;
+    justify-content: center;
+    font-family: Nobile, sans-serif;
+    font-size: 1em;
+}
+
+.no-groups-a {
+    text-decoration: none;
+    color: grey;
+}
+
+.no-groups-a:hover {
+    color: black;
+}
+
 img.group-header-group-list {
     height: 13em;
     width: 100%;
