@@ -125,7 +125,7 @@ public class GroupController {
 //    }
 
     @PostMapping("/group/create")
-    public String createGroup(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
+    public String createGroup(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("group-photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
@@ -260,7 +260,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/edit")
-    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
+    public String editGroup(@ModelAttribute("group") Group group, @RequestParam("profile-photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
         Group originalGroup = groupDao.findById(group.getId()).get();
         group.setAdmin(originalGroup.getAdmin());
 

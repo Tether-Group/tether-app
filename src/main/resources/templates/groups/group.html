@@ -84,11 +84,11 @@
                                         <form th:method="post" th:action="@{/group/edit}" th:object="${group}">
                                             <div class="modal-body">
                                                 <button type="button" class="photo-btn btn btn-secondary"
-                                                        onclick="openFileStackModal()">
+                                                        onclick="openFileStackModalEditGroup()">
                                                     Change cover photo
                                                 </button>
-                                                <input hidden id="photo-url" th:value="${group.groupPhotoURL}"
-                                                       th:name="photo-url">
+                                                <input hidden id="profile-photo-url" th:value="${group.groupPhotoURL}"
+                                                       th:name="profile-photo-url">
                                                 <div class="group-name-div form-floating mb-3">
                                                     <input type="text" class="form-control" id="group-name"
                                                            th:value="${group.name}" th:field="*{name}" required>
@@ -465,21 +465,6 @@
 
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/add_comments.js}"></script>
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script>
-
-    const inputForPhotoURL = document.getElementById("photo-url");
-
-    const client = filestack.init(FILESTACK_API_KEY);
-    const options = {
-        onFileUploadFinished(file) {
-            inputForPhotoURL.value = file.url;
-        }
-    }
-    const openFileStackModal = () => {
-        client.picker(options).open();
-    };
-
-</script>
+<script th:src="@{/js/filestack.js}"></script>
 </body>
 </html>
