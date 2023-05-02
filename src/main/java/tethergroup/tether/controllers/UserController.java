@@ -12,6 +12,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tethergroup.tether.models.*;
 import tethergroup.tether.repositories.*;
 
@@ -64,7 +65,7 @@ public class UserController {
 
     //    creating user
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, Model model) {
+    public String saveUser(@ModelAttribute User user, Model model, RedirectAttributes redirectAttributes) {
         User uniqueUsername = userDao.findByUsername(user.getUsername());
 
         if (uniqueUsername != null) {
@@ -76,6 +77,7 @@ public class UserController {
         user.setPassword(hash);
         user.setProfilePhotoUrl("https://cdn.filestackcontent.com/WIu7r67PS0qWdCtNEbIb");
         userDao.save(user);
+        redirectAttributes.addFlashAttribute("new-user", "Successfully Registered!");
         return "redirect:/login";
     }
 
