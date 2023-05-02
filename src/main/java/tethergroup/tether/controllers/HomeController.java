@@ -30,7 +30,7 @@ public class HomeController {
     @GetMapping("/")
     public String returnLandingPage(Model model) {
         List<Group> randomGroups = groupDao.randomGroupsLimitFive();
-        List<Post> allPosts = postDao.findByOrderByPostDateDesc();
+        List<Post> allPosts = postDao.getAllPostsOrderedByPostDateDesc();
         List<Post> posts = new ArrayList<>();
 
         model.addAttribute("randoGroups", randomGroups);
@@ -40,24 +40,28 @@ public class HomeController {
         } catch (Exception e) {
             System.out.println("User is not logged in");
         }
+        System.out.println("LOGGING THE POST ID HERE");
         for (Post post : allPosts) {
             if (!post.getGroup().isPrivate()) {
                 posts.add(post);
             } else if (post.getGroup().isPrivate()) {
-                List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
-                for (Membership membership : membershipsForGroupOfPost) {
-                    if (loggedInUser.getUsername() != null) {
+                if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
+                    posts.add(post);
+                } else {
+                    List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
+                    for (Membership membership : membershipsForGroupOfPost) {
                         if (loggedInUser.getId() == membership.getUser().getId()) {
-                            posts.add(post);
-                        } else if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
                             posts.add(post);
                         }
                     }
                 }
             }
         }
+        System.out.println("DONE LOGGING POST IDs");
+
         for (Post post : posts) {
             System.out.println(post.getUser().getId());
+            System.out.println(post.getUser().getUsername());
             System.out.println(post.getGroup().getAdmin().getId());
         }
         model.addAttribute("loggedInUser", loggedInUser);

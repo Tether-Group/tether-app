@@ -48,7 +48,7 @@ public class SearchController {
             searchedUsers = userDao.findLikeUsername(search);
         } else {
             searchedGroups = groupDao.findAll();
-            allSearchedPosts = postDao.findAllByOrderByPostDateDesc();
+            allSearchedPosts = postDao.getAllPostsOrderedByPostDateDesc();
             searchedUsers = userDao.findAll();
         }
         List<Post> searchedPosts = new ArrayList<>();
