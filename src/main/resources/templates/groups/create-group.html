@@ -20,7 +20,7 @@
                 <button type="button" class="photo-btn btn btn-primary" onclick="openFileStackModal()"><p>Add cover
                     photo</p>
                 </button>
-                <input hidden id="photo-url" th:name="photo-url">
+                <input hidden id="group-photo-url" th:name="photo-url">
                 <div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>
             </div>
 
@@ -93,7 +93,7 @@
 <script>
     const preview = document.getElementById("preview");
     const photoText = document.getElementById("no-photo-selected")
-    const inputForPhotoURL = document.getElementById("photo-url");
+    const inputForPhotoURL = document.getElementById("group-photo-url");
 
     const client = filestack.init(FILESTACK_API_KEY);
     const options = {
