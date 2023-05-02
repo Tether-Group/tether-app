@@ -18,6 +18,13 @@ img.tether-icon-footer {
     margin: 10px auto;
 }
 
+img.tether-icon-middle-footer {
+    max-width: 125px;
+    max-height: 1250px;
+    border-radius: 50px;
+    margin: 10px auto;
+}
+
 img.tether-icon-footer:hover {
     color: #0586ef;
     background-color: rgba(5, 134, 239, 0.34);
@@ -51,10 +58,29 @@ div.dropup {
     position: fixed;
     bottom: 2px;
     right: 2px;
+    width: 20em;
 }
 
 ul.custom-chat {
  --bs-dropdown-padding-y: 0!important;
+    width: 20em;
+}
+
+a.dropdown-chat-item {
+    border-radius: 3px;
+    font-family: 'Nobile', sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+    color: black;
+}
+
+.chat-li {
+    padding: 0.5em;
+    border-radius: 3px;
+}
+
+.chat-li:hover {
+    background-color: rgba(41, 158, 255, 0.7);
 }
 
 .chat-dropdown-divider {
@@ -62,16 +88,22 @@ ul.custom-chat {
 }
 
 .custom-chat-btn {
-    color: black;
-    background-color: rgba(204, 204, 204, 0.98);
+    color: white;
+    background-color: #0e96ff;
     border-radius: 5px;
     border: none;
 }
 
-.btn.show {
-    background-color: rgba(204, 204, 204, 0.98)!important;
+.custom-chat-btn:hover, .btn.show {
+    background-color: #1688e0;
+    color: #FFFFFF!important;
 }
 
-.custom-chat-btn:hover {
-    background-color: #8a8a8a;
+i.bi-messenger {
+    color: white;
+    background-color: transparent;
 }
+
+/*.btn.show {*/
+/*    background-color: rgba(204, 204, 204, 0.98)!important;*/
+/*}*/

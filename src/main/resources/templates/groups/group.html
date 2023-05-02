@@ -384,13 +384,9 @@
                 <div class="col-3">
                     <div id="user-flex-container">
                         <div class="user-container">
-                            <h3 class="content-header">Members</h3>
-                            <!--
-                            -->
+                            <h4 class="content-header">Admin</h4>
                             <div th:if="${!groupIsPrivate || isMember || isAdmin}" class="list-group">
-                                <div class="view-all-members-container">
-                                    <a class="view-all-members-container-a" th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
-                                </div>
+
                                 <div class="card group-user-card">
                                     <a class="no-text-decoration"
                                        th:href="@{/profile/{username}(username=${admin.username})}">
@@ -402,9 +398,7 @@
                                                 <p class="group-user-card-p2">@<span th:text="${admin.username}"></span>
                                                 </p>
                                             </div>
-                                            <div sec:authorize="isAuthenticated()"
-                                                 th:if="${loggedInUser.id == admin.id}"
-                                                 class="ms-auto align-self-center">
+                                            <div class="ms-auto align-self-center">
                                                 <div>
                                                     <span><i class="bi bi-star-fill"></i></span>
                                                 </div>
@@ -413,6 +407,11 @@
                                     </a>
                                 </div>
 
+                                <h3 class="content-header">Members</h3>
+                                <div class="view-all-members-container">
+                                    <a class="view-all-members-container-a"
+                                       th:href="@{/group/{groupId}/members(groupId=${group.id})}">View All Members</a>
+                                </div>
                                 <div th:each="member: ${members}" class="card group-user-card">
                                     <a class="no-text-decoration"
                                        th:href="@{/profile/{username}(username=${member.username})}">
