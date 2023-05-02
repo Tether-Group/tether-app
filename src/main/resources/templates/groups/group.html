@@ -76,6 +76,7 @@
                                             <h5 class="modal-title" id="editGroupModalLabel">Edit Group</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
+
                                         <form th:method="post" th:action="@{/group/edit}" th:object="${group}">
                                             <div class="modal-body">
                                                 <button type="button" class="photo-btn btn btn-secondary"

@@ -1,0 +1,199 @@
+.create-group-visibility-container{
+    width: 60%;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    right: 1.7em;
+    margin-top: 10px;
+    font-family: 'Nobile', sans-serif;
+}
+
+.create-group-visibility-form {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 17px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 18%;
+    text-align: center;
+    margin: auto;
+}
+
+
+.create-group-visibility-form input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.create-group-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+.create-group-visibility-form:hover input ~ .create-group-checkmark {
+    background-color: #ccc;
+}
+
+
+.create-group-visibility-form input:checked ~ .create-group-checkmark {
+    background-color: #2196F3;
+}
+
+
+.create-group-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+.create-group-visibility-form input:checked ~ .create-group-checkmark:after {
+    display: block;
+}
+
+
+.visibility-form .create-group-checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+
+
+.create-group-post-type-container{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    right: 1.5em;
+    margin-top: 10px;
+    font-family: 'Nobile', sans-serif;
+}
+
+/* Customize the label (the container) */
+.create-group-post-type-form {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 18%;
+    text-align: center;
+    margin: auto;
+    font-size: 17px;
+}
+
+
+.create-group-post-type-form input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.create-group-checkmark2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+}
+
+
+.create-group-post-type-form:hover input ~ .create-group-checkmark2 {
+    background-color: #ccc;
+}
+
+
+.create-group-post-type-form input:checked ~ .create-group-checkmark2 {
+    background-color: #2196F3;
+}
+
+
+.create-group-checkmark2:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+.create-group-post-type-form input:checked ~ .create-group-checkmark2:after {
+    display: block;
+}
+
+
+.create-group-post-type-form .create-group-checkmark2:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.create-group-vis-types{
+    font-family: 'Nobile', sans-serif;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.create-group-photo-btn{
+    margin-bottom: 20px;
+    font-family: 'Nobile', sans-serif;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+    height: 2em;
+    font-size: 18px;
+}
+
+.create-group-close-button {
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #e5e5e5;
+    width: 25%;
+    height: 2em;
+    font-size: 18px;
+}
+
+.create-group-post-button {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #42a1ff;
+    width: 25%;
+    height: 2em;
+    font-size: 18px;
+}

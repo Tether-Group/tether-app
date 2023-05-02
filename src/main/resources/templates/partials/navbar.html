@@ -39,7 +39,7 @@
                             </li>
                             <hr class="navbar-dropdown-divider">
                             <li>
-                                <a class="dropdown-item nav-font" th:href="@{/group/create}">CREATE GROUP</a>
+                                <a class="dropdown-item nav-font" href="" data-bs-toggle="modal" data-bs-target="#createGroupModal">CREATE GROUP</a>
                             </li>
                         </ul>
                     </li>
@@ -81,4 +81,6 @@
         </div>
     </nav>
     <div class="gradient-under-nav1"></div>
+
+    <th:block th:insert="~{partials/create-group-modal :: create-post}"></th:block>
 </th:block>

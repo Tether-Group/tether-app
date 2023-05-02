@@ -1,0 +1,174 @@
+<th:block th:fragment="create-post">
+
+	<div class="modal fade create-group-modal" id="createGroupModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Create a Group</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+<!--				<div class="modal-body">-->
+
+<!--					<div class="form-container">-->
+<!--						<h1>Create A New Group</h1>-->
+<!--						<form th:method="post" th:action="@{/group/create}">-->
+<!--							<div class="mx-auto">-->
+
+<!--								<div class="photo-container">-->
+<!--									<button type="button" class="photo-btn btn btn-primary" onclick="openFileStackModal()"><p>Add cover-->
+<!--										photo</p>-->
+<!--									</button>-->
+<!--									<input hidden id="group-photo-url" th:name="photo-url">-->
+<!--									<div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>-->
+<!--								</div>-->
+
+<!--								<div class="group-name-div form-floating mb-3">-->
+<!--									<input type="text" class="form-control" id="group-name" placeholder="Example Group Name"-->
+<!--										   name="name" required>-->
+<!--									<label for="group-name"><p>Group Name</p></label>-->
+<!--								</div>-->
+<!--								<br>-->
+<!--								<div class="form-floating group-description-text-area">-->
+<!--               					 <textarea class="form-control" placeholder="Group Description Here" id="description"-->
+<!--						  name="description" style="height: 150px"></textarea>-->
+<!--									<label for="description"><P>Group Description</p></label>-->
+<!--								</div>-->
+<!--								<br>-->
+
+<!--								<h2>Visibility:</h2>-->
+<!--								<div class="visibility-container">-->
+<!--									<div>-->
+<!--										<label class="visibility-form"><p>Public</p>-->
+<!--											<input type="radio" id="public" name="visibility" value="false" checked>-->
+<!--											<span class="checkmark"></span>-->
+<!--										</label>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<label class="visibility-form"><p>Private</p>-->
+<!--											<input type="radio" id="private" name="visibility" value="true">-->
+<!--											<span class="checkmark"></span>-->
+<!--										</label>-->
+<!--									</div>-->
+
+<!--								</div>-->
+
+
+<!--								<br>-->
+<!--								<h2>Additional Post Types:</h2>-->
+<!--								<div class="post-type-container">-->
+<!--									<div>-->
+<!--										<label class="post-type-form"><p>Event</p>-->
+<!--											<input type="checkbox" name="postTypeTwo" value="2">-->
+<!--											<span class="checkmark2"></span>-->
+<!--										</label>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<label class="post-type-form"><p style="width: 85px">For Sale</p>-->
+<!--											<input type="checkbox" name="postTypeThree" value="3">-->
+<!--											<span class="checkmark2"></span>-->
+<!--										</label>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<label class="post-type-form"><p>QandA</p>-->
+<!--											<input type="checkbox" name="postTypeFour" value="4">-->
+<!--											<span class="checkmark2"></span>-->
+<!--										</label>-->
+<!--									</div>-->
+
+<!--								</div>-->
+
+<!--								<br>-->
+<!--								<input type="hidden" name="id">-->
+<!--							</div>-->
+<!--							<div class="mx-auto">-->
+<!--								<button type="submit" class="btn btn-primary submit-button">Create Group</button>-->
+<!--							</div>-->
+<!--						</form>-->
+<!--					</div>-->
+
+<!--				</div>-->
+
+				<form th:method="post" th:action="@{/group/create}">
+					<div class="modal-body">
+						<button type="button" class="create-group-photo-btn btn btn-secondary"
+								onclick="openFileStackModal()">
+							Add cover photo
+						</button>
+						<input hidden id="photo-url" th:name="photo-url">
+						<div class="group-name-div form-floating mb-3">
+							<input type="text" class="form-control" id="group-name" name="name" required>
+							<label for="group-name"><p>Group Name</p></label>
+						</div>
+						<br>
+						<div class="form-floating group-description-text-area">
+											<textarea class="form-control" id="description" name="description"
+													  style="height: 150px"></textarea>
+							<label for="description"><p>Group Description</p></label>
+						</div>
+
+						<input type="hidden" name="id">
+
+
+						<p class="create-group-vis-types">Visibility:</p>
+						<div class="create-group-visibility-container">
+
+							<div class="d-flex justify-content-between">
+								<div>
+									<label class="create-group-visibility-form"><p>Public</p>
+										<input type="radio" id="public" name="visibility" value="false" checked>
+										<span class="create-group-checkmark"></span>
+									</label>
+								</div>
+								<div>
+									<label class="create-group-visibility-form"><p>Private</p>
+										<input type="radio" id="private" name="visibility" value="true">
+										<span class="create-group-checkmark"></span>
+									</label>
+								</div>
+							</div>
+
+						</div>
+
+
+						<p class="create-group-vis-types">Additional Post Types:</p>
+						<div class="create-group-post-type-container">
+
+							<div>
+								<label class="create-group-post-type-form"><p>Event</p>
+									<input type="checkbox" name="postTypeTwo" value="2">
+									<span class="create-group-checkmark2"></span>
+								</label>
+							</div>
+
+							<div>
+								<label class="create-group-post-type-form"><p style="width: 85px">For
+									Sale</p>
+									<input type="checkbox" name="postTypeThree" value="3">
+									<span class="create-group-checkmark2"></span>
+								</label>
+							</div>
+
+							<div>
+								<label class="create-group-post-type-form"><p>QandA</p>
+									<input type="checkbox" name="postTypeFour" value="4">
+									<span class="create-group-checkmark2"></span>
+								</label>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="modal-footer">
+						<button type="button" class="create-group-close-button" data-bs-dismiss="modal">
+							Cancel
+						</button>
+						<button type="submit" class="create-group-post-button">Create</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+</th:block>

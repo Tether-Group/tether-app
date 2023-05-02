@@ -87,13 +87,53 @@ public class GroupController {
         return "groups/create-group";
     }
 
+//    @PostMapping("/group/create")
+//    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
+//        try {
+//            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            Optional<User> actualUser = userDao.findById(user.getId());
+//            if (actualUser.isPresent()) {
+//                User userObj = actualUser.get();
+//                List<PostType> postTypesForGroup = new ArrayList<>();
+//                postTypesForGroup.add(postTypeDao.findById(1L).get());
+//                if (eventPostType != null) {
+//                    postTypesForGroup.add(postTypeDao.findById(2L).get());
+//                }
+//                if (forSalePostType != null) {
+//                    postTypesForGroup.add(postTypeDao.findById(3L).get());
+//                }
+//                if (qAndAPostType != null) {
+//                    postTypesForGroup.add(postTypeDao.findById(4L).get());
+//                }
+//                group.setPostTypes(postTypesForGroup);
+//                group.setAdmin(userObj);
+//                if (!photoURL.equals("")) {
+//                    group.setGroupPhotoURL(photoURL);
+//                } else {
+//                    group.setGroupPhotoURL("https://cdn.filestackcontent.com/srWrNqvTyCSUHB3OmPiA");
+//                }
+//                group.setPrivate(isPrivate);
+//                Long newGroupId = groupDao.save(group).getId();
+//                return "redirect:/group/" + newGroupId;
+//            } else {
+//                return "redirect:/login";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new RuntimeException();
+//        }
+//    }
+
     @PostMapping("/group/create")
-    public String createGroup(@ModelAttribute("group") Group group, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
+    public String createGroup(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("photo-url") @Nullable String photoURL, @RequestParam("visibility") boolean isPrivate, @RequestParam("postTypeTwo") @Nullable Long eventPostType, @RequestParam("postTypeThree") @Nullable Long forSalePostType, @RequestParam("postTypeFour") @Nullable Long qAndAPostType) {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Optional<User> actualUser = userDao.findById(user.getId());
             if (actualUser.isPresent()) {
+                Group group = new Group();
                 User userObj = actualUser.get();
+                group.setName(name);
+                group.setDescription(description);
                 List<PostType> postTypesForGroup = new ArrayList<>();
                 postTypesForGroup.add(postTypeDao.findById(1L).get());
                 if (eventPostType != null) {
