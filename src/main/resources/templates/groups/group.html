@@ -23,9 +23,9 @@
 
             <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
-                    <span class="header-font" th:text="${group.name}"></span>
-                    <span style="font-size: medium;" th:if="${!groupIsPrivate}" class="badge rounded-pill bg-primary ms-1">Public</span>
-                    <span style="font-size: medium;" th:if="${groupIsPrivate}" class="badge rounded-pill bg-dark ms-1">Private</span>
+                    <span class="header-font mb-2" th:text="${group.name}"></span>
+                    <span style="font-size: medium;" th:if="${!groupIsPrivate}" class="badge rounded-pill bg-primary ms-2">Public</span>
+                    <span style="font-size: medium;" th:if="${groupIsPrivate}" class="badge rounded-pill bg-dark ms-2">Private</span>
                 </div>
                 <div class="align-self-center">
                     <!--    join group button/form-->
