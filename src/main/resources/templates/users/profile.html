@@ -19,7 +19,7 @@
                     <h2 class="m-0"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
                     </h2>
                     <h6 class="m-0"><em><span th:text="${user}"></span></em></h6>
-                    <div class="w-100">
+                    <div th:if="${loggedInUser.id == user.id}" class="w-100">
                         <a th:href="@{/profile/settings}"><button class="edit-profile-button"><i class="bi bi-gear-fill ms-1"></i> Edit Profile</button></a>
                     </div>
                 </div>
