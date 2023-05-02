@@ -1,45 +1,3 @@
-h2{
-    margin-top: 25px;
-    font-family: 'Oswald', sans-serif;
-    color: black;
-    font-size: 48px;
-    font-weight: bold;
-}
-
-.tether-bio{
-    font-style: italic;
-    font-family: 'Nobile', sans-serif;
-    text-align: center;
-    width: 65%;
-    margin: 40px auto;
-
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-}
-
-html {
-    box-sizing: border-box;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-.column {
-    float: left;
-    /*width: 33.3%;*/
-    margin-bottom: 16px;
-    padding: 0;
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-}
-
 .about-section {
     padding: 15px;
     text-align: center;
@@ -47,32 +5,83 @@ html {
     color: white;
 }
 
-.tether-logo{
+.tether-logo {
     width: 100%;
+    /*margin-bottom:*/
 }
 
-.container {
-    padding: 0 16px;
+div.gradient-under-about-logo {
+    width: 100%;
+    height: 10px;
+    background-image: linear-gradient(rgb(5 134 239 / 19%), rgba(214, 216, 217, 0.17));
 }
 
-.inside-contents{
-    float: right;
+
+.tether-bio {
+    font-family: Nobile, sans-serif;
+    width: 60%;
+    text-align: center;
+    margin: auto;
 }
 
-.container2{
+.tether-team-name {
+    width: 14em;
+    height: 8em;
+}
+
+.tether-team-name-container {
+    text-align: center;
+    font-family: Nobile, sans-serif;
+}
+
+.team-position {
+    position: relative;
+    top: 0.3em;
+    left: 0.2em;
+    font-size: 2.3em;
+}
+
+h2.tether-bio {
+    margin-top: 2em;
+}
+
+h4.tether-bio {
+    margin-bottom: 1em;
+}
+
+.individual-abouts-container {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    font-family: 'Nobile', sans-serif;
+    padding: 0;
+    margin: 3em 0;
 }
 
-.container::after, .row::after {
-    content: "";
-    clear: both;
-    display: table;
+.flex-about-us-individuals-left-side {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 0.5em;
 }
 
-.title {
-    color: grey;
+.flex-about-us-individuals-right-side {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: right;
+    margin: 0 0.5em;
+}
+
+.flex-about-contents-row {
+    display: flex;
+    flex-direction: row;
+    margin: 1.25em 0;
+}
+
+.about-section-pictures {
+    height: 37em;
+    width: 30em;
 }
 
 .button {
@@ -85,27 +94,9 @@ html {
     text-align: center;
     cursor: pointer;
     width: 75%;
-    margin-top: auto;
-}
-
-.button2 {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 75%;
-    float: right;
 }
 
 .button:hover {
-    background-color: #555;
-}
-
-.button2:hover {
     background-color: #555;
 }
 
@@ -116,38 +107,28 @@ html {
     }
 }
 
-.bi{
+.bi {
     height: 20px;
     width: 20px;
 }
 
-
-.personal-bio{
-    width: 70%;
-    margin-bottom: 0px;
-}
-
-.contact-info{
+.contact-info {
 align-self: end;
 }
 
-.first-card{
-    margin-top: 80px;
-}
-
-hr{
+hr {
     width: 75%;
     margin: auto;
 }
 
-.icons{
+.icons {
     margin-bottom: 8px;
     margin-top: 8px;
     font-size: 35px;
     color: #555;
 }
 
-.codeup-icon{
+.codeup-icon {
     height: 40px;
     width: 40px;
 }
