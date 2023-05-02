@@ -1,6 +1,7 @@
 package tethergroup.tether.controllers;
 
 import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tethergroup.tether.Utility;
 import tethergroup.tether.models.User;
 import tethergroup.tether.services.UserServices;
@@ -89,7 +92,7 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/reset_password")
-    public String processResetPassword(HttpServletRequest request, Model model) {
+    public String processResetPassword(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         String token = request.getParameter("token");
         String password = request.getParameter("password");
 
@@ -101,6 +104,7 @@ public class ForgotPasswordController {
         } else {
             userServices.updatePassword(user, password);
             model.addAttribute("message", "You have successfully changed your password.");
+            redirectAttributes.addFlashAttribute("password-change-success", "Password Reset Successful!");
         }
 
         return "redirect:/login";

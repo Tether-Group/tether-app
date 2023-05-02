@@ -57,6 +57,8 @@
                             <div th:if="${errorMessage}">
                                 <p class="text-danger">Incorrect username or password</p>
                             </div>
+                            <div class="my-3 text-secondary" th:text="${flashAttrRegisterSuccess}"></div>
+                            <div class="my-3 text-secondary" th:text="${flashAttrPWSuccess}"></div>
 
                             <a th:href="@{/forgot_password}">Forgot Password</a>
 
