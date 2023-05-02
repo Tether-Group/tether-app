@@ -124,8 +124,30 @@ html {
 
 .personal-bio{
     width: 70%;
+    margin-bottom: 0px;
 }
 
 .contact-info{
 align-self: end;
+}
+
+.first-card{
+    margin-top: 80px;
+}
+
+hr{
+    width: 75%;
+    margin: auto;
+}
+
+.icons{
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-size: 35px;
+    color: #555;
+}
+
+.codeup-icon{
+    height: 40px;
+    width: 40px;
 }
