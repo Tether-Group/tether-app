@@ -56,12 +56,12 @@ public class SearchController {
             if (!post.getGroup().isPrivate()) {
                 searchedPosts.add(post);
             } else if (post.getGroup().isPrivate()) {
-                List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
-                for (Membership membership : membershipsForGroupOfPost) {
-                    if (loggedInUser.getUsername() != null) {
+                if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
+                    searchedPosts.add(post);
+                } else {
+                    List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
+                    for (Membership membership : membershipsForGroupOfPost) {
                         if (loggedInUser.getId() == membership.getUser().getId()) {
-                            searchedPosts.add(post);
-                        } else if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
                             searchedPosts.add(post);
                         }
                     }
