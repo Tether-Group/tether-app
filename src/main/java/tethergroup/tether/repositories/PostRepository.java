@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("FROM Post p WHERE p.header LIKE %:term% OR p.body LIKE %:term% OR p.postType.type LIKE %:term%")
+    @Query("FROM Post p WHERE p.header LIKE %:term% OR p.body LIKE %:term% OR p.postType.type LIKE %:term% ORDER BY p.postDate DESC")
     List<Post> findLikePostNameOrHeaderOrBody(@Param("term") String post);
 
     List<Post> findByOrderByPostDateDesc();
+
+    List<Post> findAllByOrderByPostDateDesc();
 
     List<Post> findByGroup_IdOrderByPostDateDesc(Long groupId);
 

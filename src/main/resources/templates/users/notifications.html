@@ -57,11 +57,11 @@
                                     <form class="notification-form-width"
                                           th:action="@{/notifications/accept/{id}(id=${membership.id})}"
                                           th:method="POST">
-                                        <button class="notification-confirm-button">Confirm</button>
+                                        <button class="group-notification-confirm-button">Confirm</button>
                                     </form>
                                     <form class="notification-form-width"
                                           th:action="@{/notifications/deny/{id}(id=${membership.id})}" th:method="POST">
-                                        <button class="notification-delete-button">Delete</button>
+                                        <button class="group-notification-delete-button">Decline</button>
                                     </form>
                                 </div>
                             </div>
@@ -104,13 +104,13 @@
                                           th:action="@{/profile/{userId}/accept(userId=${friendship.requester.id})}"
                                           th:method="POST">
                                         <input th:name="currentPage" th:value="notifications-page" hidden>
-                                        <button class="notification-confirm-button">Confirm</button>
+                                        <button class="friend-notification-confirm-button">Confirm</button>
                                     </form>
                                     <form class="notification-form-width"
                                           th:action="@{/profile/{userId}/decline(userId=${friendship.requester.id})}"
                                           th:method="GET">
                                         <input th:name="currentPage" th:value="notifications-page" hidden>
-                                        <button class="notification-delete-button">Delete</button>
+                                        <button class="friend-notification-delete-button">Decline</button>
                                     </form>
                                 </div>
                             </div>

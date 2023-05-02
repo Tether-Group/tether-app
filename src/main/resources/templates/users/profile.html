@@ -11,21 +11,25 @@
 <div id="page-content-with-footer">
     <div id="page-content-without-footer">
         <!--	PROFILE PAGE DISPLAY-->
-        <div class="row w-100 d-flex m-2">
-            <div class="col-4 d-flex profile-header">
+        <div class="d-flex">
+            <div class="d-flex m-3 profile-header">
                 <img class="profile-img-circle" th:src="${user.profilePhotoUrl}" alt="user" width="150px"
                      height="150px">
-                <div class="profile-username ms-1">
+                <div class="profile-username mx-2 mt-4">
                     <h2 class="m-0"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
                     </h2>
                     <h6 class="m-0"><em><span th:text="${user}"></span></em></h6>
+                    <div class="w-100">
+                        <a th:href="@{/profile/settings}"><button class="edit-profile-button"><i class="bi bi-gear-fill ms-1"></i> Edit Profile</button></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-4 align-self-center text-center"><p><em><span th:text="${user.bio}"></span></em></p></div>
+            <div class="align-self-center text-center flex-fill me-2"><p><em><span th:text="${user.bio}"></span></em></p>
+            </div>
 
             <!--	THESE ARE THE BUTTONS FOR OTHER USER'S PROFILE PAGE-->
-            <div class="col-4 d-flex align-self-center" th:if="${!isMyAccountPage}">
+            <div class="d-flex flex-column align-self-center justify-content-end pe-5" th:if="${!isMyAccountPage}">
 
                 <!--message the user-->
                 <div class="m-1 align-self-center">
@@ -41,7 +45,7 @@
                     <div class="m-1 align-self-center" th:if="${!requestExists}">
                         <form th:action="@{/profile/{userId}/add(userId=${user.id})}" th:method="POST">
                             <button id="add-friend-btn" type="submit" class="profile-button">
-                                Add Friend
+                                <i class="bi bi-person-fill-add"></i> Add Friend
                             </button>
                         </form>
                     </div>
@@ -53,7 +57,7 @@
                          th:if="${requestExists && isPending && !hasFriendRequestFromThisUser}">
                         <form th:action="@{/profile/{userId}/cancel(userId=${user.id})}" th:method="POST">
                             <button id="cancel-friend-request-btn" type="submit" class="profile-button">
-                                Cancel Friend Request
+                                <i class="bi bi-person-fill-slash"></i> Cancel Request
                             </button>
                         </form>
                     </div>
@@ -64,7 +68,7 @@
                     <div class="m-1 align-self-center" th:if="${requestExists && !isPending}">
                         <form th:action="@{/profile/{userId}/remove(userId=${user.id})}" th:method="POST">
                             <button id="remove-friend-btn" type="submit" class="profile-button">
-                                Remove Friend
+                                <i class="bi bi-person-fill-dash"></i> Remove Friend
                             </button>
                         </form>
                     </div>
@@ -74,7 +78,9 @@
                 <div th:if="${requestExists && isPending && hasFriendRequestFromThisUser}" style="width: 50%;"
                      class="m-1 d-flex justify-content-center align-self-center" sec:authorize="isAuthenticated()">
                     <div>
-                        <p class="m-0 text-center"><span th:text="${user.username}"></span> has sent you a friend
+                        <p class="m-0 text-center"><a class="profile-requester-a"
+                                                      th:href="@{/profile/{username}(username=${user.username})}">@<span
+                                th:text="${user.username}"></span></a> has sent you a friend
                             request
                         </p>
                         <div class="d-flex justify-content-center">
@@ -82,7 +88,7 @@
                                   th:method="POST">
                                 <input th:name="currentPage" th:value="profile-page" hidden>
                                 <button id="accept-friend-request-btn" type="submit" class="profile-button">
-                                    Accept
+                                    <i class="bi bi-person-fill-check"></i> Accept
                                 </button>
                             </form>
 
@@ -90,7 +96,7 @@
                                   th:method="POST">
                                 <input th:name="currentPage" th:value="profile-page" hidden>
                                 <button id="decline-friend-request-btn" type="submit" class="profile-button">
-                                    Decline
+                                    <i class="bi bi-person-fill-x"></i> Decline
                                 </button>
                             </form>
                         </div>
@@ -99,7 +105,6 @@
 
             </div>
         </div>
-
         <hr class="profile-hr">
 
         <!--profile posts/groups/friends-->
@@ -116,10 +121,12 @@
                         <!--how to view either all of my groups or the users groups of the persons profile that I am on-->
                         <div class="view-all-groups-friends-container">
                             <div th:if="${loggedInUser.id != user.id}">
-                                <a class="view-all-groups-friends-a" th:href="@{'/groups/' + ${user.username}}">View all groups</a>
+                                <a class="view-all-groups-friends-a" th:href="@{'/groups/' + ${user.username}}">View all
+                                    groups</a>
                             </div>
                             <div th:if="${loggedInUser.id == user.id}">
-                                <a class="view-all-groups-friends-a" th:href="@{/profile/my-account/groups}">View all groups</a>
+                                <a class="view-all-groups-friends-a" th:href="@{/profile/my-account/groups}">View all
+                                    groups</a>
                             </div>
                         </div>
                         <!--my groups-->
@@ -178,7 +185,8 @@
                         <h5 class="content-header">No friends to display...</h5>
                     </div>
                     <div class="view-all-groups-friends-container">
-                        <a class="view-all-groups-friends-a" th:href="@{/profile/{username}/friends(username=${user.username})}">View all
+                        <a class="view-all-groups-friends-a"
+                           th:href="@{/profile/{username}/friends(username=${user.username})}">View all
                             friends</a>
                     </div>
                     <div th:each="friend: ${friends}" class="card profile-user-card">

@@ -15,13 +15,15 @@
     <p class="logged-in-user-index">Logged in as: <span th:text="${#authentication.principal.username}"></span></p>
 </div>
 
-<!--welcome logo-->
-<div class="welcome-div">
-    <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
-         alt="Black Tether Full Logo">
-</div>
+<div sec:authorize="!isAuthenticated()">
+    <!--welcome logo-->
+    <div class="welcome-div">
+        <img th:src="@{/img/black_textlogo_transparent_background.png}" class="welcome-logo"
+             alt="Black Tether Full Logo">
+    </div>
 
-<hr class="under-tether-logo">
+    <hr class="under-tether-logo">
+</div>
 
 <!--page content-->
 <div id="page-content-with-footer">
@@ -41,10 +43,10 @@
                             <div class="group-bio-index" th:text="${group.description}"></div>
                         </div>
                         <div th:if="${group.private}">
-                            <span class="badge rounded-pill private-pill">Private</span>
+                            <span class="badge rounded-pill private-pill padding-pill">Private</span>
                         </div>
                         <div th:if="${!group.private}">
-                            <span class="badge rounded-pill public-pill">Public</span>
+                            <span class="badge rounded-pill public-pill padding-pill">Public</span>
                         </div>
                     </li>
                 </ul>

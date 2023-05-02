@@ -5,11 +5,13 @@
         <script src="https://code.jquery.com/jquery-3.6.3.js"
                 integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
+        <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
         <script src="/keys.js"></script>
         <script th:src="@{/js/loading-spinner.js}"></script>
         <div sec:authorize="isAuthenticated()">
             <script th:src="@{/js/chat_bar.js}"></script>
             <script th:src="@{/js/notifications.js}"></script>
+            <script th:src="@{/js/filestack_create_group.js}"></script>
         </div>
     </div>
     <!--fixed chat bar-->
@@ -28,11 +30,9 @@
                     <a class="fs-6 mx-3 footer-links" th:href="@{/about}">ABOUT</a></li>
                 </div>
 
-                <div class="d-flex justify-content-center my-auto w-50">
-                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-instagram"></i></a>
-                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-facebook"></i></a>
-                    <a class="fs-2 mx-4 footer-links2" href=""><i class="bi bi-twitter"></i></a>
-                    <a class="fs-2 mx-4 footer-links2" href="https://github.com/Tether-Group/tether-app"><i class="bi bi-github"></i></a>
+                <div class="text-center my-auto w-50">
+                    <img class="tether-icon-middle-footer mx-auto" th:src="@{/img/black_text-logoname_transparent_background.png}"
+                         alt="Tether Logo">
                 </div>
 
                 <div class="my-auto text-center w-25">

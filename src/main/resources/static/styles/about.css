@@ -151,3 +151,20 @@ hr{
     height: 40px;
     width: 40px;
 }
+
+/*keep footer at the bottom*/
+#page-content-with-footer {
+    position: relative;
+    min-height: 100vh;
+}
+
+#page-content-without-footer {
+    padding-bottom: 130px;
+}
+
+.footer-stationary {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
+}

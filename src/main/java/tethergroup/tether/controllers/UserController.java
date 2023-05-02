@@ -146,7 +146,24 @@ public class UserController {
         for (Group group : groups) {
             System.out.println(group.getName());
         }
-        List<Post> postsOfUserOfProfilePage = postDao.findPostsByUser_IdOrderByPostDateDesc(profilePageUserId);
+        List<Post> allPostsOfUserOfProfilePage = postDao.findPostsByUser_IdOrderByPostDateDesc(profilePageUserId);
+        List<Post> postsOfUserOfProfilePage = new ArrayList<>();
+        for (Post post : allPostsOfUserOfProfilePage) {
+            if (!post.getGroup().isPrivate()) {
+                postsOfUserOfProfilePage.add(post);
+            } else if (post.getGroup().isPrivate()) {
+                List<Membership> membershipsForGroupOfPost = membershipDao.findAllMembershipsByGroupIdWhereIsNotPending(post.getGroup().getId());
+                for (Membership membership : membershipsForGroupOfPost) {
+                    if (loggedInUser.getUsername() != null) {
+                        if (loggedInUser.getId() == membership.getUser().getId()) {
+                            postsOfUserOfProfilePage.add(post);
+                        } else if (loggedInUser.getId() == post.getGroup().getAdmin().getId()) {
+                            postsOfUserOfProfilePage.add(post);
+                        }
+                    }
+                }
+            }
+        }
         List<Comment> comments = new ArrayList<>();
         for (Post post : postsOfUserOfProfilePage) {
             System.out.println(post.getPostType().getId());
@@ -285,26 +302,14 @@ public class UserController {
             model.addAttribute("loggedInUser", userObj);
             model.addAttribute("comments", comments);
             model.addAttribute("friends", friends);
-
+            // necessary attributes that are used for looking at other profile page
+            model.addAttribute("requestExists", true);
+            model.addAttribute("isPending", false);
         } else {
             return "redirect:/login";
         }
         return "users/profile";
     }
-
-//    @PostMapping("/profile/change-photo")
-//    public String changeProfilePhoto(@RequestParam("photo-url") String profilePhotoURL) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Optional<User> actualUser = userDao.findById(user.getId());
-//        if (actualUser.isPresent()) {
-//            User userObj = actualUser.get();
-//            userObj.setProfilePhotoUrl(profilePhotoURL);
-//            userDao.save(userObj);
-//        } else {
-//            return "redirect:/login";
-//        }
-//        return "redirect:/profile/my-account";
-//    }
 
     @PostMapping("/profile/change-bio")
     public String changeProfileBio(@RequestParam("bio-input") String bio) {
@@ -382,6 +387,7 @@ public class UserController {
         user.setUsername(actualUser.getUsername());
         user.setPassword(userPassword);
         user.setProfilePhotoUrl(photoURL);
+        user.setEmail(actualUser.getEmail());
         userDao.save(user);
         return "redirect:/profile/my-account";
     }
@@ -403,13 +409,17 @@ public class UserController {
     }
 
     @PostMapping("/profile/editusername")
-    public String updateUsername(@RequestParam("username") String username) {
+    public String updateUsername(@RequestParam("username") String username, @ModelAttribute User user) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userWithUniqueUsername = userDao.findByUsername(username);
+        User actualLoggedInUser = userDao.findById(loggedInUser.getId()).get();
 
         if (userWithUniqueUsername != null && !userWithUniqueUsername.getUsername().equals(loggedInUser.getUsername())) {
             return "redirect:/profile/settings/usernameExists/" + userWithUniqueUsername.getUsername();
         }
+        actualLoggedInUser.setUsername(username);
+        actualLoggedInUser.setEmail(user.getEmail());
+        userDao.save(actualLoggedInUser);
         return "redirect:/profile/my-account";
     }
 

@@ -10,7 +10,8 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar.html :: navbar}"></th:block>
-
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer">
 
 <div class="about-section">
     <img class="tether-logo" src="https://cdn.filestackcontent.com/bgPJO2xzQGWZWDTYtEpa">
@@ -53,7 +54,36 @@
     </div>
     </div>
 
+        <h2 style="text-align:center">Tether Team</h2>
+        <h4 class="tether-bio">
+            Tether is a social media app designed for individuals
+            seeking to connect with others who share similar interests and passions.
+            With Tether, users can effortlessly create and join groups dedicated to
+            specific topics ranging from niche hobbies to broader interests.
+        </h4>
 
+        <div class="container-fluid">
+            <div class="row d-flex">
+                <img class="col-3 column" src="https://cdn.filestackcontent.com/CXIx7WSrQ1ivtMMHK3VX" alt="joe">
+                <div class="container col-9">
+                    <h2>Joe Vandzura</h2>
+                    <p class="title">Software developer</p>
+                    <p class="personal-bio">Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    </p>
+                    <a href="https://www.linkedin.com/in/joe-vandzura/"><i class="bi bi-linkedin"></i></a>
+                    <a href="https://github.com/joe-vandzura"><i class="bi bi-github"></i></a>
+                    <p>vandzura.joe.e@gmail.com</p>
+                    <p>
+                        <button onclick="location.href='mailto:vandzura.joe.e@gmail.com'" class="button">Contact
+                        </button>
+                    </p>
+                </div>
+            </div>
 
     <div class="row d-flex">
         <div class="col-9">
@@ -128,13 +158,14 @@
                 <button onclick="location.href='mailto:joseph.mccomas@proton.me?subject=Exciting%20Career%20Opportunity&body=Hello%20Joseph,%20I%20was%20just%20looking%20over%20your%20capstone%20project%20from%20Codeup%20and%20was%20wondering%20when%20you%20would%20be%20available%20to%20discuss%20an%20exciting%20career%20opportunity%20I%20have%20for%20you.'" class="button2">Email Me</button>
             </p>
         </div>
-        <img class="col-3 column" th:src="@{/img/Joseph.jpg}" alt="Joseph">
     </div>
 
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
 
 </div>
 <script th:src="@{/js/loading-spinner.js}"></script>
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
 </body>
 </html>
 

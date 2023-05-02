@@ -100,9 +100,9 @@ div.post-options-dropdown {
 
 .three-dot-button {
     color: black;
-    background-color: transparent;
     border: none;
     margin-right: 10px;
+    background-color: transparent;
 }
 
 .custom-post-dropdown {
@@ -122,11 +122,12 @@ button.dropdown-edit-button {
     border-radius: 5px;
     height: 23px;
     width: 50px;
-    background-color: rgb(226 227 227 / 74%);
+    background-color: #0e96ffd4;
+    color: white;
 }
 
 button.dropdown-edit-button:hover {
-    background-color: rgba(48, 145, 241, 0.26);
+    background-color: #0368c5;
 }
 
 button.dropdown-delete-button {
@@ -138,11 +139,12 @@ button.dropdown-delete-button {
     border-radius: 5px;
     height: 23px;
     width: 50px;
-    background-color: rgba(248, 99, 6, 0.59);
+    background-color: rgba(169, 2, 2, 0.72);
+    color: white;
 }
 
 button.dropdown-delete-button:hover {
-    background-color: rgba(246, 0, 0, 0.83);
+    background-color: red;
 }
 
 /* comments container (bottom of card) */
@@ -177,8 +179,9 @@ a.commenter {
 .comment-text {
     font-family: 'Nobile', sans-serif;
     font-size: 13px;
-    margin-left: 1.5em;
+    margin-left: 1em;
     /*word-wrap: break-word;*/
+    align-self: end;
     word-break: break-word;
     width:95%;
     margin-right: 3px;

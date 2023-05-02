@@ -10,8 +10,10 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+	<div id="page-content-without-footer">
 
-<div class="container m-5">
+<div class="container m-5" style="font-family: 'Nobile', sans-serif;">
 	<div class="row">
 		<!-- Tab buttons for profile settings -->
 		<div class="d-flex align-items-start" style="overflow: hidden">
@@ -46,13 +48,11 @@
 							<label for="lastname" class="form-label mt-2">Last Name</label>
 							<input id="lastname" name="lastname" th:field="*{lastName}" class="form-control" required>
 
-							<label for="register-email" class="form-label mt-2">Email</label>
-							<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
-							<div id="message1" class="form-text">
-								Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span
-									id=".com-register" class="invalid">domain must be ".com"</span>
-								<p>E.g. example@example.com</p>
-							</div>
+							<label for="bio-input" class="form-label mt-2">Bio</label>
+							<textarea id="bio-input" name="bio" th:field="*{bio}" class="form-control"></textarea>
+
+							<br>
+
 							<input value="Save" th:type="submit" class="save-button">
 						</div>
 
@@ -66,7 +66,6 @@
 							</button>
 							<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
 								   th:name="photo-url">
-							<br>
 						</div>
 					</form>
 
@@ -104,7 +103,7 @@
 							</div>
 
 
-							<input value="Change Password" th:type="submit" id="submit-pw" class="save-button">
+							<input value="Change Password" th:type="submit" id="submit-pw" class="save-button w-50">
 						</div>
 					</form>
 
@@ -112,7 +111,7 @@
 
 				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel">
 					<div class="row">
-						<form class="col-6" th:action="@{/profile/editusername}" th:method="post">
+						<form class="col-6" th:action="@{/profile/editusername}" th:method="post" th:object="${user}">
 							<div class="has-validation">
 								<label for="username" class="form-label mt-2">Username</label>
 								<input id="username" th:name="username" th:value="${user.username}"
@@ -122,6 +121,15 @@
 									Username &#39;<em th:text="${attemptedUsername}"></em>&#39; already exists.
 								</div>
 							</div>
+
+							<label for="register-email" class="form-label mt-2">Email</label>
+							<input id="register-email" name="email" th:field="*{email}" class="form-control" required>
+							<div id="message1" class="form-text">
+								Email must contain: <span id="asperand-register" class="invalid">@</span>, and <span
+									id=".com-register" class="invalid">domain must be ".com"</span>
+								<p>E.g. example@example.com</p>
+							</div>
+
 							<br>
 							<button type="submit" class="save-button">Save</button>
 						</form>
@@ -145,14 +153,14 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Confirm Account Deletion</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+									<h5 class="modal-title m-auto" id="exampleModalLabel">Confirm Account Deletion</h5>
+									<button type="button" class="btn-close m-0" data-bs-dismiss="modal"></button>
 								</div>
-								<div class="modal-body">
+								<div class="modal-body text-center">
 									<div class="modal-body">
 										Are you sure you want to delete your account?
 									</div>
-									<div class="modal-footer">
+									<div class="modal-footer justify-content-center">
 										<button type="button" class="close-button" data-bs-dismiss="modal">Cancel
 										</button>
 										</button>
@@ -174,7 +182,14 @@
 
 </div>
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+<div class="footer-stationary">
+	<th:block th:insert="~{partials/footer :: footer}"></th:block>
+</div>
+
+</div>
+
 <script th:src="@{/js/register_password_verification.js}"></script>
 <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:src="@{/js/filestack.js}"></script>

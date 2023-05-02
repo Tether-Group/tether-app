@@ -20,7 +20,7 @@
                 <button type="button" class="photo-btn btn btn-primary" onclick="openFileStackModal()"><p>Add cover
                     photo</p>
                 </button>
-                <input hidden id="photo-url" th:name="photo-url">
+                <input hidden id="group-photo-url" th:name="photo-url">
                 <div id="preview"><p class="no-photo-selected" id="no-photo-selected">No photo selected</p></div>
             </div>
 
@@ -60,19 +60,19 @@
             <div class="post-type-container">
                 <div>
                     <label class="post-type-form"><p>Event</p>
-                    <input type="checkbox" name="postTypes" value="2" th:checked="*{postTypes}">
+                    <input type="checkbox" name="postTypeTwo" value="2">
                     <span class="checkmark2"></span>
                     </label>
                 </div>
                 <div>
                     <label class="post-type-form"><p style="width: 85px">For Sale</p>
-                    <input type="checkbox" name="postTypes" value="3" th:checked="*{postTypes}">
+                    <input type="checkbox" name="postTypeThree" value="3">
                     <span class="checkmark2"></span>
                     </label>
                 </div>
                 <div>
                     <label class="post-type-form"><p>QandA</p>
-                    <input type="checkbox" name="postTypes" value="4" th:checked="*{postTypes}">
+                    <input type="checkbox" name="postTypeFour" value="4">
                     <span class="checkmark2"></span>
                     </label>
                 </div>
@@ -93,7 +93,7 @@
 <script>
     const preview = document.getElementById("preview");
     const photoText = document.getElementById("no-photo-selected")
-    const inputForPhotoURL = document.getElementById("photo-url");
+    const inputForPhotoURL = document.getElementById("group-photo-url");
 
     const client = filestack.init(FILESTACK_API_KEY);
     const options = {

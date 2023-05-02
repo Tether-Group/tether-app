@@ -10,35 +10,44 @@
 </head>
 <body>
 <th:block th:insert="~{partials/navbar :: navbar}"></th:block>
+<div id="page-content-with-footer">
+    <div id="page-content-without-footer">
 
-<div class="container-fluid d-flex justify-content-center my-4">
-    <div th:id="event-map"></div>
-</div>
+        <div class="container-fluid d-flex justify-content-center my-4">
+            <div th:id="event-map"></div>
+        </div>
 
-<div class="container-fluid d-flex justify-content-center my-4">
-    <div class="card w-50">
-        <h2 class="card-header"><span th:text="${eventPost.header}"></span>
-        </h2>
-        <div class="card-body">
-            <h5 class="card-title">Posted in: <a th:text="${eventPost.group}"
-                                             th:href="@{/group/{id}(id=${eventPost.group.id})}"></a></h5>
-            <p class="card-text">
-                <span th:text="${eventPost.body}"></span>
-                <br>
-                <br>
-                When: <span th:text="${eventPost.eventDate}"></span>
-                <br>
-                Where: <span id="event-address" th:text="${eventPost.eventAddress}"></span>
-            <br>
-            <div class="card-footer text-body-secondary">
-                Please Contact <a th:href="@{/messages/talk/{username}(username=${eventPost.user.username})}"><span
-                    th:text="${eventPost.user.username}"></span></a> for more information</p>
+        <div class="container-fluid d-flex justify-content-center my-4">
+            <div class="card w-50">
+                <h2 class="card-header"><span th:text="${eventPost.header}"></span>
+                </h2>
+                <div class="card-body">
+                    <h5 class="card-title">Posted in: <a th:text="${eventPost.group}"
+                                                         th:href="@{/group/{id}(id=${eventPost.group.id})}"></a></h5>
+                    <p class="card-text">
+                        <span th:text="${eventPost.body}"></span>
+                        <br>
+                        <br>
+                        When: <span th:text="${#temporals.month(eventPost.eventDate)}"></span> /
+                        <span th:text="${#temporals.day(eventPost.eventDate)}"></span> /
+                        <span th:text="${#temporals.year(eventPost.eventDate)}"></span>
+                        <br>
+                        Where: <span id="event-address" th:text="${eventPost.eventAddress}"></span>
+                        <br>
+                    <div class="card-footer text-body-secondary">
+                        Please Contact <a
+                            th:href="@{/messages/talk/{username}(username=${eventPost.user.username})}"><span
+                            th:text="${eventPost.user.username}"></span></a> for more information</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<th:block th:insert="~{partials/footer :: footer}"></th:block>
+    <div class="footer-stationary">
+        <th:block th:insert="~{partials/footer :: footer}"></th:block>
+    </div>
+</div>
 <script th:src="@{/js/mapbox_js.js}"></script>
 </body>
 </html>
