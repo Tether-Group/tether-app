@@ -91,10 +91,10 @@
 				<form th:method="post" th:action="@{/group/create}">
 					<div class="modal-body">
 						<button type="button" class="create-group-photo-btn btn btn-secondary"
-								onclick="openFileStackModal()">
+								onclick="openFileStackModalCreateGroup()">
 							Add cover photo
 						</button>
-						<input hidden id="photo-url" th:name="photo-url">
+						<input hidden id="group-photo-url" th:name="group-photo-url">
 						<div class="group-name-div form-floating mb-3">
 							<input type="text" class="form-control" id="group-name" name="name" required>
 							<label for="group-name"><p>Group Name</p></label>
