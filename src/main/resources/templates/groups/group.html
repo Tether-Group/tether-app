@@ -87,8 +87,8 @@
                                                         onclick="openFileStackModalEditGroup()">
                                                     Change cover photo
                                                 </button>
-                                                <input hidden id="profile-photo-url" th:value="${group.groupPhotoURL}"
-                                                       th:name="profile-photo-url">
+                                                <input hidden id="edit-group-photo-url" th:value="${group.groupPhotoURL}"
+                                                       th:name="edit-group-photo-url">
                                                 <div class="group-name-div form-floating mb-3">
                                                     <input type="text" class="form-control" id="group-name"
                                                            th:value="${group.name}" th:field="*{name}" required>

@@ -382,7 +382,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute User user, @RequestParam("photo-url") String photoURL) {
+    public String updateProfile(@ModelAttribute User user, @RequestParam("profile-photo-url") String photoURL) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User actualUser = userDao.findById(loggedInUser.getId()).get();
         String userPassword = userDao.findById(user.getId()).get().getPassword();

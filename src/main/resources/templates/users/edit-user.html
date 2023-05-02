@@ -65,7 +65,7 @@
 										th:field="${profilePhotoUrl}" alt="user" width="150px" height="150px">
 							</button>
 							<input hidden required id="profile-photo-url" th:value="${user.profilePhotoUrl}"
-								   th:name="photo-url">
+								   th:name="profile-photo-url">
 						</div>
 					</form>
 
@@ -191,7 +191,6 @@
 </div>
 
 <script th:src="@{/js/register_password_verification.js}"></script>
-<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script th:src="@{/js/filestack.js}"></script>
+<script th:src="@{/js/filestack_profile_photo.js}"></script>
 </body>
 </html>
