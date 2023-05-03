@@ -212,6 +212,7 @@ public class UserController {
         } else {
             model.addAttribute("noGroups", false);
         }
+
         model.addAttribute("user", user);
         model.addAttribute("requestExists", friendRequestExists);
         model.addAttribute("isPending", friendRequestIsPending);
