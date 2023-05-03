@@ -42,7 +42,9 @@ INSERT INTO `comments` (`id`, `user_id`, `post_id`, `group_id`, `content`, `comm
                                                                                                (71,	63,	67,	56,	'HA! This cracks me up!',	'2023-05-01 15:26:23'),
                                                                                                (72,	63,	78,	52,	'🙋‍♂️ I have! The food is pretty good if your in the mood for some pretty unique burritos, but youre right it is a little expensive for what it is. Good thing is its so much food that one meal can very comfortably feed two people',	'2023-05-01 15:28:58'),
                                                                                                (74,	64,	81,	59,	'He better have tacos!',	'2023-05-01 16:08:50'),
-                                                                                               (76,	65,	81,	59,	'He changed it to Tuesday, so now he have Taco Tuesday!',	'2023-05-01 16:28:27');
+                                                                                               (76,	65,	81,	59,	'He changed it to Tuesday, so now he have Taco Tuesday!',	'2023-05-01 16:28:27'),
+                                                                                               (81,	73,	88,	59,	'oh noooooo!',	'2023-05-02 17:06:19'),
+                                                                                               (85,	76,	101,	52,	'I suppose \"my abuelita\'s house\" isn\'t really an answer you\'re looking for lol.',	'2023-05-03 02:33:20');
 
 DROP TABLE IF EXISTS `friendships`;
 CREATE TABLE `friendships` (
@@ -90,7 +92,18 @@ INSERT INTO `friendships` (`id`, `requester`, `acceptor`, `is_pending`) VALUES
                                                                             (102,	60,	53,	CONV('1', 2, 10) + 0),
                                                                             (103,	8,	64,	CONV('0', 2, 10) + 0),
                                                                             (104,	65,	47,	CONV('1', 2, 10) + 0),
-                                                                            (105,	8,	31,	CONV('0', 2, 10) + 0);
+                                                                            (105,	8,	31,	CONV('0', 2, 10) + 0),
+                                                                            (112,	8,	62,	CONV('0', 2, 10) + 0),
+                                                                            (114,	61,	62,	CONV('1', 2, 10) + 0),
+                                                                            (115,	31,	62,	CONV('0', 2, 10) + 0),
+                                                                            (116,	47,	62,	CONV('1', 2, 10) + 0),
+                                                                            (117,	46,	62,	CONV('1', 2, 10) + 0),
+                                                                            (118,	62,	72,	CONV('1', 2, 10) + 0),
+                                                                            (119,	62,	73,	CONV('0', 2, 10) + 0),
+                                                                            (120,	62,	25,	CONV('0', 2, 10) + 0),
+                                                                            (121,	62,	48,	CONV('0', 2, 10) + 0),
+                                                                            (122,	62,	65,	CONV('0', 2, 10) + 0),
+                                                                            (123,	62,	64,	CONV('0', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
@@ -112,9 +125,10 @@ INSERT INTO `groups` (`id`, `name`, `description`, `is_private`, `admin_id`, `gr
 (53,	'Shower Thoughts ',	'A catalog of all the weird, strange, or eye-opening thoughts that come to you at the oddest times like in the shower or right before you fall asleep',	CONV('0', 2, 10) + 0,	55,	'https://cdn.filestackcontent.com/4UEwgK2GQMWf31D1kQCL'),
 (56,	'New Moms',	'Being a new mom is tough. Restless nights, constant crying, and loads of unanswered questions don\'t make it any easier. Am I doing the right thing? Is this what\'s best for the baby? How in the world do you properly swaddle a baby? This is a group for new moms to share their questions, advice, and anything they need to about their babies',	CONV('0', 2, 10) + 0,	59,	'https://cdn.filestackcontent.com/pLeKgaFJQ3m769VDleNF'),
 (58,	'Teachers of America',	'Teacher advice, questions, cool lesson plans funny stories, and anything else that involves teaching the future leaders of America.',	CONV('0', 2, 10) + 0,	57,	'https://cdn.filestackcontent.com/BeVaGwVfRdy1od0oT0JT'),
-(59,	'Ymir Students',	'A Group For all Ymir Students to share their thoughts, comments, and questions, as long as they are \"Safe For Work\".',	CONV('1', 2, 10) + 0,	62,	'https://cdn.filestackcontent.com/hpmBuuISPOM5BYLDOMdg');
+(59,	'Ymir Students',	'A Group For all Ymir Students to share their thoughts, comments, and questions, as long as they are \"Safe For Work\".',	CONV('1', 2, 10) + 0,	62,	'https://cdn.filestackcontent.com/hpmBuuISPOM5BYLDOMdg'),
+                                                                                                        (92,	'Young Filmmakers Club',	'A group for amateur filmmakers and photographers looking for inspiration from others. A club for people who prefer to live life through a lens ',	CONV('0', 2, 10) + 0,	76,	'https://cdn.filestackcontent.com/f3cBKXcFTUSuze52UTUy');
 
-                                                                                                     DROP TABLE IF EXISTS `memberships`;
+DROP TABLE IF EXISTS `memberships`;
 CREATE TABLE `memberships` (
                                `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                                `user_id` bigint(20) unsigned NOT NULL,
@@ -130,6 +144,8 @@ CREATE TABLE `memberships` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `memberships` (`id`, `user_id`, `group_id`, `is_pending`) VALUES
+                                                                          (86,	55,	59,	CONV('0', 2, 10) + 0),
+                                                                          (87,	62,	52,	CONV('0', 2, 10) + 0),
                                                                           (88,	25,	45,	CONV('0', 2, 10) + 0),
                                                                           (91,	48,	45,	CONV('0', 2, 10) + 0),
                                                                           (97,	8,	45,	CONV('0', 2, 10) + 0),
@@ -138,7 +154,6 @@ INSERT INTO `memberships` (`id`, `user_id`, `group_id`, `is_pending`) VALUES
                                                                           (109,	54,	52,	CONV('0', 2, 10) + 0),
                                                                           (110,	55,	52,	CONV('0', 2, 10) + 0),
                                                                           (111,	55,	45,	CONV('0', 2, 10) + 0),
-                                                                          (113,	8,	52,	CONV('0', 2, 10) + 0),
                                                                           (114,	8,	53,	CONV('0', 2, 10) + 0),
                                                                           (115,	56,	45,	CONV('0', 2, 10) + 0),
                                                                           (116,	56,	52,	CONV('0', 2, 10) + 0),
@@ -164,7 +179,15 @@ INSERT INTO `memberships` (`id`, `user_id`, `group_id`, `is_pending`) VALUES
                                                                           (141,	31,	53,	CONV('0', 2, 10) + 0),
                                                                           (142,	8,	47,	CONV('0', 2, 10) + 0),
                                                                           (143,	62,	47,	CONV('0', 2, 10) + 0),
-                                                                          (144,	26,	47,	CONV('0', 2, 10) + 0);
+                                                                          (144,	26,	47,	CONV('0', 2, 10) + 0),
+                                                                          (152,	73,	59,	CONV('0', 2, 10) + 0),
+                                                                          (153,	72,	59,	CONV('0', 2, 10) + 0),
+                                                                          (154,	25,	59,	CONV('0', 2, 10) + 0),
+                                                                          (159,	53,	59,	CONV('1', 2, 10) + 0),
+                                                                          (160,	31,	59,	CONV('1', 2, 10) + 0),
+                                                                          (161,	54,	56,	CONV('0', 2, 10) + 0),
+                                                                          (162,	76,	52,	CONV('0', 2, 10) + 0),
+                                                                          (163,	76,	58,	CONV('0', 2, 10) + 0);
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
@@ -202,93 +225,107 @@ INSERT INTO `posts` (`id`, `user_id`, `group_id`, `header`, `body`, `event_date`
                                                                                                                                               (78,	61,	52,	'Anyone Tried \"Stuffed\"',	'There\'s a burrito place called \"Stuffed\" near my house. I\'ve been interested to try it but it seems a little pricy for a burrito $$$. Has anyone else tried it?',	NULL,	NULL,	NULL,	'2023-05-01 14:34:33',	4),
 (80,	53,	53,	'typos',	'Making a typo in an online argument is the equivalent of voice cracking in a verbal argument.',	NULL,	NULL,	NULL,	'2023-05-01 15:08:44',	1),
                                                                                                                                                (81,	46,	59,	'Kinda Tired',	'Didn\'t really feel like getting out of bed this morning but DocRob messaged in Slack and said he brought tacos... So I got here early',	NULL,	NULL,	NULL,	'2023-05-01 15:13:37',	1),
-(82,	63,	52,	'Torchy\'s Tacos Grand Opening',	'Come visit The new Torchies restaurant for their grand opening! The first 100 people who order get free queso for a year!',	'2023-05-26',	'11654 Bandera Rd Suite 111, San Antonio, TX 78250',	NULL,	'2023-05-01 15:32:58',	2),
+(82,	63,	52,	'Torchy\'s Tacos Grand Opening',	'Come visit The new Torchies restaurant for their grand opening! The first 100 people who order get free queso for a year!',	'2023-05-26',	'11654 Bandera Rd Suite 111, San Antonio, TX 78250',	NULL,	'2023-05-03 02:41:49',	2),
                                                                                                                                                (85,	26,	52,	'Big Aloha\'s Ali\'i Cove - UCTX',	'Great Hawaiian food!  Limited hours, but the Musubi and spicy pork are a must-try!!',	NULL,	NULL,	NULL,	'2023-05-01 19:09:45',	1),
-                                                                                                                                               (88,	62,	59,	'Review Panel #3',	'Don\'t forget! Review panel #3 is today!',	'2023-05-01',	'1 Fanatical Pl',	NULL,	'2023-05-01 19:26:01',	2);
+                                                                                                                                               (88,	62,	59,	'Review Panel #3',	'Don\'t forget! Review panel #3 is today!',	'2023-05-01',	'1 Fanatical Pl',	NULL,	'2023-05-01 19:26:01',	2),
+(93,	72,	59,	'YMIR Grads',	'Congratulations to all YMIR students for graduating! We made it!!🥳🎓🍾',	NULL,	NULL,	NULL,	'2023-05-02 17:12:57',	1),
+(99,	55,	59,	'What is this group for???',	'I think I may be in the wrong group...',	NULL,	NULL,	NULL,	'2023-05-02 21:36:33',	4),
+(101,	62,	52,	'Where is the best Mexican food in North San Antonio?',	'No Tex-Mex. I want the real stuff',	NULL,	NULL,	NULL,	'2023-05-02 21:51:37',	1),
+(102,	54,	56,	'San Antonio Baby Food Drive',	'We are hosting our annual Baby Food Drive this year on July 22nd, 2023! All donations welcome',	'2023-07-22',	' 6030 Montgomery Dr',	NULL,	'2023-05-03 02:40:01',	2),
+(103,	76,	92,	'Photography Meet Up',	'Come bring your friends, family, dogs and most importantly cameras for our first ever Santa Monica Meetup. Both photographers and Videographers welcome',	'2023-06-04',	'Santa Monica State Beach',	NULL,	'2023-05-03 02:30:40',	2),
+(104,	76,	58,	'Classroom Clean-out',	'Starting to think about cleaning out my classroom after my first year teaching. I swear I didn\'t have this much stuff when the year started. ',	NULL,	NULL,	NULL,	'2023-05-03 02:40:42',	1);
 
 DROP TABLE IF EXISTS `post_types`;
 CREATE TABLE `post_types` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `type` varchar(50) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `post_types` (`id`, `type`) VALUES
-(1,	'Post'),
-(2,	'Event'),
-(3,	'For Sale'),
-(4,	'Q&A');
+                                            (1,	'Post'),
+                                            (2,	'Event'),
+                                            (3,	'For Sale'),
+                                            (4,	'Q&A');
 
 DROP TABLE IF EXISTS `post_type_group`;
 CREATE TABLE `post_type_group` (
-  `group_id` bigint(20) unsigned NOT NULL,
-  `post_type_id` bigint(20) NOT NULL,
-  KEY `FKt279tqgng6ko5q89gaane2ur8` (`post_type_id`),
-  KEY `group_id` (`group_id`),
-  CONSTRAINT `FKt279tqgng6ko5q89gaane2ur8` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
-  CONSTRAINT `post_type_group_ibfk_2` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
-  CONSTRAINT `post_type_group_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `post_type_group_ibfk_4` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE
+                                   `group_id` bigint(20) unsigned NOT NULL,
+                                   `post_type_id` bigint(20) NOT NULL,
+                                   KEY `FKt279tqgng6ko5q89gaane2ur8` (`post_type_id`),
+                                   KEY `group_id` (`group_id`),
+                                   CONSTRAINT `FKt279tqgng6ko5q89gaane2ur8` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
+                                   CONSTRAINT `post_type_group_ibfk_2` FOREIGN KEY (`post_type_id`) REFERENCES `post_types` (`id`),
+                                   CONSTRAINT `post_type_group_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+                                   CONSTRAINT `post_type_group_ibfk_4` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `post_type_group` (`group_id`, `post_type_id`) VALUES
-(45,	2),
-(45,	4),
-(45,	1),
-(47,	1),
-(52,	2),
-(52,	4),
-(52,	1),
-(53,	4),
-(53,	1),
-(56,	2),
-(56,	3),
-(56,	4),
-(56,	1),
-(58,	1),
-(58,	3),
-(58,	4),
-(59,	1),
-(59,	2),
-(59,	4);
+                                                               (45,	2),
+                                                               (45,	4),
+                                                               (45,	1),
+                                                               (47,	1),
+                                                               (52,	2),
+                                                               (52,	4),
+                                                               (52,	1),
+                                                               (53,	4),
+                                                               (53,	1),
+                                                               (56,	2),
+                                                               (56,	3),
+                                                               (56,	4),
+                                                               (56,	1),
+                                                               (58,	1),
+                                                               (58,	3),
+                                                               (58,	4),
+                                                               (59,	1),
+                                                               (59,	2),
+                                                               (59,	3),
+                                                               (59,	4),
+                                                               (92,	1),
+                                                               (92,	2),
+                                                               (92,	3),
+                                                               (92,	4);
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) NOT NULL,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `bio` varchar(1024) DEFAULT NULL,
-  `profile_photo_url` varchar(255) DEFAULT NULL,
-  `reset_password_token` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_r43af9ap4edm43mmtq01oddj6` (`username`)
+                         `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                         `username` varchar(100) NOT NULL,
+                         `first_name` varchar(100) NOT NULL,
+                         `last_name` varchar(100) NOT NULL,
+                         `email` varchar(100) NOT NULL,
+                         `password` varchar(100) NOT NULL,
+                         `bio` varchar(1024) DEFAULT NULL,
+                         `profile_photo_url` varchar(255) DEFAULT NULL,
+                         `reset_password_token` varchar(30) DEFAULT NULL,
+                         PRIMARY KEY (`id`),
+                         UNIQUE KEY `UK_r43af9ap4edm43mmtq01oddj6` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `bio`, `profile_photo_url`, `reset_password_token`) VALUES
-(7,	'candywandy',	'Candy',	'Wandy',	'candywandy@email.com',	'$2a$10$iFaN6PULT9d0VIH/W.oujOq7jZHAduzPJdwZS0qRq6Nkw3sEEY10i',	'Im a pampered pug. kinda smol. owned by joey and lorena but my favorite is joey',	'https://cdn.filestackcontent.com/6dT8SNkRSVWfOy3kd0Ab',	NULL),
-(8,	'1',	'1',	'1',	'1@email.com',	'$2a$10$60.JD2gmgTYL5oFiWJbihOV/oGfn9gPRUVqS0x3ywQkJyLT/ZIJku',	'',	'https://cdn.filestackcontent.com/9HsDzVvKQEuyUYcEyc3Q',	NULL),
-(25,	'Matt',	'Matt',	'Guardiola',	'matt.g.guardiola@gmail.com',	'$2a$10$r.jh0JnKPWTyKJc6AXUcn./vtrBibELM2Dmb2SX0UfvEyHg2UEaPu',	NULL,	'https://cdn.filestackcontent.com/3sZeOctDQBSXLNQJcuTY',	NULL),
-(26,	'Joseph',	'Joseph',	'2',	'joseph.mccomas430@gmail.com',	'$2a$10$90xXXcZKDDQIX9u9I3D8c.T87c8VpP0IoMTY0uua/jFaSgkFwWe8e',	'This bio is super-rad!',	'https://cdn.filestackcontent.com/0fDgqXH8RhqYDLbF5apw',	NULL),
-(31,	'stalbot0',	'Stephen',	'Talbot',	'stevet727@gmail.com',	'$2a$10$ePD4F.vi09Jns44TxLhlNOs/NnJ4G4ky1TDQUxoWsa6Ma7JbJhZBC',	'Just an ordinary person who has done a few extraordinary things',	'https://cdn.filestackcontent.com/2bcniiE7RwmefkQIfnl3',	NULL),
-(46,	'schmerbs46',	'Alex',	'Schmerber',	'schmerbs@email.com',	'$2a$10$WZt4MquBy20bUf4Pytgvruzy.RISxlSQZvksua48psujD3n7UsEtm',	NULL,	'https://cdn.filestackcontent.com/JqYxr09ST6bOKRG0jMvU',	NULL),
-(47,	'xXbanana-breadXx',	'Shawn',	'Hardin',	'bananas@email.com',	'$2a$10$W.8b1YF5Di82ppnOHmMCmekmEO/2Pg505.e8Q0TT8x.MIbBSAdA4O',	NULL,	'https://cdn.filestackcontent.com/QTTGUevASAgHNJGKWv3A',	NULL),
-(48,	'joe-vandzura',	'Joe',	'Vandzura',	'vandzura.joe.e@gmail.com',	'$2a$10$YsTx3NIGLYy7VA4A40BFUu2wa9t4IkOGfttJvnP3TOGM30E7BlfQq',	NULL,	'https://cdn.filestackcontent.com/tAUE8GO4SmKxwJ7SLc67',	NULL),
-(51,	'kvandzura',	'Kelly',	'VanDzura',	'kvandzura31@gmail.com',	'$2a$10$M0rFBscZwO51WQr8YIFqVeWEFq1Mcmc3z3Q.7cVkWDGoI2JBKHWP2',	NULL,	'https://cdn.filestackcontent.com/U0pASIufSFCXR5AZi4dq',	NULL),
-(53,	'bakerusa1776',	'Evan',	'Baker',	'evan@email.com',	'$2a$10$SW9zhi2ZJgUseuAd62e4z.UF6NT5QFERfzeZp8k8K5q1/rT722vs2',	NULL,	'https://cdn.filestackcontent.com/3DNzkCWHSia0a5c3TeZK',	NULL),
-(54,	'gabygabbss15',	'Gaby',	'Villanueva',	'Gaby@email.com',	'$2a$10$Ne3dKoFW2tFafcHv4Y4BKOIHsgcwp64NT8w1pJGg/eRDtV6js3e8S',	NULL,	'https://cdn.filestackcontent.com/ERadmeAKTAlvCjkXHF7F',	NULL),
-(55,	'jonathanmv31',	'John',	'VanDzura',	'John@email.com',	'$2a$10$1jTB7bX5pgAi0M7WDekHXOI5Tor7w1bM5sz9bC9/LieJW/cFakBfW',	NULL,	'https://cdn.filestackcontent.com/16xt7PtTZKw9I6VNEKBL',	NULL),
-(56,	'jeremiahjp',	'Jeremiah',	'Pierce',	'Jeremiah@email.com',	'$2a$10$Vf0Dd3syBEqfRO.cyRvsPuMIAOJHaktYEFehDDwJA1RJ9m08iTwi2',	NULL,	'https://cdn.filestackcontent.com/QTKKRpKQpmfgZHyjWizR',	NULL),
-(57,	'LivinLikeLauren',	'Lauren',	'Flores',	'Lauren@email.com ',	'$2a$10$z2Eg.P8bCTm/5RxZCi2HGOV8532m5yL.AArw44DVMP2KsYRiaVQB.',	NULL,	'https://cdn.filestackcontent.com/AYolWIcSOyps8Z5SIiO4',	NULL),
-(59,	'JensensMom',	'Andrea',	'Pierce',	'Andrea@email.com',	'$2a$10$GG../Lt9XR7V9QxnNCG8PO8Ek5y54WrVqT3wIQFkzBjXoVlrw/Rjq',	NULL,	'https://cdn.filestackcontent.com/ydwiS0rRQLSKDfFFgQ2t',	NULL),
-(60,	'selenne_mdz',	'Selenne',	'Mendoza',	'Selenne@email.com',	'$2a$10$9Y.cKLtQuJRIaFKCIMez3OgjRsRvlbwq83/S8e3KRg/da7UywSwoy',	NULL,	'https://cdn.filestackcontent.com/3SmMQubjQ2eXqvkKGSkH',	NULL),
-(61,	'BigGreg44',	'Gregorio',	'Garcia',	'greg@email.com',	'$2a$10$zA9DMvPgL71yHVbSY6.gYeTRGFAoi79WQmazF18.GLX5OBbMCJpje',	NULL,	'https://cdn.filestackcontent.com/7cmZSXcBRb2XCPd2VkM0',	NULL),
+                                                                                                                                               (7,	'candywandy',	'Candy',	'Wandy',	'candywandy@email.com',	'$2a$10$iFaN6PULT9d0VIH/W.oujOq7jZHAduzPJdwZS0qRq6Nkw3sEEY10i',	'Im a pampered pug. kinda smol. owned by joey and lorena but my favorite is joey',	'https://cdn.filestackcontent.com/6dT8SNkRSVWfOy3kd0Ab',	NULL),
+                                                                                                                                               (8,	'1',	'1',	'1',	'1@email.com',	'$2a$10$60.JD2gmgTYL5oFiWJbihOV/oGfn9gPRUVqS0x3ywQkJyLT/ZIJku',	'this is my bio',	'https://cdn.filestackcontent.com/A5oiTTDDQwSBOo3M2tiz',	NULL),
+                                                                                                                                               (25,	'Matt',	'Matt',	'Guardiola',	'matt.g.guardiola@gmail.com',	'$2a$10$r.jh0JnKPWTyKJc6AXUcn./vtrBibELM2Dmb2SX0UfvEyHg2UEaPu',	'Sticks and stones my break my bones but swag is forever ',	'https://cdn.filestackcontent.com/3sZeOctDQBSXLNQJcuTY',	NULL),
+                                                                                                                                               (26,	'Joseph',	'Joseph',	'McComas',	'joseph.mccomas430@gmail.com',	'$2a$10$90xXXcZKDDQIX9u9I3D8c.T87c8VpP0IoMTY0uua/jFaSgkFwWe8e',	'This bio is super-rad!',	'https://cdn.filestackcontent.com/0fDgqXH8RhqYDLbF5apw',	NULL),
+                                                                                                                                               (31,	'stalbot0',	'Stephen',	'Talbot',	'stevet727@gmail.com',	'$2a$10$ePD4F.vi09Jns44TxLhlNOs/NnJ4G4ky1TDQUxoWsa6Ma7JbJhZBC',	'Just an ordinary person who has done a few extraordinary things',	'https://cdn.filestackcontent.com/2bcniiE7RwmefkQIfnl3',	NULL),
+                                                                                                                                               (46,	'schmerbs46',	'Alex',	'Schmerber',	'schmerbs@email.com',	'$2a$10$WZt4MquBy20bUf4Pytgvruzy.RISxlSQZvksua48psujD3n7UsEtm',	'Live, Laugh, Love',	'https://cdn.filestackcontent.com/JqYxr09ST6bOKRG0jMvU',	NULL),
+                                                                                                                                               (47,	'xXbanana-breadXx',	'Shawn',	'Hardin',	'bananas@email.com',	'$2a$10$W.8b1YF5Di82ppnOHmMCmekmEO/2Pg505.e8Q0TT8x.MIbBSAdA4O',	NULL,	'https://cdn.filestackcontent.com/QTTGUevASAgHNJGKWv3A',	NULL),
+                                                                                                                                               (48,	'joe-vandzura',	'Joe',	'Vandzura',	'vandzura.joe.e@gmail.com',	'$2a$10$YsTx3NIGLYy7VA4A40BFUu2wa9t4IkOGfttJvnP3TOGM30E7BlfQq',	'',	'https://cdn.filestackcontent.com/2Bqh4olRQHKy0zm1zPRZ',	NULL),
+                                                                                                                                               (51,	'kvandzura',	'Kelly',	'VanDzura',	'kvandzura31@gmail.com',	'$2a$10$M0rFBscZwO51WQr8YIFqVeWEFq1Mcmc3z3Q.7cVkWDGoI2JBKHWP2',	NULL,	'https://cdn.filestackcontent.com/U0pASIufSFCXR5AZi4dq',	NULL),
+                                                                                                                                               (53,	'bakerusa1776',	'Evan',	'Baker',	'evan@email.com',	'$2a$10$SW9zhi2ZJgUseuAd62e4z.UF6NT5QFERfzeZp8k8K5q1/rT722vs2',	'Life is crazy',	'https://cdn.filestackcontent.com/3DNzkCWHSia0a5c3TeZK',	NULL),
+                                                                                                                                               (54,	'gabygabbss15',	'Gaby',	'Villanueva',	'Gaby@email.com',	'$2a$10$Ne3dKoFW2tFafcHv4Y4BKOIHsgcwp64NT8w1pJGg/eRDtV6js3e8S',	'Small business owner. Come check out my pop-up shop every weekend!  ',	'https://cdn.filestackcontent.com/ERadmeAKTAlvCjkXHF7F',	NULL),
+                                                                                                                                               (55,	'jonathanmv31',	'John',	'VanDzura',	'John@email.com',	'$2a$10$1jTB7bX5pgAi0M7WDekHXOI5Tor7w1bM5sz9bC9/LieJW/cFakBfW',	'Id rather be driving my motorcycle ',	'https://cdn.filestackcontent.com/16xt7PtTZKw9I6VNEKBL',	NULL),
+                                                                                                                                               (56,	'jeremiahjp',	'Jeremiah',	'Pierce',	'Jeremiah@email.com',	'$2a$10$Vf0Dd3syBEqfRO.cyRvsPuMIAOJHaktYEFehDDwJA1RJ9m08iTwi2',	NULL,	'https://cdn.filestackcontent.com/QTKKRpKQpmfgZHyjWizR',	NULL),
+                                                                                                                                               (57,	'LivinLikeLauren',	'Lauren',	'Flores',	'Lauren@email.com ',	'$2a$10$z2Eg.P8bCTm/5RxZCi2HGOV8532m5yL.AArw44DVMP2KsYRiaVQB.',	NULL,	'https://cdn.filestackcontent.com/AYolWIcSOyps8Z5SIiO4',	NULL),
+                                                                                                                                               (59,	'JensensMom',	'Andrea',	'Pierce',	'Andrea@email.com',	'$2a$10$GG../Lt9XR7V9QxnNCG8PO8Ek5y54WrVqT3wIQFkzBjXoVlrw/Rjq',	'Best mother, wife, sister, and woman you know',	'https://cdn.filestackcontent.com/ydwiS0rRQLSKDfFFgQ2t',	NULL),
+                                                                                                                                               (60,	'selenne_mdz',	'Selenne',	'Mendoza',	'Selenne@email.com',	'$2a$10$9Y.cKLtQuJRIaFKCIMez3OgjRsRvlbwq83/S8e3KRg/da7UywSwoy',	NULL,	'https://cdn.filestackcontent.com/3SmMQubjQ2eXqvkKGSkH',	NULL),
+                                                                                                                                               (61,	'BigGreg44',	'Gregorio',	'Garcia',	'greg@email.com',	'$2a$10$zA9DMvPgL71yHVbSY6.gYeTRGFAoi79WQmazF18.GLX5OBbMCJpje',	'My mom thinks I\'m funny',	'https://cdn.filestackcontent.com/7cmZSXcBRb2XCPd2VkM0',	NULL),
 (62,	'DocRob',	'Mark',	'Robinson',	'mark@gmail.com',	'$2a$10$vsYUrCDvf4J2gUpV7dIYYeV7A7KlXtG/6h8N3GewbePCoFPHsUC9y',	NULL,	'https://cdn.filestackcontent.com/cAKZyoMSlmIMuV1nlCXg',	NULL),
-(63,	'tuna',	'Tina',	'Grogan Monga',	'tina@email.com',	'$2a$10$zE7hSgL13nfLH9xkqT0dKe7wl52awcbqtm6twGkqPaED0HDYplfcW',	NULL,	'https://cdn.filestackcontent.com/hbZSn1M0RSq1eVFpe1G4',	NULL),
-(64,	'Jsmith',	'Jennie',	'Smith',	'Jsmith9spiral@gmail.com',	'$2a$10$TMVQ5cwvOe6kx17lS./cHOp31EJn5XOZ2SkUoqShP.bG78pOYS3.a',	'',	'https://cdn.filestackcontent.com/UxMxs93cSnSMKVQrjMZO',	NULL),
-(65,	'Kevin',	'Kevin',	'Fowler',	'kevin-m-fowler17@gmail.com',	'$2a$10$/8pYtEfCyYkPidjC4qPetOYA.A72YcjqqauBXRJJWDesvHweZxsZS',	'',	'https://cdn.filestackcontent.com/J5HM0UahRpKBmLrSw4Qy',	NULL),
-(67,	'FoodLover44',	'Lorena',	'Martinez',	'Lorena@email.com',	'$2a$10$yslp85C6dRjPwthA1VkicuKGwYLY55Fxv9800Qx6ad4rY6UhNeYPa',	'I looooooooove food',	'https://cdn.filestackcontent.com/rEnZPf2DQh4QKlMUNp3Z',	NULL);
+(63,	'tuna',	'Tina',	'Grogan Monga',	'tina@email.com',	'$2a$10$zE7hSgL13nfLH9xkqT0dKe7wl52awcbqtm6twGkqPaED0HDYplfcW',	'California livin\' Happy as could be!',	'https://cdn.filestackcontent.com/hbZSn1M0RSq1eVFpe1G4',	NULL),
+                                                                                                                                               (64,	'Jsmith',	'Jennie',	'Smith',	'Jsmith9spiral@gmail.com',	'$2a$10$TMVQ5cwvOe6kx17lS./cHOp31EJn5XOZ2SkUoqShP.bG78pOYS3.a',	'',	'https://cdn.filestackcontent.com/UxMxs93cSnSMKVQrjMZO',	NULL),
+                                                                                                                                               (65,	'Kevin',	'Kevin',	'Fowler',	'kevin-m-fowler17@gmail.com',	'$2a$10$/8pYtEfCyYkPidjC4qPetOYA.A72YcjqqauBXRJJWDesvHweZxsZS',	'',	'https://cdn.filestackcontent.com/J5HM0UahRpKBmLrSw4Qy',	NULL),
+                                                                                                                                               (67,	'FoodLover44',	'Lorena',	'Martinez',	'Lorena@email.com',	'$2a$10$yslp85C6dRjPwthA1VkicuKGwYLY55Fxv9800Qx6ad4rY6UhNeYPa',	'I looooooooove food',	'https://cdn.filestackcontent.com/rEnZPf2DQh4QKlMUNp3Z',	NULL),
+                                                                                                                                               (72,	'micah810',	'Micah',	'Larson',	'micahflarson@gmail.com',	'$2a$10$w/3nLgxNY/r1SfHUc/547uWA4mG4F7rX31hFWRnaDZzrjcR5nTRF.',	'',	'https://cdn.filestackcontent.com/j98xWokrTOiqAv7X1cQ6',	NULL),
+                                                                                                                                               (73,	'BDorries',	'Billie',	'Dorries',	'Billie.dorries28@gmail.com',	'$2a$10$0o5UUbbO96iux7N98Q7Cv.5ImE3j8tfzrr0DbNMrDT/hkMW6URx1C',	'',	'https://cdn.filestackcontent.com/nrRuOATCSV2jdVGUsl3m',	NULL),
+                                                                                                                                               (76,	'Rajater68',	'Rajat',	'Monga',	'Rajat@email.com',	'$2a$10$HeRC4zXyfXDb7ksBIH2lJeVVPc1TvL.th24KVVe2UVPv7nJrUQ7QS',	'I have so many interests its hard to decide what to focus on for the day',	'https://cdn.filestackcontent.com/EAOFj4DDT5avxuVBuQLk',	NULL);
 
--- 2023-05-02 16:55:26
+-- 2023-05-03 02:42:49
