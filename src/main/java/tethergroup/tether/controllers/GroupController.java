@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tethergroup.tether.models.*;
 import tethergroup.tether.repositories.*;
 
@@ -165,7 +166,7 @@ public class GroupController {
     }
 
     @GetMapping("/group/{groupId}")
-    public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId) {
+    public String addGroupAttributeToGroupPage(Model model, @PathVariable Long groupId, @ModelAttribute("remove-member-success") String flashAttrRemoveMemberSuccess) {
         Group group = groupDao.findById(groupId).orElse(null);
         if (group == null) {
             return "redirect:/error";
@@ -195,6 +196,7 @@ public class GroupController {
             User admin = groupDao.findById(groupId).get().getAdmin();
             if (loggedInUser.getId() == admin.getId()) {
                 model.addAttribute("isAdmin", true);
+                model.addAttribute("flashAttrRemoveMemberSuccess", flashAttrRemoveMemberSuccess);
             } else {
                 model.addAttribute("isAdmin", false);
             }
@@ -377,10 +379,11 @@ public class GroupController {
     }
 
     @PostMapping("/group/{groupId}/{memberId}/remove")
-    public String removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long memberId) {
+    public String removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long memberId, RedirectAttributes redirectAttributes) {
         Group group = groupDao.findById(groupId).get();
         Membership membership = membershipDao.findMembershipByUser_IdAndGroup_Id(memberId, group.getId());
         membershipDao.delete(membership);
+        redirectAttributes.addFlashAttribute("remove-member-success", "YOU HAVE SUCCESSFULLY REMOVED  @" + membership.getUser().getUsername() + "  FROM YOUR GROUP!");
         return "redirect:/group/" + group.getId();
     }
 

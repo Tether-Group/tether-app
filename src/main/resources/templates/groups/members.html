@@ -52,6 +52,16 @@
                                 <div th:text="${'@' + member.username}"></div>
                             </div>
                             <div class="friend-member-bio" th:text="${member.bio}"></div>
+                            <div sec:authorize="isAuthenticated()" class="button-align">
+                                <div th:if="${loggedInUserIsAdmin}">
+                                    <form th:action="@{/group/{groupId}/{memberId}/remove(groupId=${groupId}, memberId=${member.id})}"
+                                          th:method="post">
+                                        <button type="submit" class="remove-friend-button group-button">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
