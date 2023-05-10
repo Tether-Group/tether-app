@@ -8,6 +8,8 @@
 </picture>Tether provides users with the means to create and join groups centered around particular topics, as well as create profiles, share content, organize events, conduct polls, search for related groups, and discover new communities based on recommended groups and user-generated content, while also enabling users to interact with other group members through direct messaging and comments.
 ​
 
+![tether-app](https://github.com/Tether-Group/tether-app/assets/118476001/8c4b310a-375a-453b-a7fc-0bdf8e2ef95c)
+
 
 ## Features
 
