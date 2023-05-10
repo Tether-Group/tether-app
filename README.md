@@ -34,7 +34,7 @@ Joseph McComas: [Github](https://github.com/josephmccomas) and [LinkedIn](www.li
 
 Matt Guardiola: [Github](https://github.com/MattGuardiola) and [LinkedIn](https://www.linkedin.com/in/matt-guardiola/)
 
-Stephen Talbot: [Github](https://github.com/stalbot0) and [LinkedIn](https://www.linkedin.com/in/stephen-talbot/)
+Stephen Talbot: [Github](https://github.com/stalbot0), [LinkedIn](https://www.linkedin.com/in/stephen-talbot/), and [Portfolio](https://stalbot0.github.io)
 ## Tech Stack
 
 **Client:** HTML, CSS, Bootstrap 5.3, Thymleaf
