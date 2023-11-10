@@ -3,6 +3,17 @@ spring:
     url: jdbc:mysql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
     username: ${PROD_DB_USERNAME}
     password: ${PROD_DB_PASSWORD}
+  mail:
+    host: ${PROD_MAIL_HOST}
+    port: ${PROD_MAIL_PORT}
+    username: ${PROD_MAIL_USERNAME}
+    password: ${PROD_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 talkJSAppKey: ${TALK_JS_APP_KEY}
 MAPBOX_API_KEY: ${MAPBOX_API_KEY}
 FILESTACK_API_KEY: ${FILESTACK_API_KEY}
