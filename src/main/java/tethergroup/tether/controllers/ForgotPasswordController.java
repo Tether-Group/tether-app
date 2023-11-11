@@ -1,7 +1,6 @@
 package tethergroup.tether.controllers;
 
 import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tethergroup.tether.Utility;
 import tethergroup.tether.models.User;
 import tethergroup.tether.services.UserServices;
-
 import java.io.UnsupportedEncodingException;
 
 @RequiredArgsConstructor
