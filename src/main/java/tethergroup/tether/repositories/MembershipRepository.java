@@ -23,7 +23,7 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
     List<Membership> findMembershipsByGroup_Id(Long groupId);
 
     @Query(nativeQuery = true,
-            value = "SELECT m.* FROM memberships m JOIN users u ON m.user_id = u.id JOIN groups g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
+            value = "SELECT m.* FROM memberships m JOIN users u ON m.user_id = u.id JOIN `groupstable` g ON m.group_id = g.id WHERE m.is_pending = 1 AND g.admin_id = :id")
     List<Membership> findMembershipsFromGroupJoinRequestsForTheLoggedInUser(@Param("id")Long id);
 
     @Override
