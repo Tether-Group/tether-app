@@ -1,5 +1,5 @@
 
-# Tether App - [Live Site](https://tether-aa38a6181bbf.herokuapp.com/)
+# Tether App
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Tether-Group/tether-app/blob/main/src/main/resources/static/img/white_icon_transparent_background.png" height="87px" width="120px">
